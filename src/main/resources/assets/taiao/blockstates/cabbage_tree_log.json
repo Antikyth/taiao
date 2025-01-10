@@ -1,0 +1,229 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "taiao:block/cabbage_tree_log_side"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/cabbage_tree_log_side",
+        "y": 90
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/cabbage_tree_log_side",
+        "y": 180
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/cabbage_tree_log_side",
+        "y": 270
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/cabbage_tree_log_side",
+        "x": 270
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/cabbage_tree_log_side",
+        "x": 90
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside"
+        }
+      ],
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside",
+          "y": 90
+        }
+      ],
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside",
+          "y": 180
+        }
+      ],
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside",
+          "y": 270
+        }
+      ],
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside",
+          "x": 270
+        }
+      ],
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside",
+          "x": 90
+        }
+      ],
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside_end"
+        }
+      ],
+      "when": {
+        "AND": [
+          {"north": "false"},
+          {"up": "false"},
+          {"down": "false"},
+          {"east": "false"},
+          {"west": "false"},
+          {"south": "true"}
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside_end",
+          "y": 90
+        }
+      ],
+      "when": {
+        "AND": [
+          {"north": "false"},
+          {"up": "false"},
+          {"down": "false"},
+          {"east": "false"},
+          {"west": "true"},
+          {"south": "false"}
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside_end",
+          "y": 180
+        }
+      ],
+      "when": {
+        "AND": [
+          {"north": "true"},
+          {"up": "false"},
+          {"down": "false"},
+          {"east": "false"},
+          {"west": "false"},
+          {"south": "false"}
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside_end",
+          "y": 270
+        }
+      ],
+      "when": {
+        "AND": [
+          {"north": "false"},
+          {"up": "false"},
+          {"down": "false"},
+          {"east": "true"},
+          {"west": "false"},
+          {"south": "false"}
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside_end",
+          "x": 270
+        }
+      ],
+      "when": {
+        "AND": [
+          {"north": "false"},
+          {"up": "false"},
+          {"down": "true"},
+          {"east": "false"},
+          {"west": "false"},
+          {"south": "false"}
+        ]
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "taiao:block/cabbage_tree_log_noside_end",
+          "x": 90
+        }
+      ],
+      "when": {
+        "AND": [
+          {"north": "false"},
+          {"up": "true"},
+          {"down": "false"},
+          {"east": "false"},
+          {"west": "false"},
+          {"south": "false"}
+        ]
+      }
+    }
+  ]
+}

@@ -3,9 +3,9 @@
 	"id": "taiao",
 	"version": "${version}",
 	"name": "Taiao",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Adds biomes containing flora and fauna native to Aotearoa New Zealand.",
 	"authors": [
-		"Me!"
+		"Antikyth"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",

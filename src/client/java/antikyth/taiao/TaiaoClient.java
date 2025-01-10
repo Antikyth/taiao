@@ -1,5 +1,6 @@
 package antikyth.taiao;
 
+import antikyth.taiao.block.TaiaoBlocks;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.Block;

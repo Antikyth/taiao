@@ -1,5 +1,7 @@
-package antikyth.taiao;
+package antikyth.taiao.item;
 
+import antikyth.taiao.Taiao;
+import antikyth.taiao.block.TaiaoBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -19,6 +21,8 @@ public class TaiaoItems {
         // Add items to the item group.
         ItemGroupEvents.modifyEntriesEvent(TAIAO_ITEM_GROUP_KEY).register(group -> {
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES.asItem());
+            group.add(TaiaoBlocks.CABBAGE_TREE_LOG.asItem());
+            group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG.asItem());
         });
     }
 
@@ -40,7 +44,10 @@ public class TaiaoItems {
         Identifier id = key.getValue();
         String translationKey = String.format("itemGroup.%s.%s", id.getNamespace(), id.getPath());
 
-        ItemGroup group = FabricItemGroup.builder().icon(() -> new ItemStack(icon)).displayName(Text.translatable(translationKey)).build();
+        ItemGroup group = FabricItemGroup.builder()
+                .icon(() -> new ItemStack(icon))
+                .displayName(Text.translatable(translationKey))
+                .build();
 
         return Registry.register(Registries.ITEM_GROUP, key, group);
     }
