@@ -2,6 +2,9 @@ package antikyth.taiao;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +18,11 @@ public class Taiao implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-
 		TaiaoBlocks.initialize();
+		TaiaoItems.initialize();
+	}
+
+	public static <T> RegistryKey<T> createRegistryKey(String name, Registry<T> registry) {
+		return RegistryKey.of(registry.getKey(), Identifier.of(Taiao.MOD_ID, name));
 	}
 }
