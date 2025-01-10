@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "taiao:block/cabbage_tree_leaves"
+  }
+}
