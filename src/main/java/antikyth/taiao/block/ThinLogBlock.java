@@ -21,7 +21,9 @@ import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ThinLogBlock extends ConnectingBlock implements Waterloggable {
+import java.util.Optional;
+
+public class ThinLogBlock extends ConnectingBlock implements Waterloggable, Strippable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     /**
@@ -46,14 +48,45 @@ public class ThinLogBlock extends ConnectingBlock implements Waterloggable {
     public BlockState getState(@NotNull BlockView world, BlockPos pos) {
         FluidState fluidState = world.getFluidState(pos);
 
-        return this.getDefaultState()
-                .with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER)
-                .with(UP, shouldConnect(world, pos, Direction.UP))
-                .with(DOWN, shouldConnect(world, pos, Direction.DOWN))
-                .with(NORTH, shouldConnect(world, pos, Direction.NORTH))
-                .with(EAST, shouldConnect(world, pos, Direction.EAST))
-                .with(SOUTH, shouldConnect(world, pos, Direction.SOUTH))
-                .with(WEST, shouldConnect(world, pos, Direction.WEST));
+        return getStateWith(this.getDefaultState(),
+                fluidState.getFluid() == Fluids.WATER,
+                shouldConnect(world, pos, Direction.UP),
+                shouldConnect(world, pos, Direction.DOWN),
+                shouldConnect(world, pos, Direction.NORTH),
+                shouldConnect(world, pos, Direction.EAST),
+                shouldConnect(world, pos, Direction.SOUTH),
+                shouldConnect(world, pos, Direction.WEST));
+    }
+
+    public BlockState getStateWith(BlockState state, boolean waterlogged, boolean up, boolean down, boolean north, boolean east, boolean south, boolean west) {
+        return state.with(WATERLOGGED, waterlogged)
+                .with(UP, up)
+                .with(DOWN, down)
+                .with(NORTH, north)
+                .with(EAST, east)
+                .with(SOUTH, south)
+                .with(WEST, west);
+    }
+
+    /**
+     * Copies the state from another thin log block.
+     */
+    public BlockState copyStateFrom(BlockState other) {
+        assert (other.getBlock() instanceof ThinLogBlock);
+
+        return getStateWith(this.getDefaultState(),
+                other.get(WATERLOGGED),
+                other.get(UP),
+                other.get(DOWN),
+                other.get(NORTH),
+                other.get(EAST),
+                other.get(SOUTH),
+                other.get(WEST));
+    }
+
+    @Override
+    public Optional<BlockState> getStrippedState(BlockState state) {
+        return Optional.empty();
     }
 
     protected boolean shouldConnect(@NotNull BlockView world, @NotNull BlockPos pos, Direction direction) {

@@ -1,10 +1,7 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -13,19 +10,41 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
-public class TaiaoBlocks {
-    public static final Block CABBAGE_TREE_LEAVES = register("cabbage_tree_leaves", Blocks.createLeavesBlock(BlockSoundGroup.GRASS), true);
+import java.util.Optional;
+import java.util.function.Function;
 
-    public static final Block CABBAGE_TREE_LOG = register("cabbage_tree_log", createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY), true);
-    public static final Block STRIPPED_CABBAGE_TREE_LOG = register("stripped_cabbage_tree_log", createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN), true);
+public class TaiaoBlocks {
+    public static final Block CABBAGE_TREE_LEAVES = register("cabbage_tree_leaves",
+            Blocks.createLeavesBlock(BlockSoundGroup.GRASS),
+            true);
+
+    public static final Block STRIPPED_CABBAGE_TREE_LOG = register("stripped_cabbage_tree_log",
+            createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
+            true);
+    public static final Block CABBAGE_TREE_LOG = register("cabbage_tree_log",
+            createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY, (ThinLogBlock) STRIPPED_CABBAGE_TREE_LOG),
+            true);
+
+    public static ThinLogBlock createThinLogBlock(MapColor end, MapColor side, ThinLogBlock stripped) {
+        return createThinLogBlock(end, side, state -> Optional.of(stripped.copyStateFrom(state)));
+    }
 
     public static ThinLogBlock createThinLogBlock(MapColor end, MapColor side) {
+        return createThinLogBlock(end, side, state -> Optional.empty());
+    }
+
+    public static ThinLogBlock createThinLogBlock(MapColor end, MapColor side, Function<BlockState, Optional<BlockState>> strippedState) {
         return new ThinLogBlock(AbstractBlock.Settings.create()
                 .mapColor(state -> state.get(ThinLogBlock.UP) ? end : side)
                 .instrument(Instrument.BASS)
                 .strength(2f)
                 .sounds(BlockSoundGroup.WOOD)
-                .burnable());
+                .burnable()) {
+            @Override
+            public Optional<BlockState> getStrippedState(BlockState state) {
+                return strippedState.apply(state).or(() -> super.getStrippedState(state));
+            }
+        };
     }
 
     public static Block register(String name, Block block, boolean registerItem) {
