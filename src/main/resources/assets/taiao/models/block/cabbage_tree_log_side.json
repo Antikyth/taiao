@@ -1,7 +1,0 @@
-{
-  "parent": "taiao:block/thin_log_side",
-  "textures": {
-    "side": "block/acacia_log",
-    "end": "taiao:block/cabbage_tree_log_top"
-  }
-}

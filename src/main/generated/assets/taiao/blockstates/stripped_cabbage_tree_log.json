@@ -1,0 +1,415 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_side"
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_side",
+        "y": 90
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_side",
+        "y": 180
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_side",
+        "y": 270
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_side",
+        "x": 270
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_side",
+        "x": 90
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_end_noside"
+      },
+      "when": {
+        "AND": [
+          {
+            "north": "false"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "west": "false"
+          },
+          {
+            "south": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_end_noside",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "east": "false"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "north": "false"
+          },
+          {
+            "west": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_end_noside",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "south": "false"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "west": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "north": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_end_noside",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "west": "false"
+          },
+          {
+            "up": "false"
+          },
+          {
+            "north": "false"
+          },
+          {
+            "down": "false"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "east": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_end_noside",
+        "x": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "up": "false"
+          },
+          {
+            "north": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "west": "false"
+          },
+          {
+            "down": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_end_noside",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "down": "false"
+          },
+          {
+            "north": "false"
+          },
+          {
+            "east": "false"
+          },
+          {
+            "south": "false"
+          },
+          {
+            "west": "false"
+          },
+          {
+            "up": "true"
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_noside"
+      },
+      "when": {
+        "AND": [
+          {
+            "north": "false"
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "east": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "west": "true"
+              },
+              {
+                "south": "false"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_noside",
+        "y": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "east": "false"
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "south": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "north": "true"
+              },
+              {
+                "west": "false"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_noside",
+        "y": 180
+      },
+      "when": {
+        "AND": [
+          {
+            "south": "false"
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "west": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "east": "true"
+              },
+              {
+                "north": "false"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_noside",
+        "y": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "west": "false"
+          },
+          {
+            "OR": [
+              {
+                "up": "true"
+              },
+              {
+                "north": "true"
+              },
+              {
+                "down": "true"
+              },
+              {
+                "south": "true"
+              },
+              {
+                "east": "false"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_noside",
+        "x": 270
+      },
+      "when": {
+        "AND": [
+          {
+            "up": "false"
+          },
+          {
+            "OR": [
+              {
+                "north": "true"
+              },
+              {
+                "east": "true"
+              },
+              {
+                "south": "true"
+              },
+              {
+                "west": "true"
+              },
+              {
+                "down": "false"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "apply": {
+        "model": "taiao:block/stripped_cabbage_tree_log_noside",
+        "x": 90
+      },
+      "when": {
+        "AND": [
+          {
+            "down": "false"
+          },
+          {
+            "OR": [
+              {
+                "north": "true"
+              },
+              {
+                "east": "true"
+              },
+              {
+                "south": "true"
+              },
+              {
+                "west": "true"
+              },
+              {
+                "up": "false"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
