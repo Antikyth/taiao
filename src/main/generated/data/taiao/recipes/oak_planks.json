@@ -3,7 +3,9 @@
   "category": "building",
   "group": "planks",
   "ingredients": [
-    {"tag": "taiao:cabbage_tree_logs"}
+    {
+      "tag": "taiao:cabbage_tree_logs"
+    }
   ],
   "result": {
     "count": 2,

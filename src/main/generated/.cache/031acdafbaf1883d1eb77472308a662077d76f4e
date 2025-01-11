@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-11T17:35:07.5184702	Taiao/Model Definitions
+// 1.20.1	2025-01-11T18:09:10.0574269	Taiao/Model Definitions
 46fad8ae0e6eb4fb97816e53d416cc989b9bf172 assets\taiao\models\item\stripped_cabbage_tree_wood.json
 6b0ba6dd700c5c700b33f0b1144fcc44c5e4599e assets\taiao\blockstates\cabbage_tree_leaves.json
 5df4e94633949163a65e1cc90fe07594742300ec assets\taiao\models\block\stripped_cabbage_tree_wood_end_noside.json
@@ -14,11 +14,11 @@ d2b4f19621d37542b2a90924dc06734046c7f07e assets\taiao\models\block\stripped_cabb
 5df4e94633949163a65e1cc90fe07594742300ec assets\taiao\models\block\stripped_cabbage_tree_wood_noside.json
 e55f2d6ffe5ad4ad6d3c9febba1f355a29728e66 assets\taiao\models\item\cabbage_tree_wood.json
 f48de7bcafdd70ce5230fc25df839144d9713b34 assets\taiao\blockstates\stripped_cabbage_tree_wood.json
-5df4e94633949163a65e1cc90fe07594742300ec assets\taiao\models\block\stripped_cabbage_tree_log_noside.json
 446e5fec96aea4661c5466450fa29a75b206037f assets\taiao\models\item\stripped_cabbage_tree_log.json
+5df4e94633949163a65e1cc90fe07594742300ec assets\taiao\models\block\stripped_cabbage_tree_log_noside.json
 0903c4dc3e4cc931ce782ec60a32db8b93646bb5 assets\taiao\blockstates\stripped_cabbage_tree_log.json
 791a08df63a4835a21ccd0d7ac55cf61e535ad43 assets\taiao\blockstates\cabbage_tree_log.json
-5cb4cd7bc5be93a10e37ac317e67c8f765e72580 assets\taiao\models\block\cabbage_tree_log_end_noside.json
 1339276f2a2cf6f726e4a4e11642d04e340dcf55 assets\taiao\models\block\cabbage_tree_log_side.json
+5cb4cd7bc5be93a10e37ac317e67c8f765e72580 assets\taiao\models\block\cabbage_tree_log_end_noside.json
 321e49423172071e74b6990052ae63a485590321 assets\taiao\models\block\cabbage_tree_log_noside.json
 9d84a1cd6fabff22acb310048d1f802ffdfe8943 assets\taiao\models\block\cabbage_tree_leaves.json

@@ -23,9 +23,10 @@ public class TaiaoModelGenerator extends FabricModelProvider {
         Identifier strippedCabbageTreeLogSide = new Identifier("minecraft:block/stripped_oak_log");
         Identifier cabbageTreeLogSide = new Identifier("minecraft:block/acacia_log");
 
+        // Cabbage tree leaves
         generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.TINTED);
 
-        // Stripped cabbage tree
+        // Stripped cabbage tree logs
         registerThinLog(
                 generator,
                 (ThinLogBlock) TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG,
@@ -38,7 +39,7 @@ public class TaiaoModelGenerator extends FabricModelProvider {
                 strippedCabbageTreeLogSide,
                 strippedCabbageTreeLogSide
         );
-        // Cabbage tree
+        // Cabbage tree logs
         registerThinLog(generator, (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_LOG, cabbageTreeLogSide, null);
         registerThinLog(
                 generator,

@@ -10,5 +10,6 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
         pack.addProvider(TaiaoModelGenerator::new);
+        pack.addProvider(TaiaoRecipeGenerator::new);
     }
 }

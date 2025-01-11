@@ -3,8 +3,12 @@
   "category": "misc",
   "group": "hanging_sign",
   "key": {
-    "#": {"item": "taiao:stripped_cabbage_tree_log"},
-    "X": {"item": "minecraft:chain"}
+    "#": {
+      "item": "taiao:stripped_cabbage_tree_log"
+    },
+    "X": {
+      "item": "minecraft:chain"
+    }
   },
   "pattern": [
     "X X",
@@ -14,5 +18,6 @@
   "result": {
     "count": 3,
     "item": "minecraft:oak_hanging_sign"
-  }
+  },
+  "show_notification": true
 }
