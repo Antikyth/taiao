@@ -11,6 +11,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
 
+import java.util.Optional;
+
 public class TaiaoModelGenerator extends FabricModelProvider {
     public TaiaoModelGenerator(FabricDataOutput generator) {
         super(generator);
@@ -19,17 +21,21 @@ public class TaiaoModelGenerator extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
         registerThinLog(generator,
-                (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_LOG,
-                TaiaoModels.thinLogTextures(new Identifier("minecraft:block/acacia_log"),
-                        Identifier.of(Taiao.MOD_ID, "block/cabbage_tree_log_top")));
-        registerThinLog(generator,
                 (ThinLogBlock) TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG,
-                TaiaoModels.thinLogTextures(new Identifier("minecraft:block/stripped_oak_log"),
-                        Identifier.of(Taiao.MOD_ID, "block/stripped_cabbage_tree_log_top")));
+                Optional.of(new Identifier("minecraft:block/stripped_oak_log")),
+                Optional.empty());
+        registerThinLog(generator,
+                (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_LOG,
+                Optional.of(new Identifier("minecraft:block/acacia_log")),
+                Optional.empty());
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator generator) {
+    }
+
+    public static void registerThinLog(BlockStateModelGenerator generator, ThinLogBlock block, Optional<Identifier> sideTexture, Optional<Identifier> endTexture) {
+        registerThinLog(generator, block, TaiaoModels.thinLogTextures(block, sideTexture, endTexture));
     }
 
     public static void registerThinLog(BlockStateModelGenerator generator, ThinLogBlock block, TextureMap textures) {

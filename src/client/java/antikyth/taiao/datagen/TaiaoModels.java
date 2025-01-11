@@ -1,6 +1,7 @@
 package antikyth.taiao.datagen;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.block.ThinLogBlock;
 import com.google.gson.JsonElement;
 import net.minecraft.data.client.Model;
 import net.minecraft.data.client.ModelIds;
@@ -19,8 +20,11 @@ public class TaiaoModels {
 
     public static final Model THIN_LOG_INVENTORY = item("thin_log", TextureKey.SIDE, TextureKey.END);
 
-    public static TextureMap thinLogTextures(Identifier side, Identifier end) {
-        return new TextureMap().put(TextureKey.SIDE, side).put(TextureKey.END, end);
+    public static TextureMap thinLogTextures(ThinLogBlock block, Optional<Identifier> side, Optional<Identifier> end) {
+        Identifier sideId = side.orElse(TextureMap.getId(block));
+        Identifier endId = end.orElse(TextureMap.getSubId(block, "_top"));
+
+        return TextureMap.sideEnd(sideId, endId);
     }
 
     public static Model block(String name, String variant, TextureKey... textureKeys) {
