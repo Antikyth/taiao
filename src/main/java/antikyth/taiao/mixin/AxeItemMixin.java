@@ -10,19 +10,17 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @Mixin(AxeItem.class)
 public class AxeItemMixin {
     @ModifyReturnValue(
             method = "getStrippedState(Lnet/minecraft/block/BlockState;)Ljava/util/Optional;",
             at = @At("RETURN")
     )
-    private Optional<BlockState> addStrippedStateOptions(Optional<BlockState> original, @Local(argsOnly = true) BlockState state) {
-        return original.or(() -> {
-            if (state.getBlock() instanceof Strippable strippable) {
-                return strippable.getStrippedState(state);
-            } else {
-                return Optional.empty();
-            }
-        });
+    private Optional<BlockState> addStrippedStateOptions(
+            Optional<BlockState> original,
+            @Local(argsOnly = true) BlockState state
+    ) {
+        return original.or(() -> Strippable.getStrippedState(state));
     }
 }
