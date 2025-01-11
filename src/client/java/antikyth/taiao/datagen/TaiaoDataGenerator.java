@@ -11,5 +11,6 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 
         pack.addProvider(TaiaoModelGenerator::new);
         pack.addProvider(TaiaoRecipeGenerator::new);
+        pack.addProvider(TaiaoBlockLootTableGenerator::new);
     }
 }
