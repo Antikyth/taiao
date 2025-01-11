@@ -1,6 +1,7 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.item.BlockItem;
@@ -14,16 +15,40 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class TaiaoBlocks {
-    public static final Block CABBAGE_TREE_LEAVES = register("cabbage_tree_leaves",
+    public static final Block CABBAGE_TREE_LEAVES = registerFlammable(
+            "cabbage_tree_leaves",
             Blocks.createLeavesBlock(BlockSoundGroup.GRASS),
-            true);
+            true,
+            30, 60
+    );
 
-    public static final Block STRIPPED_CABBAGE_TREE_LOG = register("stripped_cabbage_tree_log",
+    public static final Block STRIPPED_CABBAGE_TREE_LOG = registerFlammable(
+            "stripped_cabbage_tree_log",
             createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
-            true);
-    public static final Block CABBAGE_TREE_LOG = register("cabbage_tree_log",
+            true,
+            5, 5
+    );
+    public static final Block STRIPPED_CABBAGE_TREE_WOOD = registerFlammable(
+            "stripped_cabbage_tree_wood",
+            createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
+            true,
+            5, 5
+    );
+    public static final Block CABBAGE_TREE_LOG = registerFlammable(
+            "cabbage_tree_log",
             createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY, (ThinLogBlock) STRIPPED_CABBAGE_TREE_LOG),
-            true);
+            true,
+            5, 5
+    );
+    public static final Block CABBAGE_TREE_WOOD = registerFlammable(
+            "cabbage_tree_wood",
+            createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY, (ThinLogBlock) STRIPPED_CABBAGE_TREE_WOOD),
+            true,
+            5, 5
+    );
+
+    public static void initialize() {
+    }
 
     public static ThinLogBlock createThinLogBlock(MapColor end, MapColor side, ThinLogBlock stripped) {
         return createThinLogBlock(end, side, state -> Optional.of(stripped.copyStateFrom(state)));
@@ -33,7 +58,11 @@ public class TaiaoBlocks {
         return createThinLogBlock(end, side, state -> Optional.empty());
     }
 
-    public static ThinLogBlock createThinLogBlock(MapColor end, MapColor side, Function<BlockState, Optional<BlockState>> strippedState) {
+    public static ThinLogBlock createThinLogBlock(
+            MapColor end,
+            MapColor side,
+            Function<BlockState, Optional<BlockState>> strippedState
+    ) {
         return new ThinLogBlock(AbstractBlock.Settings.create()
                 .mapColor(state -> state.get(ThinLogBlock.UP) ? end : side)
                 .instrument(Instrument.BASS)
@@ -47,6 +76,20 @@ public class TaiaoBlocks {
         };
     }
 
+    public static Block registerFlammable(
+            String name,
+            Block block,
+            boolean registerItem,
+            int burnChance,
+            int spreadChance
+    ) {
+        block = register(name, block, registerItem);
+
+        FlammableBlockRegistry.getDefaultInstance().add(block, burnChance, spreadChance);
+
+        return block;
+    }
+
     public static Block register(String name, Block block, boolean registerItem) {
         Identifier id = Identifier.of(Taiao.MOD_ID, name);
 
@@ -57,8 +100,5 @@ public class TaiaoBlocks {
         }
 
         return Registry.register(Registries.BLOCK, id, block);
-    }
-
-    public static void initialize() {
     }
 }

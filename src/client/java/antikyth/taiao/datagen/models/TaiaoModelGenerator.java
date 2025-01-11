@@ -1,4 +1,4 @@
-package antikyth.taiao.datagen;
+package antikyth.taiao.datagen.models;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
@@ -10,8 +10,8 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
-
-import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class TaiaoModelGenerator extends FabricModelProvider {
     public TaiaoModelGenerator(FabricDataOutput generator) {
@@ -20,21 +20,48 @@ public class TaiaoModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
-        registerThinLog(generator,
+        Identifier strippedCabbageTreeLogSide = new Identifier("minecraft:block/stripped_oak_log");
+        Identifier cabbageTreeLogSide = new Identifier("minecraft:block/acacia_log");
+
+        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.TINTED);
+
+        // Stripped cabbage tree
+        registerThinLog(
+                generator,
                 (ThinLogBlock) TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG,
-                Optional.of(new Identifier("minecraft:block/stripped_oak_log")),
-                Optional.empty());
-        registerThinLog(generator,
-                (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_LOG,
-                Optional.of(new Identifier("minecraft:block/acacia_log")),
-                Optional.empty());
+                strippedCabbageTreeLogSide,
+                null
+        );
+        registerThinLog(
+                generator,
+                (ThinLogBlock) TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD,
+                strippedCabbageTreeLogSide,
+                strippedCabbageTreeLogSide
+        );
+        // Cabbage tree
+        registerThinLog(generator, (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_LOG, cabbageTreeLogSide, null);
+        registerThinLog(
+                generator,
+                (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_WOOD,
+                cabbageTreeLogSide,
+                cabbageTreeLogSide
+        );
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator generator) {
     }
 
-    public static void registerThinLog(BlockStateModelGenerator generator, ThinLogBlock block, Optional<Identifier> sideTexture, Optional<Identifier> endTexture) {
+    public static void registerThinLog(BlockStateModelGenerator generator, ThinLogBlock block) {
+        registerThinLog(generator, block, null, null);
+    }
+
+    public static void registerThinLog(
+            BlockStateModelGenerator generator,
+            ThinLogBlock block,
+            @Nullable Identifier sideTexture,
+            @Nullable Identifier endTexture
+    ) {
         registerThinLog(generator, block, TaiaoModels.thinLogTextures(block, sideTexture, endTexture));
     }
 
@@ -44,23 +71,32 @@ public class TaiaoModelGenerator extends FabricModelProvider {
 
         // Create models for this thin log using the given textures
         Identifier noSideModelId = TaiaoModels.THIN_LOG_NOSIDE.upload(block, textures, generator.modelCollector);
-        Identifier noSideEndModelId = TaiaoModels.THIN_LOG_NOSIDE.upload(block,
+        Identifier noSideEndModelId = TaiaoModels.THIN_LOG_NOSIDE.upload(
+                block,
                 "_end",
                 noSideEndTextures,
-                generator.modelCollector);
+                generator.modelCollector
+        );
         Identifier sideModelId = TaiaoModels.THIN_LOG_SIDE.upload(block, textures, generator.modelCollector);
 
         // Create a blockstate file for this thin log using the generated models
-        generator.blockStateCollector.accept(createThinLogBlockState(block,
+        generator.blockStateCollector.accept(createThinLogBlockState(
+                block,
                 noSideModelId,
                 noSideEndModelId,
-                sideModelId));
+                sideModelId
+        ));
 
         // Create an item model for this thin log
         TaiaoModels.uploadItem(TaiaoModels.THIN_LOG_INVENTORY, block.asItem(), textures, generator.modelCollector);
     }
 
-    public static BlockStateSupplier createThinLogBlockState(ThinLogBlock block, String noSideModelName, String noSideEndModelName, String sideModelName) {
+    public static BlockStateSupplier createThinLogBlockState(
+            ThinLogBlock block,
+            String noSideModelName,
+            String noSideEndModelName,
+            String sideModelName
+    ) {
         Identifier noSideModelId = new Identifier(Taiao.MOD_ID, "block/" + noSideModelName);
         Identifier noSideEndModelId = new Identifier(Taiao.MOD_ID, "block/" + noSideEndModelName);
         Identifier sideModelId = new Identifier(Taiao.MOD_ID, "block/" + sideModelName);
@@ -72,7 +108,9 @@ public class TaiaoModelGenerator extends FabricModelProvider {
      * Gets the rotation variant setting appropriate for the given {@code direction}.
      */
     @SuppressWarnings("SuspiciousNameCombination")
-    private static Pair<VariantSetting<VariantSettings.Rotation>, VariantSettings.Rotation> getRotation(Direction direction) {
+    private static @NotNull Pair<VariantSetting<VariantSettings.Rotation>, VariantSettings.Rotation> getRotation(
+            @NotNull Direction direction
+    ) {
         return switch (direction) {
             case NORTH -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R0);
             case EAST -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R90);
@@ -83,7 +121,12 @@ public class TaiaoModelGenerator extends FabricModelProvider {
         };
     }
 
-    public static BlockStateSupplier createThinLogBlockState(ThinLogBlock block, Identifier noSideModelId, Identifier noSideEndModelId, Identifier sideModelId) {
+    public static @NotNull BlockStateSupplier createThinLogBlockState(
+            ThinLogBlock block,
+            Identifier noSideModelId,
+            Identifier noSideEndModelId,
+            Identifier sideModelId
+    ) {
         MultipartBlockStateSupplier supplier = MultipartBlockStateSupplier.create(block);
 
         // Side pieces
@@ -91,10 +134,12 @@ public class TaiaoModelGenerator extends FabricModelProvider {
             Pair<VariantSetting<VariantSettings.Rotation>, VariantSettings.Rotation> rotation = getRotation(direction);
 
             // Generate blockstates
-            supplier.with(When.create().set(ThinLogBlock.getDirectionProperty(direction), true),
+            supplier.with(
+                    When.create().set(ThinLogBlock.getDirectionProperty(direction), true),
                     BlockStateVariant.create()
                             .put(VariantSettings.MODEL, sideModelId)
-                            .put(rotation.getLeft(), rotation.getRight()));
+                            .put(rotation.getLeft(), rotation.getRight())
+            );
         }
 
         // No-side pieces
@@ -114,16 +159,22 @@ public class TaiaoModelGenerator extends FabricModelProvider {
             }
 
             // Generate end piece blockstates
-            supplier.with(When.allOf(endPieceWhens),
+            supplier.with(
+                    When.allOf(endPieceWhens),
                     BlockStateVariant.create()
                             .put(VariantSettings.MODEL, noSideEndModelId)
-                            .put(rotation.getLeft(), rotation.getRight()));
+                            .put(rotation.getLeft(), rotation.getRight())
+            );
             // Generate side piece blockstates
-            supplier.with(When.allOf(When.create().set(ThinLogBlock.getDirectionProperty(direction), false),
-                            When.anyOf(sidePieceWhens)),
+            supplier.with(
+                    When.allOf(
+                            When.create().set(ThinLogBlock.getDirectionProperty(direction), false),
+                            When.anyOf(sidePieceWhens)
+                    ),
                     BlockStateVariant.create()
                             .put(VariantSettings.MODEL, noSideModelId)
-                            .put(rotation.getLeft(), rotation.getRight()));
+                            .put(rotation.getLeft(), rotation.getRight())
+            );
         }
 
         return supplier;

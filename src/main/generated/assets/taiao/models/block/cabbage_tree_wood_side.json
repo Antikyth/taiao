@@ -1,0 +1,7 @@
+{
+  "parent": "taiao:block/thin_log_side",
+  "textures": {
+    "end": "minecraft:block/acacia_log",
+    "side": "minecraft:block/acacia_log"
+  }
+}

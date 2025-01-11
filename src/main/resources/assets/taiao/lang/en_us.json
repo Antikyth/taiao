@@ -2,8 +2,11 @@
   "itemGroup.taiao.item_group": "Taiao",
 
   "block.taiao.cabbage_tree_leaves": "Tī Kōuka Leaves",
-  "block.taiao.cabbage_tree_log": "Tī Kōuka Log",
+
   "block.taiao.stripped_cabbage_tree_log": "Stripped Tī Kōuka Log",
+  "block.taiao.stripped_cabbage_tree_wood": "Stripped Tī Kōuka Wood",
+  "block.taiao.cabbage_tree_log": "Tī Kōuka Log",
+  "block.taiao.cabbage_tree_wood": "Tī Kōuka Wood",
 
   "tag.block.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
   "tag.item.taiao.cabbage_tree_logs": "Tī Kōuka Logs",

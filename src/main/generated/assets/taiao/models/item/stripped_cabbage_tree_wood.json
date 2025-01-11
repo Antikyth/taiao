@@ -1,0 +1,7 @@
+{
+  "parent": "taiao:item/thin_log",
+  "textures": {
+    "end": "minecraft:block/stripped_oak_log",
+    "side": "minecraft:block/stripped_oak_log"
+  }
+}
