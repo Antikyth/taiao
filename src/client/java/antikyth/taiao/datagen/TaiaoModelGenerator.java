@@ -6,7 +6,10 @@ import antikyth.taiao.block.ThinLogBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.*;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
+import net.minecraft.util.math.Direction;
 
 public class TaiaoModelGenerator extends FabricModelProvider {
     public TaiaoModelGenerator(FabricDataOutput generator) {
@@ -59,146 +62,63 @@ public class TaiaoModelGenerator extends FabricModelProvider {
         return createThinLogBlockState(block, noSideModelId, noSideEndModelId, sideModelId);
     }
 
+    /**
+     * Gets the rotation variant setting appropriate for the given {@code direction}.
+     */
+    @SuppressWarnings("SuspiciousNameCombination")
+    private static Pair<VariantSetting<VariantSettings.Rotation>, VariantSettings.Rotation> getRotation(Direction direction) {
+        return switch (direction) {
+            case NORTH -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R0);
+            case EAST -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R90);
+            case SOUTH -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R180);
+            case WEST -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R270);
+            case UP -> new Pair<>(VariantSettings.X, VariantSettings.Rotation.R270);
+            case DOWN -> new Pair<>(VariantSettings.X, VariantSettings.Rotation.R90);
+        };
+    }
+
     public static BlockStateSupplier createThinLogBlockState(ThinLogBlock block, Identifier noSideModelId, Identifier noSideEndModelId, Identifier sideModelId) {
         MultipartBlockStateSupplier supplier = MultipartBlockStateSupplier.create(block);
 
         // Side pieces
-        supplier.with(When.create().set(ThinLogBlock.NORTH, true),
-                        BlockStateVariant.create().put(VariantSettings.MODEL, sideModelId))
-                .with(When.create().set(ThinLogBlock.EAST, true),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, sideModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                .with(When.create().set(ThinLogBlock.SOUTH, true),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, sideModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                .with(When.create().set(ThinLogBlock.WEST, true),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, sideModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                .with(When.create().set(ThinLogBlock.UP, true),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, sideModelId)
-                                .put(VariantSettings.X, VariantSettings.Rotation.R270))
-                .with(When.create().set(ThinLogBlock.DOWN, true),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, sideModelId)
-                                .put(VariantSettings.X, VariantSettings.Rotation.R90));
+        for (Direction direction : Direction.values()) {
+            Pair<VariantSetting<VariantSettings.Rotation>, VariantSettings.Rotation> rotation = getRotation(direction);
 
-        // No side pieces - horizontal
-//        supplier.with(When.allOf(When.create().set(ThinLogBlock.NORTH, true),
-//                        When.create().set(ThinLogBlock.UP, false),
-//                        When.create().set(ThinLogBlock.DOWN, false)),
-//                BlockStateVariant.create().put(VariantSettings.MODEL, noSideModelId));
+            // Generate blockstates
+            supplier.with(When.create().set(ThinLogBlock.getDirectionProperty(direction), true),
+                    BlockStateVariant.create()
+                            .put(VariantSettings.MODEL, sideModelId)
+                            .put(rotation.getLeft(), rotation.getRight()));
+        }
 
-        // No side pieces - end
-        supplier.with(When.allOf(When.create().set(ThinLogBlock.NORTH, false),
-                                When.create().set(ThinLogBlock.UP, false),
-                                When.create().set(ThinLogBlock.EAST, false),
-                                When.create().set(ThinLogBlock.DOWN, false),
-                                When.create().set(ThinLogBlock.WEST, false),
-                                When.create().set(ThinLogBlock.SOUTH, true)),
-                        BlockStateVariant.create().put(VariantSettings.MODEL, noSideEndModelId))
-                .with(When.allOf(When.create().set(ThinLogBlock.EAST, false),
-                                When.create().set(ThinLogBlock.UP, false),
-                                When.create().set(ThinLogBlock.SOUTH, false),
-                                When.create().set(ThinLogBlock.DOWN, false),
-                                When.create().set(ThinLogBlock.NORTH, false),
-                                When.create().set(ThinLogBlock.WEST, true)),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideEndModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                .with(When.allOf(When.create().set(ThinLogBlock.SOUTH, false),
-                                When.create().set(ThinLogBlock.UP, false),
-                                When.create().set(ThinLogBlock.WEST, false),
-                                When.create().set(ThinLogBlock.DOWN, false),
-                                When.create().set(ThinLogBlock.EAST, false),
-                                When.create().set(ThinLogBlock.NORTH, true)),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideEndModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                .with(When.allOf(When.create().set(ThinLogBlock.WEST, false),
-                                When.create().set(ThinLogBlock.UP, false),
-                                When.create().set(ThinLogBlock.NORTH, false),
-                                When.create().set(ThinLogBlock.DOWN, false),
-                                When.create().set(ThinLogBlock.SOUTH, false),
-                                When.create().set(ThinLogBlock.EAST, true)),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideEndModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                .with(When.allOf(When.create().set(ThinLogBlock.UP, false),
-                                When.create().set(ThinLogBlock.NORTH, false),
-                                When.create().set(ThinLogBlock.EAST, false),
-                                When.create().set(ThinLogBlock.SOUTH, false),
-                                When.create().set(ThinLogBlock.WEST, false),
-                                When.create().set(ThinLogBlock.DOWN, true)),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideEndModelId)
-                                .put(VariantSettings.X, VariantSettings.Rotation.R270))
-                .with(When.allOf(When.create().set(ThinLogBlock.DOWN, false),
-                                When.create().set(ThinLogBlock.NORTH, false),
-                                When.create().set(ThinLogBlock.EAST, false),
-                                When.create().set(ThinLogBlock.SOUTH, false),
-                                When.create().set(ThinLogBlock.WEST, false),
-                                When.create().set(ThinLogBlock.UP, true)),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideEndModelId)
-                                .put(VariantSettings.X, VariantSettings.Rotation.R90));
+        // No-side pieces
+        for (Direction direction : Direction.values()) {
+            Pair<VariantSetting<VariantSettings.Rotation>, VariantSettings.Rotation> rotation = getRotation(direction);
 
-        // No side pieces - vertical
-        supplier.with(When.allOf(When.create().set(ThinLogBlock.NORTH, false),
-                                When.anyOf(When.create().set(ThinLogBlock.UP, true),
-                                        When.create().set(ThinLogBlock.EAST, true),
-                                        When.create().set(ThinLogBlock.DOWN, true),
-                                        When.create().set(ThinLogBlock.WEST, true),
-                                        When.create().set(ThinLogBlock.SOUTH, false))),
-                        BlockStateVariant.create().put(VariantSettings.MODEL, noSideModelId))
-                .with(When.allOf(When.create().set(ThinLogBlock.EAST, false),
-                                When.anyOf(When.create().set(ThinLogBlock.UP, true),
-                                        When.create().set(ThinLogBlock.SOUTH, true),
-                                        When.create().set(ThinLogBlock.DOWN, true),
-                                        When.create().set(ThinLogBlock.NORTH, true),
-                                        When.create().set(ThinLogBlock.WEST, false))),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R90))
-                .with(When.allOf(When.create().set(ThinLogBlock.SOUTH, false),
-                                When.anyOf(When.create().set(ThinLogBlock.UP, true),
-                                        When.create().set(ThinLogBlock.WEST, true),
-                                        When.create().set(ThinLogBlock.DOWN, true),
-                                        When.create().set(ThinLogBlock.EAST, true),
-                                        When.create().set(ThinLogBlock.NORTH, false))),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R180))
-                .with(When.allOf(When.create().set(ThinLogBlock.WEST, false),
-                                When.anyOf(When.create().set(ThinLogBlock.UP, true),
-                                        When.create().set(ThinLogBlock.NORTH, true),
-                                        When.create().set(ThinLogBlock.DOWN, true),
-                                        When.create().set(ThinLogBlock.SOUTH, true),
-                                        When.create().set(ThinLogBlock.EAST, false))),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideModelId)
-                                .put(VariantSettings.Y, VariantSettings.Rotation.R270))
-                .with(When.allOf(When.create().set(ThinLogBlock.UP, false),
-                                When.anyOf(When.create().set(ThinLogBlock.NORTH, true),
-                                        When.create().set(ThinLogBlock.EAST, true),
-                                        When.create().set(ThinLogBlock.SOUTH, true),
-                                        When.create().set(ThinLogBlock.WEST, true),
-                                        When.create().set(ThinLogBlock.DOWN, false))),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideModelId)
-                                .put(VariantSettings.X, VariantSettings.Rotation.R270))
-                .with(When.allOf(When.create().set(ThinLogBlock.DOWN, false),
-                                When.anyOf(When.create().set(ThinLogBlock.NORTH, true),
-                                        When.create().set(ThinLogBlock.EAST, true),
-                                        When.create().set(ThinLogBlock.SOUTH, true),
-                                        When.create().set(ThinLogBlock.WEST, true),
-                                        When.create().set(ThinLogBlock.UP, false))),
-                        BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, noSideModelId)
-                                .put(VariantSettings.X, VariantSettings.Rotation.R90));
+            // Determine conditions for an end piece vs. a side piece
+            When[] endPieceWhens = new When[Direction.values().length];
+            When[] sidePieceWhens = new When[Direction.values().length];
+            for (int i = 0; i < Direction.values().length; i++) {
+                boolean isOppositeDirection = i == direction.getOpposite().getId();
+
+                BooleanProperty property = ThinLogBlock.getDirectionProperty(Direction.values()[i]);
+
+                endPieceWhens[i] = When.create().set(property, isOppositeDirection);
+                sidePieceWhens[i] = When.create().set(property, !isOppositeDirection);
+            }
+
+            // Generate end piece blockstates
+            supplier.with(When.allOf(endPieceWhens),
+                    BlockStateVariant.create()
+                            .put(VariantSettings.MODEL, noSideEndModelId)
+                            .put(rotation.getLeft(), rotation.getRight()));
+            // Generate side piece blockstates
+            supplier.with(When.allOf(When.create().set(ThinLogBlock.getDirectionProperty(direction), false),
+                            When.anyOf(sidePieceWhens)),
+                    BlockStateVariant.create()
+                            .put(VariantSettings.MODEL, noSideModelId)
+                            .put(rotation.getLeft(), rotation.getRight()));
+        }
 
         return supplier;
     }

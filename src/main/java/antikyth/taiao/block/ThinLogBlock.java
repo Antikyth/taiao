@@ -45,6 +45,17 @@ public class ThinLogBlock extends ConnectingBlock implements Waterloggable, Stri
                 .with(WEST, false));
     }
 
+    public static BooleanProperty getDirectionProperty(Direction direction) {
+        return switch (direction) {
+            case UP -> UP;
+            case DOWN -> DOWN;
+            case NORTH -> NORTH;
+            case EAST -> EAST;
+            case SOUTH -> SOUTH;
+            case WEST -> WEST;
+        };
+    }
+
     public BlockState getState(@NotNull BlockView world, BlockPos pos) {
         FluidState fluidState = world.getFluidState(pos);
 
