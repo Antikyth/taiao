@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
+@SuppressWarnings("deprecation")
 public class ThinLogBlock extends ConnectingBlock implements Waterloggable, Strippable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
@@ -105,9 +106,11 @@ public class ThinLogBlock extends ConnectingBlock implements Waterloggable, Stri
         BlockState state = world.getBlockState(potentialConnectionPos);
 
         boolean faceFullSquare = state.isSideSolidFullSquare(world, potentialConnectionPos, direction.getOpposite());
+        boolean wallOrFence = direction == Direction.DOWN && (state.isIn(BlockTags.WALLS) || state.isIn(BlockTags.FENCES));
 
-        return state.isIn(TaiaoBlockTags.THIN_LOGS) || state.isIn(BlockTags.LEAVES) || (!cannotConnect(state) && faceFullSquare);
+        return state.isIn(TaiaoBlockTags.THIN_LOG_CONNECTION_OVERRIDE) || (!cannotConnect(state) && faceFullSquare) || wallOrFence;
     }
+
 
     @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
