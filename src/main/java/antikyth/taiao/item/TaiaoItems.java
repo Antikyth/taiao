@@ -10,13 +10,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class TaiaoItems {
     public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP_KEY = Taiao.createRegistryKey(
             "item_group",
-            Registries.ITEM_GROUP
+            RegistryKeys.ITEM_GROUP
     );
     public static final ItemGroup TAIAO_ITEM_GROUP = registerItemGroup(
             TAIAO_ITEM_GROUP_KEY,

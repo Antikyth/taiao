@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Taiao implements ModInitializer {
+    public static final String MOD_NAME = "Taiao";
     public static final String MOD_ID = "taiao";
 
     // This logger is used to write text to the console and the log file.
@@ -24,8 +25,12 @@ public class Taiao implements ModInitializer {
         TaiaoItems.initialize();
     }
 
-    public static <T> RegistryKey<T> createRegistryKey(String name, Registry<T> registry) {
-        return RegistryKey.of(registry.getKey(), Identifier.of(MOD_ID, name));
+    public static Identifier id(String name) {
+        return Identifier.of(MOD_ID, name);
+    }
+
+    public static <T> RegistryKey<T> createRegistryKey(String name, RegistryKey<? extends Registry<T>> registryKey) {
+        return RegistryKey.of(registryKey, Identifier.of(MOD_ID, name));
     }
 
     public static <T> TagKey<T> createTagKey(String name, RegistryKey<? extends Registry<T>> registryKey) {

@@ -55,6 +55,13 @@ public class ThinLogBlock extends ConnectingBlock implements Waterloggable, Stri
         };
     }
 
+    /**
+     * Gets the default state with connections at the top and bottom. Useful for tree trunks.
+     */
+    public BlockState getVerticalState() {
+        return this.getDefaultState().with(DOWN, true).with(UP, true);
+    }
+
     public BlockState getState(@NotNull BlockView world, BlockPos pos) {
         FluidState fluidState = world.getFluidState(pos);
 

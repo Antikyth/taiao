@@ -1,4 +1,4 @@
-package antikyth.taiao.datagen.models;
+package antikyth.taiao.datagen.model;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
@@ -24,12 +24,12 @@ public class TaiaoModelGenerator extends FabricModelProvider {
         Identifier cabbageTreeLogSide = new Identifier("minecraft:block/acacia_log");
 
         // Cabbage tree leaves
-        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.NOT_TINTED);
+        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.TINTED);
         // Cabbage tree sapling
         generator.registerFlowerPotPlant(
                 TaiaoBlocks.CABBAGE_TREE_SAPLING,
                 TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING,
-                BlockStateModelGenerator.TintType.TINTED
+                BlockStateModelGenerator.TintType.NOT_TINTED
         );
 
         // Stripped cabbage tree logs

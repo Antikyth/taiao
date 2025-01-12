@@ -1,4 +1,4 @@
-package antikyth.taiao.datagen.models;
+package antikyth.taiao.datagen.model;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.ThinLogBlock;

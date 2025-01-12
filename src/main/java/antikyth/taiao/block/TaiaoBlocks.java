@@ -1,11 +1,11 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.feature.CabbageTreeSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
-import net.minecraft.block.sapling.OakSaplingGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class TaiaoBlocks {
     public static final Block CABBAGE_TREE_SAPLING = register(
             "cabbage_tree_sapling",
-            new SaplingBlock(new OakSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)),
+            new SaplingBlock(new CabbageTreeSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)),
             true
     );
     public static final Block POTTED_CABBAGE_TREE_SAPLING = register(
