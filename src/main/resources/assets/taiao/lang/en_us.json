@@ -1,6 +1,8 @@
 {
   "itemGroup.taiao.item_group": "Taiao",
 
+  "block.taiao.cabbage_tree_sapling": "Tī Kōuka Sapling",
+  "block.taiao.potted_cabbage_tree_sapling": "Potted Tī Kōuka Sapling",
   "block.taiao.cabbage_tree_leaves": "Tī Kōuka Leaves",
 
   "block.taiao.stripped_cabbage_tree_log": "Stripped Tī Kōuka Log",

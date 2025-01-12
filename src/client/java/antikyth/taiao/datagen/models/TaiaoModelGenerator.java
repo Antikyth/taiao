@@ -19,12 +19,18 @@ public class TaiaoModelGenerator extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator generator) {
+    public void generateBlockStateModels(@NotNull BlockStateModelGenerator generator) {
         Identifier strippedCabbageTreeLogSide = new Identifier("minecraft:block/stripped_oak_log");
         Identifier cabbageTreeLogSide = new Identifier("minecraft:block/acacia_log");
 
         // Cabbage tree leaves
-        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.TINTED);
+        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.NOT_TINTED);
+        // Cabbage tree sapling
+        generator.registerFlowerPotPlant(
+                TaiaoBlocks.CABBAGE_TREE_SAPLING,
+                TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING,
+                BlockStateModelGenerator.TintType.TINTED
+        );
 
         // Stripped cabbage tree logs
         registerThinLog(

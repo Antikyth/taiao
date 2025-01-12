@@ -20,12 +20,13 @@ public class TaiaoItems {
     );
     public static final ItemGroup TAIAO_ITEM_GROUP = registerItemGroup(
             TAIAO_ITEM_GROUP_KEY,
-            TaiaoBlocks.CABBAGE_TREE_LOG.asItem()
+            TaiaoBlocks.CABBAGE_TREE_SAPLING.asItem()
     );
 
     public static void initialize() {
         // Add items to the item group.
         ItemGroupEvents.modifyEntriesEvent(TAIAO_ITEM_GROUP_KEY).register(group -> {
+            group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING.asItem());
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES.asItem());
 
             group.add(TaiaoBlocks.CABBAGE_TREE_LOG.asItem());
