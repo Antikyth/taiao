@@ -7,16 +7,29 @@ package antikyth.taiao.entity.model;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.PuukekoEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.ChickenEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
-public class PuukekoEntityRenderer extends LivingEntityRenderer<PuukekoEntity, PuukekoEntityModel> {
+public class PuukekoEntityRenderer extends MobEntityRenderer<PuukekoEntity, ChickenEntityModel<PuukekoEntity>> {
+    private static final Identifier TEXTURE = Taiao.id("textures/entity/puukeko.png");
+
     public PuukekoEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new PuukekoEntityModel(context.getPart(TaiaoEntityModels.PUUKEKO_MODEL_LAYER)), 0.5f);
+        super(context, new ChickenEntityModel<>(context.getPart(EntityModelLayers.CHICKEN)), 0.3f);
     }
 
     @Override
     public Identifier getTexture(PuukekoEntity entity) {
-        return Taiao.id("textures/entity/puukeko.png");
+        return TEXTURE;
+    }
+
+    @Override
+    protected float getAnimationProgress(PuukekoEntity entity, float tickDelta) {
+        float flapProgress = MathHelper.lerp(tickDelta, entity.prevFlapProgress, entity.flapProgress);
+        float maxWingDeviation = MathHelper.lerp(tickDelta, entity.prevMaxWingDeviation, entity.maxWingDeviation);
+
+        return (MathHelper.sin(flapProgress) + 1.0F) * maxWingDeviation;
     }
 }

@@ -4,20 +4,12 @@
 
 package antikyth.taiao.entity.model;
 
-import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 
 public class TaiaoEntityModels {
-    public static final EntityModelLayer PUUKEKO_MODEL_LAYER = registerModelLayer(
-            new EntityModelLayer(
-                    Taiao.id("puukeko"),
-                    "main"
-            ), PuukekoEntityModel::getTexturedModelData
-    );
-
     public static void initialize() {
         EntityRendererRegistry.register(TaiaoEntities.PUUKEKO, PuukekoEntityRenderer::new);
     }
