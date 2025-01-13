@@ -6,11 +6,11 @@ package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.entity.TaiaoEntities;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -19,6 +19,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class TaiaoItems {
+    public static final Item PUUKEKO_SPAWN_EGG = register(
+            Taiao.id("puukeko_spawn_egg"),
+            new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x0f456e, 0x6d0000, new FabricItemSettings())
+    );
+
     public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP_KEY = Taiao.createRegistryKey(
             Taiao.id("item_group"),
             RegistryKeys.ITEM_GROUP
@@ -38,6 +43,13 @@ public class TaiaoItems {
             group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG.asItem());
             group.add(TaiaoBlocks.CABBAGE_TREE_WOOD.asItem());
             group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD.asItem());
+
+            group.add(PUUKEKO_SPAWN_EGG);
+        });
+
+        // Spawn eggs
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(group -> {
+            group.add(PUUKEKO_SPAWN_EGG);
         });
     }
 

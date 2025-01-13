@@ -26,6 +26,8 @@ public class TaiaoModels {
 
     public static final Model THIN_LOG_INVENTORY = item("thin_log", TextureKey.SIDE, TextureKey.END);
 
+    public static final Model SPAWN_EGG = vanillaItem("template_spawn_egg");
+
     public static TextureMap thinLogTextures(ThinLogBlock block, @Nullable Identifier side, @Nullable Identifier end) {
         side = side == null ? TextureMap.getId(block) : side;
         end = end == null ? TextureMap.getSubId(block, "_top") : end;
@@ -41,6 +43,12 @@ public class TaiaoModels {
 
     public static @NotNull Model block(String name, TextureKey... textureKeys) {
         Identifier id = Taiao.id("block/" + name);
+
+        return new Model(Optional.of(id), Optional.empty(), textureKeys);
+    }
+
+    public static @NotNull Model vanillaItem(String name, TextureKey... textureKeys) {
+        Identifier id = new Identifier("minecraft:item/" + name);
 
         return new Model(Optional.of(id), Optional.empty(), textureKeys);
     }

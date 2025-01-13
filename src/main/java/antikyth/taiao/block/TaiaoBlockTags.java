@@ -8,16 +8,16 @@ import antikyth.taiao.Taiao;
 import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 public final class TaiaoBlockTags {
-    public static final TagKey<Block> THIN_LOGS = Taiao.createTagKey(Taiao.id("thin_logs"), RegistryKeys.BLOCK);
-    public static final TagKey<Block> CABBAGE_TREE_LOGS = Taiao.createTagKey(
-            Taiao.id("cabbage_tree_logs"),
-            RegistryKeys.BLOCK
-    );
+    public static final TagKey<Block> THIN_LOGS = createTagKey(Taiao.id("thin_logs"));
+    public static final TagKey<Block> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
 
-    public static final TagKey<Block> THIN_LOG_CONNECTION_OVERRIDE = Taiao.createTagKey(
-            Taiao.id("thin_log_connection_override"),
-            RegistryKeys.BLOCK
-    );
+    public static final TagKey<Block> THIN_LOG_CONNECTION_OVERRIDE = createTagKey(Taiao.id(
+            "thin_log_connection_override"));
+
+    public static TagKey<Block> createTagKey(Identifier id) {
+        return Taiao.createTagKey(id, RegistryKeys.BLOCK);
+    }
 }

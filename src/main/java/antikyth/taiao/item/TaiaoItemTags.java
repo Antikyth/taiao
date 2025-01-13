@@ -8,11 +8,15 @@ import antikyth.taiao.Taiao;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.Identifier;
 
 public final class TaiaoItemTags {
-    public static final TagKey<Item> THIN_LOGS = Taiao.createTagKey(Taiao.id("thin_logs"), RegistryKeys.ITEM);
-    public static final TagKey<Item> CABBAGE_TREE_LOGS = Taiao.createTagKey(
-            Taiao.id("cabbage_tree_logs"),
-            RegistryKeys.ITEM
-    );
+    public static final TagKey<Item> THIN_LOGS = createTagKey(Taiao.id("thin_logs"));
+    public static final TagKey<Item> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
+
+    public static final TagKey<Item> PUUKEKO_FOOD = createTagKey(Taiao.id("puukeko_food"));
+
+    public static TagKey<Item> createTagKey(Identifier id) {
+        return Taiao.createTagKey(id, RegistryKeys.ITEM);
+    }
 }

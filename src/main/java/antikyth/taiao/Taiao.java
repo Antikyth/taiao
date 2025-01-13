@@ -5,6 +5,7 @@
 package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.feature.foliage.TaiaoFoliagePlacers;
 import antikyth.taiao.world.gen.feature.trunk.TaiaoTrunkPlacers;
@@ -29,6 +30,7 @@ public class Taiao implements ModInitializer {
     public void onInitialize() {
         TaiaoBlocks.initialize();
         TaiaoItems.initialize();
+        TaiaoEntities.initialize();
 
         TaiaoTrunkPlacers.initialize();
         TaiaoFoliagePlacers.initialize();

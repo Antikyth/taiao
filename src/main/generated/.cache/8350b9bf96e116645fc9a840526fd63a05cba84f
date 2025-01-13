@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-13T13:08:02.5925237	Te Taiao o Aotearoa/Model Definitions
+// 1.20.1	2025-01-13T17:48:51.8595858	Te Taiao o Aotearoa/Model Definitions
 46fad8ae0e6eb4fb97816e53d416cc989b9bf172 assets\taiao\models\item\stripped_cabbage_tree_wood.json
 5df4e94633949163a65e1cc90fe07594742300ec assets\taiao\models\block\stripped_cabbage_tree_wood_end_noside.json
 6b0ba6dd700c5c700b33f0b1144fcc44c5e4599e assets\taiao\blockstates\cabbage_tree_leaves.json
@@ -16,6 +16,7 @@ f48de7bcafdd70ce5230fc25df839144d9713b34 assets\taiao\blockstates\stripped_cabba
 ea406714b84841f95df7f86044fd66da373b67ce assets\taiao\models\block\cabbage_tree_sapling.json
 1d43901df22fbba3cb1121e77af0dd72b1a5efd7 assets\taiao\models\block\stripped_cabbage_tree_log_side.json
 321e49423172071e74b6990052ae63a485590321 assets\taiao\models\block\cabbage_tree_wood_end_noside.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\taiao\models\item\puukeko_spawn_egg.json
 924dd9a35f4513f192c49859d0d06a87d1628e8f assets\taiao\models\item\cabbage_tree_log.json
 e9e4d097e565d9a62a2793bf8640a314fa375927 assets\taiao\models\item\cabbage_tree_leaves.json
 321e49423172071e74b6990052ae63a485590321 assets\taiao\models\block\cabbage_tree_wood_noside.json
