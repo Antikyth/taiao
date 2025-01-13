@@ -11,7 +11,7 @@
     "homepage": "https://modrinth.com/mod/taiao",
     "sources": "https://github.com/Antikyth/taiao"
   },
-  "license": "CC0-1.0",
+  "license": "MPL-2.0",
   "icon": "assets/taiao/icon.png",
   "environment": "*",
   "entrypoints": {
@@ -42,6 +42,5 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "another-mod": "*"
   }
 }
