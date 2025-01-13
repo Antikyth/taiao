@@ -5,7 +5,7 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.feature.CabbageTreeSaplingGenerator;
+import antikyth.taiao.world.gen.feature.CabbageTreeSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;

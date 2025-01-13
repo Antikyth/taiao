@@ -2,12 +2,12 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.feature;
+package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.feature.foliage.SingleFoliagePlacer;
-import antikyth.taiao.feature.trunk.BranchingTrunkPlacer;
+import antikyth.taiao.world.gen.feature.foliage.SingleFoliagePlacer;
+import antikyth.taiao.world.gen.feature.trunk.BranchingTrunkPlacer;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;

@@ -5,8 +5,8 @@
 package antikyth.taiao.datagen;
 
 import antikyth.taiao.datagen.model.TaiaoModelGenerator;
-import antikyth.taiao.feature.TaiaoConfiguredFeatures;
-import antikyth.taiao.feature.TaiaoPlacedFeatures;
+import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
+import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
