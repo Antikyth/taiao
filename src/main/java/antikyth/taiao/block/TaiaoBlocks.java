@@ -21,43 +21,43 @@ import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBlocks {
     public static final Block CABBAGE_TREE_SAPLING = register(
-            "cabbage_tree_sapling",
+            Taiao.id("cabbage_tree_sapling"),
             new SaplingBlock(new CabbageTreeSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)),
             true
     );
     public static final Block POTTED_CABBAGE_TREE_SAPLING = register(
-            "potted_cabbage_tree_sapling",
+            Taiao.id("potted_cabbage_tree_sapling"),
             Blocks.createFlowerPotBlock(CABBAGE_TREE_SAPLING),
             false
     );
 
     public static final Block CABBAGE_TREE_LEAVES = registerFlammable(
-            "cabbage_tree_leaves",
+            Taiao.id("cabbage_tree_leaves"),
             Blocks.createLeavesBlock(BlockSoundGroup.GRASS),
             true,
             30, 60
     );
 
     public static final Block STRIPPED_CABBAGE_TREE_LOG = registerFlammable(
-            "stripped_cabbage_tree_log",
+            Taiao.id("stripped_cabbage_tree_log"),
             createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
             true,
             5, 5
     );
     public static final Block STRIPPED_CABBAGE_TREE_WOOD = registerFlammable(
-            "stripped_cabbage_tree_wood",
+            Taiao.id("stripped_cabbage_tree_wood"),
             createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
             true,
             5, 5
     );
     public static final Block CABBAGE_TREE_LOG = registerFlammable(
-            "cabbage_tree_log",
+            Taiao.id("cabbage_tree_log"),
             createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY),
             true,
             5, 5
     );
     public static final Block CABBAGE_TREE_WOOD = registerFlammable(
-            "cabbage_tree_wood",
+            Taiao.id("cabbage_tree_wood"),
             createThinLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY),
             true,
             5, 5
@@ -80,22 +80,20 @@ public class TaiaoBlocks {
     }
 
     public static Block registerFlammable(
-            String name,
+            Identifier id,
             Block block,
             boolean registerItem,
             int burnChance,
             int spreadChance
     ) {
-        block = register(name, block, registerItem);
+        block = register(id, block, registerItem);
 
         FlammableBlockRegistry.getDefaultInstance().add(block, burnChance, spreadChance);
 
         return block;
     }
 
-    public static Block register(String name, Block block, boolean registerItem) {
-        Identifier id = Identifier.of(Taiao.MOD_ID, name);
-
+    public static Block register(Identifier id, Block block, boolean registerItem) {
         if (registerItem) {
             BlockItem item = new BlockItem(block, new Item.Settings());
 

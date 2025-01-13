@@ -38,11 +38,11 @@ public class Taiao implements ModInitializer {
         return Identifier.of(MOD_ID, name);
     }
 
-    public static <T> RegistryKey<T> createRegistryKey(String name, RegistryKey<? extends Registry<T>> registryKey) {
-        return RegistryKey.of(registryKey, Identifier.of(MOD_ID, name));
+    public static <T> RegistryKey<T> createRegistryKey(Identifier id, RegistryKey<? extends Registry<T>> registryKey) {
+        return RegistryKey.of(registryKey, id);
     }
 
-    public static <T> TagKey<T> createTagKey(String name, RegistryKey<? extends Registry<T>> registryKey) {
-        return TagKey.of(registryKey, Identifier.of(MOD_ID, name));
+    public static <T> TagKey<T> createTagKey(Identifier id, RegistryKey<? extends Registry<T>> registryKey) {
+        return TagKey.of(registryKey, id);
     }
 }

@@ -10,11 +10,14 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
 public final class TaiaoBlockTags {
-    public static final TagKey<Block> THIN_LOGS = Taiao.createTagKey("thin_logs", RegistryKeys.BLOCK);
-    public static final TagKey<Block> CABBAGE_TREE_LOGS = Taiao.createTagKey("cabbage_tree_logs", RegistryKeys.BLOCK);
+    public static final TagKey<Block> THIN_LOGS = Taiao.createTagKey(Taiao.id("thin_logs"), RegistryKeys.BLOCK);
+    public static final TagKey<Block> CABBAGE_TREE_LOGS = Taiao.createTagKey(
+            Taiao.id("cabbage_tree_logs"),
+            RegistryKeys.BLOCK
+    );
 
     public static final TagKey<Block> THIN_LOG_CONNECTION_OVERRIDE = Taiao.createTagKey(
-            "thin_log_connection_override",
+            Taiao.id("thin_log_connection_override"),
             RegistryKeys.BLOCK
     );
 }

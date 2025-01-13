@@ -20,7 +20,7 @@ import net.minecraft.util.Identifier;
 
 public class TaiaoItems {
     public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP_KEY = Taiao.createRegistryKey(
-            "item_group",
+            Taiao.id("item_group"),
             RegistryKeys.ITEM_GROUP
     );
     public static final ItemGroup TAIAO_ITEM_GROUP = registerItemGroup(
@@ -44,9 +44,7 @@ public class TaiaoItems {
     /**
      * Register the given {@code item} with the given {@code name} as its item ID.
      */
-    public static Item register(String name, Item item) {
-        Identifier id = Identifier.of(Taiao.MOD_ID, name);
-
+    public static Item register(Identifier id, Item item) {
         return Registry.register(Registries.ITEM, id, item);
     }
 

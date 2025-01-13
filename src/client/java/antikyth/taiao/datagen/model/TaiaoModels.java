@@ -34,19 +34,19 @@ public class TaiaoModels {
     }
 
     public static @NotNull Model block(String name, String variant, TextureKey... textureKeys) {
-        Identifier id = new Identifier(Taiao.MOD_ID, "block/" + name);
+        Identifier id = Taiao.id("block/" + name);
 
         return new Model(Optional.of(id), Optional.of(variant), textureKeys);
     }
 
     public static @NotNull Model block(String name, TextureKey... textureKeys) {
-        Identifier id = new Identifier(Taiao.MOD_ID, "block/" + name);
+        Identifier id = Taiao.id("block/" + name);
 
         return new Model(Optional.of(id), Optional.empty(), textureKeys);
     }
 
     public static @NotNull Model item(String name, TextureKey... textureKeys) {
-        Identifier id = new Identifier(Taiao.MOD_ID, "item/" + name);
+        Identifier id = Taiao.id("item/" + name);
 
         return new Model(Optional.of(id), Optional.empty(), textureKeys);
     }

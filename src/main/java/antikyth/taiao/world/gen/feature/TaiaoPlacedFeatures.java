@@ -21,7 +21,7 @@ import java.util.List;
 
 public class TaiaoPlacedFeatures {
     public static final RegistryKey<PlacedFeature> CABBAGE_TREE_CHECKED = Taiao.createRegistryKey(
-            "cabbage_tree_checked",
+            Taiao.id("cabbage_tree_checked"),
             RegistryKeys.PLACED_FEATURE
     );
 

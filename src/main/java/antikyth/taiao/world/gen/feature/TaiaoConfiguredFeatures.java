@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class TaiaoConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = Taiao.createRegistryKey(
-            "cabbage_tree",
+            Taiao.id("cabbage_tree"),
             RegistryKeys.CONFIGURED_FEATURE
     );
 
