@@ -1,8 +1,13 @@
-// 1.20.1	2025-01-13T17:48:51.8615616	Te Taiao o Aotearoa/Block Loot Tables
+// 1.20.1	2025-01-13T21:29:47.1825978	Te Taiao o Aotearoa/Block Loot Tables
 31f13bf4a749745f4b79bbd2cff45bd27a172f7b data\taiao\loot_tables\blocks\stripped_cabbage_tree_log.json
 ffa27a0e5bc47c060a4031a0a54430e79682e978 data\taiao\loot_tables\blocks\cabbage_tree_log.json
+e85c01487880101109c4d91f851012fe87df6765 data\taiao\loot_tables\blocks\stripped_kauri_log.json
 5296825369309fc6cff180c370784ce980d21dac data\taiao\loot_tables\blocks\potted_cabbage_tree_sapling.json
 6139f54fdcd827cfb70dfe15bbe66f5ce1f8af46 data\taiao\loot_tables\blocks\stripped_cabbage_tree_wood.json
+7efe7663fb75bd9f93220f85cd4c2b7e0ab05330 data\taiao\loot_tables\blocks\kauri_planks.json
 c9229815a2a08bfbb74613146d47efbf4c75e64f data\taiao\loot_tables\blocks\cabbage_tree_leaves.json
+5b3a8cca464eae8269c942e15e21e384762d7bd1 data\taiao\loot_tables\blocks\kauri_wood.json
 f391df9f7fbe01505eeefcb9af3515c282d643b0 data\taiao\loot_tables\blocks\cabbage_tree_sapling.json
+0032542f8e350a99d2e80a5899112265afab6661 data\taiao\loot_tables\blocks\stripped_kauri_wood.json
+803729abc461be91316f0885df32f9ddc9f2e65e data\taiao\loot_tables\blocks\kauri_log.json
 6d0b0c2951e3fb499b2e1473c6256454adcc6916 data\taiao\loot_tables\blocks\cabbage_tree_wood.json

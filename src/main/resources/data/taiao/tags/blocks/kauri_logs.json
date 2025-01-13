@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "taiao:kauri_log",
+    "taiao:stripped_kauri_log",
+    "taiao:kauri_wood",
+    "taiao:stripped_kauri_wood"
+  ]
+}

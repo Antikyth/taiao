@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 public final class TaiaoItemTags {
     public static final TagKey<Item> THIN_LOGS = createTagKey(Taiao.id("thin_logs"));
     public static final TagKey<Item> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
+    public static final TagKey<Item> KAURI_LOGS = createTagKey(Taiao.id("kauri_logs"));
 
     public static final TagKey<Item> PUUKEKO_FOOD = createTagKey(Taiao.id("puukeko_food"));
 

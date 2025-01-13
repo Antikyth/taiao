@@ -58,6 +58,14 @@ public class TaiaoModelGenerator extends FabricModelProvider {
                 cabbageTreeLogSide,
                 cabbageTreeLogSide
         );
+
+        // Kauri logs
+        generator.registerLog(TaiaoBlocks.KAURI_LOG).log(TaiaoBlocks.KAURI_LOG).wood(TaiaoBlocks.KAURI_WOOD);
+        generator.registerLog(TaiaoBlocks.STRIPPED_KAURI_LOG)
+                .log(TaiaoBlocks.STRIPPED_KAURI_LOG)
+                .wood(TaiaoBlocks.STRIPPED_KAURI_WOOD);
+        // Kauri planks
+        generator.registerSimpleCubeAll(TaiaoBlocks.KAURI_PLANKS);
     }
 
     @Override

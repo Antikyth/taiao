@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#taiao:thin_logs"
+    "#taiao:thin_logs",
+    "#taiao:kauri_logs"
   ]
 }

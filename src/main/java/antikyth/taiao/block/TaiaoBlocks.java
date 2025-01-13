@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.world.gen.feature.CabbageTreeSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.item.BlockItem;
@@ -31,39 +32,101 @@ public class TaiaoBlocks {
             false
     );
 
-    public static final Block CABBAGE_TREE_LEAVES = registerFlammable(
-            Taiao.id("cabbage_tree_leaves"),
-            Blocks.createLeavesBlock(BlockSoundGroup.GRASS),
-            true,
+    public static final Block CABBAGE_TREE_LEAVES = flammable(
+            register(
+                    Taiao.id("cabbage_tree_leaves"),
+                    Blocks.createLeavesBlock(BlockSoundGroup.GRASS),
+                    true
+            ),
             30, 60
     );
 
-    public static final Block STRIPPED_CABBAGE_TREE_LOG = registerFlammable(
-            Taiao.id("stripped_cabbage_tree_log"),
-            createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
-            true,
+    public static final Block STRIPPED_KAURI_LOG = flammable(
+            register(
+                    Taiao.id("stripped_kauri_log"),
+                    Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.PALE_YELLOW),
+                    true
+            ), 5, 5
+    );
+    public static final Block KAURI_LOG = strippable(
+            flammable(
+                    register(
+                            Taiao.id("kauri_log"),
+                            Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.STONE_GRAY),
+                            true
+                    ),
+                    5, 5
+            ), STRIPPED_KAURI_LOG
+    );
+    public static final Block STRIPPED_KAURI_WOOD = flammable(
+            register(
+                    Taiao.id("stripped_kauri_wood"),
+                    Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.PALE_YELLOW),
+                    true
+            ), 5, 5
+    );
+    public static final Block KAURI_WOOD = strippable(
+            flammable(
+                    register(
+                            Taiao.id("kauri_wood"),
+                            Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.STONE_GRAY),
+                            true
+                    ),
+                    5, 5
+            ), STRIPPED_KAURI_WOOD
+    );
+
+    public static final Block STRIPPED_CABBAGE_TREE_LOG = flammable(
+            register(
+                    Taiao.id("stripped_cabbage_tree_log"),
+                    createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
+                    true
+            ),
             5, 5
     );
-    public static final Block STRIPPED_CABBAGE_TREE_WOOD = registerFlammable(
-            Taiao.id("stripped_cabbage_tree_wood"),
-            createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
-            true,
+    public static final Block STRIPPED_CABBAGE_TREE_WOOD = flammable(
+            register(
+                    Taiao.id("stripped_cabbage_tree_wood"),
+                    createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
+                    true
+            ),
             5, 5
     );
-    public static final Block CABBAGE_TREE_LOG = registerFlammable(
-            Taiao.id("cabbage_tree_log"),
-            createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY),
-            true,
+    public static final Block CABBAGE_TREE_LOG = flammable(
+            register(
+                    Taiao.id("cabbage_tree_log"),
+                    createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY),
+                    true
+            ),
             5, 5
     );
-    public static final Block CABBAGE_TREE_WOOD = registerFlammable(
-            Taiao.id("cabbage_tree_wood"),
-            createThinLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY),
-            true,
+    public static final Block CABBAGE_TREE_WOOD = flammable(
+            register(
+                    Taiao.id("cabbage_tree_wood"),
+                    createThinLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY),
+                    true
+            ),
             5, 5
     );
 
+    public static final Block KAURI_PLANKS = flammable(
+            register(
+                    Taiao.id("kauri_planks"),
+                    createPlanks(MapColor.PALE_YELLOW),
+                    true
+            ), 5, 20
+    );
+
     public static void initialize() {
+    }
+
+    public static Block createPlanks(MapColor color) {
+        return new Block(AbstractBlock.Settings.create()
+                .mapColor(color)
+                .instrument(Instrument.BASS)
+                .strength(2.0F, 3.0F)
+                .sounds(BlockSoundGroup.WOOD)
+                .burnable());
     }
 
     @Contract("_, _ -> new")
@@ -79,18 +142,16 @@ public class TaiaoBlocks {
                 .burnable());
     }
 
-    public static Block registerFlammable(
-            Identifier id,
-            Block block,
-            boolean registerItem,
-            int burnChance,
-            int spreadChance
-    ) {
-        block = register(id, block, registerItem);
-
+    public static Block flammable(Block block, int burnChance, int spreadChance) {
         FlammableBlockRegistry.getDefaultInstance().add(block, burnChance, spreadChance);
 
         return block;
+    }
+
+    public static Block strippable(Block unstripped, Block stripped) {
+        StrippableBlockRegistry.register(unstripped, stripped);
+
+        return unstripped;
     }
 
     public static Block register(Identifier id, Block block, boolean registerItem) {

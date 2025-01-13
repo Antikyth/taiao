@@ -5,6 +5,12 @@
   "block.taiao.potted_cabbage_tree_sapling": "Potted Tī Kōuka Sapling",
   "block.taiao.cabbage_tree_leaves": "Tī Kōuka Leaves",
 
+  "block.taiao.kauri_log": "Kauri Log",
+  "block.taiao.stripped_kauri_log": "Stripped Kauri Log",
+  "block.taiao.kauri_wood": "Kauri Wood",
+  "block.taiao.stripped_kauri_wood": "Stripped Kauri Wood",
+  "block.taiao.kauri_planks": "Kauri Planks",
+
   "block.taiao.stripped_cabbage_tree_log": "Stripped Tī Kōuka Log",
   "block.taiao.stripped_cabbage_tree_wood": "Stripped Tī Kōuka Wood",
   "block.taiao.cabbage_tree_log": "Tī Kōuka Log",
@@ -16,6 +22,9 @@
 
   "tag.block.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
   "tag.item.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
+
+  "tag.block.taiao.kauri_logs": "Kauri Logs",
+  "tag.item.taiao.kauri_logs": "Kauri Logs",
 
   "tag.block.taiao.thin_logs": "Thin Logs",
   "tag.item.taiao.thin_logs": "Thin Logs"

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "taiao:block/kauri_log_top",
+    "side": "taiao:block/kauri_log"
+  }
+}

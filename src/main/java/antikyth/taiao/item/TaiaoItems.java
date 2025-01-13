@@ -24,25 +24,27 @@ public class TaiaoItems {
             new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x111111, 0x073673, new FabricItemSettings())
     );
 
-    public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP_KEY = Taiao.createRegistryKey(
+    public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP = registerItemGroup(
             Taiao.id("item_group"),
-            RegistryKeys.ITEM_GROUP
-    );
-    public static final ItemGroup TAIAO_ITEM_GROUP = registerItemGroup(
-            TAIAO_ITEM_GROUP_KEY,
             TaiaoBlocks.CABBAGE_TREE_SAPLING.asItem()
     );
 
     public static void initialize() {
         // Add items to the item group.
-        ItemGroupEvents.modifyEntriesEvent(TAIAO_ITEM_GROUP_KEY).register(group -> {
-            group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING.asItem());
-            group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES.asItem());
+        ItemGroupEvents.modifyEntriesEvent(TAIAO_ITEM_GROUP).register(group -> {
+            group.add(TaiaoBlocks.KAURI_LOG);
+            group.add(TaiaoBlocks.STRIPPED_KAURI_LOG);
+            group.add(TaiaoBlocks.KAURI_WOOD);
+            group.add(TaiaoBlocks.STRIPPED_KAURI_WOOD);
+            group.add(TaiaoBlocks.KAURI_PLANKS);
 
-            group.add(TaiaoBlocks.CABBAGE_TREE_LOG.asItem());
-            group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG.asItem());
-            group.add(TaiaoBlocks.CABBAGE_TREE_WOOD.asItem());
-            group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD.asItem());
+            group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
+            group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
+
+            group.add(TaiaoBlocks.CABBAGE_TREE_LOG);
+            group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
+            group.add(TaiaoBlocks.CABBAGE_TREE_WOOD);
+            group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
 
             group.add(PUUKEKO_SPAWN_EGG);
         });
@@ -65,8 +67,9 @@ public class TaiaoItems {
      * <p>
      * The group's translation key is {@code itemGroup.%namespace.%name}, e.g. {@code itemGroup.taiao.item_group}.
      */
-    public static ItemGroup registerItemGroup(RegistryKey<ItemGroup> key, Item icon) {
-        Identifier id = key.getValue();
+    public static RegistryKey<ItemGroup> registerItemGroup(Identifier id, Item icon) {
+        RegistryKey<ItemGroup> key = Taiao.createRegistryKey(id, RegistryKeys.ITEM_GROUP);
+
         String translationKey = String.format("itemGroup.%s.%s", id.getNamespace(), id.getPath());
 
         ItemGroup group = FabricItemGroup.builder()
@@ -74,6 +77,8 @@ public class TaiaoItems {
                 .displayName(Text.translatable(translationKey))
                 .build();
 
-        return Registry.register(Registries.ITEM_GROUP, key, group);
+        Registry.register(Registries.ITEM_GROUP, key, group);
+
+        return key;
     }
 }
