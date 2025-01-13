@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Taiao implements ModInitializer {
-    public static final String MOD_NAME = "Taiao";
+    public static final String MOD_NAME = "Te Taiao o Aotearoa";
     public static final String MOD_ID = "taiao";
 
     // This logger is used to write text to the console and the log file.

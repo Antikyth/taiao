@@ -1,6 +1,5 @@
 package antikyth.taiao.datagen;
 
-import antikyth.taiao.Taiao;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.registry.RegistryKeys;
@@ -26,6 +25,6 @@ public class TaiaoFeatureGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     public String getName() {
-        return Taiao.MOD_NAME + " Features";
+        return "Features";
     }
 }
