@@ -5,7 +5,7 @@
 package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.entity.model.TaiaoEntityModels;
+import antikyth.taiao.entity.render.TaiaoEntityModels;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;

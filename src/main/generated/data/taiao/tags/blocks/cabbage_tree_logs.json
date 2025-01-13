@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "taiao:cabbage_tree_log",
+    "taiao:cabbage_tree_wood",
+    "taiao:stripped_cabbage_tree_log",
+    "taiao:stripped_cabbage_tree_wood"
+  ]
+}

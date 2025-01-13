@@ -21,11 +21,12 @@
   "entity.taiao.puukeko": "Pūkeko",
 
   "tag.block.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
-  "tag.item.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
-
   "tag.block.taiao.kauri_logs": "Kauri Logs",
-  "tag.item.taiao.kauri_logs": "Kauri Logs",
-
   "tag.block.taiao.thin_logs": "Thin Logs",
-  "tag.item.taiao.thin_logs": "Thin Logs"
+
+  "tag.item.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
+  "tag.item.taiao.kauri_logs": "Kauri Logs",
+  "tag.item.taiao.thin_logs": "Thin Logs",
+
+  "tag.item.taiao.puukeko_food": "Pūkeko Food"
 }

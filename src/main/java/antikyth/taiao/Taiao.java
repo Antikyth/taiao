@@ -36,6 +36,9 @@ public class Taiao implements ModInitializer {
         TaiaoFoliagePlacers.initialize();
     }
 
+    /**
+     * Creates an {@link Identifier} using the {@linkplain Taiao#MOD_ID Te Taiao o Aotearoa namespace}.
+     */
     public static Identifier id(String name) {
         return Identifier.of(MOD_ID, name);
     }

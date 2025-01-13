@@ -15,8 +15,9 @@ public final class TaiaoBlockTags {
     public static final TagKey<Block> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
     public static final TagKey<Block> KAURI_LOGS = createTagKey(Taiao.id("kauri_logs"));
 
-    public static final TagKey<Block> THIN_LOG_CONNECTION_OVERRIDE = createTagKey(Taiao.id(
-            "thin_log_connection_override"));
+    public static final TagKey<Block> THIN_LOG_CONNECTION_OVERRIDE = createTagKey(
+            Taiao.id("thin_log_connection_override")
+    );
 
     public static TagKey<Block> createTagKey(Identifier id) {
         return Taiao.createTagKey(id, RegistryKeys.BLOCK);

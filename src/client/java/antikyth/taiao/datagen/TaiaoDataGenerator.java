@@ -4,7 +4,10 @@
 
 package antikyth.taiao.datagen;
 
-import antikyth.taiao.datagen.model.TaiaoModelGenerator;
+import antikyth.taiao.datagen.model.TaiaoModelProvider;
+import antikyth.taiao.datagen.tag.TaiaoBlockTagProvider;
+import antikyth.taiao.datagen.tag.TaiaoEntityTagProvider;
+import antikyth.taiao.datagen.tag.TaiaoItemTagProvider;
 import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
 import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -17,10 +20,14 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-        pack.addProvider(TaiaoModelGenerator::new);
-        pack.addProvider(TaiaoRecipeGenerator::new);
-        pack.addProvider(TaiaoBlockLootTableGenerator::new);
-        pack.addProvider(TaiaoFeatureGenerator::new);
+        pack.addProvider(TaiaoModelProvider::new);
+        pack.addProvider(TaiaoRecipeProvider::new);
+        pack.addProvider(TaiaoBlockLootTableProvider::new);
+        pack.addProvider(TaiaoConfiguredFeatureProvider::new);
+
+        TaiaoBlockTagProvider blockTagProvider = pack.addProvider(TaiaoBlockTagProvider::new);
+        pack.addProvider((output, lookup) -> new TaiaoItemTagProvider(output, lookup, blockTagProvider));
+        pack.addProvider(TaiaoEntityTagProvider::new);
     }
 
     @Override
