@@ -1,6 +1,8 @@
 package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.feature.foliage.TaiaoFoliagePlacers;
+import antikyth.taiao.feature.trunk.TaiaoTrunkPlacers;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.registry.Registry;
@@ -23,6 +25,9 @@ public class Taiao implements ModInitializer {
     public void onInitialize() {
         TaiaoBlocks.initialize();
         TaiaoItems.initialize();
+
+        TaiaoTrunkPlacers.initialize();
+        TaiaoFoliagePlacers.initialize();
     }
 
     public static Identifier id(String name) {
