@@ -15,109 +15,69 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBlocks {
-    public static final Block CABBAGE_TREE_SAPLING = register(
+    public static final Block STRIPPED_KAURI_LOG = new Builder(
+            Taiao.id("stripped_kauri_log"),
+            Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
+    ).register(true);
+    public static final Block KAURI_LOG = new Builder(
+            Taiao.id("kauri_log"),
+            Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.STONE_GRAY)
+    ).strippable(STRIPPED_KAURI_LOG).register(true);
+    public static final Block STRIPPED_KAURI_WOOD = new Builder(
+            Taiao.id("stripped_kauri_wood"),
+            Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
+    ).register(true);
+    public static final Block KAURI_WOOD = new Builder(
+            Taiao.id("kauri_wood"),
+            Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
+    ).strippable(STRIPPED_KAURI_WOOD).register(true);
+
+    public static final Block KAURI_PLANKS = new Builder(
+            Taiao.id("kauri_planks"),
+            createPlanks(MapColor.OFF_WHITE)
+    ).copyFlammable(Blocks.OAK_PLANKS).register(true);
+
+    public static final Block CABBAGE_TREE_SAPLING = new Builder(
             Taiao.id("cabbage_tree_sapling"),
-            new SaplingBlock(new CabbageTreeSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING)),
-            true
-    );
-    public static final Block POTTED_CABBAGE_TREE_SAPLING = register(
+            new SaplingBlock(new CabbageTreeSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING))
+    ).register(true);
+    public static final Block POTTED_CABBAGE_TREE_SAPLING = new Builder(
             Taiao.id("potted_cabbage_tree_sapling"),
-            Blocks.createFlowerPotBlock(CABBAGE_TREE_SAPLING),
-            false
-    );
+            Blocks.createFlowerPotBlock(CABBAGE_TREE_SAPLING)
+    ).register(false);
 
-    public static final Block CABBAGE_TREE_LEAVES = flammable(
-            register(
-                    Taiao.id("cabbage_tree_leaves"),
-                    Blocks.createLeavesBlock(BlockSoundGroup.GRASS),
-                    true
-            ),
-            30, 60
-    );
+    public static final Block CABBAGE_TREE_LEAVES = new Builder(
+            Taiao.id("cabbage_tree_leaves"),
+            Blocks.createLeavesBlock(BlockSoundGroup.GRASS)
+    ).copyFlammable(Blocks.OAK_LEAVES).register(true);
 
-    public static final Block STRIPPED_KAURI_LOG = flammable(
-            register(
-                    Taiao.id("stripped_kauri_log"),
-                    Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.PALE_YELLOW),
-                    true
-            ), 5, 5
-    );
-    public static final Block KAURI_LOG = strippable(
-            flammable(
-                    register(
-                            Taiao.id("kauri_log"),
-                            Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.STONE_GRAY),
-                            true
-                    ),
-                    5, 5
-            ), STRIPPED_KAURI_LOG
-    );
-    public static final Block STRIPPED_KAURI_WOOD = flammable(
-            register(
-                    Taiao.id("stripped_kauri_wood"),
-                    Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.PALE_YELLOW),
-                    true
-            ), 5, 5
-    );
-    public static final Block KAURI_WOOD = strippable(
-            flammable(
-                    register(
-                            Taiao.id("kauri_wood"),
-                            Blocks.createLogBlock(MapColor.PALE_YELLOW, MapColor.STONE_GRAY),
-                            true
-                    ),
-                    5, 5
-            ), STRIPPED_KAURI_WOOD
-    );
-
-    public static final Block STRIPPED_CABBAGE_TREE_LOG = flammable(
-            register(
-                    Taiao.id("stripped_cabbage_tree_log"),
-                    createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
-                    true
-            ),
-            5, 5
-    );
-    public static final Block STRIPPED_CABBAGE_TREE_WOOD = flammable(
-            register(
-                    Taiao.id("stripped_cabbage_tree_wood"),
-                    createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN),
-                    true
-            ),
-            5, 5
-    );
-    public static final Block CABBAGE_TREE_LOG = flammable(
-            register(
-                    Taiao.id("cabbage_tree_log"),
-                    createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY),
-                    true
-            ),
-            5, 5
-    );
-    public static final Block CABBAGE_TREE_WOOD = flammable(
-            register(
-                    Taiao.id("cabbage_tree_wood"),
-                    createThinLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY),
-                    true
-            ),
-            5, 5
-    );
-
-    public static final Block KAURI_PLANKS = flammable(
-            register(
-                    Taiao.id("kauri_planks"),
-                    createPlanks(MapColor.PALE_YELLOW),
-                    true
-            ), 5, 20
-    );
+    public static final Block STRIPPED_CABBAGE_TREE_LOG = new Builder(
+            Taiao.id("stripped_cabbage_tree_log"),
+            createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN)
+    ).register(true);
+    public static final Block CABBAGE_TREE_LOG = new Builder(
+            Taiao.id("cabbage_tree_log"),
+            createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY)
+    ).register(true);
+    public static final Block STRIPPED_CABBAGE_TREE_WOOD = new Builder(
+            Taiao.id("stripped_cabbage_tree_wood"),
+            createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN)
+    ).register(true);
+    public static final Block CABBAGE_TREE_WOOD = new Builder(
+            Taiao.id("cabbage_tree_wood"),
+            createThinLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
+    ).register(true);
 
     public static void initialize() {
+        registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.OAK_LOG);
+        registerFlammableTagCopy(TaiaoBlockTags.CABBAGE_TREE_LOGS, Blocks.OAK_LOG);
     }
 
     public static Block createPlanks(MapColor color) {
@@ -142,25 +102,93 @@ public class TaiaoBlocks {
                 .burnable());
     }
 
-    public static Block flammable(Block block, int burnChance, int spreadChance) {
-        FlammableBlockRegistry.getDefaultInstance().add(block, burnChance, spreadChance);
-
-        return block;
+    /**
+     * Registers a whole {@code tag} as flammable.
+     */
+    public static void registerFlammableTag(TagKey<Block> tag, int burnChance, int spreadChance) {
+        FlammableBlockRegistry.getDefaultInstance().add(tag, burnChance, spreadChance);
     }
 
-    public static Block strippable(Block unstripped, Block stripped) {
-        StrippableBlockRegistry.register(unstripped, stripped);
-
-        return unstripped;
+    /**
+     * Registers a whole {@code tag} as flammable, copying the {@code burnChance} and {@code spreadChance} from the
+     * given {@code block}.
+     */
+    public static void registerFlammableTagCopy(TagKey<Block> tag, Block block) {
+        FlammableBlockRegistry.getDefaultInstance().add(tag, FlammableBlockRegistry.getDefaultInstance().get(block));
     }
 
-    public static Block register(Identifier id, Block block, boolean registerItem) {
-        if (registerItem) {
-            BlockItem item = new BlockItem(block, new Item.Settings());
+    /**
+     * A builder for registering blocks.
+     */
+    public static class Builder {
+        private final Identifier id;
+        private final Block block;
 
-            Registry.register(Registries.ITEM, id, item);
+        public Builder(Identifier id, Block block) {
+            this.id = id;
+            this.block = block;
         }
 
-        return Registry.register(Registries.BLOCK, id, block);
+        /**
+         * Makes this block flammable.
+         * <p>
+         * See {@link FireBlock#registerDefaultFlammables()} for a list of vanilla {@code burnChance} and
+         * {@code spreadChance} examples.
+         * <p>
+         * Note: to make an entire tag flammable, call {@link FlammableBlockRegistry#add(TagKey, int, int)} from an
+         * initialize method instead.
+         *
+         * @param burnChance   The chance for this block to burn.
+         * @param spreadChance The chance for this block to spread fire to other blocks.
+         */
+        public Builder flammable(int burnChance, int spreadChance) {
+            FlammableBlockRegistry.getDefaultInstance().add(this.block, burnChance, spreadChance);
+
+            return this;
+        }
+
+        /**
+         * Makes this block flammable, copying the {@code burnChance} and {@code spreadChance} from the given
+         * {@code block}.
+         * <p>
+         * See {@link FireBlock#registerDefaultFlammables()} for a list of vanilla {@code burnChance} and
+         * {@code spreadChance} examples.
+         * <p>
+         * Note: to make an entire tag flammable, call {@link FlammableBlockRegistry#add(TagKey, int, int)} from an
+         * initialize method instead.
+         */
+        public Builder copyFlammable(Block block) {
+            FlammableBlockRegistry.getDefaultInstance()
+                    .add(this.block, FlammableBlockRegistry.getDefaultInstance().get(block));
+
+            return this;
+        }
+
+        /**
+         * Makes this block strippable into the given {@code stripped} form.
+         * <p>
+         * Warning: this only works for blocks with an {@link net.minecraft.state.property.Properties#AXIS AXIS}
+         * property. For other blocks, use {@link Strippable#STRIPPED_BLOCKS}.
+         */
+        public Builder strippable(Block stripped) {
+            StrippableBlockRegistry.register(this.block, stripped);
+
+            return this;
+        }
+
+        /**
+         * Registers this block, completing the builder.
+         *
+         * @param registerItem Whether to register a {@link BlockItem} for this block.
+         */
+        public Block register(boolean registerItem) {
+            if (registerItem) {
+                BlockItem item = new BlockItem(this.block, new Item.Settings());
+
+                Registry.register(Registries.ITEM, this.id, item);
+            }
+
+            return Registry.register(Registries.BLOCK, this.id, this.block);
+        }
     }
 }
