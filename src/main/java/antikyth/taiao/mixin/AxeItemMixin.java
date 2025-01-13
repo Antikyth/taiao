@@ -17,6 +17,10 @@ import java.util.Optional;
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @Mixin(AxeItem.class)
 public class AxeItemMixin {
+    /**
+     * Adds support for {@link Strippable} blocks that would otherwise not be supported for stripping due to their lack
+     * of an {@link net.minecraft.state.property.Properties#AXIS AXIS} property.
+     */
     @ModifyReturnValue(
             method = "getStrippedState(Lnet/minecraft/block/BlockState;)Ljava/util/Optional;",
             at = @At("RETURN")
