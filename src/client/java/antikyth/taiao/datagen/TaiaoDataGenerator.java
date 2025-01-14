@@ -4,6 +4,8 @@
 
 package antikyth.taiao.datagen;
 
+import antikyth.taiao.datagen.loottable.TaiaoBlockLootTableProvider;
+import antikyth.taiao.datagen.loottable.TaiaoEntityLootTableProvider;
 import antikyth.taiao.datagen.model.TaiaoModelProvider;
 import antikyth.taiao.datagen.tag.TaiaoBlockTagProvider;
 import antikyth.taiao.datagen.tag.TaiaoEntityTagProvider;
@@ -22,8 +24,10 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 
         pack.addProvider(TaiaoModelProvider::new);
         pack.addProvider(TaiaoRecipeProvider::new);
-        pack.addProvider(TaiaoBlockLootTableProvider::new);
         pack.addProvider(TaiaoConfiguredFeatureProvider::new);
+
+        pack.addProvider(TaiaoBlockLootTableProvider::new);
+        pack.addProvider(TaiaoEntityLootTableProvider::new);
 
         TaiaoBlockTagProvider blockTagProvider = pack.addProvider(TaiaoBlockTagProvider::new);
         pack.addProvider((output, lookup) -> new TaiaoItemTagProvider(output, lookup, blockTagProvider));

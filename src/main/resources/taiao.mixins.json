@@ -2,7 +2,7 @@
   "required": true,
   "package": "antikyth.taiao.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["AxeItemMixin"],
+  "mixins": ["AxeItemMixin", "EntityLootTableGeneratorAccessor"],
   "injectors": {
     "defaultRequire": 1
   }

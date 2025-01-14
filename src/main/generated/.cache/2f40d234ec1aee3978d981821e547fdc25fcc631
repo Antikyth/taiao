@@ -1,8 +1,8 @@
-// 1.20.1	2025-01-14T10:52:00.8694554	Te Taiao o Aotearoa/Block Loot Tables
+// 1.20.1	2025-01-14T12:52:02.706406	Te Taiao o Aotearoa/Block Loot Tables
 31f13bf4a749745f4b79bbd2cff45bd27a172f7b data\taiao\loot_tables\blocks\stripped_cabbage_tree_log.json
 ffa27a0e5bc47c060a4031a0a54430e79682e978 data\taiao\loot_tables\blocks\cabbage_tree_log.json
-e85c01487880101109c4d91f851012fe87df6765 data\taiao\loot_tables\blocks\stripped_kauri_log.json
 5296825369309fc6cff180c370784ce980d21dac data\taiao\loot_tables\blocks\potted_cabbage_tree_sapling.json
+e85c01487880101109c4d91f851012fe87df6765 data\taiao\loot_tables\blocks\stripped_kauri_log.json
 6139f54fdcd827cfb70dfe15bbe66f5ce1f8af46 data\taiao\loot_tables\blocks\stripped_cabbage_tree_wood.json
 7efe7663fb75bd9f93220f85cd4c2b7e0ab05330 data\taiao\loot_tables\blocks\kauri_planks.json
 c9229815a2a08bfbb74613146d47efbf4c75e64f data\taiao\loot_tables\blocks\cabbage_tree_leaves.json
