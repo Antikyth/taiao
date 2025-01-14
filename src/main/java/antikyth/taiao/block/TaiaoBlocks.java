@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -55,7 +56,7 @@ public class TaiaoBlocks {
 
     public static final Block CABBAGE_TREE_LEAVES = new Builder(
             Taiao.id("cabbage_tree_leaves"),
-            Blocks.createLeavesBlock(BlockSoundGroup.GRASS)
+            new SlowMovementLeavesBlock(createLeavesSettings(MapColor.LIME, BlockSoundGroup.GRASS).noCollision())
     ).copyFlammable(Blocks.OAK_LEAVES).register(true);
 
     public static final Block STRIPPED_CABBAGE_TREE_LOG = new Builder(
@@ -87,6 +88,21 @@ public class TaiaoBlocks {
                 .strength(2.0F, 3.0F)
                 .sounds(BlockSoundGroup.WOOD)
                 .burnable());
+    }
+
+    public static AbstractBlock.Settings createLeavesSettings(MapColor color, BlockSoundGroup soundGroup) {
+        return AbstractBlock.Settings.create()
+                .mapColor(color)
+                .strength(0.2F)
+                .ticksRandomly()
+                .sounds(soundGroup)
+                .nonOpaque()
+                .allowsSpawning(Blocks::canSpawnOnLeaves)
+                .suffocates(Blocks::never)
+                .blockVision(Blocks::never)
+                .burnable()
+                .pistonBehavior(PistonBehavior.DESTROY)
+                .solidBlock(Blocks::never);
     }
 
     @Contract("_, _ -> new")
