@@ -15,6 +15,9 @@ public final class TaiaoItemTags {
     public static final TagKey<Item> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
     public static final TagKey<Item> KAURI_LOGS = createTagKey(Taiao.id("kauri_logs"));
 
+    /**
+     * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#PUUKEKO pūkeko}.
+     */
     public static final TagKey<Item> PUUKEKO_FOOD = createTagKey(Taiao.id("puukeko_food"));
 
     public static TagKey<Item> createTagKey(Identifier id) {

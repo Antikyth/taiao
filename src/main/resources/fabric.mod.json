@@ -42,5 +42,6 @@
     "fabric-api": "*"
   },
   "suggests": {
+    "emi": "*"
   }
 }

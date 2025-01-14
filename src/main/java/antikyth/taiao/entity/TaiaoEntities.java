@@ -15,6 +15,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class TaiaoEntities {
+    /**
+     * A pūkeko.
+     */
     public static final EntityType<PuukekoEntity> PUUKEKO = register(
             Taiao.id("puukeko"),
             FabricEntityTypeBuilder.createLiving()
