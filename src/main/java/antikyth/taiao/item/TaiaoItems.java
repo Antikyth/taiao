@@ -23,6 +23,10 @@ public class TaiaoItems {
             Taiao.id("puukeko_spawn_egg"),
             new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x111111, 0x073673, new FabricItemSettings())
     );
+    public static final Item MOA_SPAWN_EGG = register(
+            Taiao.id("moa_spawn_egg"),
+            new SpawnEggItem(TaiaoEntities.MOA, 0x3f2a1a, 0x6a6a6a, new FabricItemSettings())
+    );
 
     public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP = registerItemGroup(
             Taiao.id("item_group"),
@@ -47,11 +51,13 @@ public class TaiaoItems {
             group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
 
             group.add(PUUKEKO_SPAWN_EGG);
+            group.add(MOA_SPAWN_EGG);
         });
 
         // Spawn eggs
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(group -> {
             group.add(PUUKEKO_SPAWN_EGG);
+            group.add(MOA_SPAWN_EGG);
         });
     }
 

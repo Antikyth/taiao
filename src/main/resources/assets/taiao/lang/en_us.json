@@ -17,8 +17,10 @@
   "block.taiao.cabbage_tree_wood": "Tī Kōuka Wood",
 
   "item.taiao.puukeko_spawn_egg": "Pūkeko Spawn Egg",
+  "item.taiao.moa_spawn_egg": "Moa Spawn Egg",
 
   "entity.taiao.puukeko": "Pūkeko",
+  "entity.taiao.moa": "Moa",
 
   "tag.block.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
   "tag.block.taiao.kauri_logs": "Kauri Logs",
@@ -28,5 +30,6 @@
   "tag.item.taiao.kauri_logs": "Kauri Logs",
   "tag.item.taiao.thin_logs": "Thin Logs",
 
-  "tag.item.taiao.puukeko_food": "Pūkeko Food"
+  "tag.item.taiao.puukeko_tempt_items": "Pūkeko Food",
+  "tag.item.taiao.moa_tempt_items": "Moa Food"
 }

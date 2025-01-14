@@ -71,6 +71,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator generator) {
         generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+        generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
     }
 
     public static void registerThinLog(BlockStateModelGenerator generator, ThinLogBlock block) {

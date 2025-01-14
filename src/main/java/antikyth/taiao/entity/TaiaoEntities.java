@@ -29,6 +29,17 @@ public class TaiaoEntities {
                     .build()
     );
 
+    public static final EntityType<MoaEntity> MOA = register(
+            Taiao.id("moa"),
+            FabricEntityTypeBuilder.createLiving()
+                    .entityFactory(MoaEntity::new)
+                    .spawnGroup(SpawnGroup.CREATURE)
+                    .dimensions(EntityDimensions.changing(1.25f, 2.25f))
+                    .defaultAttributes(MoaEntity::createAttributes)
+                    .trackRangeChunks(10)
+                    .build()
+    );
+
     public static <T extends Entity> EntityType<T> register(Identifier id, EntityType<T> entityType) {
         return Registry.register(Registries.ENTITY_TYPE, id, entityType);
     }
