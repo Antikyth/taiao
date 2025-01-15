@@ -55,7 +55,7 @@ public class PuukekoEntity extends AnimalEntity {
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
         this.goalSelector.add(
                 3,
-                new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.PUUKEKO_TEMPT_ITEMS), false)
+                new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.PUUKEKO_FOOD), false)
         );
         this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
@@ -96,7 +96,7 @@ public class PuukekoEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(TaiaoItemTags.PUUKEKO_TEMPT_ITEMS);
+        return stack.isIn(TaiaoItemTags.PUUKEKO_FOOD);
     }
 
     @Override

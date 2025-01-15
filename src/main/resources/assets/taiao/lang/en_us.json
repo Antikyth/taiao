@@ -30,6 +30,6 @@
   "tag.item.taiao.kauri_logs": "Kauri Logs",
   "tag.item.taiao.thin_logs": "Thin Logs",
 
-  "tag.item.taiao.puukeko_tempt_items": "Pūkeko Food",
-  "tag.item.taiao.moa_tempt_items": "Moa Food"
+  "tag.item.taiao.puukeko_food": "Pūkeko Food",
+  "tag.item.taiao.moa_food": "Moa Food"
 }

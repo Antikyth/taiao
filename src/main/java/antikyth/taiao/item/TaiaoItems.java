@@ -25,7 +25,7 @@ public class TaiaoItems {
     );
     public static final Item MOA_SPAWN_EGG = register(
             Taiao.id("moa_spawn_egg"),
-            new SpawnEggItem(TaiaoEntities.MOA, 0x3f2a1a, 0x6a6a6a, new FabricItemSettings())
+            new SpawnEggItem(TaiaoEntities.MOA, 0x2c180c, 0x55361c, new FabricItemSettings())
     );
 
     public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP = registerItemGroup(

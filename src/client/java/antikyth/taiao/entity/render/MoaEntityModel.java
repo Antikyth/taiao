@@ -1,3 +1,7 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 package antikyth.taiao.entity.render;
 
 import com.google.common.collect.ImmutableList;
@@ -8,8 +12,6 @@ import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 // Made with Blockbench 4.11.2
-// Exported for Minecraft version 1.17+ for Yarn
-// Paste this class into your mod and generate all required imports
 public class MoaEntityModel<E extends AnimalEntity> extends AnimalModel<E> {
     private final ModelPart body;
     private final ModelPart leftLeg;
@@ -17,6 +19,8 @@ public class MoaEntityModel<E extends AnimalEntity> extends AnimalModel<E> {
     private final ModelPart head;
 
     public MoaEntityModel(@NotNull ModelPart root) {
+        super(true, 14.75f, 4f);
+
         this.body = root.getChild("body");
         this.leftLeg = root.getChild("left_leg");
         this.rightLeg = root.getChild("right_leg");

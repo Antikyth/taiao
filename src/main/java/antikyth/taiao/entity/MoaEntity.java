@@ -40,7 +40,7 @@ public class MoaEntity extends AnimalEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
         this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(3, new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.MOA_TEMPT_ITEMS), false));
+        this.goalSelector.add(3, new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.MOA_FOOD), false));
         this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
@@ -54,7 +54,7 @@ public class MoaEntity extends AnimalEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 53.0)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
     }
 
@@ -65,7 +65,7 @@ public class MoaEntity extends AnimalEntity {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return stack.isIn(TaiaoItemTags.MOA_TEMPT_ITEMS);
+        return stack.isIn(TaiaoItemTags.MOA_FOOD);
     }
 
     @Override

@@ -18,11 +18,11 @@ public final class TaiaoItemTags {
     /**
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#PUUKEKO pūkeko}.
      */
-    public static final TagKey<Item> PUUKEKO_TEMPT_ITEMS = createTagKey(Taiao.id("puukeko_tempt_items"));
+    public static final TagKey<Item> PUUKEKO_FOOD = createTagKey(Taiao.id("puukeko_food"));
     /**
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#MOA moa}.
      */
-    public static final TagKey<Item> MOA_TEMPT_ITEMS = createTagKey(Taiao.id("moa_tempt_items"));
+    public static final TagKey<Item> MOA_FOOD = createTagKey(Taiao.id("moa_food"));
 
     public static TagKey<Item> createTagKey(Identifier id) {
         return Taiao.createTagKey(id, RegistryKeys.ITEM);
