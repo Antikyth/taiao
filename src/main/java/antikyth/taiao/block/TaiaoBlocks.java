@@ -5,7 +5,8 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.world.gen.feature.CabbageTreeSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.CabbageTreeSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.KauriSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
@@ -23,6 +24,19 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBlocks {
+    public static final Block KAURI_SAPLING = new Builder(
+            Taiao.id("kauri_sapling"),
+            new SaplingBlock(new KauriSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.DARK_OAK_SAPLING))
+    ).register(true);
+    public static final Block POTTED_KAURI_SAPLING = new Builder(
+            Taiao.id("potted_kauri_sapling"),
+            Blocks.createFlowerPotBlock(KAURI_SAPLING)
+    ).register(false);
+    public static final Block KAURI_LEAVES = new Builder(
+            Taiao.id("kauri_leaves"),
+            Blocks.createLeavesBlock(BlockSoundGroup.GRASS)
+    ).copyFlammable(Blocks.DARK_OAK_LEAVES).register(true);
+
     public static final Block STRIPPED_KAURI_LOG = new Builder(
             Taiao.id("stripped_kauri_log"),
             Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
@@ -53,7 +67,6 @@ public class TaiaoBlocks {
             Taiao.id("potted_cabbage_tree_sapling"),
             Blocks.createFlowerPotBlock(CABBAGE_TREE_SAPLING)
     ).register(false);
-
     public static final Block CABBAGE_TREE_LEAVES = new Builder(
             Taiao.id("cabbage_tree_leaves"),
             new SlowMovementLeavesBlock(createLeavesSettings(MapColor.LIME, BlockSoundGroup.GRASS).noCollision())

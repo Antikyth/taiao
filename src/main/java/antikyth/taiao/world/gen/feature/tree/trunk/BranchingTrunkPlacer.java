@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.world.gen.feature.trunk;
+package antikyth.taiao.world.gen.feature.tree.trunk;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
@@ -154,14 +154,7 @@ public class BranchingTrunkPlacer extends TrunkPlacer {
     }
 
     private enum Axis {
-        X(),
-        Z();
-
-        public Axis flip() {
-            return switch (this) {
-                case X -> Axis.Z;
-                case Z -> Axis.X;
-            };
-        }
+        X,
+        Z
     }
 }

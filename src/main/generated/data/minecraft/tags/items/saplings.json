@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "taiao:kauri_sapling",
     "taiao:cabbage_tree_sapling"
   ]
 }

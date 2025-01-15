@@ -36,6 +36,9 @@ public class TaiaoItems {
     public static void initialize() {
         // Add items to the item group.
         ItemGroupEvents.modifyEntriesEvent(TAIAO_ITEM_GROUP).register(group -> {
+            group.add(TaiaoBlocks.KAURI_SAPLING);
+            group.add(TaiaoBlocks.KAURI_LEAVES);
+
             group.add(TaiaoBlocks.KAURI_LOG);
             group.add(TaiaoBlocks.STRIPPED_KAURI_LOG);
             group.add(TaiaoBlocks.KAURI_WOOD);

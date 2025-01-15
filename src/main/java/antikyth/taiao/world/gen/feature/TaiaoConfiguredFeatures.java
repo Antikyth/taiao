@@ -6,28 +6,45 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.world.gen.feature.foliage.SingleFoliagePlacer;
-import antikyth.taiao.world.gen.feature.trunk.BranchingTrunkPlacer;
+import antikyth.taiao.world.gen.feature.tree.foliage.SingleFoliagePlacer;
+import antikyth.taiao.world.gen.feature.tree.trunk.BranchingTrunkPlacer;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.OptionalInt;
+
 public class TaiaoConfiguredFeatures {
-    public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = Taiao.createRegistryKey(
-            Taiao.id("cabbage_tree"),
-            RegistryKeys.CONFIGURED_FEATURE
-    );
+    public static final RegistryKey<ConfiguredFeature<?, ?>> KAURI_TREE = createRegistryKey(Taiao.id("kauri_tree"));
+    public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = createRegistryKey(Taiao.id("cabbage_tree"));
 
     public static void bootstrapConfiguredFeatures(@NotNull Registerable<ConfiguredFeature<?, ?>> registerable) {
         registerable.register(
-                TaiaoConfiguredFeatures.CABBAGE_TREE,
+                KAURI_TREE,
+                new ConfiguredFeature<>(
+                        Feature.TREE,
+                        new TreeFeatureConfig.Builder(
+                                BlockStateProvider.of(TaiaoBlocks.KAURI_LOG),
+                                new DarkOakTrunkPlacer(9, 3, 2),
+                                BlockStateProvider.of(TaiaoBlocks.KAURI_LEAVES),
+                                new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
+                                new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+                        ).ignoreVines().build()
+                )
+        );
+        registerable.register(
+                CABBAGE_TREE,
                 new ConfiguredFeature<>(
                         Feature.TREE,
                         new TreeFeatureConfig.Builder(
@@ -39,5 +56,9 @@ public class TaiaoConfiguredFeatures {
                         ).ignoreVines().build()
                 )
         );
+    }
+
+    public static RegistryKey<ConfiguredFeature<?, ?>> createRegistryKey(Identifier id) {
+        return Taiao.createRegistryKey(id, RegistryKeys.CONFIGURED_FEATURE);
     }
 }

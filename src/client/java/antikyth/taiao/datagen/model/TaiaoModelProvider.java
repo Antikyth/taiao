@@ -25,19 +25,32 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(@NotNull BlockStateModelGenerator generator) {
+        Identifier kauriLeaves = new Identifier("minecraft:block/acacia_leaves");
+
         Identifier strippedCabbageTreeLogSide = new Identifier("minecraft:block/stripped_oak_log");
         Identifier cabbageTreeLogSide = new Identifier("minecraft:block/acacia_log");
 
-        // Cabbage tree leaves
-        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.TINTED);
-        // Cabbage tree sapling
+        generator.registerFlowerPotPlant(
+                TaiaoBlocks.KAURI_SAPLING,
+                TaiaoBlocks.POTTED_KAURI_SAPLING,
+                BlockStateModelGenerator.TintType.NOT_TINTED
+        );
+        generator.registerSingleton(TaiaoBlocks.KAURI_LEAVES, TextureMap.all(kauriLeaves), Models.LEAVES);
+
+        generator.registerLog(TaiaoBlocks.KAURI_LOG).log(TaiaoBlocks.KAURI_LOG).wood(TaiaoBlocks.KAURI_WOOD);
+        generator.registerLog(TaiaoBlocks.STRIPPED_KAURI_LOG)
+                .log(TaiaoBlocks.STRIPPED_KAURI_LOG)
+                .wood(TaiaoBlocks.STRIPPED_KAURI_WOOD);
+        generator.registerSimpleCubeAll(TaiaoBlocks.KAURI_PLANKS);
+
+
         generator.registerFlowerPotPlant(
                 TaiaoBlocks.CABBAGE_TREE_SAPLING,
                 TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING,
                 BlockStateModelGenerator.TintType.NOT_TINTED
         );
+        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.TINTED);
 
-        // Stripped cabbage tree logs
         registerThinLog(
                 generator,
                 (ThinLogBlock) TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG,
@@ -50,7 +63,6 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 strippedCabbageTreeLogSide,
                 strippedCabbageTreeLogSide
         );
-        // Cabbage tree logs
         registerThinLog(generator, (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_LOG, cabbageTreeLogSide, null);
         registerThinLog(
                 generator,
@@ -58,14 +70,6 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 cabbageTreeLogSide,
                 cabbageTreeLogSide
         );
-
-        // Kauri logs
-        generator.registerLog(TaiaoBlocks.KAURI_LOG).log(TaiaoBlocks.KAURI_LOG).wood(TaiaoBlocks.KAURI_WOOD);
-        generator.registerLog(TaiaoBlocks.STRIPPED_KAURI_LOG)
-                .log(TaiaoBlocks.STRIPPED_KAURI_LOG)
-                .wood(TaiaoBlocks.STRIPPED_KAURI_WOOD);
-        // Kauri planks
-        generator.registerSimpleCubeAll(TaiaoBlocks.KAURI_PLANKS);
     }
 
     @Override

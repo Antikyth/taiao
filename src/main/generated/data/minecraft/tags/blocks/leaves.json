@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "taiao:kauri_leaves",
     "taiao:cabbage_tree_leaves"
   ]
 }

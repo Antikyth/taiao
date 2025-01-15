@@ -2,8 +2,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.world.gen.feature;
+package antikyth.taiao.world.gen.feature.tree;
 
+import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.random.Random;

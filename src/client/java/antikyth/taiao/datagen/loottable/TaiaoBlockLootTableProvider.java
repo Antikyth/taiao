@@ -15,10 +15,9 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
-        addDrop(TaiaoBlocks.CABBAGE_TREE_LOG);
-        addDrop(TaiaoBlocks.CABBAGE_TREE_WOOD);
-        addDrop(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
-        addDrop(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
+        addDrop(TaiaoBlocks.KAURI_SAPLING);
+        addPottedPlantDrops(TaiaoBlocks.POTTED_KAURI_SAPLING);
+        addDrop(TaiaoBlocks.KAURI_LEAVES, block -> leavesDrops(block, TaiaoBlocks.KAURI_SAPLING, SAPLING_DROP_CHANCE));
 
         addDrop(TaiaoBlocks.KAURI_LOG);
         addDrop(TaiaoBlocks.STRIPPED_KAURI_LOG);
@@ -32,5 +31,10 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
                 TaiaoBlocks.CABBAGE_TREE_LEAVES,
                 block -> leavesDrops(block, TaiaoBlocks.CABBAGE_TREE_SAPLING, SAPLING_DROP_CHANCE)
         );
+
+        addDrop(TaiaoBlocks.CABBAGE_TREE_LOG);
+        addDrop(TaiaoBlocks.CABBAGE_TREE_WOOD);
+        addDrop(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
+        addDrop(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
     }
 }
