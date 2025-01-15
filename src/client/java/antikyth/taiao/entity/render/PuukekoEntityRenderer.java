@@ -8,21 +8,20 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.PuukekoEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.ChickenEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-public class PuukekoEntityRenderer extends MobEntityRenderer<PuukekoEntity, ChickenEntityModel<PuukekoEntity>> {
-    private static final Identifier TEXTURE = Taiao.id("textures/entity/puukeko.png");
+public class PuukekoEntityRenderer extends MobEntityRenderer<PuukekoEntity, PuukekoEntityModel<PuukekoEntity>> {
+    private static final Identifier ADULT_TEXTURE = Taiao.id("textures/entity/puukeko/adult.png");
+    private static final Identifier BABY_TEXTURE = Taiao.id("textures/entity/puukeko/baby.png");
 
     public PuukekoEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new ChickenEntityModel<>(context.getPart(EntityModelLayers.CHICKEN)), 0.3f);
+        super(context, new PuukekoEntityModel<>(context.getPart(TaiaoEntityModels.PUUKEKO)), 0.3f);
     }
 
     @Override
     public Identifier getTexture(PuukekoEntity entity) {
-        return TEXTURE;
+        return entity.isBaby() ? BABY_TEXTURE : ADULT_TEXTURE;
     }
 
     @Override

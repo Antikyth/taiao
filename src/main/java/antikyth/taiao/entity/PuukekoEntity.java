@@ -95,6 +95,11 @@ public class PuukekoEntity extends AnimalEntity {
     }
 
     @Override
+    public float getScaleFactor() {
+        return this.isBaby() ? 0.65f : 1f;
+    }
+
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack.isIn(TaiaoItemTags.PUUKEKO_FOOD);
     }
