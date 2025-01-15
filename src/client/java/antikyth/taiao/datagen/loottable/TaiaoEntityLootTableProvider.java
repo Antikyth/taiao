@@ -56,5 +56,40 @@ public class TaiaoEntityLootTableProvider extends FabricEntityLootTableProvider 
                                         )
                         )
         );
+        this.register(
+                TaiaoEntities.MOA,
+                LootTable.builder()
+                        .pool(
+                                LootPool.builder()
+                                        .rolls(ConstantLootNumberProvider.create(1.0F))
+                                        .with(
+                                                ItemEntry.builder(Items.FEATHER)
+                                                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
+                                                                0.0F,
+                                                                5.0F
+                                                        )))
+                                                        .apply(LootingEnchantLootFunction.builder(
+                                                                UniformLootNumberProvider.create(0.0F, 2.0F)))
+                                        )
+                        )
+                        .pool(
+                                LootPool.builder()
+                                        .rolls(ConstantLootNumberProvider.create(1.0F))
+                                        .with(
+                                                ItemEntry.builder(Items.CHICKEN)
+                                                        .apply(FurnaceSmeltLootFunction.builder()
+                                                                .conditionally(EntityPropertiesLootCondition.builder(
+                                                                        LootContext.EntityTarget.THIS,
+                                                                        NEEDS_ENTITY_ON_FIRE
+                                                                )))
+                                                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
+                                                                1f,
+                                                                3f
+                                                        )))
+                                                        .apply(LootingEnchantLootFunction.builder(
+                                                                UniformLootNumberProvider.create(0.0F, 1.0F)))
+                                        )
+                        )
+        );
     }
 }

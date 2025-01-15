@@ -49,7 +49,7 @@ public class MoaEntity extends AnimalEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
