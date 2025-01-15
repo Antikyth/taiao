@@ -21,7 +21,7 @@ import net.minecraft.util.Identifier;
 public class TaiaoItems {
     public static final Item PUUKEKO_SPAWN_EGG = register(
             Taiao.id("puukeko_spawn_egg"),
-            new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x111111, 0x073673, new FabricItemSettings())
+            new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x073673, 0xaf2e2e, new FabricItemSettings())
     );
     public static final Item MOA_SPAWN_EGG = register(
             Taiao.id("moa_spawn_egg"),
