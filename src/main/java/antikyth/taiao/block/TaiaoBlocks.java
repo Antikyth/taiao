@@ -63,11 +63,11 @@ public class TaiaoBlocks {
     ).copyFlammable(Blocks.OAK_PLANKS).register(true);
     public static final Block KAURI_PRESSURE_PLATE = new Builder(
             Taiao.id("kauri_pressure_plate"),
-            createWoodenPressurePlate(KAURI_PLANKS, TaiaoBlockSetTypes.KAURI)
+            createWoodenPressurePlate(KAURI_PLANKS, WoodFamily.KAURI.getBlockSetType())
     ).register(true);
     public static final Block KAURI_BUTTON = new Builder(
             Taiao.id("kauri_button"),
-            Blocks.createWoodenButtonBlock(TaiaoBlockSetTypes.KAURI)
+            Blocks.createWoodenButtonBlock(WoodFamily.KAURI.getBlockSetType())
     ).register(true);
     public static final Block KAURI_STAIRS = new Builder(
             Taiao.id("kauri_stairs"),
@@ -79,7 +79,7 @@ public class TaiaoBlocks {
     ).copyFlammable(KAURI_PLANKS).register(true);
     public static final Block KAURI_FENCE_GATE = new Builder(
             Taiao.id("kauri_fence_gate"),
-            new FenceGateBlock(FabricBlockSettings.copyOf(KAURI_PLANKS), TaiaoWoodTypes.KAURI)
+            new FenceGateBlock(FabricBlockSettings.copyOf(KAURI_PLANKS), WoodFamily.KAURI.getWoodType())
     ).copyFlammable(KAURI_PLANKS).register(true);
     public static final Block KAURI_FENCE = new Builder(
             Taiao.id("kauri_fence"),
@@ -121,31 +121,81 @@ public class TaiaoBlocks {
         registerFlammableTagCopy(TaiaoBlockTags.CABBAGE_TREE_LOGS, Blocks.OAK_LOG);
     }
 
-    public static class TaiaoBlockSetTypes {
-        public static final BlockSetType KAURI = new BlockSetTypeBuilder().register(Taiao.id("kauri"));
-    }
-
-    public static class TaiaoWoodTypes {
-        public static final WoodType KAURI = new WoodTypeBuilder().register(
+    /**
+     * A unified wood family containing a {@link BlockFamily}, {@link BlockSetType}, and a {@link WoodType}.
+     */
+    public static class WoodFamily {
+        public static final WoodFamily KAURI = register(
                 Taiao.id("kauri"),
-                TaiaoBlockSetTypes.KAURI
+                new BlockFamily.Builder(TaiaoBlocks.KAURI_PLANKS)
+                        .button(TaiaoBlocks.KAURI_BUTTON)
+                        .fence(TaiaoBlocks.KAURI_FENCE)
+                        .fenceGate(TaiaoBlocks.KAURI_FENCE_GATE)
+                        .pressurePlate(TaiaoBlocks.KAURI_PRESSURE_PLATE)
+                        .slab(TaiaoBlocks.KAURI_SLAB)
+                        .stairs(TaiaoBlocks.KAURI_STAIRS)
+                        .group("wooden")
+                        .unlockCriterionName("has_planks")
+                        .build()
         );
+
+        protected final BlockFamily family;
+        protected BlockSetType blockSetType;
+        protected WoodType woodType;
+
+        protected WoodFamily(
+                BlockFamily family,
+                BlockSetType blockSetType,
+                WoodType woodType
+        ) {
+            this.family = family;
+            this.blockSetType = blockSetType;
+            this.woodType = woodType;
+        }
+
+        /**
+         * Creates and registers a wood family based on the given {@link BlockFamily}.
+         * <p>
+         * {@link BlockFamily.Builder} may be used to create a {@link BlockFamily}. If you wish to customize the sounds,
+         * see {@link WoodFamily#register(Identifier, BlockFamily, BlockSetTypeBuilder, WoodTypeBuilder)}.
+         */
+        public static @NotNull WoodFamily register(Identifier id, BlockFamily family) {
+            return register(id, family, new BlockSetTypeBuilder(), new WoodTypeBuilder());
+        }
+
+        /**
+         * Creates and registers a wood family based on the given {@link BlockFamily} with customized
+         * {@link BlockSetType} and {@link WoodType}.
+         * <p>
+         * {@link BlockFamily.Builder} may be used to create a {@link BlockFamily}.
+         */
+        public static @NotNull WoodFamily register(
+                Identifier id,
+                BlockFamily family,
+                @NotNull BlockSetTypeBuilder blockSetTypeBuilder,
+                @NotNull WoodTypeBuilder woodTypeBuilder
+        ) {
+            BlockSetType blockSetType = blockSetTypeBuilder.register(id);
+            WoodType woodType = woodTypeBuilder.register(id, blockSetType);
+
+            return new WoodFamily(family, blockSetType, woodType);
+        }
+
+        public BlockFamily getBlockFamily() {
+            return this.family;
+        }
+
+        public BlockSetType getBlockSetType() {
+            return this.blockSetType;
+        }
+
+        public WoodType getWoodType() {
+            return this.woodType;
+        }
     }
 
-    public static class TaiaoBlockFamilies {
-        public static final BlockFamily KAURI = new BlockFamily.Builder(TaiaoBlocks.KAURI_PLANKS)
-                .button(TaiaoBlocks.KAURI_BUTTON)
-                .fence(TaiaoBlocks.KAURI_FENCE)
-                .fenceGate(TaiaoBlocks.KAURI_FENCE_GATE)
-                .pressurePlate(TaiaoBlocks.KAURI_PRESSURE_PLATE)
-                .slab(TaiaoBlocks.KAURI_SLAB)
-                .stairs(TaiaoBlocks.KAURI_STAIRS)
-                .group("wooden")
-                .unlockCriterionName("has_planks")
-                .build();
-    }
-
-    public static Block createPlanks(MapColor color) {
+    @Contract("_ -> new")
+    public static @NotNull Block createPlanks(MapColor color) {
         return new Block(AbstractBlock.Settings.create()
                 .mapColor(color)
                 .instrument(Instrument.BASS)
@@ -154,7 +204,8 @@ public class TaiaoBlocks {
                 .burnable());
     }
 
-    public static Block createWoodenPressurePlate(Block planks, BlockSetType blockSetType) {
+    @Contract("_, _ -> new")
+    public static @NotNull Block createWoodenPressurePlate(@NotNull Block planks, BlockSetType blockSetType) {
         return new PressurePlateBlock(
                 PressurePlateBlock.ActivationRule.EVERYTHING,
                 FabricBlockSettings.create()

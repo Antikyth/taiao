@@ -42,7 +42,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 .log(TaiaoBlocks.STRIPPED_KAURI_LOG)
                 .wood(TaiaoBlocks.STRIPPED_KAURI_WOOD);
         generator.registerCubeAllModelTexturePool(TaiaoBlocks.KAURI_PLANKS)
-                .family(TaiaoBlocks.TaiaoBlockFamilies.KAURI);
+                .family(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 
         generator.registerFlowerPotPlant(
                 TaiaoBlocks.CABBAGE_TREE_SAPLING,

@@ -21,7 +21,7 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
-        generateFamily(exporter, TaiaoBlocks.TaiaoBlockFamilies.KAURI);
+        generateFamily(exporter, TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 
         // Kauri planks
         offerPlanksRecipe(exporter, TaiaoBlocks.KAURI_PLANKS, TaiaoItemTags.KAURI_LOGS, 4);

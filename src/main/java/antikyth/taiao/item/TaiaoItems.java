@@ -41,12 +41,10 @@ public class TaiaoItems {
         ItemGroupEvents.modifyEntriesEvent(TAIAO_ITEM_GROUP).register(group -> {
             group.add(TaiaoBlocks.KAURI_SAPLING);
             group.add(TaiaoBlocks.KAURI_LEAVES);
-
             addKauriBuildingBlocks(group::add);
 
             group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
-
             addCabbageTreeBuildingBlocks(group::add);
 
             addSpawnEggs(group::add);
@@ -112,14 +110,14 @@ public class TaiaoItems {
     }
 
     /**
-     * Register the given {@code item} with the given {@code name} as its item ID.
+     * Register the given {@code item} with the given {@code id}.
      */
     public static Item register(Identifier id, Item item) {
         return Registry.register(Registries.ITEM, id, item);
     }
 
     /**
-     * Register a new item group with the given {@code key} and {@code icon}.
+     * Register a new item group with the given {@code id} and {@code icon}.
      * <p>
      * The group's translation key is {@code itemGroup.%namespace.%name}, e.g. {@code itemGroup.taiao.item_group}.
      */
