@@ -40,10 +40,20 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(TaiaoBlocks.POTTED_KAURI_SAPLING)
                 .add(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING);
         getOrCreateTagBuilder(BlockTags.LEAVES).add(TaiaoBlocks.KAURI_LEAVES).add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
-        getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(TaiaoBlockTags.KAURI_LOGS)
-                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS);
-        getOrCreateTagBuilder(BlockTags.PLANKS).add(TaiaoBlocks.KAURI_PLANKS);
         getOrCreateTagBuilder(BlockTags.SAPLINGS).add(TaiaoBlocks.KAURI_SAPLING).add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE).addTag(TaiaoBlockTags.THIN_LOGS);
+
+        getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(TaiaoBlockTags.KAURI_LOGS)
+                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS);
+        getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).addTag(TaiaoBlockTags.KAURI_LOGS)
+                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS);
+
+        getOrCreateTagBuilder(BlockTags.PLANKS).add(TaiaoBlocks.KAURI_PLANKS);
+        getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS).add(TaiaoBlocks.KAURI_BUTTON);
+        getOrCreateTagBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(TaiaoBlocks.KAURI_PRESSURE_PLATE);
+        getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS).add(TaiaoBlocks.KAURI_STAIRS);
+        getOrCreateTagBuilder(BlockTags.WOODEN_SLABS).add(TaiaoBlocks.KAURI_SLAB);
+        getOrCreateTagBuilder(BlockTags.WOODEN_FENCES).add(TaiaoBlocks.KAURI_FENCE);
+        getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(TaiaoBlocks.KAURI_FENCE_GATE);
     }
 }

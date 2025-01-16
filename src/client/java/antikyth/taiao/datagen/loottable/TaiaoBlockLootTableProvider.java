@@ -23,7 +23,14 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(TaiaoBlocks.STRIPPED_KAURI_LOG);
         addDrop(TaiaoBlocks.KAURI_WOOD);
         addDrop(TaiaoBlocks.STRIPPED_KAURI_WOOD);
+
         addDrop(TaiaoBlocks.KAURI_PLANKS);
+        addDrop(TaiaoBlocks.KAURI_PRESSURE_PLATE);
+        addDrop(TaiaoBlocks.KAURI_BUTTON);
+        addDrop(TaiaoBlocks.KAURI_STAIRS);
+        addDrop(TaiaoBlocks.KAURI_SLAB);
+        addDrop(TaiaoBlocks.KAURI_FENCE_GATE);
+        addDrop(TaiaoBlocks.KAURI_FENCE);
 
         addDrop(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         addPottedPlantDrops(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING);

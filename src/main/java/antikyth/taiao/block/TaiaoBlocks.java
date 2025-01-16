@@ -8,11 +8,14 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.world.gen.feature.tree.CabbageTreeSaplingGenerator;
 import antikyth.taiao.world.gen.feature.tree.KauriSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.data.family.BlockFamily;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -58,6 +61,30 @@ public class TaiaoBlocks {
             Taiao.id("kauri_planks"),
             createPlanks(MapColor.OFF_WHITE)
     ).copyFlammable(Blocks.OAK_PLANKS).register(true);
+    public static final Block KAURI_PRESSURE_PLATE = new Builder(
+            Taiao.id("kauri_pressure_plate"),
+            createWoodenPressurePlate(KAURI_PLANKS, TaiaoBlockSetTypes.KAURI)
+    ).register(true);
+    public static final Block KAURI_BUTTON = new Builder(
+            Taiao.id("kauri_button"),
+            Blocks.createWoodenButtonBlock(TaiaoBlockSetTypes.KAURI)
+    ).register(true);
+    public static final Block KAURI_STAIRS = new Builder(
+            Taiao.id("kauri_stairs"),
+            new StairsBlock(KAURI_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(KAURI_PLANKS))
+    ).copyFlammable(KAURI_PLANKS).register(true);
+    public static final Block KAURI_SLAB = new Builder(
+            Taiao.id("kauri_slab"),
+            new SlabBlock(FabricBlockSettings.copyOf(KAURI_PLANKS))
+    ).copyFlammable(KAURI_PLANKS).register(true);
+    public static final Block KAURI_FENCE_GATE = new Builder(
+            Taiao.id("kauri_fence_gate"),
+            new FenceGateBlock(FabricBlockSettings.copyOf(KAURI_PLANKS), TaiaoWoodTypes.KAURI)
+    ).copyFlammable(KAURI_PLANKS).register(true);
+    public static final Block KAURI_FENCE = new Builder(
+            Taiao.id("kauri_fence"),
+            new FenceBlock(FabricBlockSettings.copyOf(KAURI_PLANKS))
+    ).copyFlammable(KAURI_PLANKS).register(true);
 
     public static final Block CABBAGE_TREE_SAPLING = new Builder(
             Taiao.id("cabbage_tree_sapling"),
@@ -94,6 +121,30 @@ public class TaiaoBlocks {
         registerFlammableTagCopy(TaiaoBlockTags.CABBAGE_TREE_LOGS, Blocks.OAK_LOG);
     }
 
+    public static class TaiaoBlockSetTypes {
+        public static final BlockSetType KAURI = new BlockSetTypeBuilder().register(Taiao.id("kauri"));
+    }
+
+    public static class TaiaoWoodTypes {
+        public static final WoodType KAURI = new WoodTypeBuilder().register(
+                Taiao.id("kauri"),
+                TaiaoBlockSetTypes.KAURI
+        );
+    }
+
+    public static class TaiaoBlockFamilies {
+        public static final BlockFamily KAURI = new BlockFamily.Builder(TaiaoBlocks.KAURI_PLANKS)
+                .button(TaiaoBlocks.KAURI_BUTTON)
+                .fence(TaiaoBlocks.KAURI_FENCE)
+                .fenceGate(TaiaoBlocks.KAURI_FENCE_GATE)
+                .pressurePlate(TaiaoBlocks.KAURI_PRESSURE_PLATE)
+                .slab(TaiaoBlocks.KAURI_SLAB)
+                .stairs(TaiaoBlocks.KAURI_STAIRS)
+                .group("wooden")
+                .unlockCriterionName("has_planks")
+                .build();
+    }
+
     public static Block createPlanks(MapColor color) {
         return new Block(AbstractBlock.Settings.create()
                 .mapColor(color)
@@ -101,6 +152,21 @@ public class TaiaoBlocks {
                 .strength(2.0F, 3.0F)
                 .sounds(BlockSoundGroup.WOOD)
                 .burnable());
+    }
+
+    public static Block createWoodenPressurePlate(Block planks, BlockSetType blockSetType) {
+        return new PressurePlateBlock(
+                PressurePlateBlock.ActivationRule.EVERYTHING,
+                FabricBlockSettings.create()
+                        .mapColor(planks.getDefaultMapColor())
+                        .solid()
+                        .instrument(Instrument.BASS)
+                        .noCollision()
+                        .strength(0.5f)
+                        .burnable()
+                        .pistonBehavior(PistonBehavior.DESTROY),
+                blockSetType
+        );
     }
 
     public static AbstractBlock.Settings createLeavesSettings(MapColor color, BlockSoundGroup soundGroup) {

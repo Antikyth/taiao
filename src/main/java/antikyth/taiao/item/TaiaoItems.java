@@ -40,10 +40,17 @@ public class TaiaoItems {
             group.add(TaiaoBlocks.KAURI_LEAVES);
 
             group.add(TaiaoBlocks.KAURI_LOG);
-            group.add(TaiaoBlocks.STRIPPED_KAURI_LOG);
             group.add(TaiaoBlocks.KAURI_WOOD);
+            group.add(TaiaoBlocks.STRIPPED_KAURI_LOG);
             group.add(TaiaoBlocks.STRIPPED_KAURI_WOOD);
+
             group.add(TaiaoBlocks.KAURI_PLANKS);
+            group.add(TaiaoBlocks.KAURI_STAIRS);
+            group.add(TaiaoBlocks.KAURI_SLAB);
+            group.add(TaiaoBlocks.KAURI_FENCE);
+            group.add(TaiaoBlocks.KAURI_FENCE_GATE);
+            group.add(TaiaoBlocks.KAURI_PRESSURE_PLATE);
+            group.add(TaiaoBlocks.KAURI_BUTTON);
 
             group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
