@@ -17,6 +17,9 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Consumer;
 
 public class TaiaoItems {
     public static final Item PUUKEKO_SPAWN_EGG = register(
@@ -39,36 +42,73 @@ public class TaiaoItems {
             group.add(TaiaoBlocks.KAURI_SAPLING);
             group.add(TaiaoBlocks.KAURI_LEAVES);
 
-            group.add(TaiaoBlocks.KAURI_LOG);
-            group.add(TaiaoBlocks.KAURI_WOOD);
-            group.add(TaiaoBlocks.STRIPPED_KAURI_LOG);
-            group.add(TaiaoBlocks.STRIPPED_KAURI_WOOD);
-
-            group.add(TaiaoBlocks.KAURI_PLANKS);
-            group.add(TaiaoBlocks.KAURI_STAIRS);
-            group.add(TaiaoBlocks.KAURI_SLAB);
-            group.add(TaiaoBlocks.KAURI_FENCE);
-            group.add(TaiaoBlocks.KAURI_FENCE_GATE);
-            group.add(TaiaoBlocks.KAURI_PRESSURE_PLATE);
-            group.add(TaiaoBlocks.KAURI_BUTTON);
+            addKauriBuildingBlocks(group::add);
 
             group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
 
-            group.add(TaiaoBlocks.CABBAGE_TREE_LOG);
-            group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
-            group.add(TaiaoBlocks.CABBAGE_TREE_WOOD);
-            group.add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
+            addCabbageTreeBuildingBlocks(group::add);
 
-            group.add(PUUKEKO_SPAWN_EGG);
-            group.add(MOA_SPAWN_EGG);
+            addSpawnEggs(group::add);
         });
 
         // Spawn eggs
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(group -> {
-            group.add(PUUKEKO_SPAWN_EGG);
-            group.add(MOA_SPAWN_EGG);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(group -> addSpawnEggs(group::add));
+        // Building blocks
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(group -> {
+            Consumer<ItemConvertible> add = item -> group.addBefore(Items.STONE, item);
+
+            addKauriBuildingBlocks(add);
+            addCabbageTreeBuildingBlocks(add);
         });
+        // Natural blocks
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(group -> {
+            addLogs(item -> group.addBefore(Items.OAK_LEAVES, item));
+            addLeaves(item -> group.addBefore(Items.BROWN_MUSHROOM_BLOCK, item));
+            addSaplings(item -> group.addBefore(Items.BROWN_MUSHROOM, item));
+        });
+    }
+
+    public static void addLogs(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.KAURI_LOG);
+        add.accept(TaiaoBlocks.CABBAGE_TREE_LOG);
+    }
+
+    public static void addLeaves(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.KAURI_LEAVES);
+        add.accept(TaiaoBlocks.CABBAGE_TREE_LEAVES);
+    }
+
+    public static void addSaplings(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.KAURI_SAPLING);
+        add.accept(TaiaoBlocks.CABBAGE_TREE_SAPLING);
+    }
+
+    public static void addKauriBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.KAURI_LOG);
+        add.accept(TaiaoBlocks.KAURI_WOOD);
+        add.accept(TaiaoBlocks.STRIPPED_KAURI_LOG);
+        add.accept(TaiaoBlocks.STRIPPED_KAURI_WOOD);
+
+        add.accept(TaiaoBlocks.KAURI_PLANKS);
+        add.accept(TaiaoBlocks.KAURI_STAIRS);
+        add.accept(TaiaoBlocks.KAURI_SLAB);
+        add.accept(TaiaoBlocks.KAURI_FENCE);
+        add.accept(TaiaoBlocks.KAURI_FENCE_GATE);
+        add.accept(TaiaoBlocks.KAURI_PRESSURE_PLATE);
+        add.accept(TaiaoBlocks.KAURI_BUTTON);
+    }
+
+    public static void addCabbageTreeBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.CABBAGE_TREE_LOG);
+        add.accept(TaiaoBlocks.CABBAGE_TREE_WOOD);
+        add.accept(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
+        add.accept(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
+    }
+
+    public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(PUUKEKO_SPAWN_EGG);
+        add.accept(MOA_SPAWN_EGG);
     }
 
     /**
