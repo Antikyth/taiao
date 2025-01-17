@@ -5,8 +5,8 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.world.gen.feature.tree.CabbageTreeSaplingGenerator;
-import antikyth.taiao.world.gen.feature.tree.KauriSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.saplinggenerator.CabbageTreeSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.saplinggenerator.KauriSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -25,6 +25,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
 
 public class TaiaoBlocks {
     public static final Block KAURI_SAPLING = new Builder(
@@ -122,12 +124,12 @@ public class TaiaoBlocks {
     }
 
     /**
-     * A unified wood family containing a {@link BlockFamily}, {@link BlockSetType}, and a {@link WoodType}.
+     * A unified wood familyBuilder containing a {@link BlockFamily}, {@link BlockSetType}, and a {@link WoodType}.
      */
     public static class WoodFamily {
         public static final WoodFamily KAURI = register(
                 Taiao.id("kauri"),
-                new BlockFamily.Builder(TaiaoBlocks.KAURI_PLANKS)
+                () -> new BlockFamily.Builder(TaiaoBlocks.KAURI_PLANKS)
                         .button(TaiaoBlocks.KAURI_BUTTON)
                         .fence(TaiaoBlocks.KAURI_FENCE)
                         .fenceGate(TaiaoBlocks.KAURI_FENCE_GATE)
@@ -139,16 +141,18 @@ public class TaiaoBlocks {
                         .build()
         );
 
-        protected final BlockFamily family;
-        protected BlockSetType blockSetType;
-        protected WoodType woodType;
+        private final Supplier<BlockFamily> familyFactory;
+
+        private BlockFamily family;
+        private final BlockSetType blockSetType;
+        private final WoodType woodType;
 
         protected WoodFamily(
-                BlockFamily family,
+                Supplier<BlockFamily> familyFactory,
                 BlockSetType blockSetType,
                 WoodType woodType
         ) {
-            this.family = family;
+            this.familyFactory = familyFactory;
             this.blockSetType = blockSetType;
             this.woodType = woodType;
         }
@@ -156,32 +160,32 @@ public class TaiaoBlocks {
         /**
          * Creates and registers a wood family based on the given {@link BlockFamily}.
          * <p>
-         * {@link BlockFamily.Builder} may be used to create a {@link BlockFamily}. If you wish to customize the sounds,
-         * see {@link WoodFamily#register(Identifier, BlockFamily, BlockSetTypeBuilder, WoodTypeBuilder)}.
+         * If you wish to customize the sounds, see
+         * {@link WoodFamily#register(Identifier, Supplier, BlockSetTypeBuilder, WoodTypeBuilder)}.
          */
-        public static @NotNull WoodFamily register(Identifier id, BlockFamily family) {
-            return register(id, family, new BlockSetTypeBuilder(), new WoodTypeBuilder());
+        public static @NotNull WoodFamily register(Identifier id, Supplier<BlockFamily> familyFactory) {
+            return register(id, familyFactory, new BlockSetTypeBuilder(), new WoodTypeBuilder());
         }
 
         /**
          * Creates and registers a wood family based on the given {@link BlockFamily} with customized
          * {@link BlockSetType} and {@link WoodType}.
-         * <p>
-         * {@link BlockFamily.Builder} may be used to create a {@link BlockFamily}.
          */
         public static @NotNull WoodFamily register(
                 Identifier id,
-                BlockFamily family,
+                Supplier<BlockFamily> familyFactory,
                 @NotNull BlockSetTypeBuilder blockSetTypeBuilder,
                 @NotNull WoodTypeBuilder woodTypeBuilder
         ) {
             BlockSetType blockSetType = blockSetTypeBuilder.register(id);
             WoodType woodType = woodTypeBuilder.register(id, blockSetType);
 
-            return new WoodFamily(family, blockSetType, woodType);
+            return new WoodFamily(familyFactory, blockSetType, woodType);
         }
 
         public BlockFamily getBlockFamily() {
+            if (this.family == null) this.family = this.familyFactory.get();
+
             return this.family;
         }
 

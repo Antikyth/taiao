@@ -9,7 +9,7 @@
       }
     },
     "foliage_placer": {
-      "type": "taiao:single_foliage_placer",
+      "type": "taiao:spherical_foliage_placer",
       "offset": 0,
       "radius": 0
     },
@@ -33,10 +33,12 @@
       "upper_size": 1
     },
     "trunk_placer": {
-      "type": "taiao:branching_trunk_placer",
-      "base_height": 4,
-      "height_rand_a": 2,
-      "height_rand_b": 0
+      "type": "taiao:thin_splitting_trunk_placer",
+      "base_height": 3,
+      "first_split_minimum_height": 1,
+      "height_rand_a": 3,
+      "height_rand_b": 2,
+      "split_trunk_per_log_probability": 0.4
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",

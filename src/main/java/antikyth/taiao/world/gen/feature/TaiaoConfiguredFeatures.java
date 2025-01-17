@@ -6,8 +6,8 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.world.gen.feature.tree.foliage.SingleFoliagePlacer;
-import antikyth.taiao.world.gen.feature.tree.trunk.BranchingTrunkPlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.SphericalFoliagePlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.ThinSplittingTrunkPlacer;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -49,9 +49,12 @@ public class TaiaoConfiguredFeatures {
                         Feature.TREE,
                         new TreeFeatureConfig.Builder(
                                 BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LOG),
-                                new BranchingTrunkPlacer(4, 2, 0),
+                                new ThinSplittingTrunkPlacer(3, 3, 2, ConstantIntProvider.create(1), 0.4f),
                                 BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LEAVES),
-                                new SingleFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
+                                new SphericalFoliagePlacer(
+                                        ConstantIntProvider.create(0),
+                                        ConstantIntProvider.create(0)
+                                ),
                                 new TwoLayersFeatureSize(1, 0, 1)
                         ).ignoreVines().build()
                 )

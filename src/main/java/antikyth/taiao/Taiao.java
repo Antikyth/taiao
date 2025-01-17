@@ -7,8 +7,7 @@ package antikyth.taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItems;
-import antikyth.taiao.world.gen.feature.tree.foliage.TaiaoFoliagePlacers;
-import antikyth.taiao.world.gen.feature.tree.trunk.TaiaoTrunkPlacers;
+import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -32,8 +31,7 @@ public class Taiao implements ModInitializer {
         TaiaoItems.initialize();
         TaiaoEntities.initialize();
 
-        TaiaoTrunkPlacers.initialize();
-        TaiaoFoliagePlacers.initialize();
+        TaiaoTreePlacers.initialize();
     }
 
     /**
