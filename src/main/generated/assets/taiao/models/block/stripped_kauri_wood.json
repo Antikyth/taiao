@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "taiao:block/stripped_kauri_log",
-    "side": "taiao:block/stripped_kauri_log"
-  }
-}

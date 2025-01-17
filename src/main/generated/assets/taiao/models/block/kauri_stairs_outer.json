@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "taiao:block/kauri_planks",
-    "side": "taiao:block/kauri_planks",
-    "top": "taiao:block/kauri_planks"
-  }
-}

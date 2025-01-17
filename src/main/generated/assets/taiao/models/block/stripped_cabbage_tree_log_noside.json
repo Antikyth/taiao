@@ -1,6 +1,0 @@
-{
-  "parent": "taiao:block/thin_log_noside",
-  "textures": {
-    "side": "minecraft:block/stripped_oak_log"
-  }
-}
