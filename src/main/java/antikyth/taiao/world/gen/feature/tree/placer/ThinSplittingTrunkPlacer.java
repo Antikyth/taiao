@@ -47,17 +47,8 @@ public class ThinSplittingTrunkPlacer extends TrunkPlacer {
             ).apply(instance, ThinSplittingTrunkPlacer::new)
     );
 
-    /**
-     * The minimum trunk height that must be reached before a split is allowed to take place.
-     */
     private final IntProvider firstSplitMinimumHeight;
-    /**
-     * The probability to split the trunk for any given vertical log placed.
-     */
     private final float splitTrunkPerLogProbability;
-    /**
-     *
-     */
     private final SplitTypeWeights splitTypeWeights;
 
     /**
