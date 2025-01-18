@@ -88,6 +88,7 @@ public class TaiaoBlocks {
             new FenceBlock(FabricBlockSettings.copyOf(KAURI_PLANKS))
     ).copyFlammable(KAURI_PLANKS).register(true);
 
+    // Tī kōuka foliage
     public static final Block CABBAGE_TREE_SAPLING = new Builder(
             Taiao.id("cabbage_tree_sapling"),
             new SaplingBlock(new CabbageTreeSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING))
@@ -101,6 +102,7 @@ public class TaiaoBlocks {
             new SlowMovementLeavesBlock(createLeavesSettings(MapColor.LIME, BlockSoundGroup.GRASS).noCollision())
     ).copyFlammable(Blocks.OAK_LEAVES).register(true);
 
+    // Tī kōuka wood
     public static final Block STRIPPED_CABBAGE_TREE_LOG = new Builder(
             Taiao.id("stripped_cabbage_tree_log"),
             createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN)

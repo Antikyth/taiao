@@ -22,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +49,8 @@ public class ThinLogBlock extends ConnectingBlock implements Waterloggable, Stri
                 .with(WEST, false));
     }
 
-    public static BooleanProperty getDirectionProperty(Direction direction) {
+    @Contract(pure = true)
+    public static BooleanProperty getDirectionProperty(@NotNull Direction direction) {
         return switch (direction) {
             case UP -> UP;
             case DOWN -> DOWN;
@@ -82,7 +84,7 @@ public class ThinLogBlock extends ConnectingBlock implements Waterloggable, Stri
     }
 
     public BlockState getStateWith(
-            BlockState state,
+            @NotNull BlockState state,
             boolean waterlogged,
             boolean up,
             boolean down,

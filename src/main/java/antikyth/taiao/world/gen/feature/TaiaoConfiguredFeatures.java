@@ -27,6 +27,9 @@ import java.util.OptionalInt;
 
 public class TaiaoConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> KAURI_TREE = createRegistryKey(Taiao.id("kauri_tree"));
+    /**
+     * A tī kōuka tree.
+     */
     public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = createRegistryKey(Taiao.id("cabbage_tree"));
 
     public static void bootstrapConfiguredFeatures(@NotNull Registerable<ConfiguredFeature<?, ?>> registerable) {
@@ -49,7 +52,14 @@ public class TaiaoConfiguredFeatures {
                         Feature.TREE,
                         new TreeFeatureConfig.Builder(
                                 BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LOG),
-                                new ThinSplittingTrunkPlacer(3, 3, 2, ConstantIntProvider.create(1), 0.4f),
+                                new ThinSplittingTrunkPlacer(
+                                        3,
+                                        3,
+                                        2,
+                                        ConstantIntProvider.create(1),
+                                        0.4f,
+                                        new ThinSplittingTrunkPlacer.SplitTypeWeights(9, 5, 1)
+                                ),
                                 BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LEAVES),
                                 new SphericalFoliagePlacer(
                                         ConstantIntProvider.create(0),
