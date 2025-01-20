@@ -5,8 +5,8 @@
 package antikyth.taiao.datagen.model;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.block.ThinLogBlock;
 import com.google.gson.JsonElement;
+import net.minecraft.block.Block;
 import net.minecraft.data.client.Model;
 import net.minecraft.data.client.ModelIds;
 import net.minecraft.data.client.TextureKey;
@@ -28,11 +28,25 @@ public class TaiaoModels {
 
     public static final Model SPAWN_EGG = vanillaItem("template_spawn_egg");
 
-    public static TextureMap thinLogTextures(ThinLogBlock block, @Nullable Identifier side, @Nullable Identifier end) {
+    public static TextureMap thinLogTextures(Block block) {
+        return thinLogTextures(block, null, null);
+    }
+
+    public static TextureMap thinWoodTextures(Block block) {
+        return thinWoodTextures(block, null);
+    }
+
+    public static TextureMap thinLogTextures(Block block, @Nullable Identifier side, @Nullable Identifier end) {
         side = side == null ? TextureMap.getId(block) : side;
         end = end == null ? TextureMap.getSubId(block, "_top") : end;
 
         return TextureMap.sideEnd(side, end);
+    }
+
+    public static TextureMap thinWoodTextures(Block block, @Nullable Identifier side) {
+        side = side == null ? TextureMap.getId(block) : side;
+
+        return TextureMap.sideEnd(side, side);
     }
 
     public static @NotNull Model block(String name, String variant, TextureKey... textureKeys) {

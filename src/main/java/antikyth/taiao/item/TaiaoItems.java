@@ -47,6 +47,9 @@ public class TaiaoItems {
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
             addCabbageTreeBuildingBlocks(group::add);
 
+            group.add(TaiaoBlocks.MAMAKU_SAPLING);
+            addMamakuBuildingBlocks(group::add);
+
             addSpawnEggs(group::add);
         });
 
@@ -58,6 +61,7 @@ public class TaiaoItems {
 
             addKauriBuildingBlocks(add);
             addCabbageTreeBuildingBlocks(add);
+            addMamakuBuildingBlocks(add);
         });
         // Natural blocks
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(group -> {
@@ -70,6 +74,7 @@ public class TaiaoItems {
     public static void addLogs(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_LOG);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LOG);
+        add.accept(TaiaoBlocks.MAMAKU_LOG);
     }
 
     public static void addLeaves(@NotNull Consumer<ItemConvertible> add) {
@@ -80,6 +85,7 @@ public class TaiaoItems {
     public static void addSaplings(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_SAPLING);
         add.accept(TaiaoBlocks.CABBAGE_TREE_SAPLING);
+        add.accept(TaiaoBlocks.MAMAKU_SAPLING);
     }
 
     public static void addKauriBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
@@ -102,6 +108,11 @@ public class TaiaoItems {
         add.accept(TaiaoBlocks.CABBAGE_TREE_WOOD);
         add.accept(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
         add.accept(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
+    }
+
+    public static void addMamakuBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.MAMAKU_LOG);
+        add.accept(TaiaoBlocks.MAMAKU_WOOD);
     }
 
     public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {

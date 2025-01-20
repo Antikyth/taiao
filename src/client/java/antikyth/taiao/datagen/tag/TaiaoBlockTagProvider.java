@@ -24,29 +24,49 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookup) {
         // Te Taiao o Aotearoa tags
-        getOrCreateTagBuilder(TaiaoBlockTags.KAURI_LOGS).add(TaiaoBlocks.KAURI_LOG)
+        getOrCreateTagBuilder(TaiaoBlockTags.KAURI_LOGS)
+                .add(TaiaoBlocks.KAURI_LOG)
                 .add(TaiaoBlocks.STRIPPED_KAURI_LOG)
                 .add(TaiaoBlocks.KAURI_WOOD)
                 .add(TaiaoBlocks.STRIPPED_KAURI_WOOD);
-        getOrCreateTagBuilder(TaiaoBlockTags.CABBAGE_TREE_LOGS).add(TaiaoBlocks.CABBAGE_TREE_LOG)
+        getOrCreateTagBuilder(TaiaoBlockTags.CABBAGE_TREE_LOGS)
+                .add(TaiaoBlocks.CABBAGE_TREE_LOG)
                 .add(TaiaoBlocks.CABBAGE_TREE_WOOD)
                 .add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG)
                 .add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
-        getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOGS).addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS);
-        getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOG_CONNECTION_OVERRIDE).addTag(TaiaoBlockTags.THIN_LOGS)
+        getOrCreateTagBuilder(TaiaoBlockTags.MAMAKU_LOGS)
+                .add(TaiaoBlocks.MAMAKU_LOG)
+                .add(TaiaoBlocks.MAMAKU_WOOD);
+
+        getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOGS)
+                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
+                .addTag(TaiaoBlockTags.MAMAKU_LOGS);
+        getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOG_CONNECTION_OVERRIDE)
+                .addTag(TaiaoBlockTags.THIN_LOGS)
                 .addTag(BlockTags.LEAVES);
 
         // Vanilla tags
-        getOrCreateTagBuilder(BlockTags.FLOWER_POTS).add(TaiaoBlocks.POTTED_KAURI_SAPLING)
-                .add(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING);
-        getOrCreateTagBuilder(BlockTags.LEAVES).add(TaiaoBlocks.KAURI_LEAVES).add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
-        getOrCreateTagBuilder(BlockTags.SAPLINGS).add(TaiaoBlocks.KAURI_SAPLING).add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
+        getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
+                .add(TaiaoBlocks.POTTED_KAURI_SAPLING)
+                .add(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING)
+                .add(TaiaoBlocks.POTTED_MAMAKU_SAPLING);
+        getOrCreateTagBuilder(BlockTags.LEAVES)
+                .add(TaiaoBlocks.KAURI_LEAVES)
+                .add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
+        getOrCreateTagBuilder(BlockTags.SAPLINGS)
+                .add(TaiaoBlocks.KAURI_SAPLING)
+                .add(TaiaoBlocks.CABBAGE_TREE_SAPLING)
+                .add(TaiaoBlocks.MAMAKU_SAPLING);
         getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE).addTag(TaiaoBlockTags.THIN_LOGS);
 
-        getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN).addTag(TaiaoBlockTags.KAURI_LOGS)
-                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS);
-        getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS).addTag(TaiaoBlockTags.KAURI_LOGS)
-                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS);
+        getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
+                .addTag(TaiaoBlockTags.KAURI_LOGS)
+                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
+                .addTag(TaiaoBlockTags.MAMAKU_LOGS);
+        getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
+                .addTag(TaiaoBlockTags.KAURI_LOGS)
+                .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
+                .addTag(TaiaoBlockTags.MAMAKU_LOGS);
 
         getOrCreateTagBuilder(BlockTags.PLANKS).add(TaiaoBlocks.KAURI_PLANKS);
         getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS).add(TaiaoBlocks.KAURI_BUTTON);

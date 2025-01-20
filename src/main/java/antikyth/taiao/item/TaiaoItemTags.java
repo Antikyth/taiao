@@ -5,18 +5,23 @@
 package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.block.TaiaoBlockTags;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public final class TaiaoItemTags {
-    public static final TagKey<Item> THIN_LOGS = createTagKey(Taiao.id("thin_logs"));
+    public static final TagKey<Item> THIN_LOGS = createTagKey(TaiaoBlockTags.THIN_LOGS);
+
+    public static final TagKey<Item> KAURI_LOGS = createTagKey(TaiaoBlockTags.KAURI_LOGS);
     /**
      * Tī kōuka logs.
      */
-    public static final TagKey<Item> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
-    public static final TagKey<Item> KAURI_LOGS = createTagKey(Taiao.id("kauri_logs"));
+    public static final TagKey<Item> CABBAGE_TREE_LOGS = createTagKey(TaiaoBlockTags.CABBAGE_TREE_LOGS);
+    public static final TagKey<Item> MAMAKU_LOGS = createTagKey(TaiaoBlockTags.MAMAKU_LOGS);
 
     /**
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#PUUKEKO pūkeko}.
@@ -26,6 +31,10 @@ public final class TaiaoItemTags {
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#MOA moa}.
      */
     public static final TagKey<Item> MOA_FOOD = createTagKey(Taiao.id("moa_food"));
+
+    public static TagKey<Item> createTagKey(@NotNull TagKey<Block> blockTag) {
+        return createTagKey(blockTag.id());
+    }
 
     public static TagKey<Item> createTagKey(Identifier id) {
         return Taiao.createTagKey(id, RegistryKeys.ITEM);

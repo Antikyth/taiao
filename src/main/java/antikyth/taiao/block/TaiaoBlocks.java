@@ -5,8 +5,9 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.world.gen.feature.tree.saplinggenerator.CabbageTreeSaplingGenerator;
-import antikyth.taiao.world.gen.feature.tree.saplinggenerator.KauriSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.sapling.CabbageTreeSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.sapling.KauriSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.sapling.MamakuSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -120,9 +121,30 @@ public class TaiaoBlocks {
             createThinLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
     ).register(true);
 
+    // Mamaku foliage
+    public static final Block MAMAKU_SAPLING = new Builder(
+            Taiao.id("mamaku_sapling"),
+            new SaplingBlock(new MamakuSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING))
+    ).register(true);
+    public static final Block POTTED_MAMAKU_SAPLING = new Builder(
+            Taiao.id("potted_mamaku_sapling"),
+            Blocks.createFlowerPotBlock(MAMAKU_SAPLING)
+    ).register(false);
+
+    // Mamaku wood
+    public static final Block MAMAKU_LOG = new Builder(
+            Taiao.id("mamaku_log"),
+            createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
+    ).register(true);
+    public static final Block MAMAKU_WOOD = new Builder(
+            Taiao.id("mamaku_wood"),
+            createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
+    ).register(true);
+
     public static void initialize() {
-        registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.OAK_LOG);
+        registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.ACACIA_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.CABBAGE_TREE_LOGS, Blocks.OAK_LOG);
+        registerFlammableTagCopy(TaiaoBlockTags.MAMAKU_LOGS, Blocks.SPRUCE_LOG);
     }
 
     /**

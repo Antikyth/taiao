@@ -12,11 +12,13 @@ import net.minecraft.util.Identifier;
 
 public final class TaiaoBlockTags {
     public static final TagKey<Block> THIN_LOGS = createTagKey(Taiao.id("thin_logs"));
+
+    public static final TagKey<Block> KAURI_LOGS = createTagKey(Taiao.id("kauri_logs"));
     /**
      * Tī kōuka logs.
      */
     public static final TagKey<Block> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
-    public static final TagKey<Block> KAURI_LOGS = createTagKey(Taiao.id("kauri_logs"));
+    public static final TagKey<Block> MAMAKU_LOGS = createTagKey(Taiao.id("mamaku_logs"));
 
     /**
      * Blocks that {@linkplain ThinLogBlock thin logs} should be able to connect to when they otherwise would not.

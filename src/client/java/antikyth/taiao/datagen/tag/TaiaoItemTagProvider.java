@@ -28,17 +28,21 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookup) {
         // Te Taiao o Aotearoa item tags
-        getOrCreateTagBuilder(TaiaoItemTags.PUUKEKO_FOOD).add(Items.WHEAT_SEEDS)
+        getOrCreateTagBuilder(TaiaoItemTags.PUUKEKO_FOOD)
+                .add(Items.WHEAT_SEEDS)
                 .add(Items.MELON_SEEDS)
                 .add(Items.PUMPKIN_SEEDS)
                 .add(Items.BEETROOT_SEEDS)
                 .add(Items.TORCHFLOWER_SEEDS)
                 .add(Items.PITCHER_POD);
-        getOrCreateTagBuilder(TaiaoItemTags.MOA_FOOD).addTag(ItemTags.LEAVES).addTag(ItemTags.SAPLINGS);
+        getOrCreateTagBuilder(TaiaoItemTags.MOA_FOOD)
+                .addTag(ItemTags.LEAVES)
+                .addTag(ItemTags.SAPLINGS);
 
         // Te Taiao o Aotearoa block tags
-        copy(TaiaoBlockTags.CABBAGE_TREE_LOGS, TaiaoItemTags.CABBAGE_TREE_LOGS);
         copy(TaiaoBlockTags.KAURI_LOGS, TaiaoItemTags.KAURI_LOGS);
+        copy(TaiaoBlockTags.CABBAGE_TREE_LOGS, TaiaoItemTags.CABBAGE_TREE_LOGS);
+        copy(TaiaoBlockTags.MAMAKU_LOGS, TaiaoItemTags.MAMAKU_LOGS);
         copy(TaiaoBlockTags.THIN_LOGS, TaiaoItemTags.THIN_LOGS);
 
         // Vanilla block tags

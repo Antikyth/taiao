@@ -140,7 +140,6 @@ public class ThinSplittingTrunkPlacer extends TrunkPlacer {
     }
 
     /**
-     * Recursively grows segments of tree
      * Grows segments of the trunk, recursing at each split.
      *
      * @param startPos        the position to start this segment from (inclusive)

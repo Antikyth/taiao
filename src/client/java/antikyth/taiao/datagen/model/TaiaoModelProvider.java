@@ -4,19 +4,22 @@
 
 package antikyth.taiao.datagen.model;
 
-import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.ThinLogBlock;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
+import net.minecraft.data.client.BlockStateModelGenerator.TintType;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class TaiaoModelProvider extends FabricModelProvider {
     public TaiaoModelProvider(FabricDataOutput generator) {
@@ -27,71 +30,100 @@ public class TaiaoModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(@NotNull BlockStateModelGenerator generator) {
         Identifier kauriLeaves = new Identifier("minecraft:block/acacia_leaves");
 
-        Identifier strippedCabbageTreeLogSide = new Identifier("minecraft:block/stripped_oak_log");
-        Identifier cabbageTreeLogSide = new Identifier("minecraft:block/acacia_log");
+        TextureMap strippedCabbageTreeTextures = TaiaoModels.thinLogTextures(
+                TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG,
+                new Identifier("minecraft:block/stripped_oak_log"),
+                null
+        );
+        TextureMap cabbageTreeTextures = TaiaoModels.thinLogTextures(
+                TaiaoBlocks.CABBAGE_TREE_LOG,
+                new Identifier("minecraft:block/acacia_log"),
+                null
+        );
 
+        // Kauri foliage
         generator.registerFlowerPotPlant(
                 TaiaoBlocks.KAURI_SAPLING,
                 TaiaoBlocks.POTTED_KAURI_SAPLING,
-                BlockStateModelGenerator.TintType.NOT_TINTED
+                TintType.NOT_TINTED
         );
         generator.registerSingleton(TaiaoBlocks.KAURI_LEAVES, TextureMap.all(kauriLeaves), Models.LEAVES);
 
-        generator.registerLog(TaiaoBlocks.KAURI_LOG).log(TaiaoBlocks.KAURI_LOG).wood(TaiaoBlocks.KAURI_WOOD);
+        // Kauri wood
+        generator.registerLog(TaiaoBlocks.KAURI_LOG)
+                .log(TaiaoBlocks.KAURI_LOG)
+                .wood(TaiaoBlocks.KAURI_WOOD);
         generator.registerLog(TaiaoBlocks.STRIPPED_KAURI_LOG)
                 .log(TaiaoBlocks.STRIPPED_KAURI_LOG)
                 .wood(TaiaoBlocks.STRIPPED_KAURI_WOOD);
         generator.registerCubeAllModelTexturePool(TaiaoBlocks.KAURI_PLANKS)
                 .family(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 
+        // Tī kōuka foliage
         generator.registerFlowerPotPlant(
                 TaiaoBlocks.CABBAGE_TREE_SAPLING,
                 TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING,
-                BlockStateModelGenerator.TintType.NOT_TINTED
+                TintType.NOT_TINTED
         );
-        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, BlockStateModelGenerator.TintType.TINTED);
+        generator.registerTintableCross(TaiaoBlocks.CABBAGE_TREE_LEAVES, TintType.TINTED);
 
-        registerThinLog(
-                generator,
-                (ThinLogBlock) TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG,
-                strippedCabbageTreeLogSide,
-                null
+        // Tī kōuka wood
+        registerThinLog(generator, TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG, strippedCabbageTreeTextures);
+        registerThinWood(generator, TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD, strippedCabbageTreeTextures);
+        registerThinLog(generator, TaiaoBlocks.CABBAGE_TREE_LOG, cabbageTreeTextures);
+        registerThinWood(generator, TaiaoBlocks.CABBAGE_TREE_WOOD, cabbageTreeTextures);
+
+        // Mamaku foliage
+        generator.registerFlowerPotPlant(
+                TaiaoBlocks.MAMAKU_SAPLING,
+                TaiaoBlocks.POTTED_MAMAKU_SAPLING,
+                TintType.NOT_TINTED
         );
-        registerThinLog(
-                generator,
-                (ThinLogBlock) TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD,
-                strippedCabbageTreeLogSide,
-                strippedCabbageTreeLogSide
-        );
-        registerThinLog(generator, (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_LOG, cabbageTreeLogSide, null);
-        registerThinLog(
-                generator,
-                (ThinLogBlock) TaiaoBlocks.CABBAGE_TREE_WOOD,
-                cabbageTreeLogSide,
-                cabbageTreeLogSide
-        );
+
+        // Mamaku wood
+        registerThinLog(generator, TaiaoBlocks.MAMAKU_LOG);
+        registerThinWood(generator, TaiaoBlocks.MAMAKU_WOOD, TaiaoBlocks.MAMAKU_LOG);
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator generator) {
+    public void generateItemModels(@NotNull ItemModelGenerator generator) {
         generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
     }
 
-    public static void registerThinLog(BlockStateModelGenerator generator, ThinLogBlock block) {
+    public static void registerThinLog(BlockStateModelGenerator generator, Block block) {
         registerThinLog(generator, block, null, null);
     }
 
     public static void registerThinLog(
             BlockStateModelGenerator generator,
-            ThinLogBlock block,
+            Block block,
             @Nullable Identifier sideTexture,
             @Nullable Identifier endTexture
     ) {
         registerThinLog(generator, block, TaiaoModels.thinLogTextures(block, sideTexture, endTexture));
     }
 
-    public static void registerThinLog(BlockStateModelGenerator generator, ThinLogBlock block, TextureMap textures) {
+    public static void registerThinWood(BlockStateModelGenerator generator, Block woodBlock, Block logBlock) {
+        registerThinWood(generator, woodBlock, TaiaoModels.thinWoodTextures(logBlock));
+    }
+
+    public static void registerThinWood(
+            @NotNull BlockStateModelGenerator generator,
+            Block block,
+            @NotNull TextureMap textures
+    ) {
+        Identifier side = textures.getTexture(TextureKey.SIDE);
+        TextureMap woodTextures = TextureMap.sideEnd(side, side);
+
+        registerThinLog(generator, block, woodTextures);
+    }
+
+    public static void registerThinLog(
+            @NotNull BlockStateModelGenerator generator,
+            Block block,
+            @NotNull TextureMap textures
+    ) {
         // Use the END texture for the SIDE of end_noside models.
         TextureMap noSideEndTextures = new TextureMap().put(TextureKey.SIDE, textures.getTexture(TextureKey.END));
 
@@ -148,7 +180,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
     }
 
     public static @NotNull BlockStateSupplier createThinLogBlockState(
-            ThinLogBlock block,
+            Block block,
             Identifier noSideModelId,
             Identifier noSideEndModelId,
             Identifier sideModelId

@@ -41,6 +41,9 @@ public class TaiaoClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.KAURI_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_KAURI_SAPLING, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.MAMAKU_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_MAMAKU_SAPLING, RenderLayer.getCutout());
     }
 
     public static void registerItemColors(ItemColorProvider colorProvider, Item @NotNull ... items) {
