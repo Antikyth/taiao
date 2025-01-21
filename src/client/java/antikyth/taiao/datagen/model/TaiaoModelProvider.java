@@ -79,6 +79,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 TaiaoBlocks.POTTED_MAMAKU_SAPLING,
                 TintType.NOT_TINTED
         );
+        registerDirectionalLeaves(generator, TaiaoBlocks.MAMAKU_LEAVES);
 
         // Mamaku wood
         registerThinLog(generator, TaiaoBlocks.MAMAKU_LOG);
@@ -89,6 +90,23 @@ public class TaiaoModelProvider extends FabricModelProvider {
     public void generateItemModels(@NotNull ItemModelGenerator generator) {
         generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+    }
+
+    public static void registerDirectionalLeaves(@NotNull BlockStateModelGenerator generator, Block block) {
+        registerDirectionalLeaves(generator, block, TextureMap.all(block));
+    }
+
+    public static void registerDirectionalLeaves(
+            @NotNull BlockStateModelGenerator generator,
+            Block block,
+            TextureMap textures
+    ) {
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(
+                        block,
+                        BlockStateVariant.create()
+                                .put(VariantSettings.MODEL, Models.LEAVES.upload(block, textures, generator.modelCollector))
+                )
+                .coordinate(generator.createUpDefaultFacingVariantMap()));
     }
 
     public static void registerThinLog(BlockStateModelGenerator generator, Block block) {

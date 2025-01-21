@@ -48,6 +48,7 @@ public class TaiaoItems {
             addCabbageTreeBuildingBlocks(group::add);
 
             group.add(TaiaoBlocks.MAMAKU_SAPLING);
+            group.add(TaiaoBlocks.MAMAKU_LEAVES);
             addMamakuBuildingBlocks(group::add);
 
             addSpawnEggs(group::add);
@@ -80,6 +81,7 @@ public class TaiaoItems {
     public static void addLeaves(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_LEAVES);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LEAVES);
+        add.accept(TaiaoBlocks.MAMAKU_LEAVES);
     }
 
     public static void addSaplings(@NotNull Consumer<ItemConvertible> add) {

@@ -30,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public class TaiaoBlocks {
+    // Kauri foliage
     public static final Block KAURI_SAPLING = new Builder(
             Taiao.id("kauri_sapling"),
             new SaplingBlock(new KauriSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.DARK_OAK_SAPLING))
@@ -43,6 +44,7 @@ public class TaiaoBlocks {
             Blocks.createLeavesBlock(BlockSoundGroup.GRASS)
     ).copyFlammable(Blocks.DARK_OAK_LEAVES).register(true);
 
+    // Kauri wood
     public static final Block STRIPPED_KAURI_LOG = new Builder(
             Taiao.id("stripped_kauri_log"),
             Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
@@ -60,6 +62,7 @@ public class TaiaoBlocks {
             Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
     ).strippable(STRIPPED_KAURI_WOOD).register(true);
 
+    // Kauri wood family
     public static final Block KAURI_PLANKS = new Builder(
             Taiao.id("kauri_planks"),
             createPlanks(MapColor.OFF_WHITE)
@@ -130,6 +133,10 @@ public class TaiaoBlocks {
             Taiao.id("potted_mamaku_sapling"),
             Blocks.createFlowerPotBlock(MAMAKU_SAPLING)
     ).register(false);
+    public static final Block MAMAKU_LEAVES = new Builder(
+            Taiao.id("mamaku_leaves"),
+            new DirectionalLeavesBlock(createLeavesSettings(MapColor.DARK_GREEN, BlockSoundGroup.GRASS))
+    ).copyFlammable(Blocks.OAK_LEAVES).register(true);
 
     // Mamaku wood
     public static final Block MAMAKU_LOG = new Builder(

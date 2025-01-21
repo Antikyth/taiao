@@ -2,8 +2,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.world.gen.feature.tree.placer;
+package antikyth.taiao.world.gen.feature.tree.placer.foliage;
 
+import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.math.BlockPos;
@@ -11,15 +12,15 @@ import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 
 /**
  * Generates a sphere of foliage blocks.
  */
-public class SphericalFoliagePlacer extends FoliagePlacer {
-    public static final Codec<SphericalFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> fillFoliagePlacerFields(
-            instance).apply(instance, SphericalFoliagePlacer::new));
+public class SphericalFoliagePlacer extends ThreeDimensionalFoliagePlacer {
+    public static final Codec<SphericalFoliagePlacer> CODEC = RecordCodecBuilder.create(
+            instance -> fillFoliagePlacerFields(instance).apply(instance, SphericalFoliagePlacer::new)
+    );
 
     public SphericalFoliagePlacer(
             IntProvider radius,
@@ -48,18 +49,17 @@ public class SphericalFoliagePlacer extends FoliagePlacer {
         radius += treeNode.getFoliageRadius() - 1;
         BlockPos center = treeNode.getCenter().up(offset);
 
+        boolean giantTrunk = treeNode.isGiantTrunk();
+        int extra = giantTrunk ? 1 : 0;
+
         BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-        // It would be nice to support giant trees, where the center would be a 2x2x2 area instead of 1x1x1, but I'm not
-        // sure how to alter the sphere equation to account for the center effectively being 'between' blocks.
-
         // Check each position in a bounding box around the center.
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                for (int z = -radius; z <= radius; z++) {
-                    // Check if this position within the bounding box is also within the sphere.
-                    if ((x * x) + (y * y) + (z * z) <= radius * radius) {
-                        mutable.set(center, x, y, z);
+        for (int dx = -radius; dx <= radius + extra; dx++) {
+            for (int dy = -radius; dy <= radius + extra; dy++) {
+                for (int dz = -radius; dz <= radius + extra; dz++) {
+                    if (isPositionValid3d(dx, dy, dz, radius, giantTrunk)) {
+                        mutable.set(center, dx, dy, dz);
 
                         placeFoliageBlock(world, placer, random, config, mutable);
                     }
@@ -74,8 +74,7 @@ public class SphericalFoliagePlacer extends FoliagePlacer {
     }
 
     @Override
-    protected boolean isInvalidForLeaves(Random random, int dx, int y, int dz, int radius, boolean giantTrunk) {
-        // This would be perfect to use if not for the fact that it works in 2D, not 3D like we need.
-        return false;
+    protected boolean isValidForLeaves3d(int dx, int dy, int dz, int radius) {
+        return (dx * dx) + (dy * dy) + (dz * dz) <= radius * radius;
     }
 }

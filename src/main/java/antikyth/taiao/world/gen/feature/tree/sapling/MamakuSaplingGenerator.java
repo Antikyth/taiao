@@ -4,6 +4,7 @@
 
 package antikyth.taiao.world.gen.feature.tree.sapling;
 
+import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.random.Random;
@@ -13,6 +14,6 @@ import org.jetbrains.annotations.Nullable;
 public class MamakuSaplingGenerator extends SaplingGenerator {
     @Override
     protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        return null;
+        return TaiaoConfiguredFeatures.MAMAKU_TREE;
     }
 }

@@ -6,13 +6,16 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.world.gen.feature.tree.placer.SphericalFoliagePlacer;
-import antikyth.taiao.world.gen.feature.tree.placer.ThinSplittingTrunkPlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.foliage.PalmFoliagePlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinStraightTrunkPlacer;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -31,6 +34,7 @@ public class TaiaoConfiguredFeatures {
      * A tī kōuka tree.
      */
     public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = createRegistryKey(Taiao.id("cabbage_tree"));
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MAMAKU_TREE = createRegistryKey(Taiao.id("mamaku_tree"));
 
     public static void bootstrapConfiguredFeatures(@NotNull Registerable<ConfiguredFeature<?, ?>> registerable) {
         registerable.register(
@@ -66,6 +70,22 @@ public class TaiaoConfiguredFeatures {
                                         ConstantIntProvider.create(0)
                                 ),
                                 new TwoLayersFeatureSize(1, 0, 1)
+                        ).ignoreVines().build()
+                )
+        );
+        registerable.register(
+                MAMAKU_TREE,
+                new ConfiguredFeature<>(
+                        Feature.TREE,
+                        new TreeFeatureConfig.Builder(
+                                BlockStateProvider.of(TaiaoBlocks.MAMAKU_LOG),
+                                new ThinStraightTrunkPlacer(5, 6, 6),
+                                BlockStateProvider.of(TaiaoBlocks.MAMAKU_LEAVES),
+                                new PalmFoliagePlacer(
+                                        UniformIntProvider.create(3, 4),
+                                        ConstantIntProvider.create(0)
+                                ),
+                                new TwoLayersFeatureSize(1, 0, 2)
                         ).ignoreVines().build()
                 )
         );

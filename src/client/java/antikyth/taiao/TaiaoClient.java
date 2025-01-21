@@ -32,6 +32,7 @@ public class TaiaoClient implements ClientModInitializer {
 
         registerBlockColors(this::foliageBlockColor, this::foliageItemColor, TaiaoBlocks.KAURI_LEAVES);
         registerBlockColors(this::foliageBlockColor, this::foliageItemColor, TaiaoBlocks.CABBAGE_TREE_LEAVES);
+        registerBlockColors(this::foliageBlockColor, this::foliageItemColor, TaiaoBlocks.MAMAKU_LEAVES);
 
         registerItemColors(this::spawnEggColor, TaiaoItems.PUUKEKO_SPAWN_EGG);
         registerItemColors(this::spawnEggColor, TaiaoItems.MOA_SPAWN_EGG);

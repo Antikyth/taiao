@@ -2,14 +2,14 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.world.gen.feature.tree.placer;
+package antikyth.taiao.world.gen.feature.tree.placer.trunk;
 
 import antikyth.taiao.HexaFunction;
+import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ConnectingBlock;
-import net.minecraft.block.PillarBlock;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -18,7 +18,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
-import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Contract;
@@ -32,7 +31,7 @@ import java.util.function.BiConsumer;
 /**
  * A trunk splitting in a '┗┳┛' shape, supporting {@link ConnectingBlock}s for the trunk.
  */
-public class ThinSplittingTrunkPlacer extends TrunkPlacer {
+public class ThinSplittingTrunkPlacer extends ThinTrunkPlacer {
     public static final Codec<ThinSplittingTrunkPlacer> CODEC = RecordCodecBuilder.create(
             instance -> fillTrunkPlacerFields(instance).and(
                     instance.group(
@@ -308,196 +307,6 @@ public class ThinSplittingTrunkPlacer extends TrunkPlacer {
                 yield List.of(first, center, second);
             }
         };
-    }
-
-    /**
-     * Gives the {@link BlockRotation} necessary to rotate from {@link Direction#NORTH} to the given
-     * {@code horizontalDirection}.
-     *
-     * @throws IllegalArgumentException if a non-horizontal direction is provided
-     */
-    private static BlockRotation rotationFromDirection(@NotNull Direction horizontalDirection) {
-        return switch (horizontalDirection) {
-            case NORTH -> BlockRotation.NONE;
-            case EAST -> BlockRotation.CLOCKWISE_90;
-            case SOUTH -> BlockRotation.CLOCKWISE_180;
-            case WEST -> BlockRotation.COUNTERCLOCKWISE_90;
-
-            default -> throw new IllegalArgumentException("expected horizontal direction");
-        };
-    }
-
-    /**
-     * Places a log {@link ConnectingBlock#UP UP} and {@link ConnectingBlock#DOWN DOWN} connections.
-     * <p>
-     * A '┃' shape.
-     * <p>
-     * If this is a {@link PillarBlock} log instead, the {@link PillarBlock#AXIS} will be vertical.
-     */
-    private boolean placeVerticalLog(
-            TestableWorld world,
-            BiConsumer<BlockPos, BlockState> replacer,
-            Random random,
-            BlockPos pos,
-            TreeFeatureConfig config
-    ) {
-        return this.getAndSetState(
-                world,
-                replacer,
-                random,
-                pos,
-                config,
-                state -> state.withIfExists(ConnectingBlock.DOWN, true).withIfExists(ConnectingBlock.UP, true)
-        );
-    }
-
-    /**
-     * Places a straight log with horizontal connections, rotated from
-     * {@link ConnectingBlock#NORTH NORTH}/{@link ConnectingBlock#SOUTH SOUTH} by the given {@code rotation}.
-     * <p>
-     * A '━' shape.
-     * <p>
-     * If this is a {@link PillarBlock} log instead, the {@link PillarBlock#AXIS} will be {@link Direction.Axis#Z}
-     * rotated by the given {@code rotation}.
-     */
-    private boolean placeHorizontalLog(
-            TestableWorld world,
-            BiConsumer<BlockPos, BlockState> replacer,
-            Random random,
-            BlockPos pos,
-            TreeFeatureConfig config,
-            BlockRotation rotation
-    ) {
-        return this.getAndSetState(
-                world,
-                replacer,
-                random,
-                pos,
-                config,
-                state -> state.withIfExists(ConnectingBlock.NORTH, true)
-                        .withIfExists(ConnectingBlock.SOUTH, true)
-                        .withIfExists(PillarBlock.AXIS, Direction.Axis.Z)
-                        .rotate(rotation)
-        );
-    }
-
-    /**
-     * Places a log with two connections, rotated from {@link ConnectingBlock#UP UP}/{@link ConnectingBlock#SOUTH SOUTH}
-     * by the given {@code rotation}.
-     * <p>
-     * A '┗' shape.
-     * <p>
-     * If this is a {@link PillarBlock} log instead, the {@link PillarBlock#AXIS} will be vertical.
-     */
-    private boolean placeBend(
-            TestableWorld world,
-            BiConsumer<BlockPos, BlockState> replacer,
-            Random random,
-            BlockPos pos,
-            TreeFeatureConfig config,
-            BlockRotation rotation
-    ) {
-        return this.getAndSetState(
-                world,
-                replacer,
-                random,
-                pos,
-                config,
-                state -> state.withIfExists(ConnectingBlock.SOUTH, true)
-                        .withIfExists(ConnectingBlock.UP, true)
-                        .rotate(rotation)
-        );
-    }
-
-    /**
-     * Places a log with three connections, rotated from
-     * {@link ConnectingBlock#NORTH NORTH}/{@link ConnectingBlock#DOWN DOWN}/{@link ConnectingBlock#SOUTH SOUTH} by the
-     * given {@code rotation}.
-     * <p>
-     * A '┳' shape.
-     * <p>
-     * If this is a {@link PillarBlock} log instead, the {@link PillarBlock#AXIS} will be vertical.
-     */
-    private boolean placeHorizontalT(
-            TestableWorld world,
-            BiConsumer<BlockPos, BlockState> replacer,
-            Random random,
-            BlockPos pos,
-            TreeFeatureConfig config,
-            BlockRotation rotation
-    ) {
-        return this.getAndSetState(
-                world,
-                replacer,
-                random,
-                pos,
-                config,
-                state -> state.withIfExists(ConnectingBlock.DOWN, true)
-                        .withIfExists(ConnectingBlock.NORTH, true)
-                        .withIfExists(ConnectingBlock.SOUTH, true)
-                        .rotate(rotation)
-        );
-    }
-
-    /**
-     * Places a log with three connections, rotated from
-     * {@link ConnectingBlock#DOWN DOWN}/{@link ConnectingBlock#NORTH NORTH}/{@link ConnectingBlock#UP UP} by the given
-     * {@code rotation}.
-     * <p>
-     * A '┫' shape.
-     * <p>
-     * If this is a {@link PillarBlock} log instead, the {@link PillarBlock#AXIS} will be vertical.
-     */
-    private boolean placeVerticalT(
-            TestableWorld world,
-            BiConsumer<BlockPos, BlockState> replacer,
-            Random random,
-            BlockPos pos,
-            TreeFeatureConfig config,
-            BlockRotation rotation
-    ) {
-        return this.getAndSetState(
-                world,
-                replacer,
-                random,
-                pos,
-                config,
-                state -> state.withIfExists(ConnectingBlock.DOWN, true)
-                        .withIfExists(ConnectingBlock.UP, true)
-                        .withIfExists(ConnectingBlock.NORTH, true)
-                        .rotate(rotation)
-        );
-    }
-
-    /**
-     * Places a log with four connections, rotated from
-     * {@link ConnectingBlock#DOWN DOWN}/{@link ConnectingBlock#NORTH NORTH}/{@link ConnectingBlock#UP UP}/{@link ConnectingBlock#SOUTH SOUTH}
-     * by the given {@code rotation}.
-     * <p>
-     * A '╋' shape.
-     * <p>
-     * If this is a {@link PillarBlock} log instead, the {@link PillarBlock#AXIS} will be vertical.
-     */
-    private boolean placeVerticalCross(
-            TestableWorld world,
-            BiConsumer<BlockPos, BlockState> replacer,
-            Random random,
-            BlockPos pos,
-            TreeFeatureConfig config,
-            BlockRotation rotation
-    ) {
-        return this.getAndSetState(
-                world,
-                replacer,
-                random,
-                pos,
-                config,
-                state -> state.withIfExists(ConnectingBlock.DOWN, true)
-                        .withIfExists(ConnectingBlock.UP, true)
-                        .withIfExists(ConnectingBlock.NORTH, true)
-                        .withIfExists(ConnectingBlock.SOUTH, true)
-                        .rotate(rotation)
-        );
     }
 
     /**

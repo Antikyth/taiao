@@ -12,7 +12,7 @@ package antikyth.taiao;
  * @param <V> the type of the third argument to the function
  * @param <W> the type of the fourth argument to the function
  * @param <X> the type of the fifth argument to the function
- * @param <Y> the type of the fifth argument to the function
+ * @param <Y> the type of the sixth argument to the function
  * @param <R> the type of the result of the function
  */
 @FunctionalInterface

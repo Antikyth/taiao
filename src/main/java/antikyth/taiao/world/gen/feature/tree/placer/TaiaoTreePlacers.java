@@ -5,6 +5,10 @@
 package antikyth.taiao.world.gen.feature.tree.placer;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.world.gen.feature.tree.placer.foliage.PalmFoliagePlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinStraightTrunkPlacer;
 import com.mojang.serialization.Codec;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -19,10 +23,18 @@ public class TaiaoTreePlacers {
             Taiao.id("thin_splitting_trunk_placer"),
             ThinSplittingTrunkPlacer.CODEC
     );
+    public static final TrunkPlacerType<ThinStraightTrunkPlacer> THIN_STRAIGHT_TRUNK_PLACER = registerTrunkPlacer(
+            Taiao.id("thin_straight_trunk_placer"),
+            ThinStraightTrunkPlacer.CODEC
+    );
 
     public static final FoliagePlacerType<SphericalFoliagePlacer> SPHERICAL_FOLIAGE_PLACER = registerFoliagePlacer(
             Taiao.id("spherical_foliage_placer"),
             SphericalFoliagePlacer.CODEC
+    );
+    public static final FoliagePlacerType<PalmFoliagePlacer> PALM_FOLIAGE_PLACER = registerFoliagePlacer(
+            Taiao.id("palm_foliage_placer"),
+            PalmFoliagePlacer.CODEC
     );
 
     public static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunkPlacer(Identifier id, Codec<P> codec) {

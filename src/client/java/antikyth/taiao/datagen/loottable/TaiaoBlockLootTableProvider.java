@@ -52,6 +52,10 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         // Mamaku foliage
         addDrop(TaiaoBlocks.MAMAKU_SAPLING);
         addPottedPlantDrops(TaiaoBlocks.POTTED_MAMAKU_SAPLING);
+        addDrop(
+                TaiaoBlocks.MAMAKU_LEAVES,
+                block -> leavesDrops(block, TaiaoBlocks.MAMAKU_SAPLING, SAPLING_DROP_CHANCE)
+        );
 
         // Mamaku wood
         addDrop(TaiaoBlocks.MAMAKU_LOG);
