@@ -56,6 +56,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
         generator.registerLog(TaiaoBlocks.STRIPPED_KAURI_LOG)
                 .log(TaiaoBlocks.STRIPPED_KAURI_LOG)
                 .wood(TaiaoBlocks.STRIPPED_KAURI_WOOD);
+        // Kauri wood family
         generator.registerCubeAllModelTexturePool(TaiaoBlocks.KAURI_PLANKS)
                 .family(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 
@@ -84,6 +85,11 @@ public class TaiaoModelProvider extends FabricModelProvider {
         // Mamaku wood
         registerThinLog(generator, TaiaoBlocks.MAMAKU_LOG);
         registerThinWood(generator, TaiaoBlocks.MAMAKU_WOOD, TaiaoBlocks.MAMAKU_LOG);
+        registerThinLog(generator, TaiaoBlocks.STRIPPED_MAMAKU_LOG);
+        registerThinWood(generator, TaiaoBlocks.STRIPPED_MAMAKU_WOOD, TaiaoBlocks.STRIPPED_MAMAKU_LOG);
+        // Mamaku wood family
+        generator.registerCubeAllModelTexturePool(TaiaoBlocks.MAMAKU_PLANKS)
+                .family(TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
     }
 
     @Override

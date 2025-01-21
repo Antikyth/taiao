@@ -8,8 +8,12 @@ import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.block.Block;
+import net.minecraft.data.family.BlockFamily;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -36,7 +40,9 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD);
         getOrCreateTagBuilder(TaiaoBlockTags.MAMAKU_LOGS)
                 .add(TaiaoBlocks.MAMAKU_LOG)
-                .add(TaiaoBlocks.MAMAKU_WOOD);
+                .add(TaiaoBlocks.MAMAKU_WOOD)
+                .add(TaiaoBlocks.STRIPPED_MAMAKU_LOG)
+                .add(TaiaoBlocks.STRIPPED_MAMAKU_WOOD);
 
         getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOGS)
                 .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
@@ -60,23 +66,47 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(TaiaoBlocks.KAURI_SAPLING)
                 .add(TaiaoBlocks.CABBAGE_TREE_SAPLING)
                 .add(TaiaoBlocks.MAMAKU_SAPLING);
-        getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE).addTag(TaiaoBlockTags.THIN_LOGS);
+        getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE)
+                .addTag(TaiaoBlockTags.THIN_LOGS);
 
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
                 .addTag(TaiaoBlockTags.KAURI_LOGS)
                 .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
                 .addTag(TaiaoBlockTags.MAMAKU_LOGS);
+        // Logs that generate naturally in the world
         getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
                 .add(TaiaoBlocks.KAURI_LOG)
                 .add(TaiaoBlocks.CABBAGE_TREE_LOG)
                 .add(TaiaoBlocks.MAMAKU_LOG);
 
-        getOrCreateTagBuilder(BlockTags.PLANKS).add(TaiaoBlocks.KAURI_PLANKS);
-        getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS).add(TaiaoBlocks.KAURI_BUTTON);
-        getOrCreateTagBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(TaiaoBlocks.KAURI_PRESSURE_PLATE);
-        getOrCreateTagBuilder(BlockTags.WOODEN_STAIRS).add(TaiaoBlocks.KAURI_STAIRS);
-        getOrCreateTagBuilder(BlockTags.WOODEN_SLABS).add(TaiaoBlocks.KAURI_SLAB);
-        getOrCreateTagBuilder(BlockTags.WOODEN_FENCES).add(TaiaoBlocks.KAURI_FENCE);
-        getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(TaiaoBlocks.KAURI_FENCE_GATE);
+        addWoodFamilyTags(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
+        addWoodFamilyTags(TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
+    }
+
+    /**
+     * Adds the given wooden {@code family}'s variants to the appropriate tags.
+     */
+    protected void addWoodFamilyTags(@NotNull BlockFamily family) {
+        getOrCreateTagBuilder(BlockTags.PLANKS).add(family.getBaseBlock());
+
+        addVariantTag(family, BlockFamily.Variant.BUTTON, BlockTags.WOODEN_BUTTONS);
+        addVariantTag(family, BlockFamily.Variant.PRESSURE_PLATE, BlockTags.WOODEN_PRESSURE_PLATES);
+
+        addVariantTag(family, BlockFamily.Variant.DOOR, BlockTags.WOODEN_DOORS);
+        addVariantTag(family, BlockFamily.Variant.TRAPDOOR, BlockTags.WOODEN_TRAPDOORS);
+
+        addVariantTag(family, BlockFamily.Variant.STAIRS, BlockTags.WOODEN_STAIRS);
+        addVariantTag(family, BlockFamily.Variant.SLAB, BlockTags.WOODEN_SLABS);
+
+        addVariantTag(family, BlockFamily.Variant.FENCE, BlockTags.WOODEN_FENCES);
+        addVariantTag(family, BlockFamily.Variant.CUSTOM_FENCE, BlockTags.WOODEN_FENCES);
+        addVariantTag(family, BlockFamily.Variant.FENCE_GATE, BlockTags.FENCE_GATES);
+        addVariantTag(family, BlockFamily.Variant.CUSTOM_FENCE_GATE, BlockTags.FENCE_GATES);
+    }
+
+    protected void addVariantTag(@NotNull BlockFamily family, BlockFamily.Variant variant, TagKey<Block> tag) {
+        Block block = family.getVariant(variant);
+
+        if (block != null) getOrCreateTagBuilder(tag).add(block);
     }
 }

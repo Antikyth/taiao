@@ -115,6 +115,16 @@ public class TaiaoItems {
     public static void addMamakuBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.MAMAKU_LOG);
         add.accept(TaiaoBlocks.MAMAKU_WOOD);
+        add.accept(TaiaoBlocks.STRIPPED_MAMAKU_LOG);
+        add.accept(TaiaoBlocks.STRIPPED_MAMAKU_WOOD);
+
+        add.accept(TaiaoBlocks.MAMAKU_PLANKS);
+        add.accept(TaiaoBlocks.MAMAKU_STAIRS);
+        add.accept(TaiaoBlocks.MAMAKU_SLAB);
+        add.accept(TaiaoBlocks.MAMAKU_FENCE);
+        add.accept(TaiaoBlocks.MAMAKU_FENCE_GATE);
+        add.accept(TaiaoBlocks.MAMAKU_PRESSURE_PLATE);
+        add.accept(TaiaoBlocks.MAMAKU_BUTTON);
     }
 
     public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {

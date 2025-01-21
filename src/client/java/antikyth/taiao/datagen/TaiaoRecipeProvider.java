@@ -38,7 +38,12 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
         // Tī kōuka oak hanging sign
         offerHangingSignRecipe(exporter, Items.OAK_HANGING_SIGN, TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
 
+        generateFamily(exporter, TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
+
+        // Mamaku planks
+        offerPlanksRecipe(exporter, TaiaoBlocks.MAMAKU_PLANKS, TaiaoItemTags.MAMAKU_LOGS, 2);
         // Mamaku wood
         offerBarkBlockRecipe(exporter, TaiaoBlocks.MAMAKU_WOOD, TaiaoBlocks.MAMAKU_LOG);
+        offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_MAMAKU_WOOD, TaiaoBlocks.STRIPPED_MAMAKU_LOG);
     }
 }

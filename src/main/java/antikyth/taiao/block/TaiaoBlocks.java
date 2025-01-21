@@ -139,6 +139,14 @@ public class TaiaoBlocks {
     ).copyFlammable(Blocks.OAK_LEAVES).register(true);
 
     // Mamaku wood
+    public static final Block STRIPPED_MAMAKU_LOG = new Builder(
+            Taiao.id("stripped_mamaku_log"),
+            createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
+    ).register(true);
+    public static final Block STRIPPED_MAMAKU_WOOD = new Builder(
+            Taiao.id("stripped_mamaku_wood"),
+            createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
+    ).register(true);
     public static final Block MAMAKU_LOG = new Builder(
             Taiao.id("mamaku_log"),
             createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
@@ -147,6 +155,36 @@ public class TaiaoBlocks {
             Taiao.id("mamaku_wood"),
             createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
     ).register(true);
+
+    // Mamaku wood family
+    public static final Block MAMAKU_PLANKS = new Builder(
+            Taiao.id("mamaku_planks"),
+            createPlanks(MapColor.SPRUCE_BROWN)
+    ).copyFlammable(Blocks.DARK_OAK_PLANKS).register(true);
+    public static final Block MAMAKU_PRESSURE_PLATE = new Builder(
+            Taiao.id("mamaku_pressure_plate"),
+            createWoodenPressurePlate(MAMAKU_PLANKS, WoodFamily.MAMAKU.getBlockSetType())
+    ).register(true);
+    public static final Block MAMAKU_BUTTON = new Builder(
+            Taiao.id("mamaku_button"),
+            Blocks.createWoodenButtonBlock(WoodFamily.MAMAKU.getBlockSetType())
+    ).register(true);
+    public static final Block MAMAKU_STAIRS = new Builder(
+            Taiao.id("mamaku_stairs"),
+            new StairsBlock(MAMAKU_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(MAMAKU_PLANKS))
+    ).copyFlammable(MAMAKU_PLANKS).register(true);
+    public static final Block MAMAKU_SLAB = new Builder(
+            Taiao.id("mamaku_slab"),
+            new SlabBlock(FabricBlockSettings.copyOf(MAMAKU_PLANKS))
+    ).copyFlammable(MAMAKU_PLANKS).register(true);
+    public static final Block MAMAKU_FENCE_GATE = new Builder(
+            Taiao.id("mamaku_fence_gate"),
+            new FenceGateBlock(FabricBlockSettings.copyOf(MAMAKU_PLANKS), WoodFamily.MAMAKU.getWoodType())
+    ).copyFlammable(MAMAKU_PLANKS).register(true);
+    public static final Block MAMAKU_FENCE = new Builder(
+            Taiao.id("mamaku_fence"),
+            new FenceBlock(FabricBlockSettings.copyOf(MAMAKU_PLANKS))
+    ).copyFlammable(MAMAKU_PLANKS).register(true);
 
     public static void initialize() {
         registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.ACACIA_LOG);
@@ -167,6 +205,19 @@ public class TaiaoBlocks {
                         .pressurePlate(TaiaoBlocks.KAURI_PRESSURE_PLATE)
                         .slab(TaiaoBlocks.KAURI_SLAB)
                         .stairs(TaiaoBlocks.KAURI_STAIRS)
+                        .group("wooden")
+                        .unlockCriterionName("has_planks")
+                        .build()
+        );
+        public static final WoodFamily MAMAKU = register(
+                Taiao.id("mamaku"),
+                () -> new BlockFamily.Builder(TaiaoBlocks.MAMAKU_PLANKS)
+                        .button(TaiaoBlocks.MAMAKU_BUTTON)
+                        .fence(TaiaoBlocks.MAMAKU_FENCE)
+                        .fenceGate(TaiaoBlocks.MAMAKU_FENCE_GATE)
+                        .pressurePlate(TaiaoBlocks.MAMAKU_PRESSURE_PLATE)
+                        .slab(TaiaoBlocks.MAMAKU_SLAB)
+                        .stairs(TaiaoBlocks.MAMAKU_STAIRS)
                         .group("wooden")
                         .unlockCriterionName("has_planks")
                         .build()

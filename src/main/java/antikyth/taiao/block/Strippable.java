@@ -25,6 +25,8 @@ public interface Strippable {
     Supplier<BiMap<Block, Block>> STRIPPED_BLOCKS = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder()
             .put(TaiaoBlocks.CABBAGE_TREE_LOG, TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG)
             .put(TaiaoBlocks.CABBAGE_TREE_WOOD, TaiaoBlocks.STRIPPED_CABBAGE_TREE_WOOD)
+            .put(TaiaoBlocks.MAMAKU_LOG, TaiaoBlocks.STRIPPED_MAMAKU_LOG)
+            .put(TaiaoBlocks.MAMAKU_WOOD, TaiaoBlocks.STRIPPED_MAMAKU_WOOD)
             .build());
 
     static Optional<BlockState> getStrippedState(BlockState state) {
