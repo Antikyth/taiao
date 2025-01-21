@@ -173,19 +173,6 @@ public class TaiaoModelProvider extends FabricModelProvider {
         TaiaoModels.uploadItem(TaiaoModels.THIN_LOG_INVENTORY, block.asItem(), textures, generator.modelCollector);
     }
 
-    public static BlockStateSupplier createThinLogBlockState(
-            ThinLogBlock block,
-            String noSideModelName,
-            String noSideEndModelName,
-            String sideModelName
-    ) {
-        Identifier noSideModelId = new Identifier(Taiao.MOD_ID, "block/" + noSideModelName);
-        Identifier noSideEndModelId = new Identifier(Taiao.MOD_ID, "block/" + noSideEndModelName);
-        Identifier sideModelId = new Identifier(Taiao.MOD_ID, "block/" + sideModelName);
-
-        return createThinLogBlockState(block, noSideModelId, noSideEndModelId, sideModelId);
-    }
-
     /**
      * Gets the rotation variant setting appropriate for the given {@code direction}.
      */
