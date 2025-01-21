@@ -7,9 +7,13 @@ package antikyth.taiao.datagen;
 import antikyth.taiao.datagen.loottable.TaiaoBlockLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoEntityLootTableProvider;
 import antikyth.taiao.datagen.model.TaiaoModelProvider;
+import antikyth.taiao.datagen.tag.TaiaoBiomeTagProvider;
 import antikyth.taiao.datagen.tag.TaiaoBlockTagProvider;
 import antikyth.taiao.datagen.tag.TaiaoEntityTagProvider;
 import antikyth.taiao.datagen.tag.TaiaoItemTagProvider;
+import antikyth.taiao.datagen.world.gen.TaiaoBiomeProvider;
+import antikyth.taiao.datagen.world.gen.TaiaoConfiguredFeatureProvider;
+import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
 import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -19,26 +23,34 @@ import net.minecraft.registry.RegistryKeys;
 
 public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
     @Override
-    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+    public void onInitializeDataGenerator(FabricDataGenerator generator) {
+        FabricDataGenerator.Pack pack = generator.createPack();
 
         pack.addProvider(TaiaoModelProvider::new);
         pack.addProvider(TaiaoRecipeProvider::new);
-        pack.addProvider(TaiaoConfiguredFeatureProvider::new);
 
+        // Loot tables
         pack.addProvider(TaiaoBlockLootTableProvider::new);
         pack.addProvider(TaiaoEntityLootTableProvider::new);
 
+        // Tags
         TaiaoBlockTagProvider blockTagProvider = pack.addProvider(TaiaoBlockTagProvider::new);
         pack.addProvider((output, lookup) -> new TaiaoItemTagProvider(output, lookup, blockTagProvider));
         pack.addProvider(TaiaoEntityTagProvider::new);
+        pack.addProvider(TaiaoBiomeTagProvider::new);
+
+        // World gen
+        pack.addProvider(TaiaoConfiguredFeatureProvider::new);
+        pack.addProvider(TaiaoBiomeProvider::new);
     }
 
     @Override
     public void buildRegistry(RegistryBuilder builder) {
         DataGeneratorEntrypoint.super.buildRegistry(builder);
 
-        builder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TaiaoConfiguredFeatures::bootstrapConfiguredFeatures);
-        builder.addRegistry(RegistryKeys.PLACED_FEATURE, TaiaoPlacedFeatures::bootstrapPlacedFeatures);
+        builder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TaiaoConfiguredFeatures::bootstrap);
+        builder.addRegistry(RegistryKeys.PLACED_FEATURE, TaiaoPlacedFeatures::bootstrap);
+
+        builder.addRegistry(RegistryKeys.BIOME, TaiaoBiomes::bootstrap);
     }
 }

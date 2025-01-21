@@ -7,18 +7,21 @@ package antikyth.taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.world.gen.biome.TaiaoRegions;
+import antikyth.taiao.world.gen.biome.TaiaoSurfaceRules;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import terrablender.api.SurfaceRuleManager;
+import terrablender.api.TerraBlenderApi;
 
-public class Taiao implements ModInitializer {
+public class Taiao implements ModInitializer, TerraBlenderApi {
     public static final String MOD_NAME = "Te Taiao o Aotearoa";
     public static final String MOD_ID = "taiao";
+
+    boolean initialized = false;
 
     // This logger is used to write text to the console and the log file.
     // It is considered best practice to use your mod id as the logger's name.
@@ -27,6 +30,9 @@ public class Taiao implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        if (initialized) return;
+        else initialized = true;
+
         TaiaoBlocks.initialize();
         TaiaoItems.initialize();
         TaiaoEntities.initialize();
@@ -34,18 +40,22 @@ public class Taiao implements ModInitializer {
         TaiaoTreePlacers.initialize();
     }
 
+    @Override
+    public void onTerraBlenderInitialized() {
+        onInitialize();
+
+        TaiaoRegions.initialize();
+        SurfaceRuleManager.addSurfaceRules(
+                SurfaceRuleManager.RuleCategory.OVERWORLD,
+                MOD_ID,
+                TaiaoSurfaceRules.createSurfaceRules()
+        );
+    }
+
     /**
      * Creates an {@link Identifier} using the {@linkplain Taiao#MOD_ID Te Taiao o Aotearoa namespace}.
      */
     public static Identifier id(String name) {
         return Identifier.of(MOD_ID, name);
-    }
-
-    public static <T> RegistryKey<T> createRegistryKey(Identifier id, RegistryKey<? extends Registry<T>> registryKey) {
-        return RegistryKey.of(registryKey, id);
-    }
-
-    public static <T> TagKey<T> createTagKey(Identifier id, RegistryKey<? extends Registry<T>> registryKey) {
-        return TagKey.of(registryKey, id);
     }
 }

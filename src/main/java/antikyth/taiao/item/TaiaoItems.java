@@ -145,7 +145,7 @@ public class TaiaoItems {
      * The group's translation key is {@code itemGroup.%namespace.%name}, e.g. {@code itemGroup.taiao.item_group}.
      */
     public static RegistryKey<ItemGroup> registerItemGroup(Identifier id, Item icon) {
-        RegistryKey<ItemGroup> key = Taiao.createRegistryKey(id, RegistryKeys.ITEM_GROUP);
+        RegistryKey<ItemGroup> key = RegistryKey.of(RegistryKeys.ITEM_GROUP, id);
 
         String translationKey = String.format("itemGroup.%s.%s", id.getNamespace(), id.getPath());
 

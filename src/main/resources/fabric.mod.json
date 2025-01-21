@@ -35,11 +35,13 @@
       "environment": "client"
     }
   ],
+  "accessWidener": "taiao.accesswidener",
   "depends": {
     "fabricloader": ">=0.16.10",
     "minecraft": "~1.20.1",
     "java": ">=17",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "terrablender": ">=3.0.1"
   },
   "suggests": {
     "emi": "*"

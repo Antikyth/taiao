@@ -29,6 +29,6 @@ public final class TaiaoBlockTags {
     );
 
     public static TagKey<Block> createTagKey(Identifier id) {
-        return Taiao.createTagKey(id, RegistryKeys.BLOCK);
+        return TagKey.of(RegistryKeys.BLOCK, id);
     }
 }

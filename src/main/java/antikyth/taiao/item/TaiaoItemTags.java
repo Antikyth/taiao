@@ -37,6 +37,6 @@ public final class TaiaoItemTags {
     }
 
     public static TagKey<Item> createTagKey(Identifier id) {
-        return Taiao.createTagKey(id, RegistryKeys.ITEM);
+        return TagKey.of(RegistryKeys.ITEM, id);
     }
 }

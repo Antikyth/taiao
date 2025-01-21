@@ -4,7 +4,6 @@
 
 package antikyth.taiao.datagen.loottable;
 
-import antikyth.taiao.mixin.EntityLootTableGeneratorAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLootTableProvider;
 import net.fabricmc.fabric.impl.datagen.loot.FabricLootTableProviderImpl;
@@ -35,8 +34,7 @@ public abstract class FabricEntityLootTableProvider extends EntityLootTableGener
     public void accept(BiConsumer<Identifier, LootTable.Builder> exporter) {
         this.generate();
 
-        for (Map<Identifier, LootTable.Builder> map : ((EntityLootTableGeneratorAccessor) this).getLootTables()
-                .values()) {
+        for (Map<Identifier, LootTable.Builder> map : this.lootTables.values()) {
             for (Map.Entry<Identifier, LootTable.Builder> subEntry : map.entrySet()) {
                 Identifier id = subEntry.getKey();
 
