@@ -5,6 +5,7 @@
 package antikyth.taiao.world.gen.feature.tree.placer.trunk;
 
 import antikyth.taiao.HexaFunction;
+import antikyth.taiao.Taiao;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -165,6 +166,10 @@ public class ThinSplittingTrunkPlacer extends ThinTrunkPlacer {
             mutable.set(startPos, 0, i, 0);
 
             if (splitsRemaining > 0 && random.nextFloat() < this.splitTrunkPerLogProbability) {
+                SplitType splitType = this.splitTypeWeights.next(random);
+
+                Taiao.LOGGER.debug("Creating {} split facing {}", splitType, splitDirection);
+
                 // Create a new split.
                 List<BlockPos> branches = createSplit(
                         world,
@@ -172,7 +177,7 @@ public class ThinSplittingTrunkPlacer extends ThinTrunkPlacer {
                         random,
                         mutable,
                         config,
-                        this.splitTypeWeights.next(random),
+                        splitType,
                         splitDirection
                 );
 

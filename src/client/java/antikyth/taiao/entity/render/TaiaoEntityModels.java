@@ -4,6 +4,7 @@
 
 package antikyth.taiao.entity.render;
 
+import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -24,6 +25,8 @@ public class TaiaoEntityModels {
     );
 
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering entity renderers and model layers");
+
         EntityRendererRegistry.register(TaiaoEntities.PUUKEKO, PuukekoEntityRenderer::new);
         EntityRendererRegistry.register(TaiaoEntities.MOA, MoaEntityRenderer::new);
     }

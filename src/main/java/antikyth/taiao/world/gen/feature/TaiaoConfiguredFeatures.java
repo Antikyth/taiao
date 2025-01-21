@@ -42,6 +42,8 @@ public class TaiaoConfiguredFeatures {
     );
 
     public static void bootstrap(@NotNull Registerable<ConfiguredFeature<?, ?>> context) {
+        Taiao.LOGGER.debug("Registering configured features");
+
         RegistryEntryLookup<PlacedFeature> placedFeatureLookup = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
 
         // Trees

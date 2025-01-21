@@ -29,6 +29,8 @@ public class TaiaoBiomes {
     public static RegistryKey<Biome> NATIVE_FOREST = registryKey(Taiao.id("native_forest"));
 
     public static void bootstrap(@NotNull Registerable<Biome> context) {
+        Taiao.LOGGER.debug("Registering biomes");
+
         RegistryEntryLookup<PlacedFeature> featureLookup = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
         RegistryEntryLookup<ConfiguredCarver<?>> carverLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
 

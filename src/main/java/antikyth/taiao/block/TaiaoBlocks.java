@@ -187,6 +187,8 @@ public class TaiaoBlocks {
     ).copyFlammable(MAMAKU_PLANKS).register(true);
 
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering blocks");
+
         registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.ACACIA_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.CABBAGE_TREE_LOGS, Blocks.OAK_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.MAMAKU_LOGS, Blocks.SPRUCE_LOG);

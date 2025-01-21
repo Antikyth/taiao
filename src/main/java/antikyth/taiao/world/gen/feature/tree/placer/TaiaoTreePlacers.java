@@ -46,5 +46,6 @@ public class TaiaoTreePlacers {
     }
 
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering trunk and foliage placers");
     }
 }

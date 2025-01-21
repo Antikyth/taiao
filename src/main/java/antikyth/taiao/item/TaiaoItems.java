@@ -37,6 +37,8 @@ public class TaiaoItems {
     );
 
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering items and item groups");
+
         // Add items to the item group.
         ItemGroupEvents.modifyEntriesEvent(TAIAO_ITEM_GROUP).register(group -> {
             group.add(TaiaoBlocks.KAURI_SAPLING);

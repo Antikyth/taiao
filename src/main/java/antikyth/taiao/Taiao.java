@@ -24,14 +24,14 @@ public class Taiao implements ModInitializer, TerraBlenderApi {
     boolean initialized = false;
 
     // This logger is used to write text to the console and the log file.
-    // It is considered best practice to use your mod id as the logger's name.
-    // That way, it's clear which mod wrote info, warnings, and errors.
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     @Override
     public void onInitialize() {
         if (initialized) return;
         else initialized = true;
+
+        LOGGER.info("Initializing {}", MOD_NAME);
 
         TaiaoBlocks.initialize();
         TaiaoItems.initialize();

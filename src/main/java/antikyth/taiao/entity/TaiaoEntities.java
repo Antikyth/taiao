@@ -45,5 +45,6 @@ public class TaiaoEntities {
     }
 
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering entities");
     }
 }

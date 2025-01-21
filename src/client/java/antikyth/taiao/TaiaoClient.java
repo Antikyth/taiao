@@ -30,12 +30,29 @@ public class TaiaoClient implements ClientModInitializer {
     public void onInitializeClient() {
         TaiaoEntityModels.initialize();
 
-        registerBlockColors(this::foliageBlockColor, this::foliageItemColor, TaiaoBlocks.KAURI_LEAVES);
-        registerBlockColors(this::foliageBlockColor, this::foliageItemColor, TaiaoBlocks.CABBAGE_TREE_LEAVES);
-        registerBlockColors(this::foliageBlockColor, this::foliageItemColor, TaiaoBlocks.MAMAKU_LEAVES);
+        registerColors();
+        registerRenderLayers();
+    }
 
-        registerItemColors(this::spawnEggColor, TaiaoItems.PUUKEKO_SPAWN_EGG);
-        registerItemColors(this::spawnEggColor, TaiaoItems.MOA_SPAWN_EGG);
+    public static void registerColors() {
+        Taiao.LOGGER.debug("Registering block and item dynamic color providers");
+
+        // Leaves
+        registerBlockColors(TaiaoClient::foliageBlockColor, TaiaoClient::foliageItemColor, TaiaoBlocks.KAURI_LEAVES);
+        registerBlockColors(
+                TaiaoClient::foliageBlockColor,
+                TaiaoClient::foliageItemColor,
+                TaiaoBlocks.CABBAGE_TREE_LEAVES
+        );
+        registerBlockColors(TaiaoClient::foliageBlockColor, TaiaoClient::foliageItemColor, TaiaoBlocks.MAMAKU_LEAVES);
+
+        // Spawn eggs
+        registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.PUUKEKO_SPAWN_EGG);
+        registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.MOA_SPAWN_EGG);
+    }
+
+    public static void registerRenderLayers() {
+        Taiao.LOGGER.debug("Registering block render layers");
 
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.CABBAGE_TREE_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING, RenderLayer.getCutout());
@@ -53,13 +70,13 @@ public class TaiaoClient implements ClientModInitializer {
         }
     }
 
-    public void registerBlockColors(BlockColorProvider colorProvider, Block @NotNull ... blocks) {
+    public static void registerBlockColors(BlockColorProvider colorProvider, Block @NotNull ... blocks) {
         for (Block block : blocks) {
             ColorProviderRegistry.BLOCK.register(colorProvider, block);
         }
     }
 
-    public void registerBlockColors(
+    public static void registerBlockColors(
             BlockColorProvider blockColorProvider,
             ItemColorProvider itemColorProvider,
             Block @NotNull ... blocks
@@ -70,24 +87,24 @@ public class TaiaoClient implements ClientModInitializer {
         }
     }
 
-    public int foliageBlockColor(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex) {
+    public static int foliageBlockColor(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex) {
         return (world != null && pos != null) ? BiomeColors.getFoliageColor(world, pos)
                 : FoliageColors.getDefaultColor();
     }
 
-    public int grassBlockColor(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex) {
+    public static int grassBlockColor(BlockState state, BlockRenderView world, BlockPos pos, int tintIndex) {
         return (world != null && pos != null) ? BiomeColors.getGrassColor(world, pos) : GrassColors.getDefaultColor();
     }
 
-    public int foliageItemColor(ItemStack stack, int tintIndex) {
+    public static int foliageItemColor(ItemStack stack, int tintIndex) {
         return FoliageColors.getDefaultColor();
     }
 
-    public int grassItemColor(ItemStack stack, int tintIndex) {
+    public static int grassItemColor(ItemStack stack, int tintIndex) {
         return GrassColors.getDefaultColor();
     }
 
-    public int spawnEggColor(@NotNull ItemStack stack, int tintIndex) {
+    public static int spawnEggColor(@NotNull ItemStack stack, int tintIndex) {
         if (stack.getItem() instanceof SpawnEggItem item) {
             return item.getColor(tintIndex);
         } else {

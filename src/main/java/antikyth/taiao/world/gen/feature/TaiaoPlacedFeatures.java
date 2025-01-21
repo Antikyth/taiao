@@ -33,6 +33,8 @@ public class TaiaoPlacedFeatures {
     public static final RegistryKey<PlacedFeature> NATIVE_FOREST_TREES = registryKey(Taiao.id("trees_native_forest"));
 
     public static void bootstrap(@NotNull Registerable<PlacedFeature> context) {
+        Taiao.LOGGER.debug("Registering placed features");
+
         RegistryEntryLookup<ConfiguredFeature<?, ?>> lookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
         // Trees
