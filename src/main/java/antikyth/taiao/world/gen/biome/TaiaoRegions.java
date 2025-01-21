@@ -21,17 +21,18 @@ import java.util.function.Consumer;
  * TerraBlender {@link Region}s for adding our modded biomes in a compatible way.
  */
 public class TaiaoRegions {
-    public static final Region OVERWORLD = register(new Region(Taiao.id("overworld_region"), RegionType.OVERWORLD, 10) {
-        @Override
-        public void addBiomes(
-                Registry<Biome> registry,
-                Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> mapper
-        ) {
-            addBiomeSimilar(mapper, BiomeKeys.FOREST, TaiaoBiomes.NATIVE_FOREST);
-        }
-    });
-
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering TerraBlender regions");
+
+        register(new Region(Taiao.id("overworld_region"), RegionType.OVERWORLD, 1) {
+            @Override
+            public void addBiomes(
+                    Registry<Biome> registry,
+                    Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> mapper
+            ) {
+                addBiomeSimilar(mapper, BiomeKeys.FOREST, TaiaoBiomes.NATIVE_FOREST);
+            }
+        });
     }
 
     public static Region register(Region region) {

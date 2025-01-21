@@ -26,6 +26,9 @@
     ],
     "emi": [
       "antikyth.taiao.TaiaoEmiPlugin"
+    ],
+    "terrablender": [
+      "antikyth.taiao.Taiao"
     ]
   },
   "mixins": [

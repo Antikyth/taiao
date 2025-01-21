@@ -8,13 +8,11 @@ import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.biome.TaiaoRegions;
-import antikyth.taiao.world.gen.biome.TaiaoSurfaceRules;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import terrablender.api.SurfaceRuleManager;
 import terrablender.api.TerraBlenderApi;
 
 public class Taiao implements ModInitializer, TerraBlenderApi {
@@ -45,11 +43,11 @@ public class Taiao implements ModInitializer, TerraBlenderApi {
         onInitialize();
 
         TaiaoRegions.initialize();
-        SurfaceRuleManager.addSurfaceRules(
-                SurfaceRuleManager.RuleCategory.OVERWORLD,
-                MOD_ID,
-                TaiaoSurfaceRules.createSurfaceRules()
-        );
+//        SurfaceRuleManager.addSurfaceRules(
+//                SurfaceRuleManager.RuleCategory.OVERWORLD,
+//                MOD_ID,
+//                TaiaoSurfaceRules.createSurfaceRules()
+//        );
     }
 
     /**
