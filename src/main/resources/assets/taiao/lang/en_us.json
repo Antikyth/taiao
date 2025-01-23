@@ -44,9 +44,11 @@
   "block.taiao.mamaku_fence": "Mamaku Fence",
   "block.taiao.mamaku_fence_gate": "Mamaku Fence Gate",
 
+  "item.taiao.kiwi_spawn_egg": "Kiwi Spawn Egg",
   "item.taiao.puukeko_spawn_egg": "Pūkeko Spawn Egg",
   "item.taiao.moa_spawn_egg": "Moa Spawn Egg",
 
+  "entity.taiao.kiwi": "Kiwi",
   "entity.taiao.puukeko": "Pūkeko",
   "entity.taiao.moa": "Moa",
 
@@ -63,6 +65,7 @@
   "tag.item.taiao.mamaku_logs": "Mamaku Logs",
   "tag.item.taiao.thin_logs": "Thin Logs",
 
+  "tag.item.taiao.kiwi_food": "Kiwi Food",
   "tag.item.taiao.puukeko_food": "Pūkeko Food",
   "tag.item.taiao.moa_food": "Moa Food"
 }

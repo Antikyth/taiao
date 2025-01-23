@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.render;
+package antikyth.taiao.entity.render.model;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
@@ -38,46 +38,46 @@ public class PuukekoEntityModel<E extends Entity> extends BigLeggedAnimalModel<E
 
         modelPartData.addChild(
                 EntityModelPartNames.HEAD,
-                ModelPartBuilder.create().uv(0, 0).cuboid(-2.0F, -6.0F, -2.0F, 4.0F, 6.0F, 3.0F),
-                ModelTransform.pivot(0.0F, 15.0F, -4.0F)
+                ModelPartBuilder.create().uv(0, 0).cuboid(-2f, -6f, -2f, 4f, 6f, 3f),
+                ModelTransform.pivot(0f, 15f, -4f)
         );
         modelPartData.addChild(
                 EntityModelPartNames.BEAK,
-                ModelPartBuilder.create().uv(14, 0).cuboid(-2.0F, -4.0F, -4.0F, 4.0F, 2.0F, 2.0F),
-                ModelTransform.pivot(0.0F, 15.0F, -4.0F)
+                ModelPartBuilder.create().uv(14, 0).cuboid(-2f, -4f, -4f, 4f, 2f, 2f),
+                ModelTransform.pivot(0f, 15f, -4f)
         );
 
         modelPartData.addChild(
                 EntityModelPartNames.BODY,
-                ModelPartBuilder.create().uv(0, 9).cuboid(-3.0F, -4.0F, -3.0F, 6.0F, 8.0F, 6.0F),
-                ModelTransform.of(0.0F, 16.0F, 0.0F, (float) (Math.PI / 2), 0.0F, 0.0F)
+                ModelPartBuilder.create().uv(0, 9).cuboid(-3f, -4f, -3f, 6f, 8f, 6f),
+                ModelTransform.of(0f, 16f, 0f, (float) (Math.PI / 2), 0f, 0f)
         );
 
         ModelPartBuilder legModel = ModelPartBuilder.create()
                 .uv(26, 0)
-                .cuboid(0f, 0.0F, -3.0F, 1.0f, 5.0F, 0f)
+                .cuboid(0f, 0f, -3f, 1f, 5f, 0f)
                 .uv(28, 0)
                 .cuboid(-2f, 5f, -6f, 5f, 0f, 5f);
         modelPartData.addChild(
                 EntityModelPartNames.RIGHT_LEG,
                 legModel,
-                ModelTransform.pivot(-2.0F, 19.0F, 1.0F)
+                ModelTransform.pivot(-2f, 19f, 1f)
         );
         modelPartData.addChild(
                 EntityModelPartNames.LEFT_LEG,
                 legModel,
-                ModelTransform.pivot(1.0F, 19.0F, 1.0F)
+                ModelTransform.pivot(1f, 19f, 1f)
         );
 
         modelPartData.addChild(
                 EntityModelPartNames.RIGHT_WING,
-                ModelPartBuilder.create().uv(24, 13).cuboid(0.0F, 0.0F, -3.0F, 1.0F, 4.0F, 6.0F),
-                ModelTransform.pivot(-4.0F, 13.0F, 0.0F)
+                ModelPartBuilder.create().uv(24, 13).cuboid(0f, 0f, -3f, 1f, 4f, 6f),
+                ModelTransform.pivot(-4f, 13f, 0f)
         );
         modelPartData.addChild(
                 EntityModelPartNames.LEFT_WING,
-                ModelPartBuilder.create().uv(24, 13).cuboid(-1.0F, 0.0F, -3.0F, 1.0F, 4.0F, 6.0F),
-                ModelTransform.pivot(4.0F, 13.0F, 0.0F)
+                ModelPartBuilder.create().uv(24, 13).cuboid(-1f, 0f, -3f, 1f, 4f, 6f),
+                ModelTransform.pivot(4f, 13f, 0f)
         );
 
         return TexturedModelData.of(modelData, 64, 32);
@@ -111,8 +111,8 @@ public class PuukekoEntityModel<E extends Entity> extends BigLeggedAnimalModel<E
         this.head.yaw = headYaw * (float) (Math.PI / 180.0);
         this.beak.pitch = this.head.pitch;
         this.beak.yaw = this.head.yaw;
-        this.rightLeg.pitch = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance;
-        this.leftLeg.pitch = MathHelper.cos(limbAngle * 0.6662F + (float) Math.PI) * 1.4F * limbDistance;
+        this.rightLeg.pitch = MathHelper.cos(limbAngle * 0.6662f) * 1.4f * limbDistance;
+        this.leftLeg.pitch = MathHelper.cos(limbAngle * 0.6662f + (float) Math.PI) * 1.4f * limbDistance;
         this.rightWing.roll = animationProgress;
         this.leftWing.roll = -animationProgress;
     }

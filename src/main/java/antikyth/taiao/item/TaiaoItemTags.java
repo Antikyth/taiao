@@ -24,6 +24,10 @@ public final class TaiaoItemTags {
     public static final TagKey<Item> MAMAKU_LOGS = createTagKey(TaiaoBlockTags.MAMAKU_LOGS);
 
     /**
+     * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#KIWI kiwi}.
+     */
+    public static final TagKey<Item> KIWI_FOOD = createTagKey(Taiao.id("kiwi_food"));
+    /**
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#PUUKEKO pūkeko}.
      */
     public static final TagKey<Item> PUUKEKO_FOOD = createTagKey(Taiao.id("puukeko_food"));
@@ -31,6 +35,10 @@ public final class TaiaoItemTags {
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#MOA moa}.
      */
     public static final TagKey<Item> MOA_FOOD = createTagKey(Taiao.id("moa_food"));
+
+    // Conventional tags
+    public static final TagKey<Item> CONVENTIONAL_SEEDS = createTagKey(Taiao.commonId("seeds"));
+    public static final TagKey<Item> CONVENTIONAL_BERRIES = createTagKey(Taiao.commonId("berries"));
 
     public static TagKey<Item> createTagKey(@NotNull TagKey<Block> blockTag) {
         return createTagKey(blockTag.id());

@@ -27,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PuukekoEntity extends AnimalEntity {
@@ -100,7 +101,7 @@ public class PuukekoEntity extends AnimalEntity {
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isBreedingItem(@NotNull ItemStack stack) {
         return stack.isIn(TaiaoItemTags.PUUKEKO_FOOD);
     }
 

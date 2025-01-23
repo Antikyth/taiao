@@ -44,6 +44,6 @@ public class DirectionalLeavesBlock extends LeavesBlock {
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return Objects.requireNonNull(super.getPlacementState(ctx))
-                .with(FacingBlock.FACING, ctx.getPlayerLookDirection().getOpposite().getOpposite());
+                .with(FacingBlock.FACING, ctx.getPlayerLookDirection());
     }
 }

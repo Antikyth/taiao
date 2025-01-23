@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.render;
+package antikyth.taiao.entity.render.model;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
@@ -35,28 +35,28 @@ public class MoaEntityModel<E extends AnimalEntity> extends AnimalModel<E> {
                 "body",
                 ModelPartBuilder.create()
                         .uv(0, 0)
-                        .cuboid(-9.0F, -34.0F, -12.0F, 18.0F, 16.0F, 28.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(0.0F, 25.0F, 0.0F)
+                        .cuboid(-9f, -34f, -12f, 18f, 16f, 28f),
+                ModelTransform.pivot(0f, 25f, 0f)
         );
 
         modelPartData.addChild(
                 "left_leg",
-                ModelPartBuilder.create().uv(16, 52).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 17.0F, 4.0F, new Dilation(0.0F))
-                        .uv(8, 44).cuboid(-4.0F, 17.0F, -7.0F, 8.0F, 0.0F, 8.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(4.0F, 7.0F, -2.0F)
+                ModelPartBuilder.create().uv(16, 52).cuboid(-2f, 0f, -2f, 4f, 17f, 4f)
+                        .uv(8, 44).cuboid(-4f, 17f, -7f, 8f, 0f, 8f),
+                ModelTransform.pivot(4f, 7f, -2f)
         );
         modelPartData.addChild(
                 "right_leg",
-                ModelPartBuilder.create().uv(32, 52).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 17.0F, 4.0F, new Dilation(0.0F))
-                        .uv(24, 44).cuboid(-4.0F, 17.0F, -7.0F, 8.0F, 0.0F, 8.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(-4.0F, 7.0F, -2.0F)
+                ModelPartBuilder.create().uv(32, 52).cuboid(-2f, 0f, -2f, 4f, 17f, 4f)
+                        .uv(24, 44).cuboid(-4f, 17f, -7f, 8f, 0f, 8f),
+                ModelTransform.pivot(-4f, 7f, -2f)
         );
 
         modelPartData.addChild(
                 "head",
-                ModelPartBuilder.create().uv(0, 44).cuboid(-2.0F, -19.0F, -4.0F, 4.0F, 25.0F, 4.0F, new Dilation(0.0F))
-                        .uv(48, 44).cuboid(-2.0F, -18.0F, -8.0F, 4.0F, 3.0F, 4.0F, new Dilation(0.0F)),
-                ModelTransform.pivot(0.0F, -2.0F, -12.0F)
+                ModelPartBuilder.create().uv(0, 44).cuboid(-2f, -19f, -4f, 4f, 25f, 4f)
+                        .uv(48, 44).cuboid(-2f, -18f, -8f, 4f, 3f, 4f),
+                ModelTransform.pivot(0f, -2f, -12f)
         );
 
         return TexturedModelData.of(modelData, 128, 128);

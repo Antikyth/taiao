@@ -2,10 +2,12 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.render;
+package antikyth.taiao.entity.render.renderer;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.MoaEntity;
+import antikyth.taiao.entity.render.TaiaoEntityModels;
+import antikyth.taiao.entity.render.model.MoaEntityModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;

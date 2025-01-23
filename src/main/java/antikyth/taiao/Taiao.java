@@ -56,4 +56,11 @@ public class Taiao implements ModInitializer, TerraBlenderApi {
     public static Identifier id(String name) {
         return Identifier.of(MOD_ID, name);
     }
+
+    /**
+     * Creates an {@link Identifier} using the common ({@code c}) namespace.
+     */
+    public static Identifier commonId(String name) {
+        return Identifier.of("c", name);
+    }
 }

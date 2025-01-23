@@ -27,14 +27,24 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup lookup) {
-        // Te Taiao o Aotearoa item tags
-        getOrCreateTagBuilder(TaiaoItemTags.PUUKEKO_FOOD)
+        // Conventional item tags
+        getOrCreateTagBuilder(TaiaoItemTags.CONVENTIONAL_SEEDS)
                 .add(Items.WHEAT_SEEDS)
                 .add(Items.MELON_SEEDS)
                 .add(Items.PUMPKIN_SEEDS)
                 .add(Items.BEETROOT_SEEDS)
                 .add(Items.TORCHFLOWER_SEEDS)
                 .add(Items.PITCHER_POD);
+        getOrCreateTagBuilder(TaiaoItemTags.CONVENTIONAL_BERRIES)
+                .add(Items.SWEET_BERRIES)
+                .add(Items.GLOW_BERRIES);
+
+        // Te Taiao o Aotearoa item tags
+        getOrCreateTagBuilder(TaiaoItemTags.KIWI_FOOD)
+                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS)
+                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_BERRIES);
+        getOrCreateTagBuilder(TaiaoItemTags.PUUKEKO_FOOD)
+                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS);
         getOrCreateTagBuilder(TaiaoItemTags.MOA_FOOD)
                 .addTag(ItemTags.LEAVES)
                 .addTag(ItemTags.SAPLINGS);

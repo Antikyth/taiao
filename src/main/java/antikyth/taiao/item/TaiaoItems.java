@@ -22,6 +22,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 public class TaiaoItems {
+    public static final Item KIWI_SPAWN_EGG = register(
+            Taiao.id("kiwi_spawn_egg"),
+            new SpawnEggItem(TaiaoEntities.KIWI, 0x482d19, 0xf5bb98, new FabricItemSettings())
+    );
     public static final Item PUUKEKO_SPAWN_EGG = register(
             Taiao.id("puukeko_spawn_egg"),
             new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x073673, 0xaf2e2e, new FabricItemSettings())
@@ -130,6 +134,7 @@ public class TaiaoItems {
     }
 
     public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(KIWI_SPAWN_EGG);
         add.accept(PUUKEKO_SPAWN_EGG);
         add.accept(MOA_SPAWN_EGG);
     }

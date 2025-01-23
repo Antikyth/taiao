@@ -19,8 +19,6 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 public class TaiaoModelProvider extends FabricModelProvider {
     public TaiaoModelProvider(FabricDataOutput generator) {
         super(generator);
@@ -94,6 +92,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(@NotNull ItemModelGenerator generator) {
+        generator.register(TaiaoItems.KIWI_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
     }

@@ -15,6 +15,16 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class TaiaoEntities {
+    public static final EntityType<KiwiEntity> KIWI = register(
+            Taiao.id("kiwi"),
+            FabricEntityTypeBuilder.createLiving()
+                    .entityFactory(KiwiEntity::new)
+                    .spawnGroup(SpawnGroup.CREATURE)
+                    .dimensions(EntityDimensions.changing(0.4f, 0.5f))
+                    .defaultAttributes(KiwiEntity::createAttributes)
+                    .trackRangeChunks(10)
+                    .build()
+    );
     /**
      * A pūkeko.
      */
@@ -28,7 +38,6 @@ public class TaiaoEntities {
                     .trackRangeChunks(10)
                     .build()
     );
-
     public static final EntityType<MoaEntity> MOA = register(
             Taiao.id("moa"),
             FabricEntityTypeBuilder.createLiving()
