@@ -5,11 +5,13 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.item.TaiaoItemTags;
+import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -17,6 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -46,7 +49,20 @@ public class KiwiEntity extends AnimalEntity {
         this.goalSelector.add(7, new LookAroundGoal(this));
     }
 
-    // TODO: kiwi sounds
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return TaiaoSoundEvents.ENTITY_KIWI_AMBIENT;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getHurtSound(DamageSource source) {
+        return TaiaoSoundEvents.ENTITY_KIWI_AMBIENT;
+    }
+
+    @Override
+    protected @Nullable SoundEvent getDeathSound() {
+        return TaiaoSoundEvents.ENTITY_KIWI_AMBIENT;
+    }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {

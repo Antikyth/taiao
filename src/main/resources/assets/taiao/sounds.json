@@ -1,0 +1,19 @@
+{
+  "entity.kiwi.ambient": {
+    "sounds": [
+      "taiao:mob/kiwi/song0",
+      "taiao:mob/kiwi/song1",
+      "taiao:mob/kiwi/song2",
+      "taiao:mob/kiwi/song3",
+      "taiao:mob/kiwi/song4",
+      "taiao:mob/kiwi/song5",
+      "taiao:mob/kiwi/song6",
+      "taiao:mob/kiwi/song7",
+      "taiao:mob/kiwi/song8",
+      "taiao:mob/kiwi/song9",
+      "taiao:mob/kiwi/song10",
+      "taiao:mob/kiwi/song11"
+    ],
+    "subtitle": "subtitles.taiao.entity.kiwi.ambient"
+  }
+}
