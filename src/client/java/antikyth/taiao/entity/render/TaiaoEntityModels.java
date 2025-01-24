@@ -6,9 +6,11 @@ package antikyth.taiao.entity.render;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.render.model.KaakaapooEntityModel;
 import antikyth.taiao.entity.render.model.KiwiEntityModel;
 import antikyth.taiao.entity.render.model.MoaEntityModel;
 import antikyth.taiao.entity.render.model.PuukekoEntityModel;
+import antikyth.taiao.entity.render.renderer.KaakaapooEntityRenderer;
 import antikyth.taiao.entity.render.renderer.KiwiEntityRenderer;
 import antikyth.taiao.entity.render.renderer.MoaEntityRenderer;
 import antikyth.taiao.entity.render.renderer.PuukekoEntityRenderer;
@@ -34,6 +36,11 @@ public class TaiaoEntityModels {
             "main",
             MoaEntityModel::getTexturedModelData
     );
+    public static final EntityModelLayer KAAKAAPOO = registerModelLayer(
+            TaiaoEntities.KAAKAAPOO,
+            "main",
+            KaakaapooEntityModel::getTexturedModelData
+    );
 
     public static void initialize() {
         Taiao.LOGGER.debug("Registering entity renderers and model layers");
@@ -41,6 +48,7 @@ public class TaiaoEntityModels {
         EntityRendererRegistry.register(TaiaoEntities.KIWI, KiwiEntityRenderer::new);
         EntityRendererRegistry.register(TaiaoEntities.PUUKEKO, PuukekoEntityRenderer::new);
         EntityRendererRegistry.register(TaiaoEntities.MOA, MoaEntityRenderer::new);
+        EntityRendererRegistry.register(TaiaoEntities.KAAKAAPOO, KaakaapooEntityRenderer::new);
     }
 
     public static EntityModelLayer registerModelLayer(

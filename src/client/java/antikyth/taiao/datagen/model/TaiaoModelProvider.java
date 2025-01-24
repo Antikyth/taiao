@@ -95,6 +95,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
         generator.register(TaiaoItems.KIWI_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+        generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
     }
 
     public static void registerDirectionalLeaves(@NotNull BlockStateModelGenerator generator, Block block) {

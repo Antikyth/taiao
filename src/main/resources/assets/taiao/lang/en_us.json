@@ -47,10 +47,12 @@
   "item.taiao.kiwi_spawn_egg": "Kiwi Spawn Egg",
   "item.taiao.puukeko_spawn_egg": "Pūkeko Spawn Egg",
   "item.taiao.moa_spawn_egg": "Moa Spawn Egg",
+  "item.taiao.kaakaapoo_spawn_egg": "Kākāpō Spawn Egg",
 
   "entity.taiao.kiwi": "Kiwi",
   "entity.taiao.puukeko": "Pūkeko",
   "entity.taiao.moa": "Moa",
+  "entity.taiao.kaakaapoo": "Kākāpō",
 
   "biome.taiao.native_forest": "Aotearoa Native Forest",
 
@@ -68,6 +70,7 @@
   "tag.item.taiao.kiwi_food": "Kiwi Food",
   "tag.item.taiao.puukeko_food": "Pūkeko Food",
   "tag.item.taiao.moa_food": "Moa Food",
+  "tag.item.taiao.kaakaapoo_food": "Kākāpō Food",
 
   "subtitles.taiao.entity.kiwi.ambient": "Kiwi chirps"
 }

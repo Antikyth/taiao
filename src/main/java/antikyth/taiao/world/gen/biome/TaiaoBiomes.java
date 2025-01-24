@@ -60,6 +60,7 @@ public class TaiaoBiomes {
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.KIWI, 10, 4, 4));
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.PUUKEKO, 10, 4, 4));
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.MOA, 8, 4, 4));
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.KAAKAAPOO, 8, 1, 2));
 
         return OverworldBiomeCreator.createBiome(
                 true,

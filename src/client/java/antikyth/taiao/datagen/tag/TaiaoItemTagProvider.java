@@ -48,6 +48,9 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TaiaoItemTags.MOA_FOOD)
                 .addTag(ItemTags.LEAVES)
                 .addTag(ItemTags.SAPLINGS);
+        getOrCreateTagBuilder(TaiaoItemTags.KAAKAAPOO_FOOD)
+                .addTag(TaiaoItemTags.CONVENTIONAL_SEEDS)
+                .add(Items.VINE);
 
         // Te Taiao o Aotearoa block tags
         copy(TaiaoBlockTags.KAURI_LOGS, TaiaoItemTags.KAURI_LOGS);

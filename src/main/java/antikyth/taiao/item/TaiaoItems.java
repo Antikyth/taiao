@@ -34,6 +34,10 @@ public class TaiaoItems {
             Taiao.id("moa_spawn_egg"),
             new SpawnEggItem(TaiaoEntities.MOA, 0x2c180c, 0x55361c, new FabricItemSettings())
     );
+    public static final Item KAAKAAPOO_SPAWN_EGG = register(
+            Taiao.id("kaakaapoo_spawn_egg"),
+            new SpawnEggItem(TaiaoEntities.KAAKAAPOO, 0x7a9539, 0xd4ae68, new FabricItemSettings())
+    );
 
     public static final RegistryKey<ItemGroup> TAIAO_ITEM_GROUP = registerItemGroup(
             Taiao.id("item_group"),
@@ -137,6 +141,7 @@ public class TaiaoItems {
         add.accept(KIWI_SPAWN_EGG);
         add.accept(PUUKEKO_SPAWN_EGG);
         add.accept(MOA_SPAWN_EGG);
+        add.accept(KAAKAAPOO_SPAWN_EGG);
     }
 
     /**

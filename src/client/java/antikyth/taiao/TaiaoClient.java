@@ -50,6 +50,7 @@ public class TaiaoClient implements ClientModInitializer {
         registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.KIWI_SPAWN_EGG);
         registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.PUUKEKO_SPAWN_EGG);
         registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.MOA_SPAWN_EGG);
+        registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.KAAKAAPOO_SPAWN_EGG);
     }
 
     public static void registerRenderLayers() {

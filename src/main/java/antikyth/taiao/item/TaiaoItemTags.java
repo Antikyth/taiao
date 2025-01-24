@@ -35,6 +35,10 @@ public final class TaiaoItemTags {
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#MOA moa}.
      */
     public static final TagKey<Item> MOA_FOOD = createTagKey(Taiao.id("moa_food"));
+    /**
+     * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO kākāpō}.
+     */
+    public static final TagKey<Item> KAAKAAPOO_FOOD = createTagKey(Taiao.id("kaakaapoo_food"));
 
     // Conventional tags
     public static final TagKey<Item> CONVENTIONAL_SEEDS = createTagKey(Taiao.commonId("seeds"));

@@ -48,6 +48,19 @@ public class TaiaoEntities {
                     .trackRangeChunks(10)
                     .build()
     );
+    /**
+     * A kākāpō.
+     */
+    public static final EntityType<KaakaapooEntity> KAAKAAPOO = register(
+            Taiao.id("kaakaapoo"),
+            FabricEntityTypeBuilder.createLiving()
+                    .entityFactory(KaakaapooEntity::new)
+                    .spawnGroup(SpawnGroup.CREATURE)
+                    .dimensions(EntityDimensions.changing(0.55f, 0.7f))
+                    .defaultAttributes(KaakaapooEntity::createAttributes)
+                    .trackRangeChunks(10)
+                    .build()
+    );
 
     public static <T extends Entity> EntityType<T> register(Identifier id, EntityType<T> entityType) {
         return Registry.register(Registries.ENTITY_TYPE, id, entityType);
