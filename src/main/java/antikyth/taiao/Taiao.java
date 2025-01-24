@@ -6,6 +6,7 @@ package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import antikyth.taiao.world.gen.biome.TaiaoRegions;
@@ -36,6 +37,7 @@ public class Taiao implements ModInitializer, TerraBlenderApi {
 
         TaiaoBlocks.initialize();
         TaiaoItems.initialize();
+        TaiaoItemGroups.initialize();
         TaiaoEntities.initialize();
 
         TaiaoTreePlacers.initialize();
