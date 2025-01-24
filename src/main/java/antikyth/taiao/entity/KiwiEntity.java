@@ -51,17 +51,17 @@ public class KiwiEntity extends AnimalEntity {
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {
-        return TaiaoSoundEvents.ENTITY_KIWI_AMBIENT;
+        return TaiaoSoundEvents.ENTITY_KIWI_CHIRP;
     }
 
     @Override
     protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return TaiaoSoundEvents.ENTITY_KIWI_AMBIENT;
+        return TaiaoSoundEvents.ENTITY_KIWI_CHIRP;
     }
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
-        return TaiaoSoundEvents.ENTITY_KIWI_AMBIENT;
+        return TaiaoSoundEvents.ENTITY_KIWI_CHIRP;
     }
 
     @Override

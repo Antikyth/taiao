@@ -14,7 +14,16 @@ public class TaiaoSoundEvents {
     /**
      * {@linkplain antikyth.taiao.entity.TaiaoEntities#KIWI Kiwi} chirp sounds.
      */
-    public static final SoundEvent ENTITY_KIWI_AMBIENT = register(Taiao.id("entity.kiwi.ambient"));
+    public static final SoundEvent ENTITY_KIWI_CHIRP = register(Taiao.id("entity.kiwi.chirp"));
+
+    /**
+     * {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO Kākāpō} ching sounds.
+     */
+    public static final SoundEvent ENTITY_KAAKAAPOO_CHING = register(Taiao.id("entity.kaakaapoo.ching"));
+    /**
+     * {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO Kākāpō} boom sounds.
+     */
+    public static final SoundEvent ENTITY_KAAKAAPOO_BOOM = register(Taiao.id("entity.kaakaapoo.boom"));
 
     public static SoundEvent register(Identifier id) {
         return register(id, id);
@@ -25,5 +34,6 @@ public class TaiaoSoundEvents {
     }
 
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering sound events");
     }
 }

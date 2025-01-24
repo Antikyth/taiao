@@ -72,5 +72,7 @@
   "tag.item.taiao.moa_food": "Moa Food",
   "tag.item.taiao.kaakaapoo_food": "Kākāpō Food",
 
-  "subtitles.taiao.entity.kiwi.ambient": "Kiwi chirps"
+  "subtitles.taiao.entity.kiwi.chirp": "Kiwi chirps",
+  "subtitles.taiao.entity.kaakaapoo.ching": "Kākāpō chings",
+  "subtitles.taiao.entity.kaakaapoo.boom": "Kākāpō booms"
 }

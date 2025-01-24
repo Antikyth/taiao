@@ -1,5 +1,5 @@
 {
-  "entity.kiwi.ambient": {
+  "entity.kiwi.chirp": {
     "sounds": [
       "taiao:mob/kiwi/song0",
       "taiao:mob/kiwi/song1",
@@ -14,6 +14,20 @@
       "taiao:mob/kiwi/song10",
       "taiao:mob/kiwi/song11"
     ],
-    "subtitle": "subtitles.taiao.entity.kiwi.ambient"
+    "subtitle": "subtitles.taiao.entity.kiwi.chirp"
+  },
+  "entity.kaakaapoo.ching": {
+    "sounds": [
+      "taiao:mob/kaakaapoo/ching0",
+      "taiao:mob/kaakaapoo/ching1"
+    ],
+    "subtitle": "subtitles.taiao.entity.kaakaapoo.ching"
+  },
+  "entity.kaakaapoo.boom": {
+    "sounds": [
+      "taiao:mob/kaakaapoo/boom0",
+      "taiao:mob/kaakaapoo/boom1"
+    ],
+    "subtitle": "subtitles.taiao.entity.kaakaapoo.boom"
   }
 }
