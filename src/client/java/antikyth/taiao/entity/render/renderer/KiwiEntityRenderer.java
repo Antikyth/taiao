@@ -13,7 +13,8 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class KiwiEntityRenderer extends MobEntityRenderer<KiwiEntity, KiwiEntityModel<KiwiEntity>> {
-    public static final Identifier TEXTURE = Taiao.id("textures/entity/kiwi.png");
+    public static final Identifier BROWN_TEXTURE = Taiao.id("textures/entity/kiwi/brown.png");
+    public static final Identifier WHITE_TEXTURE = Taiao.id("textures/entity/kiwi/white.png");
 
     public KiwiEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new KiwiEntityModel<>(context.getPart(TaiaoEntityModels.KIWI)), 0.3f);
@@ -21,6 +22,9 @@ public class KiwiEntityRenderer extends MobEntityRenderer<KiwiEntity, KiwiEntity
 
     @Override
     public Identifier getTexture(KiwiEntity entity) {
-        return TEXTURE;
+        return switch (entity.getColor()) {
+            case BROWN -> BROWN_TEXTURE;
+            case WHITE -> WHITE_TEXTURE;
+        };
     }
 }
