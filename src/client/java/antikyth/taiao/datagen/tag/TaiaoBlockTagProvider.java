@@ -43,6 +43,11 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(TaiaoBlocks.MAMAKU_WOOD)
                 .add(TaiaoBlocks.STRIPPED_MAMAKU_LOG)
                 .add(TaiaoBlocks.STRIPPED_MAMAKU_WOOD);
+        getOrCreateTagBuilder(TaiaoBlockTags.WHEKII_PONGA_LOGS)
+                .add(TaiaoBlocks.WHEKII_PONGA_LOG)
+                .add(TaiaoBlocks.WHEKII_PONGA_WOOD)
+                .add(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG)
+                .add(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
 
         getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOGS)
                 .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
@@ -51,33 +56,41 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .addTag(TaiaoBlockTags.THIN_LOGS)
                 .addTag(BlockTags.LEAVES);
         getOrCreateTagBuilder(TaiaoBlockTags.DIRECTIONAL_LEAVES)
-                .add(TaiaoBlocks.MAMAKU_LEAVES);
+                .add(TaiaoBlocks.MAMAKU_LEAVES)
+                .add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
 
         // Vanilla tags
-        getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
-                .add(TaiaoBlocks.POTTED_KAURI_SAPLING)
-                .add(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING)
-                .add(TaiaoBlocks.POTTED_MAMAKU_SAPLING);
-        getOrCreateTagBuilder(BlockTags.LEAVES)
-                .add(TaiaoBlocks.KAURI_LEAVES)
-                .add(TaiaoBlocks.CABBAGE_TREE_LEAVES)
-                .add(TaiaoBlocks.MAMAKU_LEAVES);
         getOrCreateTagBuilder(BlockTags.SAPLINGS)
                 .add(TaiaoBlocks.KAURI_SAPLING)
                 .add(TaiaoBlocks.CABBAGE_TREE_SAPLING)
-                .add(TaiaoBlocks.MAMAKU_SAPLING);
+                .add(TaiaoBlocks.MAMAKU_SAPLING)
+                .add(TaiaoBlocks.WHEKII_PONGA_SAPLING);
+        getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
+                .add(TaiaoBlocks.POTTED_KAURI_SAPLING)
+                .add(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING)
+                .add(TaiaoBlocks.POTTED_MAMAKU_SAPLING)
+                .add(TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING);
+
+        getOrCreateTagBuilder(BlockTags.LEAVES)
+                .add(TaiaoBlocks.KAURI_LEAVES)
+                .add(TaiaoBlocks.CABBAGE_TREE_LEAVES)
+                .add(TaiaoBlocks.MAMAKU_LEAVES)
+                .add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
+
         getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE)
                 .addTag(TaiaoBlockTags.THIN_LOGS);
 
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
                 .addTag(TaiaoBlockTags.KAURI_LOGS)
                 .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
-                .addTag(TaiaoBlockTags.MAMAKU_LOGS);
+                .addTag(TaiaoBlockTags.MAMAKU_LOGS)
+                .addTag(TaiaoBlockTags.WHEKII_PONGA_LOGS);
         // Logs that generate naturally in the world
         getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
                 .add(TaiaoBlocks.KAURI_LOG)
                 .add(TaiaoBlocks.CABBAGE_TREE_LOG)
-                .add(TaiaoBlocks.MAMAKU_LOG);
+                .add(TaiaoBlocks.MAMAKU_LOG)
+                .add(TaiaoBlocks.WHEKII_PONGA_LOG);
 
         addWoodFamilyTags(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
         addWoodFamilyTags(TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());

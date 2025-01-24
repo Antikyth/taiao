@@ -23,6 +23,7 @@ import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
+import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,6 +37,12 @@ public class TaiaoConfiguredFeatures {
      */
     public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = registryKey(Taiao.id("cabbage_tree"));
     public static final RegistryKey<ConfiguredFeature<?, ?>> MAMAKU_TREE = registryKey(Taiao.id("mamaku_tree"));
+    /**
+     * A whekī ponga tree.
+     */
+    public static final RegistryKey<ConfiguredFeature<?, ?>> WHEKII_PONGA_TREE = registryKey(
+            Taiao.id("whekii_ponga_tree")
+    );
 
     public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_TREES = registryKey(
             Taiao.id("trees_native_forest")
@@ -50,6 +57,7 @@ public class TaiaoConfiguredFeatures {
         context.register(KAURI_TREE, kauriTree());
         context.register(CABBAGE_TREE, cabbageTree());
         context.register(MAMAKU_TREE, mamakuTree());
+        context.register(WHEKII_PONGA_TREE, whekiiPongaTree());
 
         context.register(NATIVE_FOREST_TREES, nativeForestTrees(placedFeatureLookup));
     }
@@ -109,6 +117,23 @@ public class TaiaoConfiguredFeatures {
         );
     }
 
+    @Contract(" -> new")
+    public static @NotNull ConfiguredFeature<?, ?> whekiiPongaTree() {
+        return new ConfiguredFeature<>(
+                Feature.TREE,
+                new TreeFeatureConfig.Builder(
+                        BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LOG),
+                        new StraightTrunkPlacer(4, 2, 0),
+                        BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LEAVES),
+                        new PalmFoliagePlacer(
+                                ConstantIntProvider.create(3),
+                                ConstantIntProvider.create(0)
+                        ),
+                        new TwoLayersFeatureSize(1, 0, 1)
+                ).ignoreVines().build()
+        );
+    }
+
     @Contract("_ -> new")
     public static @NotNull ConfiguredFeature<?, ?> nativeForestTrees(@NotNull RegistryEntryLookup<PlacedFeature> lookup) {
         return new ConfiguredFeature<>(
@@ -117,13 +142,20 @@ public class TaiaoConfiguredFeatures {
                         List.of(
                                 new RandomFeatureEntry(
                                         lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_CHECKED),
-                                        0.01f
+                                        0.02f
                                 ),
                                 new RandomFeatureEntry(
                                         lookup.getOrThrow(TaiaoPlacedFeatures.CABBAGE_TREE_CHECKED),
-                                        0.3f
+                                        0.175f
                                 ),
-                                new RandomFeatureEntry(lookup.getOrThrow(TaiaoPlacedFeatures.MAMAKU_TREE_CHECKED), 0.3f)
+                                new RandomFeatureEntry(
+                                        lookup.getOrThrow(TaiaoPlacedFeatures.MAMAKU_TREE_CHECKED),
+                                        0.25f
+                                ),
+                                new RandomFeatureEntry(
+                                        lookup.getOrThrow(TaiaoPlacedFeatures.WHEKII_PONGA_TREE_CHECKED),
+                                        0.25f
+                                )
                         ),
                         lookup.getOrThrow(TreePlacedFeatures.OAK_CHECKED)
                 )

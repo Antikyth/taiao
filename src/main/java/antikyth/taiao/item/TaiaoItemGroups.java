@@ -42,6 +42,10 @@ public class TaiaoItemGroups {
             group.add(TaiaoBlocks.MAMAKU_LEAVES);
             addMamakuBuildingBlocks(group::add);
 
+            group.add(TaiaoBlocks.WHEKII_PONGA_SAPLING);
+            group.add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
+            addWhekiiPongaBuildingBlocks(group::add);
+
             addSpawnEggs(group::add);
         });
 
@@ -54,6 +58,7 @@ public class TaiaoItemGroups {
             addKauriBuildingBlocks(add);
             addCabbageTreeBuildingBlocks(add);
             addMamakuBuildingBlocks(add);
+            addWhekiiPongaBuildingBlocks(add);
         });
         // Natural blocks
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(group -> {
@@ -67,18 +72,21 @@ public class TaiaoItemGroups {
         add.accept(TaiaoBlocks.KAURI_LOG);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LOG);
         add.accept(TaiaoBlocks.MAMAKU_LOG);
+        add.accept(TaiaoBlocks.WHEKII_PONGA_LOG);
     }
 
     public static void addLeaves(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_LEAVES);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LEAVES);
         add.accept(TaiaoBlocks.MAMAKU_LEAVES);
+        add.accept(TaiaoBlocks.WHEKII_PONGA_LEAVES);
     }
 
     public static void addSaplings(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_SAPLING);
         add.accept(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         add.accept(TaiaoBlocks.MAMAKU_SAPLING);
+        add.accept(TaiaoBlocks.WHEKII_PONGA_SAPLING);
     }
 
     public static void addKauriBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
@@ -116,6 +124,13 @@ public class TaiaoItemGroups {
         add.accept(TaiaoBlocks.MAMAKU_FENCE_GATE);
         add.accept(TaiaoBlocks.MAMAKU_PRESSURE_PLATE);
         add.accept(TaiaoBlocks.MAMAKU_BUTTON);
+    }
+
+    public static void addWhekiiPongaBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.WHEKII_PONGA_LOG);
+        add.accept(TaiaoBlocks.WHEKII_PONGA_WOOD);
+        add.accept(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
+        add.accept(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
     }
 
     public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {

@@ -4,6 +4,7 @@
 
 package antikyth.taiao.datagen.model;
 
+import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.ThinLogBlock;
 import antikyth.taiao.item.TaiaoItems;
@@ -26,7 +27,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(@NotNull BlockStateModelGenerator generator) {
-        Identifier kauriLeaves = new Identifier("minecraft:block/acacia_leaves");
+        TextureMap kauriLeavesTextures = TextureMap.all(new Identifier("minecraft:block/acacia_leaves"));
+        TextureMap fernTreeLeavesTextures = TextureMap.all(Taiao.id("block/fern_tree_leaves"));
 
         TextureMap strippedCabbageTreeTextures = TaiaoModels.thinLogTextures(
                 TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG,
@@ -45,7 +47,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 TaiaoBlocks.POTTED_KAURI_SAPLING,
                 TintType.NOT_TINTED
         );
-        generator.registerSingleton(TaiaoBlocks.KAURI_LEAVES, TextureMap.all(kauriLeaves), Models.LEAVES);
+        generator.registerSingleton(TaiaoBlocks.KAURI_LEAVES, kauriLeavesTextures, Models.LEAVES);
 
         // Kauri wood
         generator.registerLog(TaiaoBlocks.KAURI_LOG)
@@ -78,7 +80,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 TaiaoBlocks.POTTED_MAMAKU_SAPLING,
                 TintType.NOT_TINTED
         );
-        registerDirectionalLeaves(generator, TaiaoBlocks.MAMAKU_LEAVES);
+        registerDirectionalLeaves(generator, TaiaoBlocks.MAMAKU_LEAVES, fernTreeLeavesTextures);
 
         // Mamaku wood
         registerThinLog(generator, TaiaoBlocks.MAMAKU_LOG);
@@ -88,6 +90,22 @@ public class TaiaoModelProvider extends FabricModelProvider {
         // Mamaku wood family
         generator.registerCubeAllModelTexturePool(TaiaoBlocks.MAMAKU_PLANKS)
                 .family(TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
+
+        // Whekī ponga foliage
+        generator.registerFlowerPotPlant(
+                TaiaoBlocks.WHEKII_PONGA_SAPLING,
+                TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING,
+                TintType.NOT_TINTED
+        );
+        registerDirectionalLeaves(generator, TaiaoBlocks.WHEKII_PONGA_LEAVES, fernTreeLeavesTextures);
+
+        // Whekī ponga wood
+        generator.registerLog(TaiaoBlocks.WHEKII_PONGA_LOG)
+                .log(TaiaoBlocks.WHEKII_PONGA_LOG)
+                .wood(TaiaoBlocks.WHEKII_PONGA_WOOD);
+        generator.registerLog(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG)
+                .log(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG)
+                .wood(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
     }
 
     @Override

@@ -45,6 +45,11 @@ public class TaiaoClient implements ClientModInitializer {
                 TaiaoBlocks.CABBAGE_TREE_LEAVES
         );
         registerBlockColors(TaiaoClient::foliageBlockColor, TaiaoClient::foliageItemColor, TaiaoBlocks.MAMAKU_LEAVES);
+        registerBlockColors(
+                TaiaoClient::foliageBlockColor,
+                TaiaoClient::foliageItemColor,
+                TaiaoBlocks.WHEKII_PONGA_LEAVES
+        );
 
         // Spawn eggs
         registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.KIWI_SPAWN_EGG);
@@ -64,6 +69,9 @@ public class TaiaoClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.MAMAKU_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_MAMAKU_SAPLING, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.WHEKII_PONGA_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING, RenderLayer.getCutout());
     }
 
     public static void registerItemColors(ItemColorProvider colorProvider, Item @NotNull ... items) {

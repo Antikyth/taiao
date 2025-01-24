@@ -60,6 +60,20 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(TaiaoBlocks.STRIPPED_MAMAKU_WOOD);
         // Mamaku wood family
         addDropsForFamily(TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
+
+        // Whekī ponga foliage
+        addDrop(TaiaoBlocks.WHEKII_PONGA_SAPLING);
+        addPottedPlantDrops(TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING);
+        addDrop(
+                TaiaoBlocks.WHEKII_PONGA_LEAVES,
+                block -> leavesDrops(block, TaiaoBlocks.WHEKII_PONGA_SAPLING, SAPLING_DROP_CHANCE)
+        );
+
+        // Whekī ponga wood
+        addDrop(TaiaoBlocks.WHEKII_PONGA_LOG);
+        addDrop(TaiaoBlocks.WHEKII_PONGA_WOOD);
+        addDrop(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
+        addDrop(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
     }
 
     public void addDropsForFamily(@NotNull BlockFamily family) {

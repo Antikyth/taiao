@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.world.gen.feature.tree.sapling.CabbageTreeSaplingGenerator;
 import antikyth.taiao.world.gen.feature.tree.sapling.KauriSaplingGenerator;
 import antikyth.taiao.world.gen.feature.tree.sapling.MamakuSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.sapling.WhekiiPongaSaplingGenerator;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -186,12 +187,45 @@ public class TaiaoBlocks {
             new FenceBlock(FabricBlockSettings.copyOf(MAMAKU_PLANKS))
     ).copyFlammable(MAMAKU_PLANKS).register(true);
 
+    // Whekī ponga foliage
+    public static final Block WHEKII_PONGA_SAPLING = new Builder(
+            Taiao.id("whekii_ponga_sapling"),
+            new SaplingBlock(new WhekiiPongaSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING))
+    ).register(true);
+    public static final Block POTTED_WHEKII_PONGA_SAPLING = new Builder(
+            Taiao.id("potted_whekii_ponga_sapling"),
+            Blocks.createFlowerPotBlock(WHEKII_PONGA_SAPLING)
+    ).register(false);
+    public static final Block WHEKII_PONGA_LEAVES = new Builder(
+            Taiao.id("whekii_ponga_leaves"),
+            new DirectionalLeavesBlock(createLeavesSettings(MapColor.DARK_GREEN, BlockSoundGroup.GRASS))
+    ).copyFlammable(Blocks.OAK_LEAVES).register(true);
+
+    // Whekī ponga wood
+    public static final Block STRIPPED_WHEKII_PONGA_LOG = new Builder(
+            Taiao.id("stripped_whekii_ponga_log"),
+            Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
+    ).register(true);
+    public static final Block STRIPPED_WHEKII_PONGA_WOOD = new Builder(
+            Taiao.id("stripped_whekii_ponga_wood"),
+            Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
+    ).register(true);
+    public static final Block WHEKII_PONGA_LOG = new Builder(
+            Taiao.id("whekii_ponga_log"),
+            Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
+    ).strippable(STRIPPED_WHEKII_PONGA_LOG).register(true);
+    public static final Block WHEKII_PONGA_WOOD = new Builder(
+            Taiao.id("whekii_ponga_wood"),
+            Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
+    ).strippable(STRIPPED_WHEKII_PONGA_WOOD).register(true);
+
     public static void initialize() {
         Taiao.LOGGER.debug("Registering blocks");
 
         registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.ACACIA_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.CABBAGE_TREE_LOGS, Blocks.OAK_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.MAMAKU_LOGS, Blocks.SPRUCE_LOG);
+        registerFlammableTagCopy(TaiaoBlockTags.WHEKII_PONGA_LOGS, Blocks.ACACIA_LOG);
     }
 
     /**

@@ -22,6 +22,10 @@ public final class TaiaoItemTags {
      */
     public static final TagKey<Item> CABBAGE_TREE_LOGS = createTagKey(TaiaoBlockTags.CABBAGE_TREE_LOGS);
     public static final TagKey<Item> MAMAKU_LOGS = createTagKey(TaiaoBlockTags.MAMAKU_LOGS);
+    /**
+     * Whekī ponga logs.
+     */
+    public static final TagKey<Item> WHEKII_PONGA_LOGS = createTagKey(TaiaoBlockTags.WHEKII_PONGA_LOGS);
 
     /**
      * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#KIWI kiwi}.

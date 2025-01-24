@@ -22,7 +22,6 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(Consumer<RecipeJsonProvider> exporter) {
         generateFamily(exporter, TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
-
         // Kauri planks
         offerPlanksRecipe(exporter, TaiaoBlocks.KAURI_PLANKS, TaiaoItemTags.KAURI_LOGS, 4);
         // Kauri wood
@@ -39,11 +38,14 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
         offerHangingSignRecipe(exporter, Items.OAK_HANGING_SIGN, TaiaoBlocks.STRIPPED_CABBAGE_TREE_LOG);
 
         generateFamily(exporter, TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
-
         // Mamaku planks
         offerPlanksRecipe(exporter, TaiaoBlocks.MAMAKU_PLANKS, TaiaoItemTags.MAMAKU_LOGS, 2);
         // Mamaku wood
         offerBarkBlockRecipe(exporter, TaiaoBlocks.MAMAKU_WOOD, TaiaoBlocks.MAMAKU_LOG);
         offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_MAMAKU_WOOD, TaiaoBlocks.STRIPPED_MAMAKU_LOG);
+
+        // Whekī ponga wood
+        offerBarkBlockRecipe(exporter, TaiaoBlocks.WHEKII_PONGA_WOOD, TaiaoBlocks.WHEKII_PONGA_LOG);
+        offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD, TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
     }
 }

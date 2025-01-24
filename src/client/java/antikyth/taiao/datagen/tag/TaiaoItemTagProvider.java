@@ -56,6 +56,8 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
         copy(TaiaoBlockTags.KAURI_LOGS, TaiaoItemTags.KAURI_LOGS);
         copy(TaiaoBlockTags.CABBAGE_TREE_LOGS, TaiaoItemTags.CABBAGE_TREE_LOGS);
         copy(TaiaoBlockTags.MAMAKU_LOGS, TaiaoItemTags.MAMAKU_LOGS);
+        copy(TaiaoBlockTags.WHEKII_PONGA_LOGS, TaiaoItemTags.WHEKII_PONGA_LOGS);
+
         copy(TaiaoBlockTags.THIN_LOGS, TaiaoItemTags.THIN_LOGS);
 
         // Vanilla block tags

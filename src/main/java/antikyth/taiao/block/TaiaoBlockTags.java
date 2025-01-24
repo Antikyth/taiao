@@ -20,6 +20,10 @@ public final class TaiaoBlockTags {
      */
     public static final TagKey<Block> CABBAGE_TREE_LOGS = createTagKey(Taiao.id("cabbage_tree_logs"));
     public static final TagKey<Block> MAMAKU_LOGS = createTagKey(Taiao.id("mamaku_logs"));
+    /**
+     * Whekī ponga logs.
+     */
+    public static final TagKey<Block> WHEKII_PONGA_LOGS = createTagKey(Taiao.id("whekii_ponga_logs"));
 
     /**
      * Blocks that {@linkplain ThinLogBlock thin logs} should be able to connect to when they otherwise would not.

@@ -29,6 +29,9 @@ public class TaiaoPlacedFeatures {
     public static final RegistryKey<PlacedFeature> MAMAKU_TREE_CHECKED = registryKey(
             Taiao.id("mamaku_tree_checked")
     );
+    public static final RegistryKey<PlacedFeature> WHEKII_PONGA_TREE_CHECKED = registryKey(
+            Taiao.id("whekii_ponga_tree_checked")
+    );
 
     public static final RegistryKey<PlacedFeature> NATIVE_FOREST_TREES = registryKey(Taiao.id("trees_native_forest"));
 
@@ -53,6 +56,12 @@ public class TaiaoPlacedFeatures {
                 MAMAKU_TREE_CHECKED,
                 lookup.getOrThrow(TaiaoConfiguredFeatures.MAMAKU_TREE),
                 PlacedFeatures.wouldSurvive(TaiaoBlocks.MAMAKU_SAPLING)
+        );
+        register(
+                context,
+                WHEKII_PONGA_TREE_CHECKED,
+                lookup.getOrThrow(TaiaoConfiguredFeatures.WHEKII_PONGA_TREE),
+                PlacedFeatures.wouldSurvive(TaiaoBlocks.WHEKII_PONGA_SAPLING)
         );
 
         register(
