@@ -28,175 +28,148 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.OptionalInt;
+import java.util.function.Function;
 
 public class TaiaoConfiguredFeatures {
+    protected static Map<RegistryKey<ConfiguredFeature<?, ?>>, Function<RegistryEntryLookup<PlacedFeature>, ConfiguredFeature<?, ?>>> TO_REGISTER = new HashMap<>();
+
     // Trees
-    public static final RegistryKey<ConfiguredFeature<?, ?>> KAURI_TREE = registryKey(Taiao.id("kauri_tree"));
-    /**
-     * A tī kōuka tree.
-     */
-    public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = registryKey(Taiao.id("cabbage_tree"));
-    public static final RegistryKey<ConfiguredFeature<?, ?>> MAMAKU_TREE = registryKey(Taiao.id("mamaku_tree"));
-    /**
-     * A whekī ponga tree.
-     */
-    public static final RegistryKey<ConfiguredFeature<?, ?>> WHEKII_PONGA_TREE = registryKey(
-            Taiao.id("whekii_ponga_tree")
+    public static final RegistryKey<ConfiguredFeature<?, ?>> KAURI_TREE = register(
+            Taiao.id("kauri_tree"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.TREE,
+                    new TreeFeatureConfig.Builder(
+                            BlockStateProvider.of(TaiaoBlocks.KAURI_LOG),
+                            new DarkOakTrunkPlacer(9, 3, 2),
+                            BlockStateProvider.of(TaiaoBlocks.KAURI_LEAVES),
+                            new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
+                            new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+                    ).ignoreVines().build()
+            )
+    );
+    public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = register(
+            Taiao.id("cabbage_tree"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.TREE,
+                    new TreeFeatureConfig.Builder(
+                            BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LOG),
+                            new ThinSplittingTrunkPlacer(
+                                    3,
+                                    3,
+                                    2,
+                                    ConstantIntProvider.create(1),
+                                    0.4f,
+                                    new ThinSplittingTrunkPlacer.SplitTypeWeights(9, 5, 1)
+                            ),
+                            BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LEAVES),
+                            new SphericalFoliagePlacer(
+                                    ConstantIntProvider.create(0),
+                                    ConstantIntProvider.create(0)
+                            ),
+                            new TwoLayersFeatureSize(1, 0, 1)
+                    ).ignoreVines().build()
+            )
+    );
+    public static final RegistryKey<ConfiguredFeature<?, ?>> MAMAKU_TREE = register(
+            Taiao.id("mamaku_tree"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.TREE,
+                    new TreeFeatureConfig.Builder(
+                            BlockStateProvider.of(TaiaoBlocks.MAMAKU_LOG),
+                            new ThinStraightTrunkPlacer(5, 6, 6),
+                            BlockStateProvider.of(TaiaoBlocks.MAMAKU_LEAVES),
+                            new FernTreeFoliagePlacer(
+                                    UniformIntProvider.create(3, 4),
+                                    ConstantIntProvider.create(0)
+                            ),
+                            new TwoLayersFeatureSize(1, 0, 2)
+                    ).ignoreVines().build()
+            )
+    );
+    public static final RegistryKey<ConfiguredFeature<?, ?>> WHEKII_PONGA_TREE = register(
+            Taiao.id("whekii_ponga_tree"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.TREE,
+                    new TreeFeatureConfig.Builder(
+                            BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LOG),
+                            new StraightTrunkPlacer(4, 2, 0),
+                            BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LEAVES),
+                            new FernTreeFoliagePlacer(
+                                    ConstantIntProvider.create(3),
+                                    ConstantIntProvider.create(0)
+                            ),
+                            new TwoLayersFeatureSize(1, 0, 1)
+                    ).ignoreVines().build()
+            )
     );
 
     // Patches
-    public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_TREES = registryKey(
-            Taiao.id("trees_native_forest")
+    public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_TREES = register(
+            Taiao.id("trees_native_forest"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.RANDOM_SELECTOR,
+                    new RandomFeatureConfig(
+                            List.of(
+                                    new RandomFeatureEntry(
+                                            lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_CHECKED),
+                                            0.015f
+                                    ),
+                                    new RandomFeatureEntry(
+                                            lookup.getOrThrow(TaiaoPlacedFeatures.CABBAGE_TREE_CHECKED),
+                                            0.075f
+                                    ),
+                                    new RandomFeatureEntry(
+                                            lookup.getOrThrow(TaiaoPlacedFeatures.MAMAKU_TREE_CHECKED),
+                                            0.25f
+                                    ),
+                                    new RandomFeatureEntry(
+                                            lookup.getOrThrow(TaiaoPlacedFeatures.WHEKII_PONGA_TREE_CHECKED),
+                                            0.25f
+                                    )
+                            ),
+                            lookup.getOrThrow(TreePlacedFeatures.OAK_CHECKED)
+                    )
+            )
     );
-    public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_GRASS_PATCH = registryKey(
-            Taiao.id("patch_native_forest_grass")
+    public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_GRASS_PATCH = register(
+            Taiao.id("patch_native_forest_grass"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.RANDOM_PATCH,
+                    VegetationConfiguredFeatures.createRandomPatchFeatureConfig(
+                            new WeightedBlockStateProvider(
+                                    DataPool.<BlockState>builder()
+                                            .add(Blocks.GRASS.getDefaultState(), 1)
+                                            .add(Blocks.FERN.getDefaultState(), 4)
+                            ),
+                            32
+                    )
+            )
     );
 
-    public static void bootstrap(@NotNull Registerable<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(@NotNull Registerable<ConfiguredFeature<?, ?>> registerable) {
         Taiao.LOGGER.debug("Registering configured features");
 
-        RegistryEntryLookup<PlacedFeature> placedFeatureLookup = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
+        RegistryEntryLookup<PlacedFeature> placedFeatureLookup = registerable.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
 
-        // Trees
-        context.register(KAURI_TREE, kauriTree());
-        context.register(CABBAGE_TREE, cabbageTree());
-        context.register(MAMAKU_TREE, mamakuTree());
-        context.register(WHEKII_PONGA_TREE, whekiiPongaTree());
-
-        // Patches
-        context.register(NATIVE_FOREST_TREES, nativeForestTrees(placedFeatureLookup));
-        context.register(NATIVE_FOREST_GRASS_PATCH, nativeForestGrassPatch());
+        for (Map.Entry<RegistryKey<ConfiguredFeature<?, ?>>, Function<RegistryEntryLookup<PlacedFeature>, ConfiguredFeature<?, ?>>> entry : TO_REGISTER.entrySet()) {
+            registerable.register(entry.getKey(), entry.getValue().apply(placedFeatureLookup));
+        }
     }
 
-    // =================================================================================================================
-    // Trees
-    // =================================================================================================================
+    public static RegistryKey<ConfiguredFeature<?, ?>> register(
+            Identifier id,
+            Function<RegistryEntryLookup<PlacedFeature>, ConfiguredFeature<?, ?>> configuredFeatureFactory
+    ) {
+        RegistryKey<ConfiguredFeature<?, ?>> key = RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id);
 
-    @Contract(" -> new")
-    public static @NotNull ConfiguredFeature<?, ?> kauriTree() {
-        return new ConfiguredFeature<>(
-                Feature.TREE,
-                new TreeFeatureConfig.Builder(
-                        BlockStateProvider.of(TaiaoBlocks.KAURI_LOG),
-                        new DarkOakTrunkPlacer(9, 3, 2),
-                        BlockStateProvider.of(TaiaoBlocks.KAURI_LEAVES),
-                        new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
-                        new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-                ).ignoreVines().build()
-        );
-    }
+        TO_REGISTER.put(key, configuredFeatureFactory);
 
-    @Contract(" -> new")
-    public static @NotNull ConfiguredFeature<?, ?> cabbageTree() {
-        return new ConfiguredFeature<>(
-                Feature.TREE,
-                new TreeFeatureConfig.Builder(
-                        BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LOG),
-                        new ThinSplittingTrunkPlacer(
-                                3,
-                                3,
-                                2,
-                                ConstantIntProvider.create(1),
-                                0.4f,
-                                new ThinSplittingTrunkPlacer.SplitTypeWeights(9, 5, 1)
-                        ),
-                        BlockStateProvider.of(TaiaoBlocks.CABBAGE_TREE_LEAVES),
-                        new SphericalFoliagePlacer(
-                                ConstantIntProvider.create(0),
-                                ConstantIntProvider.create(0)
-                        ),
-                        new TwoLayersFeatureSize(1, 0, 1)
-                ).ignoreVines().build()
-        );
-    }
-
-    @Contract(" -> new")
-    public static @NotNull ConfiguredFeature<?, ?> mamakuTree() {
-        return new ConfiguredFeature<>(
-                Feature.TREE,
-                new TreeFeatureConfig.Builder(
-                        BlockStateProvider.of(TaiaoBlocks.MAMAKU_LOG),
-                        new ThinStraightTrunkPlacer(5, 6, 6),
-                        BlockStateProvider.of(TaiaoBlocks.MAMAKU_LEAVES),
-                        new FernTreeFoliagePlacer(
-                                UniformIntProvider.create(3, 4),
-                                ConstantIntProvider.create(0)
-                        ),
-                        new TwoLayersFeatureSize(1, 0, 2)
-                ).ignoreVines().build()
-        );
-    }
-
-    @Contract(" -> new")
-    public static @NotNull ConfiguredFeature<?, ?> whekiiPongaTree() {
-        return new ConfiguredFeature<>(
-                Feature.TREE,
-                new TreeFeatureConfig.Builder(
-                        BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LOG),
-                        new StraightTrunkPlacer(4, 2, 0),
-                        BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LEAVES),
-                        new FernTreeFoliagePlacer(
-                                ConstantIntProvider.create(3),
-                                ConstantIntProvider.create(0)
-                        ),
-                        new TwoLayersFeatureSize(1, 0, 1)
-                ).ignoreVines().build()
-        );
-    }
-
-    // =================================================================================================================
-    // Patches
-    // =================================================================================================================
-
-    @Contract("_ -> new")
-    public static @NotNull ConfiguredFeature<?, ?> nativeForestTrees(@NotNull RegistryEntryLookup<PlacedFeature> lookup) {
-        return new ConfiguredFeature<>(
-                Feature.RANDOM_SELECTOR,
-                new RandomFeatureConfig(
-                        List.of(
-                                new RandomFeatureEntry(
-                                        lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_CHECKED),
-                                        0.015f
-                                ),
-                                new RandomFeatureEntry(
-                                        lookup.getOrThrow(TaiaoPlacedFeatures.CABBAGE_TREE_CHECKED),
-                                        0.075f
-                                ),
-                                new RandomFeatureEntry(
-                                        lookup.getOrThrow(TaiaoPlacedFeatures.MAMAKU_TREE_CHECKED),
-                                        0.25f
-                                ),
-                                new RandomFeatureEntry(
-                                        lookup.getOrThrow(TaiaoPlacedFeatures.WHEKII_PONGA_TREE_CHECKED),
-                                        0.25f
-                                )
-                        ),
-                        lookup.getOrThrow(TreePlacedFeatures.OAK_CHECKED)
-                )
-        );
-    }
-
-    @Contract(" -> new")
-    public static @NotNull ConfiguredFeature<?, ?> nativeForestGrassPatch() {
-        return new ConfiguredFeature<>(
-                Feature.RANDOM_PATCH,
-                VegetationConfiguredFeatures.createRandomPatchFeatureConfig(
-                        new WeightedBlockStateProvider(
-                                DataPool.<BlockState>builder()
-                                        .add(Blocks.GRASS.getDefaultState(), 1)
-                                        .add(Blocks.FERN.getDefaultState(), 4)
-                        ),
-                        32
-                )
-        );
-    }
-
-    public static RegistryKey<ConfiguredFeature<?, ?>> registryKey(Identifier id) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, id);
+        return key;
     }
 }

@@ -26,17 +26,17 @@ import net.minecraft.world.gen.feature.PlacedFeature;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiFunction;
+
 public class TaiaoBiomes {
-    public static RegistryKey<Biome> NATIVE_FOREST = registryKey(Taiao.id("native_forest"));
+    protected static Map<RegistryKey<Biome>, BiFunction<RegistryEntryLookup<PlacedFeature>, RegistryEntryLookup<ConfiguredCarver<?>>, Biome>> TO_REGISTER = new HashMap<>();
 
-    public static void bootstrap(@NotNull Registerable<Biome> context) {
-        Taiao.LOGGER.debug("Registering biomes");
-
-        RegistryEntryLookup<PlacedFeature> featureLookup = context.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
-        RegistryEntryLookup<ConfiguredCarver<?>> carverLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
-
-        context.register(NATIVE_FOREST, nativeForest(featureLookup, carverLookup));
-    }
+    public static final RegistryKey<Biome> NATIVE_FOREST = register(
+            Taiao.id("native_forest"),
+            TaiaoBiomes::nativeForest
+    );
 
     public static Biome nativeForest(
             RegistryEntryLookup<PlacedFeature> featureLookup,
@@ -74,6 +74,28 @@ public class TaiaoBiomes {
         );
     }
 
+    public static void bootstrap(@NotNull Registerable<Biome> registerable) {
+        Taiao.LOGGER.debug("Registering biomes");
+
+        RegistryEntryLookup<PlacedFeature> featureLookup = registerable.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
+        RegistryEntryLookup<ConfiguredCarver<?>> carverLookup = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
+
+        for (Map.Entry<RegistryKey<Biome>, BiFunction<RegistryEntryLookup<PlacedFeature>, RegistryEntryLookup<ConfiguredCarver<?>>, Biome>> entry : TO_REGISTER.entrySet()) {
+            registerable.register(entry.getKey(), entry.getValue().apply(featureLookup, carverLookup));
+        }
+    }
+
+    public static RegistryKey<Biome> register(
+            Identifier id,
+            BiFunction<RegistryEntryLookup<PlacedFeature>, RegistryEntryLookup<ConfiguredCarver<?>>, Biome> biomeFactory
+    ) {
+        RegistryKey<Biome> key = RegistryKey.of(RegistryKeys.BIOME, id);
+
+        TO_REGISTER.put(key, biomeFactory);
+
+        return key;
+    }
+
     @Contract("_ -> param1")
     public static GenerationSettings.LookupBackedBuilder addBasicFeatures(GenerationSettings.LookupBackedBuilder generationSettings) {
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
@@ -97,9 +119,5 @@ public class TaiaoBiomes {
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeature);
 
         return generationSettings;
-    }
-
-    public static RegistryKey<Biome> registryKey(Identifier id) {
-        return RegistryKey.of(RegistryKeys.BIOME, id);
     }
 }

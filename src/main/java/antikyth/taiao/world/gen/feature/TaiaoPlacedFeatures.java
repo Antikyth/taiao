@@ -10,8 +10,8 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
@@ -19,90 +19,79 @@ import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TaiaoPlacedFeatures {
+    protected static Map<RegistryKey<PlacedFeature>, Pair<RegistryKey<ConfiguredFeature<?, ?>>, List<PlacementModifier>>> TO_REGISTER = new HashMap<>();
+
     // Trees
-    public static final RegistryKey<PlacedFeature> KAURI_TREE_CHECKED = registryKey(Taiao.id("kauri_tree_checked"));
-    public static final RegistryKey<PlacedFeature> CABBAGE_TREE_CHECKED = registryKey(
-            Taiao.id("cabbage_tree_checked")
+    public static final RegistryKey<PlacedFeature> KAURI_TREE_CHECKED = register(
+            Taiao.id("kauri_tree_checked"),
+            TaiaoConfiguredFeatures.KAURI_TREE,
+            PlacedFeatures.wouldSurvive(TaiaoBlocks.KAURI_SAPLING)
     );
-    public static final RegistryKey<PlacedFeature> MAMAKU_TREE_CHECKED = registryKey(
-            Taiao.id("mamaku_tree_checked")
+    public static final RegistryKey<PlacedFeature> CABBAGE_TREE_CHECKED = register(
+            Taiao.id("cabbage_tree_checked"),
+            TaiaoConfiguredFeatures.CABBAGE_TREE,
+            PlacedFeatures.wouldSurvive(TaiaoBlocks.CABBAGE_TREE_SAPLING)
     );
-    public static final RegistryKey<PlacedFeature> WHEKII_PONGA_TREE_CHECKED = registryKey(
-            Taiao.id("whekii_ponga_tree_checked")
+    public static final RegistryKey<PlacedFeature> MAMAKU_TREE_CHECKED = register(
+            Taiao.id("mamaku_tree_checked"),
+            TaiaoConfiguredFeatures.MAMAKU_TREE,
+            PlacedFeatures.wouldSurvive(TaiaoBlocks.MAMAKU_SAPLING)
+    );
+    public static final RegistryKey<PlacedFeature> WHEKII_PONGA_TREE_CHECKED = register(
+            Taiao.id("whekii_ponga_tree_checked"),
+            TaiaoConfiguredFeatures.WHEKII_PONGA_TREE,
+            PlacedFeatures.wouldSurvive(TaiaoBlocks.WHEKII_PONGA_SAPLING)
     );
 
     // Patches
-    public static final RegistryKey<PlacedFeature> NATIVE_FOREST_TREES = registryKey(Taiao.id("trees_native_forest"));
-    public static final RegistryKey<PlacedFeature> NATIVE_FOREST_GRASS_PATCH = registryKey(
-            Taiao.id("patch_native_forest_grass")
+    public static final RegistryKey<PlacedFeature> NATIVE_FOREST_TREES = register(
+            TaiaoConfiguredFeatures.NATIVE_FOREST_TREES.getValue(),
+            TaiaoConfiguredFeatures.NATIVE_FOREST_TREES,
+            VegetationPlacedFeatures.treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1))
+    );
+    public static final RegistryKey<PlacedFeature> NATIVE_FOREST_GRASS_PATCH = register(
+            TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH.getValue(),
+            TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH,
+            VegetationPlacedFeatures.modifiers(7)
     );
 
-    public static void bootstrap(@NotNull Registerable<PlacedFeature> context) {
+    public static void bootstrap(@NotNull Registerable<PlacedFeature> registerable) {
         Taiao.LOGGER.debug("Registering placed features");
 
-        RegistryEntryLookup<ConfiguredFeature<?, ?>> lookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
+        RegistryEntryLookup<ConfiguredFeature<?, ?>> lookup = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
-        // Trees
-        register(
-                context,
-                KAURI_TREE_CHECKED,
-                lookup.getOrThrow(TaiaoConfiguredFeatures.KAURI_TREE),
-                PlacedFeatures.wouldSurvive(TaiaoBlocks.KAURI_SAPLING)
-        );
-        register(
-                context, CABBAGE_TREE_CHECKED, lookup.getOrThrow(TaiaoConfiguredFeatures.CABBAGE_TREE),
-                PlacedFeatures.wouldSurvive(TaiaoBlocks.CABBAGE_TREE_SAPLING)
-        );
-        register(
-                context,
-                MAMAKU_TREE_CHECKED,
-                lookup.getOrThrow(TaiaoConfiguredFeatures.MAMAKU_TREE),
-                PlacedFeatures.wouldSurvive(TaiaoBlocks.MAMAKU_SAPLING)
-        );
-        register(
-                context,
-                WHEKII_PONGA_TREE_CHECKED,
-                lookup.getOrThrow(TaiaoConfiguredFeatures.WHEKII_PONGA_TREE),
-                PlacedFeatures.wouldSurvive(TaiaoBlocks.WHEKII_PONGA_SAPLING)
-        );
+        for (Map.Entry<RegistryKey<PlacedFeature>, Pair<RegistryKey<ConfiguredFeature<?, ?>>, List<PlacementModifier>>> entry : TO_REGISTER.entrySet()) {
+            Pair<RegistryKey<ConfiguredFeature<?, ?>>, List<PlacementModifier>> pair = entry.getValue();
 
-        // Patches
-        register(
-                context,
-                NATIVE_FOREST_TREES,
-                lookup.getOrThrow(TaiaoConfiguredFeatures.NATIVE_FOREST_TREES),
-                VegetationPlacedFeatures.treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1))
-        );
-        register(
-                context,
-                NATIVE_FOREST_GRASS_PATCH,
-                lookup.getOrThrow(TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH),
-                VegetationPlacedFeatures.modifiers(7)
-        );
+            registerable.register(
+                    entry.getKey(),
+                    new PlacedFeature(lookup.getOrThrow(pair.getLeft()), pair.getRight())
+            );
+        }
     }
 
-    public static void register(
-            @NotNull Registerable<PlacedFeature> registerable,
-            RegistryKey<PlacedFeature> key,
-            RegistryEntry<ConfiguredFeature<?, ?>> configuredFeature,
+    public static RegistryKey<PlacedFeature> register(
+            Identifier id,
+            RegistryKey<ConfiguredFeature<?, ?>> configuredFeature,
             PlacementModifier... modifiers
     ) {
-        register(registerable, key, configuredFeature, List.of(modifiers));
+        return register(id, configuredFeature, List.of(modifiers));
     }
 
-    public static void register(
-            @NotNull Registerable<PlacedFeature> registerable,
-            RegistryKey<PlacedFeature> key,
-            RegistryEntry<ConfiguredFeature<?, ?>> configuredFeature,
+    public static RegistryKey<PlacedFeature> register(
+            Identifier id,
+            RegistryKey<ConfiguredFeature<?, ?>> configuredFeature,
             List<PlacementModifier> modifiers
     ) {
-        registerable.register(key, new PlacedFeature(configuredFeature, List.copyOf(modifiers)));
-    }
+        RegistryKey<PlacedFeature> key = RegistryKey.of(RegistryKeys.PLACED_FEATURE, id);
 
-    public static RegistryKey<PlacedFeature> registryKey(Identifier id) {
-        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, id);
+        TO_REGISTER.put(key, new Pair<>(configuredFeature, List.copyOf(modifiers)));
+
+        return key;
     }
 }
