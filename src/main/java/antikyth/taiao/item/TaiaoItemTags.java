@@ -47,6 +47,7 @@ public final class TaiaoItemTags {
     // Conventional tags
     public static final TagKey<Item> CONVENTIONAL_SEEDS = createTagKey(Taiao.commonId("seeds"));
     public static final TagKey<Item> CONVENTIONAL_BERRIES = createTagKey(Taiao.commonId("berries"));
+    public static final TagKey<Item> CONVENTIONAL_VINES = createTagKey(Taiao.commonId("vines"));
 
     public static TagKey<Item> createTagKey(@NotNull TagKey<Block> blockTag) {
         return createTagKey(blockTag.id());

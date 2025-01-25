@@ -38,6 +38,10 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(TaiaoItemTags.CONVENTIONAL_BERRIES)
                 .add(Items.SWEET_BERRIES)
                 .add(Items.GLOW_BERRIES);
+        getOrCreateTagBuilder(TaiaoItemTags.CONVENTIONAL_VINES)
+                .add(Items.VINE)
+                .add(Items.WEEPING_VINES)
+                .add(Items.TWISTING_VINES);
 
         // Te Taiao o Aotearoa item tags
         getOrCreateTagBuilder(TaiaoItemTags.KIWI_FOOD)
@@ -49,8 +53,8 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(ItemTags.LEAVES)
                 .addTag(ItemTags.SAPLINGS);
         getOrCreateTagBuilder(TaiaoItemTags.KAAKAAPOO_FOOD)
-                .addTag(TaiaoItemTags.CONVENTIONAL_SEEDS)
-                .add(Items.VINE);
+                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS)
+                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_VINES);
 
         // Te Taiao o Aotearoa block tags
         copy(TaiaoBlockTags.KAURI_LOGS, TaiaoItemTags.KAURI_LOGS);
