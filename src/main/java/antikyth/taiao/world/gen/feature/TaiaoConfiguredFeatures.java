@@ -142,11 +142,11 @@ public class TaiaoConfiguredFeatures {
                         List.of(
                                 new RandomFeatureEntry(
                                         lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_CHECKED),
-                                        0.02f
+                                        0.015f
                                 ),
                                 new RandomFeatureEntry(
                                         lookup.getOrThrow(TaiaoPlacedFeatures.CABBAGE_TREE_CHECKED),
-                                        0.175f
+                                        0.075f
                                 ),
                                 new RandomFeatureEntry(
                                         lookup.getOrThrow(TaiaoPlacedFeatures.MAMAKU_TREE_CHECKED),
