@@ -10,11 +10,14 @@ import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlace
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinStraightTrunkPlacer;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.*;
@@ -22,6 +25,7 @@ import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 import org.jetbrains.annotations.Contract;
@@ -31,6 +35,7 @@ import java.util.List;
 import java.util.OptionalInt;
 
 public class TaiaoConfiguredFeatures {
+    // Trees
     public static final RegistryKey<ConfiguredFeature<?, ?>> KAURI_TREE = registryKey(Taiao.id("kauri_tree"));
     /**
      * A tī kōuka tree.
@@ -44,8 +49,12 @@ public class TaiaoConfiguredFeatures {
             Taiao.id("whekii_ponga_tree")
     );
 
+    // Patches
     public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_TREES = registryKey(
             Taiao.id("trees_native_forest")
+    );
+    public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_GRASS_PATCH = registryKey(
+            Taiao.id("patch_native_forest_grass")
     );
 
     public static void bootstrap(@NotNull Registerable<ConfiguredFeature<?, ?>> context) {
@@ -59,8 +68,14 @@ public class TaiaoConfiguredFeatures {
         context.register(MAMAKU_TREE, mamakuTree());
         context.register(WHEKII_PONGA_TREE, whekiiPongaTree());
 
+        // Patches
         context.register(NATIVE_FOREST_TREES, nativeForestTrees(placedFeatureLookup));
+        context.register(NATIVE_FOREST_GRASS_PATCH, nativeForestGrassPatch());
     }
+
+    // =================================================================================================================
+    // Trees
+    // =================================================================================================================
 
     @Contract(" -> new")
     public static @NotNull ConfiguredFeature<?, ?> kauriTree() {
@@ -134,6 +149,10 @@ public class TaiaoConfiguredFeatures {
         );
     }
 
+    // =================================================================================================================
+    // Patches
+    // =================================================================================================================
+
     @Contract("_ -> new")
     public static @NotNull ConfiguredFeature<?, ?> nativeForestTrees(@NotNull RegistryEntryLookup<PlacedFeature> lookup) {
         return new ConfiguredFeature<>(
@@ -158,6 +177,21 @@ public class TaiaoConfiguredFeatures {
                                 )
                         ),
                         lookup.getOrThrow(TreePlacedFeatures.OAK_CHECKED)
+                )
+        );
+    }
+
+    @Contract(" -> new")
+    public static @NotNull ConfiguredFeature<?, ?> nativeForestGrassPatch() {
+        return new ConfiguredFeature<>(
+                Feature.RANDOM_PATCH,
+                VegetationConfiguredFeatures.createRandomPatchFeatureConfig(
+                        new WeightedBlockStateProvider(
+                                DataPool.<BlockState>builder()
+                                        .add(Blocks.GRASS.getDefaultState(), 1)
+                                        .add(Blocks.FERN.getDefaultState(), 4)
+                        ),
+                        32
                 )
         );
     }

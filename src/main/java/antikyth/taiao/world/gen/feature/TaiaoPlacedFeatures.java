@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class TaiaoPlacedFeatures {
+    // Trees
     public static final RegistryKey<PlacedFeature> KAURI_TREE_CHECKED = registryKey(Taiao.id("kauri_tree_checked"));
     public static final RegistryKey<PlacedFeature> CABBAGE_TREE_CHECKED = registryKey(
             Taiao.id("cabbage_tree_checked")
@@ -33,7 +34,11 @@ public class TaiaoPlacedFeatures {
             Taiao.id("whekii_ponga_tree_checked")
     );
 
+    // Patches
     public static final RegistryKey<PlacedFeature> NATIVE_FOREST_TREES = registryKey(Taiao.id("trees_native_forest"));
+    public static final RegistryKey<PlacedFeature> NATIVE_FOREST_GRASS_PATCH = registryKey(
+            Taiao.id("patch_native_forest_grass")
+    );
 
     public static void bootstrap(@NotNull Registerable<PlacedFeature> context) {
         Taiao.LOGGER.debug("Registering placed features");
@@ -64,11 +69,18 @@ public class TaiaoPlacedFeatures {
                 PlacedFeatures.wouldSurvive(TaiaoBlocks.WHEKII_PONGA_SAPLING)
         );
 
+        // Patches
         register(
                 context,
                 NATIVE_FOREST_TREES,
                 lookup.getOrThrow(TaiaoConfiguredFeatures.NATIVE_FOREST_TREES),
                 VegetationPlacedFeatures.treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1))
+        );
+        register(
+                context,
+                NATIVE_FOREST_GRASS_PATCH,
+                lookup.getOrThrow(TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH),
+                VegetationPlacedFeatures.modifiers(7)
         );
     }
 

@@ -6,3 +6,6 @@ accessible field net/minecraft/data/server/loottable/EntityLootTableGenerator lo
 # Biomes
 accessible method net/minecraft/world/biome/OverworldBiomeCreator createBiome (ZFFLnet/minecraft/world/biome/SpawnSettings$Builder;Lnet/minecraft/world/biome/GenerationSettings$LookupBackedBuilder;Lnet/minecraft/sound/MusicSound;)Lnet/minecraft/world/biome/Biome;
 accessible method net/minecraft/world/biome/OverworldBiomeCreator createBiome (ZFFIILjava/lang/Integer;Ljava/lang/Integer;Lnet/minecraft/world/biome/SpawnSettings$Builder;Lnet/minecraft/world/biome/GenerationSettings$LookupBackedBuilder;Lnet/minecraft/sound/MusicSound;)Lnet/minecraft/world/biome/Biome;
+
+# Configured features
+accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;

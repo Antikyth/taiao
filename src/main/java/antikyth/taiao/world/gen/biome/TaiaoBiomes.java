@@ -23,6 +23,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBiomes {
@@ -49,11 +50,12 @@ public class TaiaoBiomes {
 
         addBasicFeatures(generationSettings);
 
-        DefaultBiomeFeatures.addForestGrass(generationSettings);
+        // Forest floor vegetation
+        addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_FOREST_GRASS_PATCH);
         DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
 
         // Trees
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, TaiaoPlacedFeatures.NATIVE_FOREST_TREES);
+        addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_FOREST_TREES);
 
         // Spawns
         DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
@@ -72,6 +74,7 @@ public class TaiaoBiomes {
         );
     }
 
+    @Contract("_ -> param1")
     public static GenerationSettings.LookupBackedBuilder addBasicFeatures(GenerationSettings.LookupBackedBuilder generationSettings) {
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
         DefaultBiomeFeatures.addAmethystGeodes(generationSettings);
@@ -82,6 +85,16 @@ public class TaiaoBiomes {
 
         DefaultBiomeFeatures.addDefaultOres(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
+
+        return generationSettings;
+    }
+
+    @Contract("_, _ -> param1")
+    public static GenerationSettings.@NotNull LookupBackedBuilder addVegetation(
+            GenerationSettings.@NotNull LookupBackedBuilder generationSettings,
+            RegistryKey<PlacedFeature> placedFeature
+    ) {
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeature);
 
         return generationSettings;
     }
