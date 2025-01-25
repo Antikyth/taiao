@@ -6,7 +6,7 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.world.gen.feature.tree.placer.foliage.PalmFoliagePlacer;
+import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinStraightTrunkPlacer;
@@ -108,7 +108,7 @@ public class TaiaoConfiguredFeatures {
                         BlockStateProvider.of(TaiaoBlocks.MAMAKU_LOG),
                         new ThinStraightTrunkPlacer(5, 6, 6),
                         BlockStateProvider.of(TaiaoBlocks.MAMAKU_LEAVES),
-                        new PalmFoliagePlacer(
+                        new FernTreeFoliagePlacer(
                                 UniformIntProvider.create(3, 4),
                                 ConstantIntProvider.create(0)
                         ),
@@ -125,7 +125,7 @@ public class TaiaoConfiguredFeatures {
                         BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LOG),
                         new StraightTrunkPlacer(4, 2, 0),
                         BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LEAVES),
-                        new PalmFoliagePlacer(
+                        new FernTreeFoliagePlacer(
                                 ConstantIntProvider.create(3),
                                 ConstantIntProvider.create(0)
                         ),

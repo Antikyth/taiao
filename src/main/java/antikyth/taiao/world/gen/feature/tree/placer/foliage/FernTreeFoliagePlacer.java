@@ -25,12 +25,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class PalmFoliagePlacer extends ThreeDimensionalFoliagePlacer {
-    public static final Codec<PalmFoliagePlacer> CODEC = RecordCodecBuilder.create(
-            instance -> fillFoliagePlacerFields(instance).apply(instance, PalmFoliagePlacer::new)
+public class FernTreeFoliagePlacer extends ThreeDimensionalFoliagePlacer {
+    public static final Codec<FernTreeFoliagePlacer> CODEC = RecordCodecBuilder.create(
+            instance -> fillFoliagePlacerFields(instance).apply(instance, FernTreeFoliagePlacer::new)
     );
 
-    public PalmFoliagePlacer(
+    public FernTreeFoliagePlacer(
             IntProvider radius,
             IntProvider offset
     ) {
@@ -39,7 +39,7 @@ public class PalmFoliagePlacer extends ThreeDimensionalFoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getType() {
-        return TaiaoTreePlacers.PALM_FOLIAGE_PLACER;
+        return TaiaoTreePlacers.FERN_TREE_FOLIAGE_PLACER;
     }
 
     @Override
