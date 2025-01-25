@@ -16,7 +16,7 @@ public class KaakaapooEntityRenderer extends MobEntityRenderer<KaakaapooEntity, 
     public static final Identifier TEXTURE = Taiao.id("textures/entity/kaakaapoo.png");
 
     public KaakaapooEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new KaakaapooEntityModel<>(context.getPart(TaiaoEntityModels.KAAKAAPOO)), 0.3f);
+        super(context, new KaakaapooEntityModel<>(context.getPart(TaiaoEntityModels.KAAKAAPOO)), 0.45f);
     }
 
     @Override
