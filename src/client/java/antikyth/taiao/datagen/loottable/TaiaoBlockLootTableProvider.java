@@ -22,7 +22,6 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(TaiaoBlocks.KAURI_SAPLING);
         addPottedPlantDrops(TaiaoBlocks.POTTED_KAURI_SAPLING);
         addDrop(TaiaoBlocks.KAURI_LEAVES, block -> leavesDrops(block, TaiaoBlocks.KAURI_SAPLING, SAPLING_DROP_CHANCE));
-
         // Kauri wood
         addDrop(TaiaoBlocks.KAURI_LOG);
         addDrop(TaiaoBlocks.STRIPPED_KAURI_LOG);
@@ -31,6 +30,21 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         // Kauri wood family
         addDropsForFamily(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 
+        // Kahikatea foliage
+        addDrop(TaiaoBlocks.KAHIKATEA_SAPLING);
+        addPottedPlantDrops(TaiaoBlocks.POTTED_KAHIKATEA_SAPLING);
+        addDrop(
+                TaiaoBlocks.KAHIKATEA_LEAVES,
+                block -> leavesDrops(block, TaiaoBlocks.KAHIKATEA_SAPLING, SAPLING_DROP_CHANCE)
+        );
+        // Kahikatea wood
+        addDrop(TaiaoBlocks.KAHIKATEA_LOG);
+        addDrop(TaiaoBlocks.STRIPPED_KAHIKATEA_LOG);
+        addDrop(TaiaoBlocks.KAHIKATEA_WOOD);
+        addDrop(TaiaoBlocks.STRIPPED_KAHIKATEA_WOOD);
+        // Kahikatea wood family
+        addDropsForFamily(TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
+
         // Tī kōuka foliage
         addDrop(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         addPottedPlantDrops(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING);
@@ -38,7 +52,6 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
                 TaiaoBlocks.CABBAGE_TREE_LEAVES,
                 block -> leavesDrops(block, TaiaoBlocks.CABBAGE_TREE_SAPLING, SAPLING_DROP_CHANCE)
         );
-
         // Tī kōuka wood
         addDrop(TaiaoBlocks.CABBAGE_TREE_LOG);
         addDrop(TaiaoBlocks.CABBAGE_TREE_WOOD);
@@ -52,7 +65,6 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
                 TaiaoBlocks.MAMAKU_LEAVES,
                 block -> leavesDrops(block, TaiaoBlocks.MAMAKU_SAPLING, SAPLING_DROP_CHANCE)
         );
-
         // Mamaku wood
         addDrop(TaiaoBlocks.MAMAKU_LOG);
         addDrop(TaiaoBlocks.MAMAKU_WOOD);
@@ -68,7 +80,6 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
                 TaiaoBlocks.WHEKII_PONGA_LEAVES,
                 block -> leavesDrops(block, TaiaoBlocks.WHEKII_PONGA_SAPLING, SAPLING_DROP_CHANCE)
         );
-
         // Whekī ponga wood
         addDrop(TaiaoBlocks.WHEKII_PONGA_LOG);
         addDrop(TaiaoBlocks.WHEKII_PONGA_WOOD);

@@ -5,10 +5,7 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.world.gen.feature.tree.sapling.CabbageTreeSaplingGenerator;
-import antikyth.taiao.world.gen.feature.tree.sapling.KauriSaplingGenerator;
-import antikyth.taiao.world.gen.feature.tree.sapling.MamakuSaplingGenerator;
-import antikyth.taiao.world.gen.feature.tree.sapling.WhekiiPongaSaplingGenerator;
+import antikyth.taiao.world.gen.feature.tree.sapling.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -92,6 +89,68 @@ public class TaiaoBlocks {
             Taiao.id("kauri_fence"),
             new FenceBlock(FabricBlockSettings.copyOf(KAURI_PLANKS))
     ).copyFlammable(KAURI_PLANKS).register(true);
+
+    // Kahikatea foliage
+    public static final Block KAHIKATEA_SAPLING = new Builder(
+            Taiao.id("kahikatea_sapling"),
+            new SaplingBlock(new KahikateaSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.SPRUCE_SAPLING))
+    ).register(true);
+    public static final Block POTTED_KAHIKATEA_SAPLING = new Builder(
+            Taiao.id("potted_kahikatea_sapling"),
+            Blocks.createFlowerPotBlock(KAHIKATEA_SAPLING)
+    ).register(false);
+    public static final Block KAHIKATEA_LEAVES = new Builder(
+            Taiao.id("kahikatea_leaves"),
+            Blocks.createLeavesBlock(BlockSoundGroup.GRASS)
+    ).copyFlammable(Blocks.SPRUCE_LEAVES).register(true);
+
+    // Kahikatea wood
+    public static final Block STRIPPED_KAHIKATEA_LOG = new Builder(
+            Taiao.id("stripped_kahikatea_log"),
+            Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
+    ).register(true);
+    public static final Block KAHIKATEA_LOG = new Builder(
+            Taiao.id("kahikatea_log"),
+            Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.STONE_GRAY)
+    ).strippable(STRIPPED_KAHIKATEA_LOG).register(true);
+    public static final Block STRIPPED_KAHIKATEA_WOOD = new Builder(
+            Taiao.id("stripped_kahikatea_wood"),
+            Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
+    ).register(true);
+    public static final Block KAHIKATEA_WOOD = new Builder(
+            Taiao.id("kahikatea_wood"),
+            Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
+    ).strippable(STRIPPED_KAHIKATEA_WOOD).register(true);
+
+    // Kahikatea wood family
+    public static final Block KAHIKATEA_PLANKS = new Builder(
+            Taiao.id("kahikatea_planks"),
+            createPlanks(MapColor.OFF_WHITE)
+    ).copyFlammable(Blocks.OAK_PLANKS).register(true);
+    public static final Block KAHIKATEA_PRESSURE_PLATE = new Builder(
+            Taiao.id("kahikatea_pressure_plate"),
+            createWoodenPressurePlate(KAHIKATEA_PLANKS, WoodFamily.KAHIKATEA.getBlockSetType())
+    ).register(true);
+    public static final Block KAHIKATEA_BUTTON = new Builder(
+            Taiao.id("kahikatea_button"),
+            Blocks.createWoodenButtonBlock(WoodFamily.KAHIKATEA.getBlockSetType())
+    ).register(true);
+    public static final Block KAHIKATEA_STAIRS = new Builder(
+            Taiao.id("kahikatea_stairs"),
+            new StairsBlock(KAHIKATEA_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(KAHIKATEA_PLANKS))
+    ).copyFlammable(KAHIKATEA_PLANKS).register(true);
+    public static final Block KAHIKATEA_SLAB = new Builder(
+            Taiao.id("kahikatea_slab"),
+            new SlabBlock(FabricBlockSettings.copyOf(KAHIKATEA_PLANKS))
+    ).copyFlammable(KAHIKATEA_PLANKS).register(true);
+    public static final Block KAHIKATEA_FENCE_GATE = new Builder(
+            Taiao.id("kahikatea_fence_gate"),
+            new FenceGateBlock(FabricBlockSettings.copyOf(KAHIKATEA_PLANKS), WoodFamily.KAHIKATEA.getWoodType())
+    ).copyFlammable(KAHIKATEA_PLANKS).register(true);
+    public static final Block KAHIKATEA_FENCE = new Builder(
+            Taiao.id("kahikatea_fence"),
+            new FenceBlock(FabricBlockSettings.copyOf(KAHIKATEA_PLANKS))
+    ).copyFlammable(KAHIKATEA_PLANKS).register(true);
 
     // Tī kōuka foliage
     public static final Block CABBAGE_TREE_SAPLING = new Builder(
@@ -241,6 +300,19 @@ public class TaiaoBlocks {
                         .pressurePlate(TaiaoBlocks.KAURI_PRESSURE_PLATE)
                         .slab(TaiaoBlocks.KAURI_SLAB)
                         .stairs(TaiaoBlocks.KAURI_STAIRS)
+                        .group("wooden")
+                        .unlockCriterionName("has_planks")
+                        .build()
+        );
+        public static final WoodFamily KAHIKATEA = register(
+                Taiao.id("kahikatea"),
+                () -> new BlockFamily.Builder(TaiaoBlocks.KAHIKATEA_PLANKS)
+                        .button(TaiaoBlocks.KAHIKATEA_BUTTON)
+                        .fence(TaiaoBlocks.KAHIKATEA_FENCE)
+                        .fenceGate(TaiaoBlocks.KAHIKATEA_FENCE_GATE)
+                        .pressurePlate(TaiaoBlocks.KAHIKATEA_PRESSURE_PLATE)
+                        .slab(TaiaoBlocks.KAHIKATEA_SLAB)
+                        .stairs(TaiaoBlocks.KAHIKATEA_STAIRS)
                         .group("wooden")
                         .unlockCriterionName("has_planks")
                         .build()

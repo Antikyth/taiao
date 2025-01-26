@@ -17,6 +17,7 @@ public final class TaiaoItemTags {
     public static final TagKey<Item> THIN_LOGS = createTagKey(TaiaoBlockTags.THIN_LOGS);
 
     public static final TagKey<Item> KAURI_LOGS = createTagKey(TaiaoBlockTags.KAURI_LOGS);
+    public static final TagKey<Item> KAHIKATEA_LOGS = createTagKey(TaiaoBlockTags.KAHIKATEA_LOGS);
     /**
      * Tī kōuka logs.
      */

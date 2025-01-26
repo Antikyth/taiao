@@ -34,6 +34,10 @@ public class TaiaoItemGroups {
             group.add(TaiaoBlocks.KAURI_LEAVES);
             addKauriBuildingBlocks(group::add);
 
+            group.add(TaiaoBlocks.KAHIKATEA_SAPLING);
+            group.add(TaiaoBlocks.KAHIKATEA_LEAVES);
+            addKahikateaBuildingBlocks(group::add);
+
             group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
             addCabbageTreeBuildingBlocks(group::add);
@@ -56,6 +60,7 @@ public class TaiaoItemGroups {
             Consumer<ItemConvertible> add = item -> group.addBefore(Items.STONE, item);
 
             addKauriBuildingBlocks(add);
+            addKahikateaBuildingBlocks(add);
             addCabbageTreeBuildingBlocks(add);
             addMamakuBuildingBlocks(add);
             addWhekiiPongaBuildingBlocks(add);
@@ -70,6 +75,7 @@ public class TaiaoItemGroups {
 
     public static void addLogs(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_LOG);
+        add.accept(TaiaoBlocks.KAHIKATEA_LOG);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LOG);
         add.accept(TaiaoBlocks.MAMAKU_LOG);
         add.accept(TaiaoBlocks.WHEKII_PONGA_LOG);
@@ -77,6 +83,7 @@ public class TaiaoItemGroups {
 
     public static void addLeaves(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_LEAVES);
+        add.accept(TaiaoBlocks.KAHIKATEA_LEAVES);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LEAVES);
         add.accept(TaiaoBlocks.MAMAKU_LEAVES);
         add.accept(TaiaoBlocks.WHEKII_PONGA_LEAVES);
@@ -84,6 +91,7 @@ public class TaiaoItemGroups {
 
     public static void addSaplings(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_SAPLING);
+        add.accept(TaiaoBlocks.KAHIKATEA_SAPLING);
         add.accept(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         add.accept(TaiaoBlocks.MAMAKU_SAPLING);
         add.accept(TaiaoBlocks.WHEKII_PONGA_SAPLING);
@@ -102,6 +110,21 @@ public class TaiaoItemGroups {
         add.accept(TaiaoBlocks.KAURI_FENCE_GATE);
         add.accept(TaiaoBlocks.KAURI_PRESSURE_PLATE);
         add.accept(TaiaoBlocks.KAURI_BUTTON);
+    }
+
+    public static void addKahikateaBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.KAHIKATEA_LOG);
+        add.accept(TaiaoBlocks.KAHIKATEA_WOOD);
+        add.accept(TaiaoBlocks.STRIPPED_KAHIKATEA_LOG);
+        add.accept(TaiaoBlocks.STRIPPED_KAHIKATEA_WOOD);
+
+        add.accept(TaiaoBlocks.KAHIKATEA_PLANKS);
+        add.accept(TaiaoBlocks.KAHIKATEA_STAIRS);
+        add.accept(TaiaoBlocks.KAHIKATEA_SLAB);
+        add.accept(TaiaoBlocks.KAHIKATEA_FENCE);
+        add.accept(TaiaoBlocks.KAHIKATEA_FENCE_GATE);
+        add.accept(TaiaoBlocks.KAHIKATEA_PRESSURE_PLATE);
+        add.accept(TaiaoBlocks.KAHIKATEA_BUTTON);
     }
 
     public static void addCabbageTreeBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {

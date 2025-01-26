@@ -28,6 +28,13 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
         offerBarkBlockRecipe(exporter, TaiaoBlocks.KAURI_WOOD, TaiaoBlocks.KAURI_LOG);
         offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_KAURI_WOOD, TaiaoBlocks.STRIPPED_KAURI_LOG);
 
+        generateFamily(exporter, TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
+        // Kahikatea planks
+        offerPlanksRecipe(exporter, TaiaoBlocks.KAHIKATEA_PLANKS, TaiaoItemTags.KAHIKATEA_LOGS, 4);
+        // Kahikatea wood
+        offerBarkBlockRecipe(exporter, TaiaoBlocks.KAHIKATEA_WOOD, TaiaoBlocks.KAHIKATEA_LOG);
+        offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_KAHIKATEA_WOOD, TaiaoBlocks.STRIPPED_KAHIKATEA_LOG);
+
         // Tī kōuka oak planks - makes 2 as the logs are thinner than vanilla
         offerPlanksRecipe(exporter, Blocks.OAK_PLANKS, TaiaoItemTags.CABBAGE_TREE_LOGS, 2);
         // Tī kōuka wood

@@ -58,6 +58,7 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         // Te Taiao o Aotearoa block tags
         copy(TaiaoBlockTags.KAURI_LOGS, TaiaoItemTags.KAURI_LOGS);
+        copy(TaiaoBlockTags.KAHIKATEA_LOGS, TaiaoItemTags.KAHIKATEA_LOGS);
         copy(TaiaoBlockTags.CABBAGE_TREE_LOGS, TaiaoItemTags.CABBAGE_TREE_LOGS);
         copy(TaiaoBlockTags.MAMAKU_LOGS, TaiaoItemTags.MAMAKU_LOGS);
         copy(TaiaoBlockTags.WHEKII_PONGA_LOGS, TaiaoItemTags.WHEKII_PONGA_LOGS);

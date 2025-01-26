@@ -60,6 +60,25 @@ public class TaiaoModelProvider extends FabricModelProvider {
         generator.registerCubeAllModelTexturePool(TaiaoBlocks.KAURI_PLANKS)
                 .family(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 
+        // Kahikatea foliage
+        generator.registerFlowerPotPlant(
+                TaiaoBlocks.KAHIKATEA_SAPLING,
+                TaiaoBlocks.POTTED_KAHIKATEA_SAPLING,
+                TintType.NOT_TINTED
+        );
+        generator.registerSingleton(TaiaoBlocks.KAHIKATEA_LEAVES, kauriLeavesTextures, Models.LEAVES);
+
+        // Kahikatea wood
+        generator.registerLog(TaiaoBlocks.KAHIKATEA_LOG)
+                .log(TaiaoBlocks.KAHIKATEA_LOG)
+                .wood(TaiaoBlocks.KAHIKATEA_WOOD);
+        generator.registerLog(TaiaoBlocks.STRIPPED_KAHIKATEA_LOG)
+                .log(TaiaoBlocks.STRIPPED_KAHIKATEA_LOG)
+                .wood(TaiaoBlocks.STRIPPED_KAHIKATEA_WOOD);
+        // Kahikatea wood family
+        generator.registerCubeAllModelTexturePool(TaiaoBlocks.KAHIKATEA_PLANKS)
+                .family(TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
+
         // Tī kōuka foliage
         generator.registerFlowerPotPlant(
                 TaiaoBlocks.CABBAGE_TREE_SAPLING,

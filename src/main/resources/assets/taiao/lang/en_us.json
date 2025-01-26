@@ -18,6 +18,23 @@
   "block.taiao.kauri_fence": "Kauri Fence",
   "block.taiao.kauri_fence_gate": "Kauri Fence Gate",
 
+  "block.taiao.kahikatea_sapling": "Kahikatea Sapling",
+  "block.taiao.potted_kahikatea_sapling": "Potted Kahikatea Sapling",
+  "block.taiao.kahikatea_leaves": "Kahikatea Leaves",
+
+  "block.taiao.kahikatea_log": "Kahikatea Log",
+  "block.taiao.stripped_kahikatea_log": "Stripped Kahikatea Log",
+  "block.taiao.kahikatea_wood": "Kahikatea Wood",
+  "block.taiao.stripped_kahikatea_wood": "Stripped Kahikatea Wood",
+
+  "block.taiao.kahikatea_planks": "Kahikatea Planks",
+  "block.taiao.kahikatea_pressure_plate": "Kahikatea Pressure Plate",
+  "block.taiao.kahikatea_button": "Kahikatea Button",
+  "block.taiao.kahikatea_stairs": "Kahikatea Stairs",
+  "block.taiao.kahikatea_slab": "Kahikatea Slab",
+  "block.taiao.kahikatea_fence": "Kahikatea Fence",
+  "block.taiao.kahikatea_fence_gate": "Kahikatea Fence Gate",
+
   "block.taiao.cabbage_tree_sapling": "Tī Kōuka Sapling",
   "block.taiao.potted_cabbage_tree_sapling": "Potted Tī Kōuka Sapling",
   "block.taiao.cabbage_tree_leaves": "Tī Kōuka Leaves",
@@ -67,6 +84,7 @@
   "biome.taiao.native_swamp": "Aotearoa Native Swamp",
 
   "tag.block.taiao.kauri_logs": "Kauri Logs",
+  "tag.block.taiao.kahikatea_logs": "Kahikatea Logs",
   "tag.block.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
   "tag.block.taiao.mamaku_logs": "Mamaku Logs",
   "tag.block.taiao.whekii_ponga_logs": "Whekī Ponga Logs",
@@ -77,6 +95,7 @@
   "tag.item.c.vines": "Vines",
 
   "tag.item.taiao.kauri_logs": "Kauri Logs",
+  "tag.item.taiao.kahikatea_logs": "Kahikatea Logs",
   "tag.item.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
   "tag.item.taiao.mamaku_logs": "Mamaku Logs",
   "tag.item.taiao.whekii_ponga_logs": "Whekī Ponga Logs",

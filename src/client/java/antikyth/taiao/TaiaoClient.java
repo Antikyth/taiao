@@ -38,24 +38,21 @@ public class TaiaoClient implements ClientModInitializer {
         Taiao.LOGGER.debug("Registering block and item dynamic color providers");
 
         // Leaves
-        registerBlockColors(TaiaoClient::foliageBlockColor, TaiaoClient::foliageItemColor, TaiaoBlocks.KAURI_LEAVES);
-        registerBlockColors(
-                TaiaoClient::foliageBlockColor,
-                TaiaoClient::foliageItemColor,
-                TaiaoBlocks.CABBAGE_TREE_LEAVES
-        );
-        registerBlockColors(TaiaoClient::foliageBlockColor, TaiaoClient::foliageItemColor, TaiaoBlocks.MAMAKU_LEAVES);
-        registerBlockColors(
-                TaiaoClient::foliageBlockColor,
-                TaiaoClient::foliageItemColor,
+        registerFoliageColors(
+                TaiaoBlocks.KAURI_LEAVES,
+                TaiaoBlocks.KAHIKATEA_LEAVES,
+                TaiaoBlocks.CABBAGE_TREE_LEAVES,
+                TaiaoBlocks.MAMAKU_LEAVES,
                 TaiaoBlocks.WHEKII_PONGA_LEAVES
         );
 
         // Spawn eggs
-        registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.KIWI_SPAWN_EGG);
-        registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.PUUKEKO_SPAWN_EGG);
-        registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.MOA_SPAWN_EGG);
-        registerItemColors(TaiaoClient::spawnEggColor, TaiaoItems.KAAKAAPOO_SPAWN_EGG);
+        registerSpawnEggColors(
+                TaiaoItems.KIWI_SPAWN_EGG,
+                TaiaoItems.PUUKEKO_SPAWN_EGG,
+                TaiaoItems.MOA_SPAWN_EGG,
+                TaiaoItems.KAAKAAPOO_SPAWN_EGG
+        );
     }
 
     public static void registerRenderLayers() {
@@ -74,10 +71,18 @@ public class TaiaoClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING, RenderLayer.getCutout());
     }
 
+    public static void registerSpawnEggColors(Item @NotNull ... items) {
+        registerItemColors(TaiaoClient::spawnEggColor, items);
+    }
+
     public static void registerItemColors(ItemColorProvider colorProvider, Item @NotNull ... items) {
         for (Item item : items) {
             ColorProviderRegistry.ITEM.register(colorProvider, item);
         }
+    }
+
+    public static void registerFoliageColors(Block @NotNull ... blocks) {
+        registerBlockColors(TaiaoClient::foliageBlockColor, TaiaoClient::foliageItemColor, blocks);
     }
 
     public static void registerBlockColors(BlockColorProvider colorProvider, Block @NotNull ... blocks) {
