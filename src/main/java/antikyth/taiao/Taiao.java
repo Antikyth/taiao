@@ -10,9 +10,7 @@ import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
-import antikyth.taiao.world.gen.biome.TaiaoMaterialRules;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
-import com.terraformersmc.biolith.api.surface.SurfaceGeneration;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -42,9 +40,7 @@ public class Taiao implements ModInitializer {
         TaiaoEntities.initialize();
 
         TaiaoTreePlacers.initialize();
-
-        TaiaoBiomes.setBiomePlacements();
-        SurfaceGeneration.addOverworldSurfaceRules(Taiao.id("rules/overworld"), TaiaoMaterialRules.ALL);
+        TaiaoBiomes.initializeBiolith();
     }
 
     /**

@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
 import com.terraformersmc.biolith.api.biome.BiomePlacement;
+import com.terraformersmc.biolith.api.surface.SurfaceGeneration;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -39,8 +40,8 @@ public class TaiaoBiomes {
     );
     public static final RegistryKey<Biome> NATIVE_SWAMP = register(Taiao.id("native_swamp"), TaiaoBiomes::nativeSwamp);
 
-    public static void setBiomePlacements() {
-        Taiao.LOGGER.debug("Setting Biolith biome placements");
+    public static void initializeBiolith() {
+        Taiao.LOGGER.debug("Configuring biome placements and surface rules with Biolith");
 
         double forestProportion = 1d / 3.5d;
         BiomePlacement.replaceOverworld(BiomeKeys.FOREST, NATIVE_FOREST, forestProportion);
@@ -51,6 +52,9 @@ public class TaiaoBiomes {
         double swampProportion = 1d / 2.5d;
         BiomePlacement.replaceOverworld(BiomeKeys.SWAMP, NATIVE_SWAMP, swampProportion);
         BiomePlacement.replaceOverworld(BiomeKeys.MANGROVE_SWAMP, NATIVE_SWAMP, swampProportion);
+
+        // Add surface rules
+        SurfaceGeneration.addOverworldSurfaceRules(Taiao.id("rules/overworld"), TaiaoMaterialRules.ALL);
     }
 
     public static Biome nativeForest(
@@ -122,7 +126,7 @@ public class TaiaoBiomes {
                 0.4f,
                 0x617b64,
                 0x232317,
-                0x6a7039,
+                0x4c763c,
                 null,
                 spawnSettings,
                 generationSettings,
