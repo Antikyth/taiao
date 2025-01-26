@@ -50,8 +50,8 @@ dependencies {
     modCompileOnly "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}"
 
-    // Terrablender
-    modImplementation "com.github.glitchfiend:TerraBlender-fabric:${project.minecraft_version}-${project.terrablender_version}"
+    // Biolith
+    include modImplementation("com.terraformersmc:biolith:${project.biolith_version}")
 }
 
 fabricApi {

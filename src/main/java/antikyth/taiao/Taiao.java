@@ -9,17 +9,16 @@ import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
+import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.biome.TaiaoMaterialRules;
-import antikyth.taiao.world.gen.biome.TaiaoRegions;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
+import com.terraformersmc.biolith.api.surface.SurfaceGeneration;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import terrablender.api.SurfaceRuleManager;
-import terrablender.api.TerraBlenderApi;
 
-public class Taiao implements ModInitializer, TerraBlenderApi {
+public class Taiao implements ModInitializer {
     public static final String MOD_NAME = "Te Taiao o Aotearoa";
     public static final String MOD_ID = "taiao";
 
@@ -43,14 +42,9 @@ public class Taiao implements ModInitializer, TerraBlenderApi {
         TaiaoEntities.initialize();
 
         TaiaoTreePlacers.initialize();
-    }
 
-    @Override
-    public void onTerraBlenderInitialized() {
-        onInitialize();
-
-        TaiaoRegions.initialize();
-        SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, TaiaoMaterialRules.ALL);
+        TaiaoBiomes.setBiomePlacements();
+        SurfaceGeneration.addOverworldSurfaceRules(Taiao.id("rules/overworld"), TaiaoMaterialRules.ALL);
     }
 
     /**

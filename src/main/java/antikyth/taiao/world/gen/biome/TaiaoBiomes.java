@@ -7,6 +7,7 @@ package antikyth.taiao.world.gen.biome;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
+import com.terraformersmc.biolith.api.biome.BiomePlacement;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -16,10 +17,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.OverworldBiomeCreator;
-import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -40,6 +38,20 @@ public class TaiaoBiomes {
             TaiaoBiomes::nativeForest
     );
     public static final RegistryKey<Biome> NATIVE_SWAMP = register(Taiao.id("native_swamp"), TaiaoBiomes::nativeSwamp);
+
+    public static void setBiomePlacements() {
+        Taiao.LOGGER.debug("Setting Biolith biome placements");
+
+        double forestProportion = 1d / 3.5d;
+        BiomePlacement.replaceOverworld(BiomeKeys.FOREST, NATIVE_FOREST, forestProportion);
+        BiomePlacement.replaceOverworld(BiomeKeys.FLOWER_FOREST, NATIVE_FOREST, forestProportion);
+        BiomePlacement.replaceOverworld(BiomeKeys.BIRCH_FOREST, NATIVE_FOREST, forestProportion);
+        BiomePlacement.replaceOverworld(BiomeKeys.OLD_GROWTH_BIRCH_FOREST, NATIVE_FOREST, forestProportion);
+
+        double swampProportion = 1d / 2.5d;
+        BiomePlacement.replaceOverworld(BiomeKeys.SWAMP, NATIVE_SWAMP, swampProportion);
+        BiomePlacement.replaceOverworld(BiomeKeys.MANGROVE_SWAMP, NATIVE_SWAMP, swampProportion);
+    }
 
     public static Biome nativeForest(
             RegistryEntryLookup<PlacedFeature> featureLookup,
