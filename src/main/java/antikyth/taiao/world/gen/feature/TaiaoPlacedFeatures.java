@@ -6,6 +6,8 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.block.Block;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -16,8 +18,12 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
+import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
+import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
+import net.minecraft.world.gen.placementmodifier.SurfaceWaterDepthFilterPlacementModifier;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,12 +58,22 @@ public class TaiaoPlacedFeatures {
     public static final RegistryKey<PlacedFeature> NATIVE_FOREST_TREES = register(
             TaiaoConfiguredFeatures.NATIVE_FOREST_TREES.getValue(),
             TaiaoConfiguredFeatures.NATIVE_FOREST_TREES,
-            VegetationPlacedFeatures.treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1))
+            treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1), 0)
     );
     public static final RegistryKey<PlacedFeature> NATIVE_FOREST_GRASS_PATCH = register(
             TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH.getValue(),
             TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH,
             VegetationPlacedFeatures.modifiers(7)
+    );
+
+    public static final RegistryKey<PlacedFeature> NATIVE_SWAMP_TREES = register(
+            Taiao.id("trees_native_swamp"),
+            TaiaoConfiguredFeatures.CABBAGE_TREE,
+            treeModifiersWithWouldSurvive(
+                    PlacedFeatures.createCountExtraModifier(2, 0.1F, 1),
+                    2,
+                    TaiaoBlocks.CABBAGE_TREE_SAPLING
+            )
     );
 
     public static void bootstrap(@NotNull Registerable<PlacedFeature> registerable) {
@@ -73,6 +89,33 @@ public class TaiaoPlacedFeatures {
                     new PlacedFeature(lookup.getOrThrow(pair.getLeft()), pair.getRight())
             );
         }
+    }
+
+    public static @NotNull @Unmodifiable List<PlacementModifier> treeModifiers(
+            PlacementModifier countModifier,
+            int maxWaterDepth
+    ) {
+        return treeModifiersBuilder(countModifier, maxWaterDepth).build();
+    }
+
+    public static @NotNull @Unmodifiable List<PlacementModifier> treeModifiersWithWouldSurvive(
+            PlacementModifier countModifier,
+            int maxWaterDepth,
+            Block block
+    ) {
+        return treeModifiersBuilder(countModifier, maxWaterDepth).add(PlacedFeatures.wouldSurvive(block)).build();
+    }
+
+    private static ImmutableList.@NotNull Builder<PlacementModifier> treeModifiersBuilder(
+            PlacementModifier countModifier,
+            int maxWaterDepth
+    ) {
+        return ImmutableList.<PlacementModifier>builder()
+                .add(countModifier)
+                .add(SquarePlacementModifier.of())
+                .add(SurfaceWaterDepthFilterPlacementModifier.of(maxWaterDepth))
+                .add(PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP)
+                .add(BiomePlacementModifier.of());
     }
 
     public static RegistryKey<PlacedFeature> register(

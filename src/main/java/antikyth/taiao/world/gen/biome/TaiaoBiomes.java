@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
 import net.minecraft.client.sound.MusicType;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -23,6 +24,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,6 +39,7 @@ public class TaiaoBiomes {
             Taiao.id("native_forest"),
             TaiaoBiomes::nativeForest
     );
+    public static final RegistryKey<Biome> NATIVE_SWAMP = register(Taiao.id("native_swamp"), TaiaoBiomes::nativeSwamp);
 
     public static Biome nativeForest(
             RegistryEntryLookup<PlacedFeature> featureLookup,
@@ -49,6 +52,7 @@ public class TaiaoBiomes {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
 
         addBasicFeatures(generationSettings);
+        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
 
         // Forest floor vegetation
         addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_FOREST_GRASS_PATCH);
@@ -60,17 +64,57 @@ public class TaiaoBiomes {
         // Spawns
         DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.KIWI, 10, 4, 4));
-        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.PUUKEKO, 10, 4, 4));
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.MOA, 8, 4, 4));
         spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.KAAKAAPOO, 10, 1, 2));
 
         return OverworldBiomeCreator.createBiome(
                 true,
                 0.7f,
-                0.8f,
+                0.4f,
                 spawnSettings,
                 generationSettings,
                 MusicType.createIngameMusic(SoundEvents.MUSIC_OVERWORLD_FOREST)
+        );
+    }
+
+    public static Biome nativeSwamp(
+            RegistryEntryLookup<PlacedFeature> featureLookup,
+            RegistryEntryLookup<ConfiguredCarver<?>> carverLookup
+    ) {
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(
+                featureLookup,
+                carverLookup
+        );
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+
+        DefaultBiomeFeatures.addFossils(generationSettings);
+        addBasicFeatures(generationSettings);
+        DefaultBiomeFeatures.addClayDisk(generationSettings);
+
+        // Floor vegetation
+        addVegetation(generationSettings, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
+        addVegetation(generationSettings, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+        DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
+
+        // Trees
+        addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_SWAMP_TREES);
+
+        // Spawns
+        DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
+        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SLIME, 1, 1, 1));
+        spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.PUUKEKO, 10, 4, 4));
+
+        return OverworldBiomeCreator.createBiome(
+                true,
+                0.8f,
+                0.4f,
+                0x617b64,
+                0x232317,
+                0x6a7039,
+                null,
+                spawnSettings,
+                generationSettings,
+                MusicType.createIngameMusic(SoundEvents.MUSIC_OVERWORLD_SWAMP)
         );
     }
 
@@ -106,7 +150,6 @@ public class TaiaoBiomes {
         DefaultBiomeFeatures.addFrozenTopLayer(generationSettings);
 
         DefaultBiomeFeatures.addDefaultOres(generationSettings);
-        DefaultBiomeFeatures.addDefaultDisks(generationSettings);
 
         return generationSettings;
     }

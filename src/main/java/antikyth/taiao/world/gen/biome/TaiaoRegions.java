@@ -30,7 +30,8 @@ public class TaiaoRegions {
                     Registry<Biome> registry,
                     Consumer<Pair<MultiNoiseUtil.NoiseHypercube, RegistryKey<Biome>>> mapper
             ) {
-                addBiomeSimilar(mapper, BiomeKeys.FOREST, TaiaoBiomes.NATIVE_FOREST);
+                this.addBiomeSimilar(mapper, BiomeKeys.FOREST, TaiaoBiomes.NATIVE_FOREST);
+                this.addBiomeSimilar(mapper, BiomeKeys.SWAMP, TaiaoBiomes.NATIVE_SWAMP);
             }
         });
     }
