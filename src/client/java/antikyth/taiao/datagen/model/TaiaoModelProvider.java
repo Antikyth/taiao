@@ -6,7 +6,8 @@ package antikyth.taiao.datagen.model;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.block.ThinLogBlock;
+import antikyth.taiao.block.leaves.FruitLeavesBlock;
+import antikyth.taiao.block.log.ThinLogBlock;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -28,6 +29,11 @@ public class TaiaoModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(@NotNull BlockStateModelGenerator generator) {
         TextureMap kauriLeavesTextures = TextureMap.all(new Identifier("minecraft:block/acacia_leaves"));
+        TextureMap kahikateaLeavesTextures = TaiaoModels.fruitLeavesTextures(
+                TaiaoBlocks.KAHIKATEA_LEAVES,
+                new Identifier("minecraft:block/acacia_leaves"),
+                null
+        );
         TextureMap fernTreeLeavesTextures = TextureMap.all(Taiao.id("block/fern_tree_leaves"));
 
         TextureMap strippedCabbageTreeTextures = TaiaoModels.thinLogTextures(
@@ -66,7 +72,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 TaiaoBlocks.POTTED_KAHIKATEA_SAPLING,
                 TintType.NOT_TINTED
         );
-        generator.registerSingleton(TaiaoBlocks.KAHIKATEA_LEAVES, kauriLeavesTextures, Models.LEAVES);
+        registerFruitLeaves(generator, TaiaoBlocks.KAHIKATEA_LEAVES, kahikateaLeavesTextures);
 
         // Kahikatea wood
         generator.registerLog(TaiaoBlocks.KAHIKATEA_LOG)
@@ -129,10 +135,34 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(@NotNull ItemModelGenerator generator) {
+        generator.register(TaiaoItems.CONIFER_FRUIT, Models.GENERATED);
+
         generator.register(TaiaoItems.KIWI_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+    }
+
+    public static void registerFruitLeaves(@NotNull BlockStateModelGenerator generator, Block block) {
+        registerFruitLeaves(generator, block, TaiaoModels.fruitLeavesTextures(block, null, null));
+    }
+
+    public static void registerFruitLeaves(
+            @NotNull BlockStateModelGenerator generator,
+            Block block,
+            TextureMap textures
+    ) {
+        Identifier normalModel = Models.LEAVES.upload(block, textures, generator.modelCollector);
+        Identifier fruitModel = TaiaoModels.FRUIT_LEAVES.upload(block, textures, generator.modelCollector);
+
+        BlockStateVariantMap variantMap = BlockStateVariantMap.create(FruitLeavesBlock.FRUIT)
+                .register(false, BlockStateVariant.create().put(VariantSettings.MODEL, normalModel))
+                .register(true, BlockStateVariant.create().put(VariantSettings.MODEL, fruitModel));
+
+        VariantsBlockStateSupplier variants = VariantsBlockStateSupplier.create(block).coordinate(variantMap);
+
+        generator.blockStateCollector.accept(variants);
+        generator.registerParentedItemModel(block, fruitModel);
     }
 
     public static void registerDirectionalLeaves(@NotNull BlockStateModelGenerator generator, Block block) {
@@ -144,12 +174,16 @@ public class TaiaoModelProvider extends FabricModelProvider {
             Block block,
             TextureMap textures
     ) {
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(
+        generator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(
                         block,
                         BlockStateVariant.create()
-                                .put(VariantSettings.MODEL, Models.LEAVES.upload(block, textures, generator.modelCollector))
-                )
-                .coordinate(generator.createUpDefaultFacingVariantMap()));
+                                .put(
+                                        VariantSettings.MODEL,
+                                        Models.LEAVES.upload(block, textures, generator.modelCollector)
+                                )
+                ).coordinate(generator.createUpDefaultFacingVariantMap())
+        );
     }
 
     public static void registerThinLog(BlockStateModelGenerator generator, Block block) {

@@ -5,6 +5,12 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.block.leaves.DirectionalLeavesBlock;
+import antikyth.taiao.block.leaves.FruitLeavesBlock;
+import antikyth.taiao.block.leaves.SlowMovementLeavesBlock;
+import antikyth.taiao.block.log.Strippable;
+import antikyth.taiao.block.log.ThinLogBlock;
+import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.feature.tree.sapling.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -25,6 +31,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class TaiaoBlocks {
@@ -101,7 +108,10 @@ public class TaiaoBlocks {
     ).register(false);
     public static final Block KAHIKATEA_LEAVES = new Builder(
             Taiao.id("kahikatea_leaves"),
-            Blocks.createLeavesBlock(BlockSoundGroup.GRASS)
+            new FruitLeavesBlock(
+                    TaiaoItems.CONIFER_FRUIT,
+                    createFruitLeavesSettings(MapColor.DARK_GREEN, MapColor.RED, BlockSoundGroup.GRASS)
+            )
     ).copyFlammable(Blocks.SPRUCE_LEAVES).register(true);
 
     // Kahikatea wood
@@ -414,9 +424,24 @@ public class TaiaoBlocks {
         );
     }
 
+    public static AbstractBlock.Settings createFruitLeavesSettings(
+            MapColor leavesColor,
+            MapColor fruitColor,
+            BlockSoundGroup soundGroup
+    ) {
+        return createLeavesSettings(state -> state.get(FruitLeavesBlock.FRUIT) ? fruitColor : leavesColor, soundGroup);
+    }
+
     public static AbstractBlock.Settings createLeavesSettings(MapColor color, BlockSoundGroup soundGroup) {
+        return createLeavesSettings(state -> color, soundGroup);
+    }
+
+    public static AbstractBlock.Settings createLeavesSettings(
+            Function<BlockState, MapColor> colorProvider,
+            BlockSoundGroup soundGroup
+    ) {
         return AbstractBlock.Settings.create()
-                .mapColor(color)
+                .mapColor(colorProvider)
                 .strength(0.2F)
                 .ticksRandomly()
                 .sounds(soundGroup)

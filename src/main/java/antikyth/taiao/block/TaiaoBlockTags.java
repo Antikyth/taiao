@@ -27,7 +27,7 @@ public final class TaiaoBlockTags {
     public static final TagKey<Block> WHEKII_PONGA_LOGS = createTagKey(Taiao.id("whekii_ponga_logs"));
 
     /**
-     * Blocks that {@linkplain ThinLogBlock thin logs} should be able to connect to when they otherwise would not.
+     * Blocks that {@linkplain antikyth.taiao.block.log.ThinLogBlock thin logs} should be able to connect to when they otherwise would not.
      */
     public static final TagKey<Block> THIN_LOG_CONNECTION_OVERRIDE = createTagKey(
             Taiao.id("thin_log_connection_override")

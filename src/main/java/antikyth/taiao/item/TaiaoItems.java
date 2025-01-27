@@ -7,6 +7,7 @@ package antikyth.taiao.item;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
@@ -14,6 +15,11 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class TaiaoItems {
+    public static final Item CONIFER_FRUIT = register(
+            Taiao.id("conifer_fruit"),
+            new Item(new FabricItemSettings().food(TaiaoFoodComponents.CONIFER_FRUIT))
+    );
+
     public static final Item KIWI_SPAWN_EGG = register(
             Taiao.id("kiwi_spawn_egg"),
             new SpawnEggItem(TaiaoEntities.KIWI, 0x482d19, 0xf5bb98, new FabricItemSettings())
@@ -40,5 +46,12 @@ public class TaiaoItems {
      */
     public static Item register(Identifier id, Item item) {
         return Registry.register(Registries.ITEM, id, item);
+    }
+
+    public static class TaiaoFoodComponents {
+        public static final FoodComponent CONIFER_FRUIT = new FoodComponent.Builder()
+                .hunger(1)
+                .saturationModifier(0.1f)
+                .build();
     }
 }

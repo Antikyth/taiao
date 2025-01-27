@@ -21,12 +21,25 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class TaiaoModels {
+    public static final TextureKey OVERLAY_KEY = TextureKey.of("overlay");
+
     public static final Model THIN_LOG_NOSIDE = block("thin_log_noside", "_noside", TextureKey.SIDE);
     public static final Model THIN_LOG_SIDE = block("thin_log_side", "_side", TextureKey.SIDE, TextureKey.END);
+    public static final Model FRUIT_LEAVES = block("fruit_leaves", "_fruit", TextureKey.ALL, OVERLAY_KEY);
 
     public static final Model THIN_LOG_INVENTORY = item("thin_log", TextureKey.SIDE, TextureKey.END);
-
     public static final Model SPAWN_EGG = vanillaItem("template_spawn_egg");
+
+    public static TextureMap fruitLeavesTextures(
+            Block block,
+            @Nullable Identifier leaves,
+            @Nullable Identifier overlay
+    ) {
+        leaves = leaves == null ? TextureMap.getId(block) : leaves;
+        overlay = overlay == null ? TextureMap.getSubId(block, "_fruit") : overlay;
+
+        return TextureMap.all(leaves).put(OVERLAY_KEY, overlay);
+    }
 
     public static TextureMap thinLogTextures(Block block) {
         return thinLogTextures(block, null, null);

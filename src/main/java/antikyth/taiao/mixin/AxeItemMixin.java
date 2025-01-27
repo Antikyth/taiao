@@ -4,7 +4,7 @@
 
 package antikyth.taiao.mixin;
 
-import antikyth.taiao.block.Strippable;
+import antikyth.taiao.block.log.Strippable;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;

@@ -6,10 +6,12 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinStraightTrunkPlacer;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
@@ -31,6 +33,7 @@ import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
 import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -64,7 +67,7 @@ public class TaiaoConfiguredFeatures {
                     new TreeFeatureConfig.Builder(
                             BlockStateProvider.of(TaiaoBlocks.KAHIKATEA_LOG),
                             new StraightTrunkPlacer(12, 8, 8),
-                            BlockStateProvider.of(TaiaoBlocks.KAHIKATEA_LEAVES),
+                            fruitLeavesProvider(TaiaoBlocks.KAHIKATEA_LEAVES, 8, 1),
                             new SpruceFoliagePlacer(
                                     UniformIntProvider.create(2, 5),
                                     UniformIntProvider.create(0, 2),
@@ -82,7 +85,7 @@ public class TaiaoConfiguredFeatures {
                     new TreeFeatureConfig.Builder(
                             BlockStateProvider.of(TaiaoBlocks.KAHIKATEA_LOG),
                             new GiantTrunkPlacer(26, 14, 14),
-                            BlockStateProvider.of(TaiaoBlocks.KAHIKATEA_LEAVES),
+                            fruitLeavesProvider(TaiaoBlocks.KAHIKATEA_LEAVES, 8, 1),
                             new MegaPineFoliagePlacer(
                                     ConstantIntProvider.create(0),
                                     ConstantIntProvider.create(0),
@@ -221,6 +224,17 @@ public class TaiaoConfiguredFeatures {
         for (Map.Entry<RegistryKey<ConfiguredFeature<?, ?>>, Function<RegistryEntryLookup<PlacedFeature>, ConfiguredFeature<?, ?>>> entry : TO_REGISTER.entrySet()) {
             registerable.register(entry.getKey(), entry.getValue().apply(placedFeatureLookup));
         }
+    }
+
+    @Contract("_, _, _ -> new")
+    public static @NotNull BlockStateProvider fruitLeavesProvider(
+            @NotNull Block fruitLeaves,
+            int fruitlessWeight,
+            int fruitedWeight
+    ) {
+        return new WeightedBlockStateProvider(DataPool.<BlockState>builder()
+                .add(fruitLeaves.getDefaultState().with(FruitLeavesBlock.FRUIT, false), fruitlessWeight)
+                .add(fruitLeaves.getDefaultState().with(FruitLeavesBlock.FRUIT, true), fruitedWeight));
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> register(

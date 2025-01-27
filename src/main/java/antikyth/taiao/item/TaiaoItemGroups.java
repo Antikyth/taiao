@@ -30,6 +30,8 @@ public class TaiaoItemGroups {
 
         // Add items to the item group.
         ItemGroupEvents.modifyEntriesEvent(TE_TAIAO_O_AOTEAROA).register(group -> {
+            addFruit(group::add);
+
             group.add(TaiaoBlocks.KAURI_SAPLING);
             group.add(TaiaoBlocks.KAURI_LEAVES);
             addKauriBuildingBlocks(group::add);
@@ -55,6 +57,10 @@ public class TaiaoItemGroups {
 
         // Spawn eggs
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(group -> addSpawnEggs(group::add));
+        // Food
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(group -> {
+            addFruit(item -> group.addBefore(Items.CARROT, item));
+        });
         // Building blocks
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(group -> {
             Consumer<ItemConvertible> add = item -> group.addBefore(Items.STONE, item);
@@ -161,6 +167,10 @@ public class TaiaoItemGroups {
         add.accept(TaiaoItems.PUUKEKO_SPAWN_EGG);
         add.accept(TaiaoItems.MOA_SPAWN_EGG);
         add.accept(TaiaoItems.KAAKAAPOO_SPAWN_EGG);
+    }
+
+    public static void addFruit(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoItems.CONIFER_FRUIT);
     }
 
     /**

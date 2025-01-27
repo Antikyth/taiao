@@ -4,7 +4,7 @@
 
 package antikyth.taiao;
 
-import antikyth.taiao.block.Strippable;
+import antikyth.taiao.block.log.Strippable;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipe;

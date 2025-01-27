@@ -6,6 +6,7 @@ package antikyth.taiao.datagen.tag;
 
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.item.TaiaoItemTags;
+import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;
@@ -54,7 +55,8 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addTag(ItemTags.SAPLINGS);
         getOrCreateTagBuilder(TaiaoItemTags.KAAKAAPOO_FOOD)
                 .addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS)
-                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_VINES);
+                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_VINES)
+                .add(TaiaoItems.CONIFER_FRUIT);
 
         // Te Taiao o Aotearoa block tags
         copy(TaiaoBlockTags.KAURI_LOGS, TaiaoItemTags.KAURI_LOGS);
