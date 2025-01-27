@@ -7,28 +7,36 @@ package antikyth.taiao.entity;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class KaakaapooEntity extends AnimalEntity {
+public class KaakaapooEntity extends TameableEntity {
+    protected static final float TAME_CHANCE = 1f / 3f;
+
     protected KaakaapooEntity(
-            EntityType<? extends AnimalEntity> entityType,
+            EntityType<? extends TameableEntity> entityType,
             World world
     ) {
         super(entityType, world);
@@ -38,15 +46,17 @@ public class KaakaapooEntity extends AnimalEntity {
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
-        this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(2, new SitGoal(this));
         this.goalSelector.add(
                 3,
                 new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.KAAKAAPOO_FOOD), false)
         );
-        this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(7, new LookAroundGoal(this));
+        this.goalSelector.add(4, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, true));
+        this.goalSelector.add(5, new AnimalMateGoal(this, 1.0));
+        this.goalSelector.add(6, new FollowParentGoal(this, 1.1));
+        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.add(9, new LookAroundGoal(this));
     }
 
     @Override
@@ -82,12 +92,83 @@ public class KaakaapooEntity extends AnimalEntity {
     }
 
     @Override
-    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return TaiaoEntities.KAAKAAPOO.create(world);
+    public @Nullable KaakaapooEntity createChild(ServerWorld world, PassiveEntity entity) {
+        KaakaapooEntity child = TaiaoEntities.KAAKAAPOO.create(world);
+
+        if (child != null && this.isTamed()) {
+            child.setOwnerUuid(this.getOwnerUuid());
+            child.setTamed(true);
+        }
+
+        return child;
     }
 
     @Override
     public boolean isBreedingItem(@NotNull ItemStack stack) {
         return stack.isIn(TaiaoItemTags.KAAKAAPOO_FOOD);
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getStackInHand(hand);
+        Item item = stack.getItem();
+
+        if (this.getWorld().isClient) {
+            if (this.isTamed()) {
+                if (this.isOwner(player)) return ActionResult.SUCCESS;
+
+                // heal
+                if (this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth()) return ActionResult.SUCCESS;
+            }
+
+            return ActionResult.PASS;
+        } else {
+            if (this.isTamed()) {
+                if (this.isOwner(player)) {
+                    // Healing
+                    FoodComponent food = item.getFoodComponent();
+                    if (food != null && this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth()) {
+                        this.eat(player, hand, stack);
+                        this.heal(food.getHunger());
+
+                        return ActionResult.CONSUME;
+                    }
+
+                    // Sitting
+                    ActionResult result = super.interactMob(player, hand);
+                    if (!result.isAccepted() || this.isBaby()) {
+                        this.setSitting(!this.isSitting());
+                    }
+
+                    return result;
+                }
+            } else if (this.isBreedingItem(stack)) {
+                // Taming
+                this.eat(player, hand, stack);
+
+                if (this.random.nextFloat() < TAME_CHANCE) {
+                    this.setOwner(player);
+                    this.setSitting(true);
+
+                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+                } else {
+                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+                }
+
+                this.setPersistent();
+
+                return ActionResult.CONSUME;
+            }
+
+            ActionResult result = super.interactMob(player, hand);
+            if (result.isAccepted()) this.setPersistent();
+
+            return result;
+        }
+    }
+
+    @Override
+    public EntityView method_48926() {
+        return this.getWorld();
     }
 }
