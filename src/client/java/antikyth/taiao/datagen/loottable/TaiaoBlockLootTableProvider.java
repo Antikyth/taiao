@@ -5,10 +5,18 @@
 package antikyth.taiao.datagen.loottable;
 
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.family.BlockFamily;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.function.ApplyBonusLootFunction;
+import net.minecraft.predicate.StatePredicate;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
@@ -35,7 +43,7 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         addPottedPlantDrops(TaiaoBlocks.POTTED_KAHIKATEA_SAPLING);
         addDrop(
                 TaiaoBlocks.KAHIKATEA_LEAVES,
-                block -> leavesDrops(block, TaiaoBlocks.KAHIKATEA_SAPLING, SAPLING_DROP_CHANCE)
+                block -> fruitLeavesDrops((FruitLeavesBlock) block, TaiaoBlocks.KAHIKATEA_SAPLING, SAPLING_DROP_CHANCE)
         );
         // Kahikatea wood
         addDrop(TaiaoBlocks.KAHIKATEA_LOG);
@@ -93,5 +101,21 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         for (Block block : family.getVariants().values()) {
             addDrop(block);
         }
+    }
+
+    public LootTable.Builder fruitLeavesDrops(FruitLeavesBlock leaves, Block drop, float... chance) {
+        return leavesDrops(leaves, drop, chance)
+                .pool(
+                        LootPool.builder()
+                                .conditionally(
+                                        BlockStatePropertyLootCondition.builder(leaves)
+                                                .properties(
+                                                        StatePredicate.Builder.create()
+                                                                .exactMatch(FruitLeavesBlock.FRUIT, true)
+                                                )
+                                )
+                                .apply(ApplyBonusLootFunction.uniformBonusCount(Enchantments.FORTUNE))
+                                .with(ItemEntry.builder(leaves.fruitItem))
+                );
     }
 }
