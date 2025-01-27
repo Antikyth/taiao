@@ -9,6 +9,7 @@ import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -43,16 +44,20 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Items.VINE)
                 .add(Items.WEEPING_VINES)
                 .add(Items.TWISTING_VINES);
+        getOrCreateTagBuilder(ConventionalItemTags.FOODS)
+                .add(TaiaoItems.CONIFER_FRUIT);
 
         // Te Taiao o Aotearoa item tags
         getOrCreateTagBuilder(TaiaoItemTags.KIWI_FOOD)
                 .addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS)
-                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_BERRIES);
+                .addOptionalTag(TaiaoItemTags.CONVENTIONAL_BERRIES)
+                .add(TaiaoItems.CONIFER_FRUIT);
         getOrCreateTagBuilder(TaiaoItemTags.PUUKEKO_FOOD)
                 .addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS);
         getOrCreateTagBuilder(TaiaoItemTags.MOA_FOOD)
                 .addTag(ItemTags.LEAVES)
-                .addTag(ItemTags.SAPLINGS);
+                .addTag(ItemTags.SAPLINGS)
+                .add(TaiaoItems.CONIFER_FRUIT);
         getOrCreateTagBuilder(TaiaoItemTags.KAAKAAPOO_FOOD)
                 .addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS)
                 .addOptionalTag(TaiaoItemTags.CONVENTIONAL_VINES)
