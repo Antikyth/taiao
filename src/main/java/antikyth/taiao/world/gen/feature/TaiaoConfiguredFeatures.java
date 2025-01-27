@@ -67,7 +67,7 @@ public class TaiaoConfiguredFeatures {
                     new TreeFeatureConfig.Builder(
                             BlockStateProvider.of(TaiaoBlocks.KAHIKATEA_LOG),
                             new StraightTrunkPlacer(12, 8, 8),
-                            fruitLeavesProvider(TaiaoBlocks.KAHIKATEA_LEAVES, 8, 1),
+                            fruitLeavesProvider(TaiaoBlocks.KAHIKATEA_LEAVES, 12, 1),
                             new SpruceFoliagePlacer(
                                     UniformIntProvider.create(2, 5),
                                     UniformIntProvider.create(0, 2),
@@ -85,7 +85,7 @@ public class TaiaoConfiguredFeatures {
                     new TreeFeatureConfig.Builder(
                             BlockStateProvider.of(TaiaoBlocks.KAHIKATEA_LOG),
                             new GiantTrunkPlacer(26, 14, 14),
-                            fruitLeavesProvider(TaiaoBlocks.KAHIKATEA_LEAVES, 8, 1),
+                            fruitLeavesProvider(TaiaoBlocks.KAHIKATEA_LEAVES, 16, 1),
                             new MegaPineFoliagePlacer(
                                     ConstantIntProvider.create(0),
                                     ConstantIntProvider.create(0),
