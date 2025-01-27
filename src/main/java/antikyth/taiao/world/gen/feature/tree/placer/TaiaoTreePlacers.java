@@ -32,6 +32,10 @@ public class TaiaoTreePlacers {
             Taiao.id("spherical_foliage_placer"),
             SphericalFoliagePlacer.CODEC
     );
+    /**
+     * Places foliage in four arms with an 'umbrella' shape. Supports foliage with a
+     * {@link net.minecraft.state.property.Properties#FACING FACING} property.
+     */
     public static final FoliagePlacerType<FernTreeFoliagePlacer> FERN_TREE_FOLIAGE_PLACER = registerFoliagePlacer(
             Taiao.id("fern_tree_foliage_placer"),
             FernTreeFoliagePlacer.CODEC

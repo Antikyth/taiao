@@ -4,16 +4,21 @@
 
 package antikyth.taiao.world.gen.feature.tree.sapling;
 
-import net.minecraft.block.sapling.SaplingGenerator;
+import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
+import net.minecraft.block.sapling.LargeTreeSaplingGenerator;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
-public class KahikateaSaplingGenerator extends SaplingGenerator {
+public class KahikateaSaplingGenerator extends LargeTreeSaplingGenerator {
     @Override
     protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        // TODO
-        return null;
+        return TaiaoConfiguredFeatures.YOUNG_KAHIKATEA_TREE;
+    }
+
+    @Override
+    protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
+        return TaiaoConfiguredFeatures.OLD_KAHIKATEA_TREE;
     }
 }

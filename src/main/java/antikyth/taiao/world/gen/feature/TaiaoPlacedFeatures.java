@@ -38,6 +38,16 @@ public class TaiaoPlacedFeatures {
             TaiaoConfiguredFeatures.KAURI_TREE,
             PlacedFeatures.wouldSurvive(TaiaoBlocks.KAURI_SAPLING)
     );
+    public static final RegistryKey<PlacedFeature> YOUNG_KAHIKATEA_TREE_CHECKED = register(
+            Taiao.id("kahikatea_tree_checked"),
+            TaiaoConfiguredFeatures.YOUNG_KAHIKATEA_TREE,
+            PlacedFeatures.wouldSurvive(TaiaoBlocks.KAHIKATEA_SAPLING)
+    );
+    public static final RegistryKey<PlacedFeature> OLD_KAHIKATEA_TREE_CHECKED = register(
+            Taiao.id("mega_kahikatea_tree_checked"),
+            TaiaoConfiguredFeatures.OLD_KAHIKATEA_TREE,
+            PlacedFeatures.wouldSurvive(TaiaoBlocks.KAHIKATEA_SAPLING)
+    );
     public static final RegistryKey<PlacedFeature> CABBAGE_TREE_CHECKED = register(
             Taiao.id("cabbage_tree_checked"),
             TaiaoConfiguredFeatures.CABBAGE_TREE,
@@ -54,26 +64,23 @@ public class TaiaoPlacedFeatures {
             PlacedFeatures.wouldSurvive(TaiaoBlocks.WHEKII_PONGA_SAPLING)
     );
 
-    // Patches
+    // Tree selectors
     public static final RegistryKey<PlacedFeature> NATIVE_FOREST_TREES = register(
             TaiaoConfiguredFeatures.NATIVE_FOREST_TREES.getValue(),
             TaiaoConfiguredFeatures.NATIVE_FOREST_TREES,
             treeModifiers(PlacedFeatures.createCountExtraModifier(10, 0.1f, 1), 0)
     );
+    public static final RegistryKey<PlacedFeature> NATIVE_SWAMP_TREES = register(
+            TaiaoConfiguredFeatures.NATIVE_SWAMP_TREES.getValue(),
+            TaiaoConfiguredFeatures.NATIVE_SWAMP_TREES,
+            treeModifiers(PlacedFeatures.createCountExtraModifier(2, 0.1f, 1), 2)
+    );
+
+    // Ground foliage patches
     public static final RegistryKey<PlacedFeature> NATIVE_FOREST_GRASS_PATCH = register(
             TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH.getValue(),
             TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH,
             VegetationPlacedFeatures.modifiers(7)
-    );
-
-    public static final RegistryKey<PlacedFeature> NATIVE_SWAMP_TREES = register(
-            Taiao.id("trees_native_swamp"),
-            TaiaoConfiguredFeatures.CABBAGE_TREE,
-            treeModifiersWithWouldSurvive(
-                    PlacedFeatures.createCountExtraModifier(2, 0.1F, 1),
-                    2,
-                    TaiaoBlocks.CABBAGE_TREE_SAPLING
-            )
     );
 
     public static void bootstrap(@NotNull Registerable<PlacedFeature> registerable) {
