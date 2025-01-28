@@ -137,6 +137,13 @@ public class TaiaoModelProvider extends FabricModelProvider {
     public void generateItemModels(@NotNull ItemModelGenerator generator) {
         generator.register(TaiaoItems.CONIFER_FRUIT, Models.GENERATED);
 
+        generator.register(TaiaoItems.KAURI_BOAT, Models.GENERATED);
+        generator.register(TaiaoItems.KAURI_CHEST_BOAT, Models.GENERATED);
+        generator.register(TaiaoItems.KAHIKATEA_BOAT, Models.GENERATED);
+        generator.register(TaiaoItems.KAHIKATEA_CHEST_BOAT, Models.GENERATED);
+        generator.register(TaiaoItems.MAMAKU_RAFT, Models.GENERATED);
+        generator.register(TaiaoItems.MAMAKU_CHEST_RAFT, Models.GENERATED);
+
         generator.register(TaiaoItems.KIWI_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
         generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);

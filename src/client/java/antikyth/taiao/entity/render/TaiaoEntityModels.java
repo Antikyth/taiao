@@ -14,6 +14,8 @@ import antikyth.taiao.entity.render.renderer.KaakaapooEntityRenderer;
 import antikyth.taiao.entity.render.renderer.KiwiEntityRenderer;
 import antikyth.taiao.entity.render.renderer.MoaEntityRenderer;
 import antikyth.taiao.entity.render.renderer.PuukekoEntityRenderer;
+import antikyth.taiao.item.TaiaoBoats;
+import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
@@ -44,6 +46,10 @@ public class TaiaoEntityModels {
 
     public static void initialize() {
         Taiao.LOGGER.debug("Registering entity renderers and model layers");
+
+        TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.KAURI.getValue(), false);
+        TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.KAHIKATEA.getValue(), false);
+        TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.MAMAKU.getValue(), true);
 
         EntityRendererRegistry.register(TaiaoEntities.KIWI, KiwiEntityRenderer::new);
         EntityRendererRegistry.register(TaiaoEntities.PUUKEKO, PuukekoEntityRenderer::new);

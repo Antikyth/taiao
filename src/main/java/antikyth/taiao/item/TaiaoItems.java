@@ -6,6 +6,7 @@ package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
+import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
@@ -18,6 +19,37 @@ public class TaiaoItems {
     public static final Item CONIFER_FRUIT = register(
             Taiao.id("conifer_fruit"),
             new Item(new FabricItemSettings().food(TaiaoFoodComponents.CONIFER_FRUIT))
+    );
+
+    public static final Item KAURI_BOAT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("kauri_boat"),
+            TaiaoBoats.KAURI,
+            false
+    );
+    public static final Item KAURI_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("kauri_chest_boat"),
+            TaiaoBoats.KAURI,
+            true
+    );
+    public static final Item KAHIKATEA_BOAT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("kahikatea_boat"),
+            TaiaoBoats.KAHIKATEA,
+            false
+    );
+    public static final Item KAHIKATEA_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("kahikatea_chest_boat"),
+            TaiaoBoats.KAHIKATEA,
+            true
+    );
+    public static final Item MAMAKU_RAFT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("mamaku_raft"),
+            TaiaoBoats.MAMAKU,
+            false
+    );
+    public static final Item MAMAKU_CHEST_RAFT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("mamaku_chest_raft"),
+            TaiaoBoats.MAMAKU,
+            true
     );
 
     public static final Item KIWI_SPAWN_EGG = register(
@@ -54,4 +86,5 @@ public class TaiaoItems {
                 .saturationModifier(0.1f)
                 .build();
     }
+
 }

@@ -6,6 +6,7 @@ package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.item.TaiaoBoats;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
@@ -36,6 +37,7 @@ public class Taiao implements ModInitializer {
 
         TaiaoBlocks.initialize();
         TaiaoItems.initialize();
+        TaiaoBoats.initialize();
         TaiaoItemGroups.initialize();
         TaiaoEntities.initialize();
 

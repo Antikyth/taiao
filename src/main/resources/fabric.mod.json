@@ -42,7 +42,8 @@
     "minecraft": "~1.20.1",
     "java": ">=17",
     "fabric-api": "*",
-    "biolith": ">=1.0.0-beta.1"
+    "biolith": "1.0.x",
+    "terraform-wood-api-v1": "7.x"
   },
   "suggests": {
     "emi": "*"

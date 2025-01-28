@@ -53,6 +53,9 @@ dependencies {
         // Exclude TerraBlender from the development environment (done automatically in Biolith v2+)
         exclude group: "com.github.glitchfiend"
     }
+
+    // Terraform wood API (for boats)
+    include modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_version}")
 }
 
 fabricApi {

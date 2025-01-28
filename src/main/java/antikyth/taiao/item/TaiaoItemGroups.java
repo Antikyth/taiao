@@ -25,6 +25,7 @@ public class TaiaoItemGroups {
             TaiaoBlocks.CABBAGE_TREE_SAPLING.asItem()
     );
 
+    @SuppressWarnings("CodeBlock2Expr")
     public static void initialize() {
         Taiao.LOGGER.debug("Registering item groups");
 
@@ -35,10 +36,14 @@ public class TaiaoItemGroups {
             group.add(TaiaoBlocks.KAURI_SAPLING);
             group.add(TaiaoBlocks.KAURI_LEAVES);
             addKauriBuildingBlocks(group::add);
+            group.add(TaiaoItems.KAURI_BOAT);
+            group.add(TaiaoItems.KAURI_CHEST_BOAT);
 
             group.add(TaiaoBlocks.KAHIKATEA_SAPLING);
             group.add(TaiaoBlocks.KAHIKATEA_LEAVES);
             addKahikateaBuildingBlocks(group::add);
+            group.add(TaiaoItems.KAHIKATEA_BOAT);
+            group.add(TaiaoItems.KAHIKATEA_CHEST_BOAT);
 
             group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
@@ -47,6 +52,8 @@ public class TaiaoItemGroups {
             group.add(TaiaoBlocks.MAMAKU_SAPLING);
             group.add(TaiaoBlocks.MAMAKU_LEAVES);
             addMamakuBuildingBlocks(group::add);
+            group.add(TaiaoItems.MAMAKU_RAFT);
+            group.add(TaiaoItems.MAMAKU_CHEST_RAFT);
 
             group.add(TaiaoBlocks.WHEKII_PONGA_SAPLING);
             group.add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
@@ -77,6 +84,9 @@ public class TaiaoItemGroups {
             addLeaves(item -> group.addBefore(Items.BROWN_MUSHROOM_BLOCK, item));
             addSaplings(item -> group.addBefore(Items.BROWN_MUSHROOM, item));
         });
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(group -> {
+            addBoats(item -> group.addBefore(Items.RAIL, item));
+        });
     }
 
     public static void addLogs(@NotNull Consumer<ItemConvertible> add) {
@@ -101,6 +111,15 @@ public class TaiaoItemGroups {
         add.accept(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         add.accept(TaiaoBlocks.MAMAKU_SAPLING);
         add.accept(TaiaoBlocks.WHEKII_PONGA_SAPLING);
+    }
+
+    public static void addBoats(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoItems.KAURI_BOAT);
+        add.accept(TaiaoItems.KAURI_CHEST_BOAT);
+        add.accept(TaiaoItems.KAHIKATEA_BOAT);
+        add.accept(TaiaoItems.KAHIKATEA_CHEST_BOAT);
+        add.accept(TaiaoItems.MAMAKU_RAFT);
+        add.accept(TaiaoItems.MAMAKU_CHEST_RAFT);
     }
 
     public static void addKauriBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {

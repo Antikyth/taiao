@@ -63,6 +63,16 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .addOptionalTag(TaiaoItemTags.CONVENTIONAL_VINES)
                 .add(TaiaoItems.CONIFER_FRUIT);
 
+        // Vanilla tags
+        getOrCreateTagBuilder(ItemTags.BOATS)
+                .add(TaiaoItems.KAURI_BOAT)
+                .add(TaiaoItems.KAHIKATEA_BOAT)
+                .add(TaiaoItems.MAMAKU_RAFT);
+        getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
+                .add(TaiaoItems.KAURI_CHEST_BOAT)
+                .add(TaiaoItems.KAHIKATEA_CHEST_BOAT)
+                .add(TaiaoItems.MAMAKU_CHEST_RAFT);
+
         // Te Taiao o Aotearoa block tags
         copy(TaiaoBlockTags.KAURI_LOGS, TaiaoItemTags.KAURI_LOGS);
         copy(TaiaoBlockTags.KAHIKATEA_LOGS, TaiaoItemTags.KAHIKATEA_LOGS);

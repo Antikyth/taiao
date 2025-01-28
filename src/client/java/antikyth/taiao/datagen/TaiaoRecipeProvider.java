@@ -4,13 +4,19 @@
 
 package antikyth.taiao.datagen;
 
+import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.item.TaiaoBoats;
 import antikyth.taiao.item.TaiaoItemTags;
+import com.terraformersmc.terraform.boat.api.TerraformBoatType;
+import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -27,6 +33,8 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
         // Kauri wood
         offerBarkBlockRecipe(exporter, TaiaoBlocks.KAURI_WOOD, TaiaoBlocks.KAURI_LOG);
         offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_KAURI_WOOD, TaiaoBlocks.STRIPPED_KAURI_LOG);
+        // Kauri boats
+        offerBoatRecipes(exporter, TaiaoBoats.KAURI);
 
         generateFamily(exporter, TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
         // Kahikatea planks
@@ -34,6 +42,8 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
         // Kahikatea wood
         offerBarkBlockRecipe(exporter, TaiaoBlocks.KAHIKATEA_WOOD, TaiaoBlocks.KAHIKATEA_LOG);
         offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_KAHIKATEA_WOOD, TaiaoBlocks.STRIPPED_KAHIKATEA_LOG);
+        // Kahikatea boats
+        offerBoatRecipes(exporter, TaiaoBoats.KAHIKATEA);
 
         // Tī kōuka oak planks - makes 2 as the logs are thinner than vanilla
         offerPlanksRecipe(exporter, Blocks.OAK_PLANKS, TaiaoItemTags.CABBAGE_TREE_LOGS, 2);
@@ -50,9 +60,28 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
         // Mamaku wood
         offerBarkBlockRecipe(exporter, TaiaoBlocks.MAMAKU_WOOD, TaiaoBlocks.MAMAKU_LOG);
         offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_MAMAKU_WOOD, TaiaoBlocks.STRIPPED_MAMAKU_LOG);
+        // Mamaku rafts
+        offerBoatRecipes(exporter, TaiaoBoats.MAMAKU);
 
         // Whekī ponga wood
         offerBarkBlockRecipe(exporter, TaiaoBlocks.WHEKII_PONGA_WOOD, TaiaoBlocks.WHEKII_PONGA_LOG);
         offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD, TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
+    }
+
+    public static void offerBoatRecipes(
+            Consumer<RecipeJsonProvider> exporter,
+            @NotNull RegistryKey<TerraformBoatType> boatType
+    ) {
+        TerraformBoatType boat = TerraformBoatTypeRegistry.INSTANCE.get(boatType);
+
+        if (boat != null) {
+            offerBoatRecipe(exporter, boat.getItem(), boat.getPlanks());
+            offerChestBoatRecipe(exporter, boat.getChestItem(), boat.getItem());
+        } else {
+            Taiao.LOGGER.warn(
+                    "Boat type '{}' was not registered when generating recipes; skipping",
+                    boatType.getValue()
+            );
+        }
     }
 }
