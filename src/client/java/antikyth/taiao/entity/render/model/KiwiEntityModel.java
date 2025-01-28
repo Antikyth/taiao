@@ -4,6 +4,7 @@
 
 package antikyth.taiao.entity.render.model;
 
+import antikyth.taiao.Taiao;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
@@ -68,8 +69,8 @@ public class KiwiEntityModel<E extends Entity> extends AnimalModel<E> {
     ) {
         headPitchDegrees += HEAD_PITCH;
 
-        this.head.pitch = headPitchDegrees * (float) (Math.PI / 180.0);
-        this.head.yaw = headYawDegrees * (float) (Math.PI / 180.0);
+        this.head.pitch = Taiao.degreesToRadians(headPitchDegrees);
+        this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
 
         this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
         this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;

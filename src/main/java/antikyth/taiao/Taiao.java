@@ -56,4 +56,8 @@ public class Taiao implements ModInitializer {
     public static Identifier commonId(String name) {
         return Identifier.of("c", name);
     }
+
+    public static float degreesToRadians(float degrees) {
+        return degrees * (float) (Math.PI / 180d);
+    }
 }

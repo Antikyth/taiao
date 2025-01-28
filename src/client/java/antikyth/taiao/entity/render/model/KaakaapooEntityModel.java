@@ -4,15 +4,16 @@
 
 package antikyth.taiao.entity.render.model;
 
+import antikyth.taiao.Taiao;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 // Made with Blockbench 4.12.1
-public class KaakaapooEntityModel<E extends Entity> extends AnimalModel<E> {
+public class KaakaapooEntityModel<E extends TameableEntity> extends AnimalModel<E> {
     private final ModelPart head;
     private final ModelPart body;
     private final ModelPart tail;
@@ -43,7 +44,7 @@ public class KaakaapooEntityModel<E extends Entity> extends AnimalModel<E> {
         modelPartData.addChild(
                 "body",
                 ModelPartBuilder.create().uv(0, 0).cuboid(-2.5f, -7.5f, -1f, 7f, 7f, 11f),
-                ModelTransform.of(-1f, 18f, -5f, -32.5f * (float) (Math.PI / 180.0), 0f, 0f)
+                ModelTransform.of(-1f, 18f, -5f, Taiao.degreesToRadians(-32.5f), 0f, 0f)
         );
         modelPartData.addChild(
                 "tail",
@@ -66,6 +67,30 @@ public class KaakaapooEntityModel<E extends Entity> extends AnimalModel<E> {
     }
 
     @Override
+    public void animateModel(@NotNull E entity, float limbAngle, float limbDistance, float tickDelta) {
+        if (!entity.isInSittingPose()) {
+            this.head.resetTransform();
+
+            this.body.resetTransform();
+            this.tail.resetTransform();
+
+            this.leftLeg.resetTransform();
+            this.rightLeg.resetTransform();
+        } else {
+            this.head.pivotY = this.head.getDefaultTransform().pivotY + 2f;
+            this.head.pivotZ = this.head.getDefaultTransform().pivotZ - 1f;
+
+            this.body.pitch = Taiao.degreesToRadians(-20f);
+            this.body.pivotY = this.body.getDefaultTransform().pivotY + 2f;
+
+            this.tail.pitch = Taiao.degreesToRadians(10f);
+
+            this.leftLeg.pivotZ = this.leftLeg.getDefaultTransform().pivotZ + 1f;
+            this.rightLeg.pivotZ = this.rightLeg.getDefaultTransform().pivotZ + 1f;
+        }
+    }
+
+    @Override
     public void setAngles(
             E entity,
             float limbSwing,
@@ -74,8 +99,8 @@ public class KaakaapooEntityModel<E extends Entity> extends AnimalModel<E> {
             float headYawDegrees,
             float headPitchDegrees
     ) {
-        this.head.pitch = headPitchDegrees * (float) (Math.PI / 180.0);
-        this.head.yaw = headYawDegrees * (float) (Math.PI / 180.0);
+        this.head.pitch = Taiao.degreesToRadians(headPitchDegrees);
+        this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
 
         this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
         this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
