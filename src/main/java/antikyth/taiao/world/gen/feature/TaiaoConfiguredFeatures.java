@@ -69,7 +69,7 @@ public class TaiaoConfiguredFeatures {
                             new StraightTrunkPlacer(12, 8, 8),
                             fruitLeavesProvider(TaiaoBlocks.KAHIKATEA_LEAVES, 12, 1),
                             new SpruceFoliagePlacer(
-                                    UniformIntProvider.create(2, 5),
+                                    UniformIntProvider.create(2, 3),
                                     UniformIntProvider.create(0, 2),
                                     // offset from the base of the tree until the foliage starts
                                     UniformIntProvider.create(5, 14)
