@@ -5,6 +5,7 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.item.TaiaoItemTags;
+import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
@@ -66,17 +67,28 @@ public class PuukekoEntity extends AnimalEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_CHICKEN_AMBIENT;
+        return isBaby() ? TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_AMBIENT : TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_CHICKEN_HURT;
+        return TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CHICKEN_DEATH;
+        return TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        super.playAmbientSound();
+    }
+
+    @Override
+    public float getSoundPitch() {
+        // Same pitch for babies and adults as babies have their own sounds recorded.
+        return (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F;
     }
 
     @Override

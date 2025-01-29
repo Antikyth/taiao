@@ -16,6 +16,22 @@
     ],
     "subtitle": "subtitles.taiao.entity.kiwi.chirp"
   },
+  "entity.puukeko.baby.ambient": {
+    "sounds": [
+      "taiao:mob/puukeko/baby/screech0",
+      "taiao:mob/puukeko/baby/screech1"
+    ],
+    "subtitle": "subtitles.taiao.entity.puukeko.baby.ambient"
+  },
+  "entity.puukeko.adult.ambient": {
+    "sounds": [
+      "taiao:mob/puukeko/adult/screech0",
+      "taiao:mob/puukeko/adult/screech1",
+      "taiao:mob/puukeko/adult/screech2",
+      "taiao:mob/puukeko/adult/screech3"
+    ],
+    "subtitle": "subtitles.taiao.entity.puukeko.adult.ambient"
+  },
   "entity.kaakaapoo.ching": {
     "sounds": [
       "taiao:mob/kaakaapoo/ching0",

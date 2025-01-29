@@ -25,6 +25,9 @@ public class TaiaoSoundEvents {
      */
     public static final SoundEvent ENTITY_KAAKAAPOO_BOOM = register(Taiao.id("entity.kaakaapoo.boom"));
 
+    public static final SoundEvent ENTITY_PUUKEKO_BABY_AMBIENT = register(Taiao.id("entity.puukeko.baby.ambient"));
+    public static final SoundEvent ENTITY_PUUKEKO_ADULT_AMBIENT = register(Taiao.id("entity.puukeko.adult.ambient"));
+
     public static SoundEvent register(Identifier id) {
         return register(id, id);
     }
