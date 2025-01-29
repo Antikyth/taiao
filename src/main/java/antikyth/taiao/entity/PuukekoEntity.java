@@ -81,8 +81,8 @@ public class PuukekoEntity extends AnimalEntity {
     }
 
     @Override
-    public void playAmbientSound() {
-        super.playAmbientSound();
+    public int getMinAmbientSoundDelay() {
+        return 160;
     }
 
     @Override
