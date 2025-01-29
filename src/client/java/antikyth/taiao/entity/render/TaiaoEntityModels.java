@@ -6,15 +6,13 @@ package antikyth.taiao.entity.render;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.boat.TaiaoBoats;
 import antikyth.taiao.entity.render.model.KaakaapooEntityModel;
 import antikyth.taiao.entity.render.model.KiwiEntityModel;
 import antikyth.taiao.entity.render.model.MoaEntityModel;
 import antikyth.taiao.entity.render.model.PuukekoEntityModel;
-import antikyth.taiao.entity.render.renderer.KaakaapooEntityRenderer;
-import antikyth.taiao.entity.render.renderer.KiwiEntityRenderer;
-import antikyth.taiao.entity.render.renderer.MoaEntityRenderer;
-import antikyth.taiao.entity.render.renderer.PuukekoEntityRenderer;
-import antikyth.taiao.item.TaiaoBoats;
+import antikyth.taiao.entity.render.renderer.*;
+import antikyth.taiao.entity.waka.WakaType;
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -50,6 +48,11 @@ public class TaiaoEntityModels {
         TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.KAURI.getValue(), false);
         TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.KAHIKATEA.getValue(), false);
         TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.MAMAKU.getValue(), true);
+
+        EntityRendererRegistry.register(
+                TaiaoEntities.WAKA,
+                ctx -> new WakaEntityRenderer<>(ctx, WakaType.ChestType.NONE)
+        );
 
         EntityRendererRegistry.register(TaiaoEntities.KIWI, KiwiEntityRenderer::new);
         EntityRendererRegistry.register(TaiaoEntities.PUUKEKO, PuukekoEntityRenderer::new);

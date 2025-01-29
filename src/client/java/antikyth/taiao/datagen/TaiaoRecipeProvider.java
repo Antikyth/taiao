@@ -6,7 +6,7 @@ package antikyth.taiao.datagen;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.item.TaiaoBoats;
+import antikyth.taiao.entity.boat.TaiaoBoats;
 import antikyth.taiao.item.TaiaoItemTags;
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;

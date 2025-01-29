@@ -5,6 +5,9 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.entity.waka.ChestWakaEntity;
+import antikyth.taiao.entity.waka.DoubleChestWakaEntity;
+import antikyth.taiao.entity.waka.WakaEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -15,6 +18,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class TaiaoEntities {
+    protected static final EntityDimensions WAKA_DIMENSIONS = EntityDimensions.fixed(1.375f, 0.5625f);
+
     public static final EntityType<KiwiEntity> KIWI = register(
             Taiao.id("kiwi"),
             FabricEntityTypeBuilder.createLiving()
@@ -59,6 +64,25 @@ public class TaiaoEntities {
                     .dimensions(EntityDimensions.changing(0.55f, 0.7f))
                     .defaultAttributes(KaakaapooEntity::createAttributes)
                     .trackRangeChunks(10)
+                    .build()
+    );
+
+    public static final EntityType<WakaEntity> WAKA = register(
+            Taiao.id("waka"),
+            FabricEntityTypeBuilder.<WakaEntity>create(SpawnGroup.MISC, WakaEntity::new)
+                    .dimensions(WAKA_DIMENSIONS)
+                    .build()
+    );
+    public static final EntityType<ChestWakaEntity> SINGLE_CHEST_WAKA = register(
+            Taiao.id("single_chest_waka"),
+            FabricEntityTypeBuilder.<ChestWakaEntity>create(SpawnGroup.MISC, ChestWakaEntity::new)
+                    .dimensions(WAKA_DIMENSIONS)
+                    .build()
+    );
+    public static final EntityType<DoubleChestWakaEntity> DOUBLE_CHEST_WAKA = register(
+            Taiao.id("double_chest_waka"),
+            FabricEntityTypeBuilder.<DoubleChestWakaEntity>create(SpawnGroup.MISC, DoubleChestWakaEntity::new)
+                    .dimensions(WAKA_DIMENSIONS)
                     .build()
     );
 

@@ -6,13 +6,18 @@ package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.boat.TaiaoBoats;
+import antikyth.taiao.entity.waka.TaiaoWaka;
+import antikyth.taiao.entity.waka.WakaType;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
 public class TaiaoItems {
@@ -52,6 +57,22 @@ public class TaiaoItems {
             true
     );
 
+    public static final Item KAURI_WAKA = registerWakaItem(
+            Taiao.id("kauri_waka"),
+            TaiaoWaka.KAURI,
+            WakaType.ChestType.NONE
+    );
+    public static final Item KAURI_SINGLE_CHEST_WAKA = registerWakaItem(
+            Taiao.id("kauri_chest_waka"),
+            TaiaoWaka.KAURI,
+            WakaType.ChestType.SINGLE
+    );
+    public static final Item KAURI_DOUBLE_CHEST_WAKA = registerWakaItem(
+            Taiao.id("kauri_double_chest_waka"),
+            TaiaoWaka.KAURI,
+            WakaType.ChestType.DOUBLE
+    );
+
     public static final Item KIWI_SPAWN_EGG = register(
             Taiao.id("kiwi_spawn_egg"),
             new SpawnEggItem(TaiaoEntities.KIWI, 0x482d19, 0xf5bb98, new FabricItemSettings())
@@ -71,6 +92,23 @@ public class TaiaoItems {
 
     public static void initialize() {
         Taiao.LOGGER.debug("Registering items");
+    }
+
+    public static Item registerWakaItem(Identifier id, RegistryKey<WakaType> wakaType, WakaType.ChestType chestType) {
+        return registerWakaItem(id, wakaType, chestType, new FabricItemSettings().maxCount(1));
+    }
+
+    public static Item registerWakaItem(
+            Identifier id,
+            RegistryKey<WakaType> wakaType,
+            WakaType.ChestType chestType,
+            Item.Settings settings
+    ) {
+        Item item = register(id, new WakaItem(wakaType, chestType, settings));
+
+        DispenserBlock.registerBehavior(item, new WakaDispenserBehavior(wakaType, chestType));
+
+        return item;
     }
 
     /**
