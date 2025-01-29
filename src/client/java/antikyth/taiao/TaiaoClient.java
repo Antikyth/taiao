@@ -41,6 +41,7 @@ public class TaiaoClient implements ClientModInitializer {
         registerFoliageColors(
                 TaiaoBlocks.KAURI_LEAVES,
                 TaiaoBlocks.KAHIKATEA_LEAVES,
+                TaiaoBlocks.RIMU_LEAVES,
                 TaiaoBlocks.CABBAGE_TREE_LEAVES,
                 TaiaoBlocks.MAMAKU_LEAVES,
                 TaiaoBlocks.WHEKII_PONGA_LEAVES

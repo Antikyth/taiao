@@ -38,6 +38,11 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(TaiaoBlocks.STRIPPED_KAHIKATEA_LOG)
                 .add(TaiaoBlocks.KAHIKATEA_WOOD)
                 .add(TaiaoBlocks.STRIPPED_KAHIKATEA_WOOD);
+        getOrCreateTagBuilder(TaiaoBlockTags.RIMU_LOGS)
+                .add(TaiaoBlocks.RIMU_LOG)
+                .add(TaiaoBlocks.STRIPPED_RIMU_LOG)
+                .add(TaiaoBlocks.RIMU_WOOD)
+                .add(TaiaoBlocks.STRIPPED_RIMU_WOOD);
         getOrCreateTagBuilder(TaiaoBlockTags.CABBAGE_TREE_LOGS)
                 .add(TaiaoBlocks.CABBAGE_TREE_LOG)
                 .add(TaiaoBlocks.CABBAGE_TREE_WOOD)
@@ -68,12 +73,14 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.SAPLINGS)
                 .add(TaiaoBlocks.KAURI_SAPLING)
                 .add(TaiaoBlocks.KAHIKATEA_SAPLING)
+                .add(TaiaoBlocks.RIMU_SAPLING)
                 .add(TaiaoBlocks.CABBAGE_TREE_SAPLING)
                 .add(TaiaoBlocks.MAMAKU_SAPLING)
                 .add(TaiaoBlocks.WHEKII_PONGA_SAPLING);
         getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
                 .add(TaiaoBlocks.POTTED_KAURI_SAPLING)
                 .add(TaiaoBlocks.POTTED_KAHIKATEA_SAPLING)
+                .add(TaiaoBlocks.POTTED_RIMU_SAPLING)
                 .add(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING)
                 .add(TaiaoBlocks.POTTED_MAMAKU_SAPLING)
                 .add(TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING);
@@ -81,6 +88,7 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.LEAVES)
                 .add(TaiaoBlocks.KAURI_LEAVES)
                 .add(TaiaoBlocks.KAHIKATEA_LEAVES)
+                .add(TaiaoBlocks.RIMU_LEAVES)
                 .add(TaiaoBlocks.CABBAGE_TREE_LEAVES)
                 .add(TaiaoBlocks.MAMAKU_LEAVES)
                 .add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
@@ -91,6 +99,7 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.LOGS_THAT_BURN)
                 .addTag(TaiaoBlockTags.KAURI_LOGS)
                 .addTag(TaiaoBlockTags.KAHIKATEA_LOGS)
+                .addTag(TaiaoBlockTags.RIMU_LOGS)
                 .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
                 .addTag(TaiaoBlockTags.MAMAKU_LOGS)
                 .addTag(TaiaoBlockTags.WHEKII_PONGA_LOGS);
@@ -98,12 +107,14 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
                 .add(TaiaoBlocks.KAURI_LOG)
                 .add(TaiaoBlocks.KAHIKATEA_LOG)
+                .add(TaiaoBlocks.RIMU_LOG)
                 .add(TaiaoBlocks.CABBAGE_TREE_LOG)
                 .add(TaiaoBlocks.MAMAKU_LOG)
                 .add(TaiaoBlocks.WHEKII_PONGA_LOG);
 
         addWoodFamilyTags(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
         addWoodFamilyTags(TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
+        addWoodFamilyTags(TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());
         addWoodFamilyTags(TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
     }
 

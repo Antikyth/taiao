@@ -162,6 +162,71 @@ public class TaiaoBlocks {
             new FenceBlock(FabricBlockSettings.copyOf(KAHIKATEA_PLANKS))
     ).copyFlammable(KAHIKATEA_PLANKS).register(true);
 
+    // Rimu foliage
+    public static final Block RIMU_SAPLING = new Builder(
+            Taiao.id("rimu_sapling"),
+            new SaplingBlock(new RimuSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.SPRUCE_SAPLING))
+    ).register(true);
+    public static final Block POTTED_RIMU_SAPLING = new Builder(
+            Taiao.id("potted_rimu_sapling"),
+            Blocks.createFlowerPotBlock(RIMU_SAPLING)
+    ).register(false);
+    public static final Block RIMU_LEAVES = new Builder(
+            Taiao.id("rimu_leaves"),
+            new FruitLeavesBlock(
+                    TaiaoItems.CONIFER_FRUIT,
+                    createFruitLeavesSettings(MapColor.DARK_GREEN, MapColor.RED, BlockSoundGroup.GRASS)
+            )
+    ).copyFlammable(Blocks.SPRUCE_LEAVES).register(true);
+
+    // Rimu wood
+    public static final Block STRIPPED_RIMU_LOG = new Builder(
+            Taiao.id("stripped_rimu_log"),
+            Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
+    ).register(true);
+    public static final Block RIMU_LOG = new Builder(
+            Taiao.id("rimu_log"),
+            Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.STONE_GRAY)
+    ).strippable(STRIPPED_RIMU_LOG).register(true);
+    public static final Block STRIPPED_RIMU_WOOD = new Builder(
+            Taiao.id("stripped_rimu_wood"),
+            Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
+    ).register(true);
+    public static final Block RIMU_WOOD = new Builder(
+            Taiao.id("rimu_wood"),
+            Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
+    ).strippable(STRIPPED_RIMU_WOOD).register(true);
+
+    // Rimu wood family
+    public static final Block RIMU_PLANKS = new Builder(
+            Taiao.id("rimu_planks"),
+            createPlanks(MapColor.BRIGHT_RED)
+    ).copyFlammable(Blocks.OAK_PLANKS).register(true);
+    public static final Block RIMU_PRESSURE_PLATE = new Builder(
+            Taiao.id("rimu_pressure_plate"),
+            createWoodenPressurePlate(RIMU_PLANKS, WoodFamily.RIMU.getBlockSetType())
+    ).register(true);
+    public static final Block RIMU_BUTTON = new Builder(
+            Taiao.id("rimu_button"),
+            Blocks.createWoodenButtonBlock(WoodFamily.RIMU.getBlockSetType())
+    ).register(true);
+    public static final Block RIMU_STAIRS = new Builder(
+            Taiao.id("rimu_stairs"),
+            new StairsBlock(RIMU_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(RIMU_PLANKS))
+    ).copyFlammable(KAHIKATEA_PLANKS).register(true);
+    public static final Block RIMU_SLAB = new Builder(
+            Taiao.id("rimu_slab"),
+            new SlabBlock(FabricBlockSettings.copyOf(RIMU_PLANKS))
+    ).copyFlammable(RIMU_PLANKS).register(true);
+    public static final Block RIMU_FENCE_GATE = new Builder(
+            Taiao.id("rimu_fence_gate"),
+            new FenceGateBlock(FabricBlockSettings.copyOf(RIMU_PLANKS), WoodFamily.RIMU.getWoodType())
+    ).copyFlammable(RIMU_PLANKS).register(true);
+    public static final Block RIMU_FENCE = new Builder(
+            Taiao.id("rimu_fence"),
+            new FenceBlock(FabricBlockSettings.copyOf(RIMU_PLANKS))
+    ).copyFlammable(RIMU_PLANKS).register(true);
+
     // Tī kōuka foliage
     public static final Block CABBAGE_TREE_SAPLING = new Builder(
             Taiao.id("cabbage_tree_sapling"),
@@ -323,6 +388,19 @@ public class TaiaoBlocks {
                         .pressurePlate(TaiaoBlocks.KAHIKATEA_PRESSURE_PLATE)
                         .slab(TaiaoBlocks.KAHIKATEA_SLAB)
                         .stairs(TaiaoBlocks.KAHIKATEA_STAIRS)
+                        .group("wooden")
+                        .unlockCriterionName("has_planks")
+                        .build()
+        );
+        public static final WoodFamily RIMU = register(
+                Taiao.id("rimu"),
+                () -> new BlockFamily.Builder(TaiaoBlocks.RIMU_PLANKS)
+                        .button(TaiaoBlocks.RIMU_BUTTON)
+                        .fence(TaiaoBlocks.RIMU_FENCE)
+                        .fenceGate(TaiaoBlocks.RIMU_FENCE_GATE)
+                        .pressurePlate(TaiaoBlocks.RIMU_PRESSURE_PLATE)
+                        .slab(TaiaoBlocks.RIMU_SLAB)
+                        .stairs(TaiaoBlocks.RIMU_STAIRS)
                         .group("wooden")
                         .unlockCriterionName("has_planks")
                         .build()

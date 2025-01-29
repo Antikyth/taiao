@@ -41,6 +41,16 @@ public class TaiaoItems {
             TaiaoBoats.KAHIKATEA,
             true
     );
+    public static final Item RIMU_BOAT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("rimu_boat"),
+            TaiaoBoats.RIMU,
+            false
+    );
+    public static final Item RIMU_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(
+            Taiao.id("rimu_chest_boat"),
+            TaiaoBoats.RIMU,
+            true
+    );
     public static final Item MAMAKU_RAFT = TerraformBoatItemHelper.registerBoatItem(
             Taiao.id("mamaku_raft"),
             TaiaoBoats.MAMAKU,

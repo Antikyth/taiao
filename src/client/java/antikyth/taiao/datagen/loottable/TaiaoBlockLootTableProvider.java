@@ -53,6 +53,21 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         // Kahikatea wood family
         addDropsForFamily(TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
 
+        // Rimu foliage
+        addDrop(TaiaoBlocks.RIMU_SAPLING);
+        addPottedPlantDrops(TaiaoBlocks.POTTED_RIMU_SAPLING);
+        addDrop(
+                TaiaoBlocks.RIMU_LEAVES,
+                block -> fruitLeavesDrops((FruitLeavesBlock) block, TaiaoBlocks.RIMU_SAPLING, SAPLING_DROP_CHANCE)
+        );
+        // Rimu wood
+        addDrop(TaiaoBlocks.RIMU_LOG);
+        addDrop(TaiaoBlocks.STRIPPED_RIMU_LOG);
+        addDrop(TaiaoBlocks.RIMU_WOOD);
+        addDrop(TaiaoBlocks.STRIPPED_RIMU_WOOD);
+        // Rimu wood family
+        addDropsForFamily(TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());
+
         // Tī kōuka foliage
         addDrop(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         addPottedPlantDrops(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING);

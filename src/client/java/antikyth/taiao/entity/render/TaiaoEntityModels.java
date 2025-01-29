@@ -49,6 +49,7 @@ public class TaiaoEntityModels {
 
         TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.KAURI.getValue(), false);
         TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.KAHIKATEA.getValue(), false);
+        TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.RIMU.getValue(), false);
         TerraformBoatClientHelper.registerModelLayers(TaiaoBoats.MAMAKU.getValue(), true);
 
         EntityRendererRegistry.register(TaiaoEntities.KIWI, KiwiEntityRenderer::new);

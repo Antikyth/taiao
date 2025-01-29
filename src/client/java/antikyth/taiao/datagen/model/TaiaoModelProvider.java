@@ -29,11 +29,10 @@ public class TaiaoModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(@NotNull BlockStateModelGenerator generator) {
         TextureMap kauriLeavesTextures = TextureMap.all(new Identifier("minecraft:block/acacia_leaves"));
-        TextureMap kahikateaLeavesTextures = TaiaoModels.fruitLeavesTextures(
-                TaiaoBlocks.KAHIKATEA_LEAVES,
-                new Identifier("minecraft:block/acacia_leaves"),
-                null
-        );
+        TextureMap coniferFruitLeavesTextures = new TextureMap().put(
+                TextureKey.ALL,
+                new Identifier("minecraft:block/acacia_leaves")
+        ).put(TaiaoModels.OVERLAY_KEY, Taiao.id("block/conifer_fruit_overlay"));
         TextureMap fernTreeLeavesTextures = TextureMap.all(Taiao.id("block/fern_tree_leaves"));
 
         TextureMap strippedCabbageTreeTextures = TaiaoModels.thinLogTextures(
@@ -72,7 +71,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
                 TaiaoBlocks.POTTED_KAHIKATEA_SAPLING,
                 TintType.NOT_TINTED
         );
-        registerFruitLeaves(generator, TaiaoBlocks.KAHIKATEA_LEAVES, kahikateaLeavesTextures);
+        registerFruitLeaves(generator, TaiaoBlocks.KAHIKATEA_LEAVES, coniferFruitLeavesTextures);
 
         // Kahikatea wood
         generator.registerLog(TaiaoBlocks.KAHIKATEA_LOG)
@@ -84,6 +83,25 @@ public class TaiaoModelProvider extends FabricModelProvider {
         // Kahikatea wood family
         generator.registerCubeAllModelTexturePool(TaiaoBlocks.KAHIKATEA_PLANKS)
                 .family(TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
+
+        // Rimu foliage
+        generator.registerFlowerPotPlant(
+                TaiaoBlocks.RIMU_SAPLING,
+                TaiaoBlocks.POTTED_RIMU_SAPLING,
+                TintType.NOT_TINTED
+        );
+        registerFruitLeaves(generator, TaiaoBlocks.RIMU_LEAVES, coniferFruitLeavesTextures);
+
+        // Rimu wood
+        generator.registerLog(TaiaoBlocks.RIMU_LOG)
+                .log(TaiaoBlocks.RIMU_LOG)
+                .wood(TaiaoBlocks.RIMU_WOOD);
+        generator.registerLog(TaiaoBlocks.STRIPPED_RIMU_LOG)
+                .log(TaiaoBlocks.STRIPPED_RIMU_LOG)
+                .wood(TaiaoBlocks.STRIPPED_RIMU_WOOD);
+        // Rimu wood family
+        generator.registerCubeAllModelTexturePool(TaiaoBlocks.RIMU_PLANKS)
+                .family(TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());
 
         // Tī kōuka foliage
         generator.registerFlowerPotPlant(
@@ -141,6 +159,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
         generator.register(TaiaoItems.KAURI_CHEST_BOAT, Models.GENERATED);
         generator.register(TaiaoItems.KAHIKATEA_BOAT, Models.GENERATED);
         generator.register(TaiaoItems.KAHIKATEA_CHEST_BOAT, Models.GENERATED);
+        generator.register(TaiaoItems.RIMU_BOAT, Models.GENERATED);
+        generator.register(TaiaoItems.RIMU_CHEST_BOAT, Models.GENERATED);
         generator.register(TaiaoItems.MAMAKU_RAFT, Models.GENERATED);
         generator.register(TaiaoItems.MAMAKU_CHEST_RAFT, Models.GENERATED);
 

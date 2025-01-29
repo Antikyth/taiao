@@ -16,6 +16,7 @@ public final class TaiaoBlockTags {
 
     public static final TagKey<Block> KAURI_LOGS = createTagKey(Taiao.id("kauri_logs"));
     public static final TagKey<Block> KAHIKATEA_LOGS = createTagKey(Taiao.id("kahikatea_logs"));
+    public static final TagKey<Block> RIMU_LOGS = createTagKey(Taiao.id("rimu_logs"));
     /**
      * Tī kōuka logs.
      */

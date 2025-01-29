@@ -45,6 +45,15 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
         // Kahikatea boats
         offerBoatRecipes(exporter, TaiaoBoats.KAHIKATEA);
 
+        generateFamily(exporter, TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());
+        // Rimu planks
+        offerPlanksRecipe(exporter, TaiaoBlocks.RIMU_PLANKS, TaiaoItemTags.RIMU_LOGS, 4);
+        // Rimu wood
+        offerBarkBlockRecipe(exporter, TaiaoBlocks.RIMU_WOOD, TaiaoBlocks.RIMU_LOG);
+        offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_RIMU_WOOD, TaiaoBlocks.STRIPPED_RIMU_LOG);
+        // Rimu boats
+        offerBoatRecipes(exporter, TaiaoBoats.RIMU);
+
         // Tī kōuka oak planks - makes 2 as the logs are thinner than vanilla
         offerPlanksRecipe(exporter, Blocks.OAK_PLANKS, TaiaoItemTags.CABBAGE_TREE_LOGS, 2);
         // Tī kōuka wood

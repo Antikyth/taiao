@@ -45,6 +45,12 @@ public class TaiaoItemGroups {
             group.add(TaiaoItems.KAHIKATEA_BOAT);
             group.add(TaiaoItems.KAHIKATEA_CHEST_BOAT);
 
+            group.add(TaiaoBlocks.RIMU_SAPLING);
+            group.add(TaiaoBlocks.RIMU_LEAVES);
+            addRimuBuildingBlocks(group::add);
+            group.add(TaiaoItems.RIMU_BOAT);
+            group.add(TaiaoItems.RIMU_CHEST_BOAT);
+
             group.add(TaiaoBlocks.CABBAGE_TREE_SAPLING);
             group.add(TaiaoBlocks.CABBAGE_TREE_LEAVES);
             addCabbageTreeBuildingBlocks(group::add);
@@ -74,6 +80,7 @@ public class TaiaoItemGroups {
 
             addKauriBuildingBlocks(add);
             addKahikateaBuildingBlocks(add);
+            addRimuBuildingBlocks(add);
             addCabbageTreeBuildingBlocks(add);
             addMamakuBuildingBlocks(add);
             addWhekiiPongaBuildingBlocks(add);
@@ -92,6 +99,7 @@ public class TaiaoItemGroups {
     public static void addLogs(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_LOG);
         add.accept(TaiaoBlocks.KAHIKATEA_LOG);
+        add.accept(TaiaoBlocks.RIMU_LOG);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LOG);
         add.accept(TaiaoBlocks.MAMAKU_LOG);
         add.accept(TaiaoBlocks.WHEKII_PONGA_LOG);
@@ -100,6 +108,7 @@ public class TaiaoItemGroups {
     public static void addLeaves(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_LEAVES);
         add.accept(TaiaoBlocks.KAHIKATEA_LEAVES);
+        add.accept(TaiaoBlocks.RIMU_LEAVES);
         add.accept(TaiaoBlocks.CABBAGE_TREE_LEAVES);
         add.accept(TaiaoBlocks.MAMAKU_LEAVES);
         add.accept(TaiaoBlocks.WHEKII_PONGA_LEAVES);
@@ -108,6 +117,7 @@ public class TaiaoItemGroups {
     public static void addSaplings(@NotNull Consumer<ItemConvertible> add) {
         add.accept(TaiaoBlocks.KAURI_SAPLING);
         add.accept(TaiaoBlocks.KAHIKATEA_SAPLING);
+        add.accept(TaiaoBlocks.RIMU_SAPLING);
         add.accept(TaiaoBlocks.CABBAGE_TREE_SAPLING);
         add.accept(TaiaoBlocks.MAMAKU_SAPLING);
         add.accept(TaiaoBlocks.WHEKII_PONGA_SAPLING);
@@ -118,6 +128,8 @@ public class TaiaoItemGroups {
         add.accept(TaiaoItems.KAURI_CHEST_BOAT);
         add.accept(TaiaoItems.KAHIKATEA_BOAT);
         add.accept(TaiaoItems.KAHIKATEA_CHEST_BOAT);
+        add.accept(TaiaoItems.RIMU_BOAT);
+        add.accept(TaiaoItems.RIMU_CHEST_BOAT);
         add.accept(TaiaoItems.MAMAKU_RAFT);
         add.accept(TaiaoItems.MAMAKU_CHEST_RAFT);
     }
@@ -150,6 +162,21 @@ public class TaiaoItemGroups {
         add.accept(TaiaoBlocks.KAHIKATEA_FENCE_GATE);
         add.accept(TaiaoBlocks.KAHIKATEA_PRESSURE_PLATE);
         add.accept(TaiaoBlocks.KAHIKATEA_BUTTON);
+    }
+
+    public static void addRimuBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
+        add.accept(TaiaoBlocks.RIMU_LOG);
+        add.accept(TaiaoBlocks.RIMU_WOOD);
+        add.accept(TaiaoBlocks.STRIPPED_RIMU_LOG);
+        add.accept(TaiaoBlocks.STRIPPED_RIMU_WOOD);
+
+        add.accept(TaiaoBlocks.RIMU_PLANKS);
+        add.accept(TaiaoBlocks.RIMU_STAIRS);
+        add.accept(TaiaoBlocks.RIMU_SLAB);
+        add.accept(TaiaoBlocks.RIMU_FENCE);
+        add.accept(TaiaoBlocks.RIMU_FENCE_GATE);
+        add.accept(TaiaoBlocks.RIMU_PRESSURE_PLATE);
+        add.accept(TaiaoBlocks.RIMU_BUTTON);
     }
 
     public static void addCabbageTreeBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {

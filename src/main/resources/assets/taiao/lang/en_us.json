@@ -35,6 +35,23 @@
   "block.taiao.kahikatea_fence": "Kahikatea Fence",
   "block.taiao.kahikatea_fence_gate": "Kahikatea Fence Gate",
 
+  "block.taiao.rimu_sapling": "Rimu Sapling",
+  "block.taiao.potted_rimu_sapling": "Potted Rimu Sapling",
+  "block.taiao.rimu_leaves": "Rimu Leaves",
+
+  "block.taiao.rimu_log": "Rimu Log",
+  "block.taiao.stripped_rimu_log": "Stripped Rimu Log",
+  "block.taiao.rimu_wood": "Rimu Wood",
+  "block.taiao.stripped_rimu_wood": "Stripped Rimu Wood",
+
+  "block.taiao.rimu_planks": "Rimu Planks",
+  "block.taiao.rimu_pressure_plate": "Rimu Pressure Plate",
+  "block.taiao.rimu_button": "Rimu Button",
+  "block.taiao.rimu_stairs": "Rimu Stairs",
+  "block.taiao.rimu_slab": "Rimu Slab",
+  "block.taiao.rimu_fence": "Rimu Fence",
+  "block.taiao.rimu_fence_gate": "Rimu Fence Gate",
+
   "block.taiao.cabbage_tree_sapling": "Tī Kōuka Sapling",
   "block.taiao.potted_cabbage_tree_sapling": "Potted Tī Kōuka Sapling",
   "block.taiao.cabbage_tree_leaves": "Tī Kōuka Leaves",
@@ -76,6 +93,8 @@
   "item.taiao.kauri_chest_boat": "Kauri Boat with Chest",
   "item.taiao.kahikatea_boat": "Kahikatea Boat",
   "item.taiao.kahikatea_chest_boat": "Kahikatea Boat with Chest",
+  "item.taiao.rimu_boat": "Rimu Boat",
+  "item.taiao.rimu_chest_boat": "Rimu Boat with Chest",
   "item.taiao.mamaku_raft": "Mamaku Raft",
   "item.taiao.mamaku_chest_raft": "Mamaku Raft with Chest",
 
@@ -83,6 +102,15 @@
   "item.taiao.puukeko_spawn_egg": "Pūkeko Spawn Egg",
   "item.taiao.moa_spawn_egg": "Moa Spawn Egg",
   "item.taiao.kaakaapoo_spawn_egg": "Kākāpō Spawn Egg",
+
+  "entity.taiao.kauri_boat": "Kauri Boat",
+  "entity.taiao.kauri_chest_boat": "Kauri Boat with Chest",
+  "entity.taiao.kahikatea_boat": "Kahikatea Boat",
+  "entity.taiao.kahikatea_chest_boat": "Kahikatea Boat with Chest",
+  "entity.taiao.rimu_boat": "Rimu Boat",
+  "entity.taiao.rimu_chest_boat": "Rimu Boat with Chest",
+  "entity.taiao.mamaku_raft": "Mamaku Raft",
+  "entity.taiao.mamaku_chest_raft": "Mamaku Raft with Chest",
 
   "entity.taiao.kiwi": "Kiwi",
   "entity.taiao.puukeko": "Pūkeko",
@@ -94,6 +122,7 @@
 
   "tag.block.taiao.kauri_logs": "Kauri Logs",
   "tag.block.taiao.kahikatea_logs": "Kahikatea Logs",
+  "tag.block.taiao.rimu_logs": "Rimu Logs",
   "tag.block.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
   "tag.block.taiao.mamaku_logs": "Mamaku Logs",
   "tag.block.taiao.whekii_ponga_logs": "Whekī Ponga Logs",
@@ -105,6 +134,7 @@
 
   "tag.item.taiao.kauri_logs": "Kauri Logs",
   "tag.item.taiao.kahikatea_logs": "Kahikatea Logs",
+  "tag.item.taiao.rimu_logs": "Rimu Logs",
   "tag.item.taiao.cabbage_tree_logs": "Tī Kōuka Logs",
   "tag.item.taiao.mamaku_logs": "Mamaku Logs",
   "tag.item.taiao.whekii_ponga_logs": "Whekī Ponga Logs",

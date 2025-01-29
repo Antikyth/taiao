@@ -31,6 +31,15 @@ public class TaiaoBoats {
                     () -> TaiaoBlocks.KAHIKATEA_PLANKS
             )
     );
+    public static final RegistryKey<TerraformBoatType> RIMU = register(
+            Taiao.id("rimu"),
+            new TaiaoBoatType(
+                    false,
+                    () -> TaiaoItems.RIMU_BOAT,
+                    () -> TaiaoItems.RIMU_CHEST_BOAT,
+                    () -> TaiaoBlocks.RIMU_PLANKS
+            )
+    );
     public static final RegistryKey<TerraformBoatType> MAMAKU = register(
             Taiao.id("mamaku"),
             new TaiaoBoatType(
