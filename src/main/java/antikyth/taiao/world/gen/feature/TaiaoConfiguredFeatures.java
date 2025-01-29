@@ -52,7 +52,7 @@ public class TaiaoConfiguredFeatures {
                     Feature.TREE,
                     new TreeFeatureConfig.Builder(
                             BlockStateProvider.of(TaiaoBlocks.KAURI_LOG),
-                            new DarkOakTrunkPlacer(9, 3, 2),
+                            new DarkOakTrunkPlacer(10, 7, 7),
                             BlockStateProvider.of(TaiaoBlocks.KAURI_LEAVES),
                             new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
                             new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
