@@ -48,6 +48,11 @@ public class TaiaoPlacedFeatures {
             TaiaoConfiguredFeatures.OLD_KAHIKATEA_TREE,
             PlacedFeatures.wouldSurvive(TaiaoBlocks.KAHIKATEA_SAPLING)
     );
+    public static final RegistryKey<PlacedFeature> RIMU_TREE_CHECKED = register(
+            Taiao.id("mega_rimu_tree_checked"),
+            TaiaoConfiguredFeatures.RIMU_TREE,
+            PlacedFeatures.wouldSurvive(TaiaoBlocks.RIMU_SAPLING)
+    );
     public static final RegistryKey<PlacedFeature> CABBAGE_TREE_CHECKED = register(
             Taiao.id("cabbage_tree_checked"),
             TaiaoConfiguredFeatures.CABBAGE_TREE,

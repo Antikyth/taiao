@@ -14,11 +14,11 @@ import org.jetbrains.annotations.Nullable;
 public class RimuSaplingGenerator extends LargeTreeSaplingGenerator {
     @Override
     protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getTreeFeature(Random random, boolean bees) {
-        return TaiaoConfiguredFeatures.YOUNG_KAHIKATEA_TREE;
+        return null;
     }
 
     @Override
     protected @Nullable RegistryKey<ConfiguredFeature<?, ?>> getLargeTreeFeature(Random random) {
-        return TaiaoConfiguredFeatures.OLD_KAHIKATEA_TREE;
+        return TaiaoConfiguredFeatures.RIMU_TREE;
     }
 }

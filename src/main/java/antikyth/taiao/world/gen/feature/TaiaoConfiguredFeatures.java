@@ -96,6 +96,23 @@ public class TaiaoConfiguredFeatures {
             )
     );
 
+    public static final RegistryKey<ConfiguredFeature<?, ?>> RIMU_TREE = register(
+            Taiao.id("mega_rimu_tree"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.TREE,
+                    new TreeFeatureConfig.Builder(
+                            BlockStateProvider.of(TaiaoBlocks.RIMU_LOG),
+                            new GiantTrunkPlacer(20, 8, 8),
+                            fruitLeavesProvider(TaiaoBlocks.RIMU_LEAVES, 8, 1),
+                            new MegaPineFoliagePlacer(
+                                    ConstantIntProvider.create(0),
+                                    ConstantIntProvider.create(0),
+                                    UniformIntProvider.create(8, 14)
+                            ),
+                            new TwoLayersFeatureSize(1, 1, 2)
+                    ).build()
+            )
+    );
     public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = register(
             Taiao.id("cabbage_tree"),
             lookup -> new ConfiguredFeature<>(
@@ -161,6 +178,10 @@ public class TaiaoConfiguredFeatures {
                             List.of(
                                     new RandomFeatureEntry(
                                             lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_CHECKED),
+                                            0.01f
+                                    ),
+                                    new RandomFeatureEntry(
+                                            lookup.getOrThrow(TaiaoPlacedFeatures.RIMU_TREE_CHECKED),
                                             0.015f
                                     ),
                                     new RandomFeatureEntry(
