@@ -9,6 +9,7 @@ import antikyth.taiao.block.TaiaoBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -62,12 +63,18 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOGS)
                 .addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
                 .addTag(TaiaoBlockTags.MAMAKU_LOGS);
-        getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOG_CONNECTION_OVERRIDE)
-                .addTag(TaiaoBlockTags.THIN_LOGS)
-                .addTag(BlockTags.LEAVES);
         getOrCreateTagBuilder(TaiaoBlockTags.DIRECTIONAL_LEAVES)
                 .add(TaiaoBlocks.MAMAKU_LEAVES)
                 .add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
+
+        getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOG_CONNECTION_OVERRIDE)
+                .addTag(TaiaoBlockTags.THIN_LOGS)
+                .addTag(BlockTags.LEAVES);
+        getOrCreateTagBuilder(TaiaoBlockTags.REEDS_PLANTABLE_ON)
+                .addOptionalTag(BlockTags.DIRT)
+                .addOptionalTag(BlockTags.SAND);
+        getOrCreateTagBuilder(TaiaoBlockTags.HYDRATES_REEDS)
+                .add(Blocks.FROSTED_ICE);
 
         // Vanilla tags
         getOrCreateTagBuilder(BlockTags.SAPLINGS)

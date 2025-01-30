@@ -149,6 +149,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
         generator.registerLog(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG)
                 .log(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG)
                 .wood(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
+
+        generator.registerDoubleBlock(TaiaoBlocks.RAUPOO, TintType.NOT_TINTED);
     }
 
     @Override

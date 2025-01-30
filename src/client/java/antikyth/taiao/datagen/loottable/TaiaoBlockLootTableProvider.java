@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.family.BlockFamily;
+import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -108,6 +109,8 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(TaiaoBlocks.WHEKII_PONGA_WOOD);
         addDrop(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
         addDrop(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
+
+        addDrop(TaiaoBlocks.RAUPOO, BlockLootTableGenerator::dropsWithShears);
     }
 
     public void addDropsForFamily(@NotNull BlockFamily family) {

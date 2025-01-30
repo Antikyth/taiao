@@ -353,6 +353,18 @@ public class TaiaoBlocks {
             Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
     ).strippable(STRIPPED_WHEKII_PONGA_WOOD).register(true);
 
+    public static final Block RAUPOO = new Builder(
+            Taiao.id("raupoo"),
+            new TallReedsBlock(
+                    FabricBlockSettings.copyOf(Blocks.TALL_SEAGRASS)
+                            .mapColor(
+                                    state -> state.get(TallReedsBlock.WATERLOGGED)
+                                            ? MapColor.WATER_BLUE
+                                            : MapColor.DARK_GREEN
+                            )
+            )
+    ).register(true);
+
     public static void initialize() {
         Taiao.LOGGER.debug("Registering blocks");
 

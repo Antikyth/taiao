@@ -65,6 +65,8 @@ public class TaiaoItemGroups {
             group.add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
             addWhekiiPongaBuildingBlocks(group::add);
 
+            group.add(TaiaoBlocks.RAUPOO);
+
             addSpawnEggs(group::add);
         });
 

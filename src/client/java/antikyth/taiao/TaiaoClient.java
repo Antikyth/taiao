@@ -76,6 +76,8 @@ public class TaiaoClient implements ClientModInitializer {
 
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.WHEKII_PONGA_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING, RenderLayer.getCutout());
+
+        BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.RAUPOO, RenderLayer.getCutout());
     }
 
     public static void registerSpawnEggColors(Item @NotNull ... items) {

@@ -33,6 +33,15 @@ public final class TaiaoBlockTags {
     public static final TagKey<Block> THIN_LOG_CONNECTION_OVERRIDE = createTagKey(
             Taiao.id("thin_log_connection_override")
     );
+    /**
+     * Blocks that {@link TallReedsBlock}s can be planted on.
+     */
+    public static final TagKey<Block> REEDS_PLANTABLE_ON = createTagKey(Taiao.id("reeds_plantable_on"));
+    /**
+     * Blocks that allow {@link TallReedsBlock}s to be planted on blocks adjacent, in addition to
+     * {@linkplain net.minecraft.registry.tag.FluidTags#WATER water}.
+     */
+    public static final TagKey<Block> HYDRATES_REEDS = createTagKey(Taiao.id("hydrates_reeds"));
 
     public static TagKey<Block> createTagKey(Identifier id) {
         return TagKey.of(RegistryKeys.BLOCK, id);
