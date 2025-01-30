@@ -369,6 +369,8 @@ public class TaiaoBlocks {
         Taiao.LOGGER.debug("Registering blocks");
 
         registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.ACACIA_LOG);
+        registerFlammableTagCopy(TaiaoBlockTags.KAHIKATEA_LOGS, Blocks.SPRUCE_LOG);
+        registerFlammableTagCopy(TaiaoBlockTags.RIMU_LOGS, Blocks.SPRUCE_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.CABBAGE_TREE_LOGS, Blocks.OAK_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.MAMAKU_LOGS, Blocks.SPRUCE_LOG);
         registerFlammableTagCopy(TaiaoBlockTags.WHEKII_PONGA_LOGS, Blocks.ACACIA_LOG);
