@@ -245,37 +245,7 @@ public class TaiaoConfiguredFeatures {
             Taiao.id("patch_raupoo"),
             lookup -> new ConfiguredFeature<>(
                     Feature.RANDOM_PATCH,
-                    new RandomPatchFeatureConfig(
-                            32,
-                            8,
-                            1,
-                            PlacedFeatures.createEntry(
-                                    Feature.SIMPLE_BLOCK,
-                                    new SimpleBlockFeatureConfig(BlockStateProvider.of(TaiaoBlocks.RAUPOO)),
-                                    BlockFilterPlacementModifier.of(
-                                            BlockPredicate.allOf(
-                                                    BlockPredicate.anyOf(
-                                                            // On land
-                                                            BlockPredicate.IS_AIR,
-                                                            // Within 3 blocks of shore
-                                                            BlockPredicate.allOf(
-                                                                    BlockPredicate.matchingBlocks(Blocks.WATER),
-                                                                    TaiaoBlockPredicates.withinHorizontalRange(
-                                                                            BlockPredicate.solid(),
-                                                                            3
-                                                                    )
-                                                            )
-                                                    ),
-                                                    BlockPredicate.wouldSurvive(
-                                                            TaiaoBlocks.RAUPOO.getDefaultState(),
-                                                            BlockPos.ORIGIN
-                                                    ),
-                                                    // Upper half is free of water
-                                                    BlockPredicate.matchingBlocks(Direction.UP.getVector(), Blocks.AIR)
-                                            )
-                                    )
-                            )
-                    )
+                    createReedsRandomPatchFeatureConfig(64, TaiaoBlocks.RAUPOO, 3)
             )
     );
 
@@ -298,6 +268,49 @@ public class TaiaoConfiguredFeatures {
         return new WeightedBlockStateProvider(DataPool.<BlockState>builder()
                 .add(fruitLeaves.getDefaultState().with(FruitLeavesBlock.FRUIT, false), fruitlessWeight)
                 .add(fruitLeaves.getDefaultState().with(FruitLeavesBlock.FRUIT, true), fruitedWeight));
+    }
+
+    @Contract("_, _, _ -> new")
+    public static @NotNull RandomPatchFeatureConfig createReedsRandomPatchFeatureConfig(
+            int tries,
+            @NotNull Block block,
+            int shoreRange
+    ) {
+        return createReedsRandomPatchFeatureConfig(tries, block.getDefaultState(), shoreRange);
+    }
+
+    @Contract("_, _, _ -> new")
+    public static @NotNull RandomPatchFeatureConfig createReedsRandomPatchFeatureConfig(
+            int tries,
+            BlockState state,
+            int shoreRange
+    ) {
+        return ConfiguredFeatures.createRandomPatchFeatureConfig(
+                tries,
+                PlacedFeatures.createEntry(
+                        Feature.SIMPLE_BLOCK,
+                        new SimpleBlockFeatureConfig(BlockStateProvider.of(state)),
+                        BlockFilterPlacementModifier.of(
+                                BlockPredicate.allOf(
+                                        BlockPredicate.anyOf(
+                                                // On land
+                                                BlockPredicate.IS_AIR,
+                                                // Within 3 blocks of shore
+                                                BlockPredicate.allOf(
+                                                        BlockPredicate.matchingBlocks(Blocks.WATER),
+                                                        TaiaoBlockPredicates.withinHorizontalRange(
+                                                                BlockPredicate.solid(),
+                                                                shoreRange
+                                                        )
+                                                )
+                                        ),
+                                        BlockPredicate.wouldSurvive(state, BlockPos.ORIGIN),
+                                        // Upper half is free of water
+                                        BlockPredicate.matchingBlocks(Direction.UP.getVector(), Blocks.AIR)
+                                )
+                        )
+                )
+        );
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> register(
