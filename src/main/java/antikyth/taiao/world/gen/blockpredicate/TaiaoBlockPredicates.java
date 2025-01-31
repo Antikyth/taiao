@@ -6,9 +6,11 @@ package antikyth.taiao.world.gen.blockpredicate;
 
 import antikyth.taiao.Taiao;
 import com.mojang.serialization.Codec;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.blockpredicate.BlockPredicateType;
@@ -21,14 +23,90 @@ public class TaiaoBlockPredicates {
             WithinHorizontalRangeBlockPredicate.CODEC
     );
 
-    @Contract(value = "_, _ -> new", pure = true)
-    public static @NotNull BlockPredicate withinHorizontalRange(BlockPredicate predicate, int range) {
-        return withinHorizontalRange(predicate, range, Vec3i.ZERO);
+
+    /**
+     * Whether any blocks match the given {@code predicate} within horizontal range.
+     *
+     * @param predicate             the predicate to check blocks within range against
+     * @param shape                 the shape of the area to check within
+     * @param ignoreCenter          whether to ignore the center of the area to check around
+     * @param maxDistanceFromCenter the maximum horizontal distance to check for matches
+     */
+    public static @NotNull BlockPredicate withinHorizontalRange(
+            BlockPredicate predicate,
+            WithinHorizontalRangeBlockPredicate.Shape shape,
+            boolean ignoreCenter,
+            int maxDistanceFromCenter
+    ) {
+        return withinHorizontalRange(predicate, Vec3i.ZERO, shape, ignoreCenter, false, maxDistanceFromCenter);
     }
 
-    @Contract(value = "_, _, _ -> new", pure = true)
-    public static @NotNull BlockPredicate withinHorizontalRange(BlockPredicate predicate, int range, Vec3i offset) {
-        return new WithinHorizontalRangeBlockPredicate(predicate, range, offset);
+    /**
+     * Whether any blocks match the given {@code predicate} within horizontal range.
+     *
+     * @param predicate             the predicate to check blocks within range against
+     * @param offset                the offset to center the area to check within around
+     * @param shape                 the shape of the area to check within
+     * @param ignoreCenter          whether to ignore the center of the area to check within
+     * @param ignoreOrigin          whether to ignore the origin position
+     * @param maxDistanceFromCenter the maximum horizontal distance to check for matches
+     */
+    public static @NotNull BlockPredicate withinHorizontalRange(
+            BlockPredicate predicate,
+            Vec3i offset,
+            WithinHorizontalRangeBlockPredicate.Shape shape,
+            boolean ignoreCenter,
+            boolean ignoreOrigin,
+            int maxDistanceFromCenter
+    ) {
+        return new WithinHorizontalRangeBlockPredicate(
+                predicate,
+                offset,
+                shape,
+                ignoreCenter,
+                ignoreOrigin,
+                maxDistanceFromCenter
+        );
+    }
+
+    @Contract(" -> new")
+    public static @NotNull BlockPredicate air() {
+        return air(Vec3i.ZERO);
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull BlockPredicate air(@NotNull Direction direction) {
+        return air(direction, 1);
+    }
+
+    @Contract("_, _ -> new")
+    public static @NotNull BlockPredicate air(@NotNull Direction direction, int distance) {
+        return air(direction.getVector().multiply(distance));
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull BlockPredicate air(Vec3i offset) {
+        return BlockPredicate.matchingBlocks(offset, Blocks.AIR);
+    }
+
+    @Contract(" -> new")
+    public static @NotNull BlockPredicate water() {
+        return water(Vec3i.ZERO);
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull BlockPredicate water(@NotNull Direction direction) {
+        return water(direction, 1);
+    }
+
+    @Contract("_, _ -> new")
+    public static @NotNull BlockPredicate water(@NotNull Direction direction, int distance) {
+        return water(direction.getVector().multiply(distance));
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull BlockPredicate water(Vec3i offset) {
+        return BlockPredicate.matchingBlocks(offset, Blocks.WATER);
     }
 
     public static void initialize() {

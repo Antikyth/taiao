@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
+import antikyth.taiao.world.gen.blockpredicate.WithinHorizontalRangeBlockPredicate;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
@@ -292,21 +293,23 @@ public class TaiaoConfiguredFeatures {
                         new SimpleBlockFeatureConfig(BlockStateProvider.of(state)),
                         BlockFilterPlacementModifier.of(
                                 BlockPredicate.allOf(
-                                        BlockPredicate.anyOf(
+                                        BlockPredicate.wouldSurvive(state, BlockPos.ORIGIN),
+                                        // Upper half is free of water
+                                        TaiaoBlockPredicates.air(Direction.UP),
+                                        BlockPredicate.eitherOf(
                                                 // On land
-                                                BlockPredicate.IS_AIR,
-                                                // Within 3 blocks of shore
-                                                BlockPredicate.allOf(
-                                                        BlockPredicate.matchingBlocks(Blocks.WATER),
+                                                TaiaoBlockPredicates.air(),
+                                                // or near the shore
+                                                BlockPredicate.bothOf(
+                                                        TaiaoBlockPredicates.water(),
                                                         TaiaoBlockPredicates.withinHorizontalRange(
                                                                 BlockPredicate.solid(),
+                                                                WithinHorizontalRangeBlockPredicate.Shape.CIRCLE,
+                                                                true,
                                                                 shoreRange
                                                         )
                                                 )
-                                        ),
-                                        BlockPredicate.wouldSurvive(state, BlockPos.ORIGIN),
-                                        // Upper half is free of water
-                                        BlockPredicate.matchingBlocks(Direction.UP.getVector(), Blocks.AIR)
+                                        )
                                 )
                         )
                 )
