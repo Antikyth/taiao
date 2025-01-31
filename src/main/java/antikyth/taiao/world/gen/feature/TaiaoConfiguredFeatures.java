@@ -246,7 +246,7 @@ public class TaiaoConfiguredFeatures {
             Taiao.id("patch_raupoo"),
             lookup -> new ConfiguredFeature<>(
                     Feature.RANDOM_PATCH,
-                    createReedsRandomPatchFeatureConfig(64, TaiaoBlocks.RAUPOO, 3)
+                    createReedsRandomPatchFeatureConfig(64, TaiaoBlocks.RAUPOO, 4)
             )
     );
 

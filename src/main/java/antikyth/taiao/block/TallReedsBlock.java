@@ -35,17 +35,19 @@ public class TallReedsBlock extends TallPlantBlock implements Waterloggable {
 
     @Override
     protected boolean canPlantOnTop(@NotNull BlockState floor, BlockView world, BlockPos pos) {
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
+
         if (floor.isIn(TaiaoBlockTags.REEDS_PLANTABLE_ON)) {
-            if (world.getFluidState(pos.up()).isIn(FluidTags.WATER)) {
+            if (world.getFluidState(mutable.set(pos, Direction.UP)).isIn(FluidTags.WATER)) {
                 // If the block above is water, then the reeds will be waterlogged, and thereby hydrated.
                 return true;
             } else {
                 // Check if any adjacent blocks can hydrate the reeds.
                 for (Direction direction : Direction.Type.HORIZONTAL) {
-                    BlockPos adjacentPos = pos.offset(direction);
+                    mutable.set(pos, direction);
 
-                    FluidState adjacentFluid = world.getFluidState(adjacentPos);
-                    BlockState adjacentState = world.getBlockState(adjacentPos);
+                    FluidState adjacentFluid = world.getFluidState(mutable);
+                    BlockState adjacentState = world.getBlockState(mutable);
 
                     if (adjacentFluid.isIn(FluidTags.WATER) || adjacentState.isIn(TaiaoBlockTags.HYDRATES_REEDS)) {
                         return true;
