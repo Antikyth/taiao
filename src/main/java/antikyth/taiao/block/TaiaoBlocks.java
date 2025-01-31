@@ -353,6 +353,9 @@ public class TaiaoBlocks {
             Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
     ).strippable(STRIPPED_WHEKII_PONGA_WOOD).register(true);
 
+    /**
+     * Raupō, also known as cattails or bulrushes.
+     */
     public static final Block RAUPOO = new Builder(
             Taiao.id("raupoo"),
             new TallReedsBlock(
