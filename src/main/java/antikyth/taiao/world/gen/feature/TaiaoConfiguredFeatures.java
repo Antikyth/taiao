@@ -7,6 +7,7 @@ package antikyth.taiao.world.gen.feature;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
+import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
@@ -20,14 +21,18 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.DarkOakFoliagePlacer;
 import net.minecraft.world.gen.foliage.MegaPineFoliagePlacer;
 import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
+import net.minecraft.world.gen.placementmodifier.BlockFilterPlacementModifier;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.DarkOakTrunkPlacer;
@@ -233,6 +238,43 @@ public class TaiaoConfiguredFeatures {
                                             .add(Blocks.FERN.getDefaultState(), 4)
                             ),
                             32
+                    )
+            )
+    );
+    public static final RegistryKey<ConfiguredFeature<?, ?>> RAUPOO_PATCH = register(
+            Taiao.id("patch_raupoo"),
+            lookup -> new ConfiguredFeature<>(
+                    Feature.RANDOM_PATCH,
+                    new RandomPatchFeatureConfig(
+                            32,
+                            8,
+                            1,
+                            PlacedFeatures.createEntry(
+                                    Feature.SIMPLE_BLOCK,
+                                    new SimpleBlockFeatureConfig(BlockStateProvider.of(TaiaoBlocks.RAUPOO)),
+                                    BlockFilterPlacementModifier.of(
+                                            BlockPredicate.allOf(
+                                                    BlockPredicate.anyOf(
+                                                            // On land
+                                                            BlockPredicate.IS_AIR,
+                                                            // Within 3 blocks of shore
+                                                            BlockPredicate.allOf(
+                                                                    BlockPredicate.matchingBlocks(Blocks.WATER),
+                                                                    TaiaoBlockPredicates.withinHorizontalRange(
+                                                                            BlockPredicate.solid(),
+                                                                            3
+                                                                    )
+                                                            )
+                                                    ),
+                                                    BlockPredicate.wouldSurvive(
+                                                            TaiaoBlocks.RAUPOO.getDefaultState(),
+                                                            BlockPos.ORIGIN
+                                                    ),
+                                                    // Upper half is free of water
+                                                    BlockPredicate.matchingBlocks(Direction.UP.getVector(), Blocks.AIR)
+                                            )
+                                    )
+                            )
                     )
             )
     );

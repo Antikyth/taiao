@@ -18,10 +18,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
-import net.minecraft.world.gen.placementmodifier.BiomePlacementModifier;
-import net.minecraft.world.gen.placementmodifier.PlacementModifier;
-import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
-import net.minecraft.world.gen.placementmodifier.SurfaceWaterDepthFilterPlacementModifier;
+import net.minecraft.world.gen.placementmodifier.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -86,6 +83,15 @@ public class TaiaoPlacedFeatures {
             TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH.getValue(),
             TaiaoConfiguredFeatures.NATIVE_FOREST_GRASS_PATCH,
             VegetationPlacedFeatures.modifiers(7)
+    );
+    public static final RegistryKey<PlacedFeature> RAUPOO_PATCH = register(
+            TaiaoConfiguredFeatures.RAUPOO_PATCH.getValue(),
+            TaiaoConfiguredFeatures.RAUPOO_PATCH,
+            // Modifiers
+            RarityFilterPlacementModifier.of(3),
+            SquarePlacementModifier.of(),
+            PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+            BiomePlacementModifier.of()
     );
 
     public static void bootstrap(@NotNull Registerable<PlacedFeature> registerable) {

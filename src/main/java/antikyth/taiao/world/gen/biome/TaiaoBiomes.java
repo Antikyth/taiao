@@ -110,6 +110,7 @@ public class TaiaoBiomes {
         // Floor vegetation
         addVegetation(generationSettings, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
         addVegetation(generationSettings, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
+        addVegetation(generationSettings, TaiaoPlacedFeatures.RAUPOO_PATCH);
         DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
 
         // Trees
