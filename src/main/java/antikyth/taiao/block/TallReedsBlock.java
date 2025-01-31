@@ -4,18 +4,18 @@
 
 package antikyth.taiao.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.Waterloggable;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.NotNull;
@@ -25,20 +25,12 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("deprecation")
 public class TallReedsBlock extends TallPlantBlock implements Waterloggable {
-    public static final EnumProperty<DoubleBlockHalf> HALF = TallPlantBlock.HALF;
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-
-    public static final VoxelShape SHAPE = Block.createCuboidShape(2d, 0d, 2d, 14d, 16d, 14d);
 
     public TallReedsBlock(Settings settings) {
         super(settings);
 
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
-    }
-
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPE;
     }
 
     @Override
