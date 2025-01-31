@@ -22,6 +22,7 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.OceanPlacedFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import org.jetbrains.annotations.Contract;
@@ -110,8 +111,10 @@ public class TaiaoBiomes {
         // Floor vegetation
         addVegetation(generationSettings, VegetationPlacedFeatures.PATCH_GRASS_NORMAL);
         addVegetation(generationSettings, VegetationPlacedFeatures.PATCH_DEAD_BUSH);
-        addVegetation(generationSettings, TaiaoPlacedFeatures.RAUPOO_PATCH);
         DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
+        addVegetation(generationSettings, TaiaoPlacedFeatures.RAUPOO_PATCH);
+
+        addVegetation(generationSettings, OceanPlacedFeatures.SEAGRASS_SWAMP);
 
         // Trees
         addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_SWAMP_TREES);
