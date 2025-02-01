@@ -110,6 +110,7 @@ public class TaiaoBlockPredicates {
     }
 
     public static void initialize() {
+        Taiao.LOGGER.debug("Registering block predicates");
     }
 
     public static <P extends BlockPredicate> BlockPredicateType<P> register(Identifier id, Codec<P> codec) {
