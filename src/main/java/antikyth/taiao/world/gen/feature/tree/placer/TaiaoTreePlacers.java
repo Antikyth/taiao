@@ -5,6 +5,7 @@
 package antikyth.taiao.world.gen.feature.tree.placer;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernBushFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
@@ -39,6 +40,14 @@ public class TaiaoTreePlacers {
     public static final FoliagePlacerType<FernTreeFoliagePlacer> FERN_TREE_FOLIAGE_PLACER = registerFoliagePlacer(
             Taiao.id("fern_tree_foliage_placer"),
             FernTreeFoliagePlacer.CODEC
+    );
+    /**
+     * Places foliage in five arms: four horizontal and one facing up. Supports foliage with a
+     * {@link net.minecraft.state.property.Properties#FACING FACING} property.
+     */
+    public static final FoliagePlacerType<FernBushFoliagePlacer> FERN_BUSH_FOLIAGE_PLACER = registerFoliagePlacer(
+            Taiao.id("fern_bush_foliage_placer"),
+            FernBushFoliagePlacer.CODEC
     );
 
     public static <P extends TrunkPlacer> TrunkPlacerType<P> registerTrunkPlacer(Identifier id, Codec<P> codec) {

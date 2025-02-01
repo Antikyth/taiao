@@ -7,25 +7,18 @@ package antikyth.taiao.world.gen.feature.tree.placer.foliage;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FacingBlock;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.IntProvider;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.TestableWorld;
-import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
-public class FernTreeFoliagePlacer extends ThreeDimensionalFoliagePlacer {
+public class FernTreeFoliagePlacer extends FoliagePlacer {
     public static final Codec<FernTreeFoliagePlacer> CODEC = RecordCodecBuilder.create(
             instance -> fillFoliagePlacerFields(instance).apply(instance, FernTreeFoliagePlacer::new)
     );
@@ -56,67 +49,50 @@ public class FernTreeFoliagePlacer extends ThreeDimensionalFoliagePlacer {
     ) {
         radius += treeNode.getFoliageRadius() - 1;
         // We intersect the surface of a larger sphere to get the palm frond shape.
-        int largerRadius = radius + ceilDiv(radius, 3);
+        int largerRadius = radius + FoliageUtils.ceilDiv(radius, 3);
         BlockPos center = treeNode.getCenter().up(offset);
 
         boolean giantTrunk = treeNode.isGiantTrunk();
         int extra = giantTrunk ? 1 : 0;
 
-        BlockPos.Mutable mutable = new BlockPos.Mutable().set(center);
+        BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-        int boundingBoxHeight = radius - ceilDiv(radius, 4);
+        int boundingBoxHeight = radius - FoliageUtils.ceilDiv(radius, 4);
 
-        for (int dy = 0; dy <= boundingBoxHeight; dy++) {
-            // A plane intersecting in the X axis.
-            for (int dx = -radius; dx <= radius + extra; dx++) {
-                for (int dz = 0; dz < 1 + extra; dz++) {
-                    if (isPositionValid3d(dx, dy + (largerRadius - boundingBoxHeight), dz, largerRadius, giantTrunk)) {
-                        placeDirectionalLeaves(
+        for (int dh = -radius; dh <= radius + extra; dh++) {
+            for (int dv = 0; dv <= boundingBoxHeight; dv++) {
+                if (isCircleOutline(dh, dv + largerRadius - boundingBoxHeight, largerRadius, giantTrunk)) {
+                    // ddh used for giant trunks
+                    for (int ddh = 0; ddh <= extra; ddh++) {
+                        // X axis
+                        mutable.set(center, dh, dv - boundingBoxHeight, ddh);
+                        FoliageUtils.placeDirectionalLeaves(
                                 world,
                                 placer,
                                 random,
                                 config,
                                 mutable,
-                                center,
-                                dx,
-                                dy - boundingBoxHeight,
-                                dz
+                                dh,
+                                dv - boundingBoxHeight,
+                                ddh
                         );
-                    }
-                }
-            }
 
-            // A plane intersecting in the Z axis.
-            for (int dz = -radius; dz <= radius + extra; dz++) {
-                for (int dx = 0; dx < 1 + extra; dx++) {
-                    if (isPositionValid3d(dx, dy + (largerRadius - boundingBoxHeight), dz, largerRadius, giantTrunk)) {
-                        placeDirectionalLeaves(
+                        // Z axis
+                        mutable.set(center, ddh, dv - boundingBoxHeight, dh);
+                        FoliageUtils.placeDirectionalLeaves(
                                 world,
                                 placer,
                                 random,
                                 config,
                                 mutable,
-                                center,
-                                dx,
-                                dy - boundingBoxHeight,
-                                dz
+                                ddh,
+                                dv - boundingBoxHeight,
+                                dh
                         );
                     }
                 }
             }
         }
-    }
-
-    /**
-     * Copied from Java 18+, since Java 17 is supported here.
-     */
-    protected static int ceilDiv(int x, int y) {
-        final int q = x / y;
-        // if the signs are the same and modulo not zero, round up
-        if ((x ^ y) >= 0 && (q * y != x)) {
-            return q + 1;
-        }
-        return q;
     }
 
     @Override
@@ -124,59 +100,15 @@ public class FernTreeFoliagePlacer extends ThreeDimensionalFoliagePlacer {
         return 0;
     }
 
-    private boolean placeDirectionalLeaves(
-            TestableWorld world,
-            FoliagePlacer.BlockPlacer placer,
-            Random random,
-            TreeFeatureConfig config,
-            @NotNull BlockPos.Mutable mutable,
-            @NotNull BlockPos center,
-            int dx,
-            int dy,
-            int dz
-    ) {
-        mutable.set(center, dx, dy, dz);
-
-        return placeFoliageBlock(
-                world, placer, random, config, mutable, state -> {
-                    Direction.Axis axis;
-                    Direction.AxisDirection axisDirection;
-
-                    if (dx == 0 && dz == 0) {
-                        // Y-axis - if no horizontal offset
-                        axis = Direction.Axis.Y;
-
-                        if (dy >= 0) axisDirection = Direction.AxisDirection.POSITIVE;
-                        else axisDirection = Direction.AxisDirection.NEGATIVE;
-                    } else if (Math.abs(dx) > Math.abs(dz)) {
-                        // X-axis - if x offset is greater than z offset
-                        axis = Direction.Axis.X;
-
-                        if (dx < 0) axisDirection = Direction.AxisDirection.NEGATIVE;
-                        else axisDirection = Direction.AxisDirection.POSITIVE;
-                    } else {
-                        // Z-axis - if z offset is greater than or equal to z offset
-                        axis = Direction.Axis.Z;
-
-                        if (dz < 0) axisDirection = Direction.AxisDirection.NEGATIVE;
-                        else axisDirection = Direction.AxisDirection.POSITIVE;
-                    }
-
-                    return state.withIfExists(FacingBlock.FACING, Direction.from(axis, axisDirection));
-                }
-        );
-    }
-
     @Override
-    protected boolean isValidForLeaves3d(int dx, int dy, int dz, int radius) {
-        if (dx != 0 && dz != 0) return false;
-
-        int dHorizontal = dx == 0 ? dz : dx;
-
-        return isCircleOutline(dHorizontal, dy, radius);
+    protected boolean isInvalidForLeaves(Random random, int dx, int y, int dz, int radius, boolean giantTrunk) {
+        return false;
     }
 
-    protected boolean isCircleOutline(int dx, int dy, int radius) {
+    protected boolean isCircleOutline(int dh, int dv, int radius, boolean giantTrunk) {
+        dh = FoliageUtils.prepareCoord(dh, giantTrunk);
+        dv = FoliageUtils.prepareCoord(dv, giantTrunk);
+
         int innerRadius = radius - 1;
 
         BiFunction<Integer, Integer, Boolean> matches = (x, y) -> {
@@ -185,40 +117,10 @@ public class FernTreeFoliagePlacer extends ThreeDimensionalFoliagePlacer {
             return val >= (innerRadius * innerRadius) && val <= (radius * radius);
         };
 
-        if (matches.apply(dx, dy)) return true;
+        if (matches.apply(dh, dv)) return true;
 
         // We want to avoid diagonal-only connections, so if the block above and in front are valid, then we want to
         // connect them.
-        return matches.apply(dx + 1, dy) && matches.apply(dx, dy + 1) && !matches.apply(dx + 1, dy + 1);
-    }
-
-    /**
-     * Places a foliage block, applying the given {@code blockStateFunction} to the foliage block's state before
-     * placing.
-     */
-    protected static boolean placeFoliageBlock(
-            TestableWorld world,
-            FoliagePlacer.BlockPlacer placer,
-            Random random,
-            TreeFeatureConfig config,
-            BlockPos pos,
-            Function<BlockState, BlockState> blockStateFunction
-    ) {
-        if (!TreeFeature.canReplace(world, pos)) return false;
-
-        BlockState state = config.foliageProvider.get(random, pos);
-        // Waterlogged
-        if (state.contains(Properties.WATERLOGGED)) {
-            state = state.with(
-                    Properties.WATERLOGGED,
-                    world.testFluidState(pos, fluidState -> fluidState.isEqualAndStill(Fluids.WATER))
-            );
-        }
-        // Apply custom state function
-        state = blockStateFunction.apply(state);
-
-        placer.placeBlock(pos, state);
-
-        return true;
+        return matches.apply(dh + 1, dv) && matches.apply(dh, dv + 1) && !matches.apply(dh + 1, dv + 1);
     }
 }
