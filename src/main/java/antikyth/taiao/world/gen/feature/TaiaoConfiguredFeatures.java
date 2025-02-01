@@ -185,7 +185,7 @@ public class TaiaoConfiguredFeatures {
 				new StraightTrunkPlacer(1, 0, 0),
 				BlockStateProvider.of(TaiaoBlocks.WHEKII_PONGA_LEAVES),
 				new FernBushFoliagePlacer(
-					UniformIntProvider.create(1, 2),
+					ConstantIntProvider.create(1),
 					ConstantIntProvider.create(0),
 					ConstantIntProvider.create(1)
 				),
