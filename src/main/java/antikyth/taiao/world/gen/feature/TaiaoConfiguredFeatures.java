@@ -203,11 +203,11 @@ public class TaiaoConfiguredFeatures {
 				List.of(
 					new RandomFeatureEntry(
 						lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_CHECKED),
-						0.01f
+						0.005f
 					),
 					new RandomFeatureEntry(
 						lookup.getOrThrow(TaiaoPlacedFeatures.RIMU_TREE_CHECKED),
-						0.015f
+						0.0075f
 					),
 					new RandomFeatureEntry(
 						lookup.getOrThrow(TaiaoPlacedFeatures.CABBAGE_TREE_CHECKED),
