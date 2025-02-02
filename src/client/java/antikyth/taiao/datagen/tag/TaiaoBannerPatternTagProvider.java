@@ -4,7 +4,7 @@
 
 package antikyth.taiao.datagen.tag;
 
-import antikyth.taiao.block.TaiaoBannerPatterns;
+import antikyth.taiao.item.TaiaoBannerPatterns;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.entity.BannerPattern;
@@ -28,6 +28,8 @@ public class TaiaoBannerPatternTagProvider extends FabricTagProvider<BannerPatte
 			.add(TaiaoBannerPatterns.POUTAMA_LEFT_PRIMARY)
 			.add(TaiaoBannerPatterns.POUTAMA_LEFT_SECONDARY)
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_PRIMARY)
-			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_SECONDARY);
+			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_SECONDARY)
+			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY)
+			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY);
 	}
 }

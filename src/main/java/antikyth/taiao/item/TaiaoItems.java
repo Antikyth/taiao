@@ -5,7 +5,6 @@
 package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.block.TaiaoBannerPatterns;
 import antikyth.taiao.entity.TaiaoEntities;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -110,6 +109,14 @@ public class TaiaoItems {
 		new BannerPattern.Patterns()
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_SECONDARY, DyeColor.YELLOW),
+		Formatting.GOLD
+	);
+	public static final ItemStack PAATIKI_TUKUTUKU = getBannerItemStack(
+		Taiao.id("paatiki_tukutuku"),
+		Items.BLACK_BANNER,
+		new BannerPattern.Patterns()
+			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
+			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.YELLOW),
 		Formatting.GOLD
 	);
 

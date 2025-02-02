@@ -4,9 +4,9 @@
 
 package antikyth.taiao;
 
-import antikyth.taiao.block.TaiaoBannerPatterns;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.item.TaiaoBannerPatterns;
 import antikyth.taiao.item.TaiaoBoats;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;

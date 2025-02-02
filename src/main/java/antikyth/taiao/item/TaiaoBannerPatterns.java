@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.block;
+package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
 import net.minecraft.block.entity.BannerPattern;
@@ -30,6 +30,15 @@ public class TaiaoBannerPatterns {
 	public static final RegistryKey<BannerPattern> POUTAMA_RIGHT_SECONDARY = register(
 		Taiao.id("poutama_right_secondary"),
 		Taiao.id("rpos")
+	);
+
+	public static final RegistryKey<BannerPattern> PAATIKI_PRIMARY = register(
+		Taiao.id("paatiki_primary"),
+		Taiao.id("pap")
+	);
+	public static final RegistryKey<BannerPattern> PAATIKI_SECONDARY = register(
+		Taiao.id("paatiki_secondary"),
+		Taiao.id("pas")
 	);
 
 	public static void initialize() {

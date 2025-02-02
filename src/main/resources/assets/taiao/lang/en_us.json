@@ -155,6 +155,7 @@
 
   "block.taiao.poutama_left_tukutuku": "Left Poutama Tukutuku",
   "block.taiao.poutama_right_tukutuku": "Right Poutama Tukutuku",
+  "block.taiao.paatiki_tukutuku": "Pātiki Tukutuku",
 
   "block.minecraft.banner.taiao.poutama_left_primary.black": "Black Poutama",
   "block.minecraft.banner.taiao.poutama_left_primary.blue": "Blue Poutama",
@@ -222,5 +223,39 @@
   "block.minecraft.banner.taiao.poutama_right_secondary.purple": "Purple Poutama Shifted Inverted",
   "block.minecraft.banner.taiao.poutama_right_secondary.red": "Red Poutama Shifted Inverted",
   "block.minecraft.banner.taiao.poutama_right_secondary.white": "White Poutama Shifted Inverted",
-  "block.minecraft.banner.taiao.poutama_right_secondary.yellow": "Yellow Poutama Shifted Inverted"
+  "block.minecraft.banner.taiao.poutama_right_secondary.yellow": "Yellow Poutama Shifted Inverted",
+
+  "block.minecraft.banner.taiao.paatiki_primary.black": "Black Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.blue": "Blue Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.brown": "Brown Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.cyan": "Cyan Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.gray": "Gray Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.green": "Green Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.light_blue": "Light Blue Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.light_gray": "Light Gray Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.lime": "Lime Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.magenta": "Magenta Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.orange": "Orange Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.pink": "Pink Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.purple": "Purple Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.red": "Red Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.white": "White Pātiki Outer",
+  "block.minecraft.banner.taiao.paatiki_primary.yellow": "Yellow Pātiki Outer",
+
+  "block.minecraft.banner.taiao.paatiki_secondary.black": "Black Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.blue": "Blue Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.brown": "Brown Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.cyan": "Cyan Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.gray": "Gray Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.green": "Green Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.light_blue": "Light Blue Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.light_gray": "Light Gray Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.lime": "Lime Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.magenta": "Magenta Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.orange": "Orange Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.pink": "Pink Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.purple": "Purple Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.red": "Red Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.white": "White Pātiki Inner",
+  "block.minecraft.banner.taiao.paatiki_secondary.yellow": "Yellow Pātiki Inner"
 }
