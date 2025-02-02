@@ -41,8 +41,10 @@ public class TaiaoBannerPatterns {
 	}
 
 	public static RegistryKey<BannerPattern> register(Identifier id, BannerPattern pattern) {
-		Registry.register(Registries.BANNER_PATTERN, id, pattern);
+		RegistryKey<BannerPattern> key = RegistryKey.of(RegistryKeys.BANNER_PATTERN, id);
 
-		return RegistryKey.of(RegistryKeys.BANNER_PATTERN, id);
+		Registry.register(Registries.BANNER_PATTERN, key, pattern);
+
+		return key;
 	}
 }

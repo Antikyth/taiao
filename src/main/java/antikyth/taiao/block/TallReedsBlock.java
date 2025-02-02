@@ -25,65 +25,65 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("deprecation")
 public class TallReedsBlock extends TallPlantBlock implements Waterloggable {
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
-    public TallReedsBlock(Settings settings) {
-        super(settings);
+	public TallReedsBlock(Settings settings) {
+		super(settings);
 
-        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
-    }
+		this.setDefaultState(this.getDefaultState().with(WATERLOGGED, false));
+	}
 
-    @Override
-    protected boolean canPlantOnTop(@NotNull BlockState floor, BlockView world, BlockPos pos) {
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+	@Override
+	protected boolean canPlantOnTop(@NotNull BlockState floor, BlockView world, BlockPos pos) {
+		if (floor.isIn(TaiaoBlockTags.REEDS_PLANTABLE_ON)) {
+			BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-        if (floor.isIn(TaiaoBlockTags.REEDS_PLANTABLE_ON)) {
-            if (world.getFluidState(mutable.set(pos, Direction.UP)).isIn(FluidTags.WATER)) {
-                // If the block above is water, then the reeds will be waterlogged, and thereby hydrated.
-                return true;
-            } else {
-                // Check if any adjacent blocks can hydrate the reeds.
-                for (Direction direction : Direction.Type.HORIZONTAL) {
-                    mutable.set(pos, direction);
+			if (world.getFluidState(mutable.set(pos, Direction.UP)).isIn(FluidTags.WATER)) {
+				// If the block above is water, then the reeds will be waterlogged, and thereby hydrated.
+				return true;
+			} else {
+				// Check if any adjacent blocks can hydrate the reeds.
+				for (Direction direction : Direction.Type.HORIZONTAL) {
+					mutable.set(pos, direction);
 
-                    FluidState adjacentFluid = world.getFluidState(mutable);
-                    BlockState adjacentState = world.getBlockState(mutable);
+					FluidState adjacentFluid = world.getFluidState(mutable);
+					BlockState adjacentState = world.getBlockState(mutable);
 
-                    if (adjacentFluid.isIn(FluidTags.WATER) || adjacentState.isIn(TaiaoBlockTags.HYDRATES_REEDS)) {
-                        return true;
-                    }
-                }
-            }
-        }
+					if (adjacentFluid.isIn(FluidTags.WATER) || adjacentState.isIn(TaiaoBlockTags.HYDRATES_REEDS)) {
+						return true;
+					}
+				}
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    @Override
-    public BlockState getStateForNeighborUpdate(
-            @NotNull BlockState state,
-            Direction direction,
-            BlockState neighborState,
-            WorldAccess world,
-            BlockPos pos,
-            BlockPos neighborPos
-    ) {
-        if (state.get(WATERLOGGED)) {
-            world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-        }
+	@Override
+	public BlockState getStateForNeighborUpdate(
+		@NotNull BlockState state,
+		Direction direction,
+		BlockState neighborState,
+		WorldAccess world,
+		BlockPos pos,
+		BlockPos neighborPos
+	) {
+		if (state.get(WATERLOGGED)) {
+			world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+		}
 
-        return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
-    }
+		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+	}
 
-    @Override
-    public FluidState getFluidState(@NotNull BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
-    }
+	@Override
+	public FluidState getFluidState(@NotNull BlockState state) {
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+	}
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+	@Override
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
 
-        builder.add(WATERLOGGED);
-    }
+		builder.add(WATERLOGGED);
+	}
 }

@@ -234,17 +234,13 @@ public class TaiaoItemGroups {
 
 	/**
 	 * Register a new item group with the given {@code id} and {@code icon}.
-	 * <p>
-	 * The group's translation key is {@code itemGroup.%namespace.%name}, e.g. {@code itemGroup.taiao.item_group}.
 	 */
 	public static RegistryKey<ItemGroup> registerItemGroup(Identifier id, Item icon) {
 		RegistryKey<ItemGroup> key = RegistryKey.of(RegistryKeys.ITEM_GROUP, id);
 
-		String translationKey = String.format("itemGroup.%s.%s", id.getNamespace(), id.getPath());
-
 		ItemGroup group = FabricItemGroup.builder()
 			.icon(() -> new ItemStack(icon))
-			.displayName(Text.translatable(translationKey))
+			.displayName(Text.translatable(id.toTranslationKey("itemGroup")))
 			.build();
 
 		Registry.register(Registries.ITEM_GROUP, key, group);
