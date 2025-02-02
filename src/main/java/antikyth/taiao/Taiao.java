@@ -4,6 +4,7 @@
 
 package antikyth.taiao;
 
+import antikyth.taiao.block.TaiaoBannerPatterns;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoBoats;
@@ -19,49 +20,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Taiao implements ModInitializer {
-    public static final String MOD_NAME = "Te Taiao o Aotearoa";
-    public static final String MOD_ID = "taiao";
+	public static final String MOD_NAME = "Te Taiao o Aotearoa";
+	public static final String MOD_ID = "taiao";
 
-    boolean initialized = false;
+	boolean initialized = false;
 
-    // This logger is used to write text to the console and the log file.
-    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+	// This logger is used to write text to the console and the log file.
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-    @Override
-    public void onInitialize() {
-        if (initialized) return;
-        else initialized = true;
+	@Override
+	public void onInitialize() {
+		if (initialized) return;
+		else initialized = true;
 
-        LOGGER.info("Initializing {}", MOD_NAME);
+		LOGGER.info("Initializing {}", MOD_NAME);
 
-        TaiaoSoundEvents.initialize();
+		TaiaoSoundEvents.initialize();
 
-        TaiaoBlocks.initialize();
-        TaiaoItems.initialize();
-        TaiaoBoats.initialize();
-        TaiaoItemGroups.initialize();
-        TaiaoEntities.initialize();
+		TaiaoBlocks.initialize();
+		TaiaoItems.initialize();
+		TaiaoItemGroups.initialize();
+		TaiaoBannerPatterns.initialize();
 
-        TaiaoTreePlacers.initialize();
-        TaiaoBlockPredicates.initialize();
-        TaiaoBiomes.initializeBiolith();
-    }
+		TaiaoEntities.initialize();
+		TaiaoBoats.initialize();
 
-    /**
-     * Creates an {@link Identifier} using the {@linkplain Taiao#MOD_ID Te Taiao o Aotearoa namespace}.
-     */
-    public static Identifier id(String name) {
-        return Identifier.of(MOD_ID, name);
-    }
+		TaiaoTreePlacers.initialize();
+		TaiaoBlockPredicates.initialize();
+		TaiaoBiomes.initializeBiolith();
+	}
 
-    /**
-     * Creates an {@link Identifier} using the common ({@code c}) namespace.
-     */
-    public static Identifier commonId(String name) {
-        return Identifier.of("c", name);
-    }
+	/**
+	 * Creates an {@link Identifier} using the {@linkplain Taiao#MOD_ID Te Taiao o Aotearoa namespace}.
+	 */
+	public static Identifier id(String name) {
+		return Identifier.of(MOD_ID, name);
+	}
 
-    public static float degreesToRadians(float degrees) {
-        return degrees * (float) (Math.PI / 180d);
-    }
+	/**
+	 * Creates an {@link Identifier} using the common ({@code c}) namespace.
+	 */
+	public static Identifier commonId(String name) {
+		return Identifier.of("c", name);
+	}
+
+	public static float degreesToRadians(float degrees) {
+		return degrees * (float) (Math.PI / 180d);
+	}
 }
