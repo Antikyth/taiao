@@ -64,8 +64,8 @@ public class TaiaoItemGroups {
 			addWhekiiPongaBuildingBlocks(group::add);
 
 			group.add(TaiaoBlocks.RAUPOO);
-
 			addFruit(group::add);
+
 			addBanners(group::add);
 			addSpawnEggs(group::add);
 		});

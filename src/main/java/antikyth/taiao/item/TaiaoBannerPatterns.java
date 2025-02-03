@@ -88,16 +88,14 @@ public class TaiaoBannerPatterns {
 		Items.BLACK_BANNER,
 		new BannerPattern.Patterns()
 			.add(POUTAMA_LEFT_PRIMARY, DyeColor.WHITE)
-			.add(POUTAMA_LEFT_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
+			.add(POUTAMA_LEFT_SECONDARY, DyeColor.YELLOW)
 	);
 	public static final ItemStack POUTAMA_RIGHT_TUKUTUKU = getBannerItemStack(
 		Taiao.id("poutama_right_tukutuku"),
 		Items.BLACK_BANNER,
 		new BannerPattern.Patterns()
 			.add(POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
-			.add(POUTAMA_RIGHT_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
+			.add(POUTAMA_RIGHT_SECONDARY, DyeColor.YELLOW)
 	);
 
 	public static final ItemStack PAATIKI_TUKUTUKU = getBannerItemStack(
@@ -105,8 +103,7 @@ public class TaiaoBannerPatterns {
 		Items.BLACK_BANNER,
 		new BannerPattern.Patterns()
 			.add(PAATIKI_PRIMARY, DyeColor.WHITE)
-			.add(PAATIKI_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
+			.add(PAATIKI_SECONDARY, DyeColor.YELLOW)
 	);
 
 	public static final ItemStack KAOKAO_TUKUTUKU = getBannerItemStack(
@@ -116,15 +113,20 @@ public class TaiaoBannerPatterns {
 			.add(BannerPatterns.STRIPE_TOP, DyeColor.RED)
 			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.YELLOW)
 			.add(KAOKAO_UP_PRIMARY, DyeColor.WHITE)
-			.add(KAOKAO_UP_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
+			.add(KAOKAO_UP_SECONDARY, DyeColor.YELLOW)
 	);
 
+	/**
+	 * Creates an {@link ItemStack} of the given {@code base} banner with the given {@code patterns}.
+	 *
+	 * @param id       the ID used for the translation key, like {@code block.modid.name}
+	 * @param base     the base banner block
+	 * @param patterns ordered patterns to add to the banner
+	 */
 	public static @NotNull ItemStack getBannerItemStack(
 		@NotNull Identifier id,
 		Item base,
-		BannerPattern.@NotNull Patterns patterns,
-		Formatting... formattings
+		BannerPattern.@NotNull Patterns patterns
 	) {
 		ItemStack stack = new ItemStack(base);
 		NbtCompound nbt = new NbtCompound();
@@ -132,7 +134,7 @@ public class TaiaoBannerPatterns {
 		nbt.put("Patterns", patterns.toNbt());
 		BlockItem.setBlockEntityNbt(stack, BlockEntityType.BANNER, nbt);
 		stack.addHideFlag(ItemStack.TooltipSection.ADDITIONAL);
-		stack.setCustomName(Text.translatable(id.toTranslationKey("block")).formatted(formattings));
+		stack.setCustomName(Text.translatable(id.toTranslationKey("block")).formatted(Formatting.GOLD));
 
 		return stack;
 	}
