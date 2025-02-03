@@ -31,9 +31,6 @@ public class TaiaoItemGroups {
 
 		// Add items to the item group.
 		ItemGroupEvents.modifyEntriesEvent(TE_TAIAO_O_AOTEAROA).register(group -> {
-			addBanners(group::add);
-			addFruit(group::add);
-
 			group.add(TaiaoBlocks.KAURI_SAPLING);
 			group.add(TaiaoBlocks.KAURI_LEAVES);
 			addKauriBuildingBlocks(group::add);
@@ -68,6 +65,8 @@ public class TaiaoItemGroups {
 
 			group.add(TaiaoBlocks.RAUPOO);
 
+			addFruit(group::add);
+			addBanners(group::add);
 			addSpawnEggs(group::add);
 		});
 
@@ -228,10 +227,10 @@ public class TaiaoItemGroups {
 	}
 
 	public static void addBanners(@NotNull Consumer<ItemStack> add) {
+		add.accept(TaiaoBannerPatterns.KAOKAO_TUKUTUKU);
+		add.accept(TaiaoBannerPatterns.PAATIKI_TUKUTUKU);
 		add.accept(TaiaoBannerPatterns.POUTAMA_LEFT_TUKUTUKU);
 		add.accept(TaiaoBannerPatterns.POUTAMA_RIGHT_TUKUTUKU);
-		add.accept(TaiaoBannerPatterns.PAATIKI_TUKUTUKU);
-		add.accept(TaiaoBannerPatterns.KAOKAO_TUKUTUKU);
 	}
 
 	/**
