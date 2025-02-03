@@ -22,7 +22,6 @@ public class TaiaoBannerPatterns {
 		Taiao.id("poutama_left_secondary"),
 		Taiao.id("lpos")
 	);
-
 	public static final RegistryKey<BannerPattern> POUTAMA_RIGHT_PRIMARY = register(
 		Taiao.id("poutama_right_primary"),
 		Taiao.id("rpop")
@@ -41,13 +40,21 @@ public class TaiaoBannerPatterns {
 		Taiao.id("pas")
 	);
 
-	public static final RegistryKey<BannerPattern> KAOKAO_PRIMARY = register(
-		Taiao.id("kaokao_primary"),
-		Taiao.id("kp")
+	public static final RegistryKey<BannerPattern> KAOKAO_UP_PRIMARY = register(
+		Taiao.id("kaokao_up_primary"),
+		Taiao.id("ukp")
 	);
-	public static final RegistryKey<BannerPattern> KAOKAO_SECONDARY = register(
-		Taiao.id("kaokao_secondary"),
-		Taiao.id("ks")
+	public static final RegistryKey<BannerPattern> KAOKAO_UP_SECONDARY = register(
+		Taiao.id("kaokao_up_secondary"),
+		Taiao.id("uks")
+	);
+	public static final RegistryKey<BannerPattern> KAOKAO_DOWN_PRIMARY = register(
+		Taiao.id("kaokao_down_primary"),
+		Taiao.id("dkp")
+	);
+	public static final RegistryKey<BannerPattern> KAOKAO_DOWN_SECONDARY = register(
+		Taiao.id("kaokao_down_secondary"),
+		Taiao.id("dks")
 	);
 
 	public static void initialize() {

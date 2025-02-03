@@ -31,7 +31,9 @@ public class TaiaoBannerPatternTagProvider extends FabricTagProvider<BannerPatte
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_SECONDARY)
 			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY)
 			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY)
-			.add(TaiaoBannerPatterns.KAOKAO_PRIMARY)
-			.add(TaiaoBannerPatterns.KAOKAO_SECONDARY);
+			.add(TaiaoBannerPatterns.KAOKAO_UP_PRIMARY)
+			.add(TaiaoBannerPatterns.KAOKAO_UP_SECONDARY)
+			.add(TaiaoBannerPatterns.KAOKAO_DOWN_PRIMARY)
+			.add(TaiaoBannerPatterns.KAOKAO_DOWN_SECONDARY);
 	}
 }

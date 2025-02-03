@@ -121,13 +121,13 @@ public class TaiaoItems {
 		Formatting.GOLD
 	);
 	public static final ItemStack KAOKAO_TUKUTUKU = getBannerItemStack(
-		Taiao.id("kaokao_tukutuku"),
+		Taiao.id("kaokao_up_tukutuku"),
 		Items.BLACK_BANNER,
 		new BannerPattern.Patterns()
 			.add(BannerPatterns.STRIPE_TOP, DyeColor.RED)
 			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.YELLOW)
-			.add(TaiaoBannerPatterns.KAOKAO_PRIMARY, DyeColor.WHITE)
-			.add(TaiaoBannerPatterns.KAOKAO_SECONDARY, DyeColor.YELLOW),
+			.add(TaiaoBannerPatterns.KAOKAO_UP_PRIMARY, DyeColor.WHITE)
+			.add(TaiaoBannerPatterns.KAOKAO_UP_SECONDARY, DyeColor.YELLOW),
 		Formatting.GOLD
 	);
 
