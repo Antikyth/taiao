@@ -6,10 +6,20 @@ package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
 import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.block.entity.BannerPatterns;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.text.Text;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,5 +81,59 @@ public class TaiaoBannerPatterns {
 		Registry.register(Registries.BANNER_PATTERN, key, pattern);
 
 		return key;
+	}
+
+	public static final ItemStack POUTAMA_LEFT_TUKUTUKU = getBannerItemStack(
+		Taiao.id("poutama_left_tukutuku"),
+		Items.BLACK_BANNER,
+		new BannerPattern.Patterns()
+			.add(POUTAMA_LEFT_PRIMARY, DyeColor.WHITE)
+			.add(POUTAMA_LEFT_SECONDARY, DyeColor.YELLOW),
+		Formatting.GOLD
+	);
+	public static final ItemStack POUTAMA_RIGHT_TUKUTUKU = getBannerItemStack(
+		Taiao.id("poutama_right_tukutuku"),
+		Items.BLACK_BANNER,
+		new BannerPattern.Patterns()
+			.add(POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
+			.add(POUTAMA_RIGHT_SECONDARY, DyeColor.YELLOW),
+		Formatting.GOLD
+	);
+
+	public static final ItemStack PAATIKI_TUKUTUKU = getBannerItemStack(
+		Taiao.id("paatiki_tukutuku"),
+		Items.BLACK_BANNER,
+		new BannerPattern.Patterns()
+			.add(PAATIKI_PRIMARY, DyeColor.WHITE)
+			.add(PAATIKI_SECONDARY, DyeColor.YELLOW),
+		Formatting.GOLD
+	);
+
+	public static final ItemStack KAOKAO_TUKUTUKU = getBannerItemStack(
+		Taiao.id("kaokao_up_tukutuku"),
+		Items.BLACK_BANNER,
+		new BannerPattern.Patterns()
+			.add(BannerPatterns.STRIPE_TOP, DyeColor.RED)
+			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.YELLOW)
+			.add(KAOKAO_UP_PRIMARY, DyeColor.WHITE)
+			.add(KAOKAO_UP_SECONDARY, DyeColor.YELLOW),
+		Formatting.GOLD
+	);
+
+	public static @NotNull ItemStack getBannerItemStack(
+		@NotNull Identifier id,
+		Item base,
+		BannerPattern.@NotNull Patterns patterns,
+		Formatting... formattings
+	) {
+		ItemStack stack = new ItemStack(base);
+		NbtCompound nbt = new NbtCompound();
+
+		nbt.put("Patterns", patterns.toNbt());
+		BlockItem.setBlockEntityNbt(stack, BlockEntityType.BANNER, nbt);
+		stack.addHideFlag(ItemStack.TooltipSection.ADDITIONAL);
+		stack.setCustomName(Text.translatable(id.toTranslationKey("block")).formatted(formattings));
+
+		return stack;
 	}
 }

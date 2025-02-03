@@ -228,10 +228,10 @@ public class TaiaoItemGroups {
 	}
 
 	public static void addBanners(@NotNull Consumer<ItemStack> add) {
-		add.accept(TaiaoItems.POUTAMA_LEFT_TUKUTUKU);
-		add.accept(TaiaoItems.POUTAMA_RIGHT_TUKUTUKU);
-		add.accept(TaiaoItems.PAATIKI_TUKUTUKU);
-		add.accept(TaiaoItems.KAOKAO_TUKUTUKU);
+		add.accept(TaiaoBannerPatterns.POUTAMA_LEFT_TUKUTUKU);
+		add.accept(TaiaoBannerPatterns.POUTAMA_RIGHT_TUKUTUKU);
+		add.accept(TaiaoBannerPatterns.PAATIKI_TUKUTUKU);
+		add.accept(TaiaoBannerPatterns.KAOKAO_TUKUTUKU);
 	}
 
 	/**

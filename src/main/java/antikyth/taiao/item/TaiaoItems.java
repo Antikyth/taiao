@@ -8,18 +8,12 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.block.entity.BannerPatterns;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.item.FoodComponent;
+import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.text.Text;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class TaiaoItems {
 	public static final Item CONIFER_FRUIT = register(
@@ -94,58 +88,6 @@ public class TaiaoItems {
 	 */
 	public static Item register(Identifier id, Item item) {
 		return Registry.register(Registries.ITEM, id, item);
-	}
-
-	public static final ItemStack POUTAMA_LEFT_TUKUTUKU = getBannerItemStack(
-		Taiao.id("poutama_left_tukutuku"),
-		Items.BLACK_BANNER,
-		new BannerPattern.Patterns()
-			.add(TaiaoBannerPatterns.POUTAMA_LEFT_PRIMARY, DyeColor.WHITE)
-			.add(TaiaoBannerPatterns.POUTAMA_LEFT_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
-	);
-	public static final ItemStack POUTAMA_RIGHT_TUKUTUKU = getBannerItemStack(
-		Taiao.id("poutama_right_tukutuku"),
-		Items.BLACK_BANNER,
-		new BannerPattern.Patterns()
-			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
-			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
-	);
-	public static final ItemStack PAATIKI_TUKUTUKU = getBannerItemStack(
-		Taiao.id("paatiki_tukutuku"),
-		Items.BLACK_BANNER,
-		new BannerPattern.Patterns()
-			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
-			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
-	);
-	public static final ItemStack KAOKAO_TUKUTUKU = getBannerItemStack(
-		Taiao.id("kaokao_up_tukutuku"),
-		Items.BLACK_BANNER,
-		new BannerPattern.Patterns()
-			.add(BannerPatterns.STRIPE_TOP, DyeColor.RED)
-			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.YELLOW)
-			.add(TaiaoBannerPatterns.KAOKAO_UP_PRIMARY, DyeColor.WHITE)
-			.add(TaiaoBannerPatterns.KAOKAO_UP_SECONDARY, DyeColor.YELLOW),
-		Formatting.GOLD
-	);
-
-	public static @NotNull ItemStack getBannerItemStack(
-		@NotNull Identifier id,
-		Item base,
-		BannerPattern.@NotNull Patterns patterns,
-		Formatting... formattings
-	) {
-		ItemStack stack = new ItemStack(base);
-		NbtCompound nbt = new NbtCompound();
-
-		nbt.put("Patterns", patterns.toNbt());
-		BlockItem.setBlockEntityNbt(stack, BlockEntityType.BANNER, nbt);
-		stack.addHideFlag(ItemStack.TooltipSection.ADDITIONAL);
-		stack.setCustomName(Text.translatable(id.toTranslationKey("block")).formatted(formattings));
-
-		return stack;
 	}
 
 	public static class TaiaoFoodComponents {
