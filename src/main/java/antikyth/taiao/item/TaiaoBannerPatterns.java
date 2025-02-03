@@ -41,6 +41,15 @@ public class TaiaoBannerPatterns {
 		Taiao.id("pas")
 	);
 
+	public static final RegistryKey<BannerPattern> KAOKAO_PRIMARY = register(
+		Taiao.id("kaokao_primary"),
+		Taiao.id("kp")
+	);
+	public static final RegistryKey<BannerPattern> KAOKAO_SECONDARY = register(
+		Taiao.id("kaokao_secondary"),
+		Taiao.id("ks")
+	);
+
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registering banner patterns");
 	}

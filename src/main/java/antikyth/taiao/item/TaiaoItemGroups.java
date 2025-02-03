@@ -231,6 +231,7 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoItems.POUTAMA_LEFT_TUKUTUKU);
 		add.accept(TaiaoItems.POUTAMA_RIGHT_TUKUTUKU);
 		add.accept(TaiaoItems.PAATIKI_TUKUTUKU);
+		add.accept(TaiaoItems.KAOKAO_TUKUTUKU);
 	}
 
 	/**

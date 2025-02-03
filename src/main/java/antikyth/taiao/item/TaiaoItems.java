@@ -9,6 +9,7 @@ import antikyth.taiao.entity.TaiaoEntities;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.block.entity.BannerPatterns;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
@@ -117,6 +118,16 @@ public class TaiaoItems {
 		new BannerPattern.Patterns()
 			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.YELLOW),
+		Formatting.GOLD
+	);
+	public static final ItemStack KAOKAO_TUKUTUKU = getBannerItemStack(
+		Taiao.id("kaokao_tukutuku"),
+		Items.BLACK_BANNER,
+		new BannerPattern.Patterns()
+			.add(BannerPatterns.STRIPE_TOP, DyeColor.RED)
+			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.YELLOW)
+			.add(TaiaoBannerPatterns.KAOKAO_PRIMARY, DyeColor.WHITE)
+			.add(TaiaoBannerPatterns.KAOKAO_SECONDARY, DyeColor.YELLOW),
 		Formatting.GOLD
 	);
 
