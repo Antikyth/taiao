@@ -83,35 +83,77 @@ public class TaiaoBannerPatterns {
 		return key;
 	}
 
-	public static final ItemStack POUTAMA_LEFT_TUKUTUKU = getBannerItemStack(
-		Taiao.id("poutama_left_tukutuku"),
+	public static final ItemStack POUTAMA_TUKUTUKU = createBannerItemStack(
+		Taiao.id("poutama_tukutuku"),
 		Items.BLACK_BANNER,
 		new BannerPattern.Patterns()
-			.add(POUTAMA_LEFT_PRIMARY, DyeColor.WHITE)
-			.add(POUTAMA_LEFT_SECONDARY, DyeColor.YELLOW)
-	);
-	public static final ItemStack POUTAMA_RIGHT_TUKUTUKU = getBannerItemStack(
-		Taiao.id("poutama_right_tukutuku"),
-		Items.BLACK_BANNER,
-		new BannerPattern.Patterns()
+			.add(BannerPatterns.STRIPE_TOP, DyeColor.BROWN)
+			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.YELLOW)
 			.add(POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
-			.add(POUTAMA_RIGHT_SECONDARY, DyeColor.YELLOW)
+			.add(POUTAMA_RIGHT_SECONDARY, DyeColor.GRAY)
+	);
+	public static final ItemStack POUTAMA_TUKUTUKU_TOP = createBannerItemStack(
+		Taiao.id("poutama_tukutuku_top"),
+		Items.BROWN_BANNER,
+		new BannerPattern.Patterns()
+			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
+			.add(POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
+			.add(POUTAMA_RIGHT_SECONDARY, DyeColor.GRAY)
+	);
+	public static final ItemStack POUTAMA_TUKUTUKU_BOTTOM = createBannerItemStack(
+		Taiao.id("poutama_tukutuku_bottom"),
+		Items.YELLOW_BANNER,
+		new BannerPattern.Patterns()
+			.add(BannerPatterns.STRIPE_TOP, DyeColor.BLACK)
+			.add(POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
+			.add(POUTAMA_RIGHT_SECONDARY, DyeColor.GRAY)
 	);
 
-	public static final ItemStack PAATIKI_TUKUTUKU = getBannerItemStack(
+	public static final ItemStack PAATIKI_TUKUTUKU = createBannerItemStack(
 		Taiao.id("paatiki_tukutuku"),
+		Items.BLACK_BANNER,
+		new BannerPattern.Patterns()
+			.add(BannerPatterns.HALF_HORIZONTAL_BOTTOM, DyeColor.YELLOW)
+			.add(PAATIKI_PRIMARY, DyeColor.WHITE)
+			.add(PAATIKI_SECONDARY, DyeColor.YELLOW)
+	);
+	public static final ItemStack PAATIKI_TUKUTUKU_TOP = createBannerItemStack(
+		Taiao.id("paatiki_tukutuku_top"),
 		Items.BLACK_BANNER,
 		new BannerPattern.Patterns()
 			.add(PAATIKI_PRIMARY, DyeColor.WHITE)
 			.add(PAATIKI_SECONDARY, DyeColor.YELLOW)
 	);
+	public static final ItemStack PAATIKI_TUKUTUKU_BOTTOM = createBannerItemStack(
+		Taiao.id("paatiki_tukutuku_bottom"),
+		Items.YELLOW_BANNER,
+		new BannerPattern.Patterns()
+			.add(PAATIKI_PRIMARY, DyeColor.WHITE)
+			.add(PAATIKI_SECONDARY, DyeColor.BLACK)
+	);
 
-	public static final ItemStack KAOKAO_TUKUTUKU = getBannerItemStack(
-		Taiao.id("kaokao_up_tukutuku"),
+	public static final ItemStack KAOKAO_TUKUTUKU = createBannerItemStack(
+		Taiao.id("kaokao_tukutuku"),
 		Items.BLACK_BANNER,
 		new BannerPattern.Patterns()
 			.add(BannerPatterns.STRIPE_TOP, DyeColor.RED)
 			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.YELLOW)
+			.add(KAOKAO_UP_PRIMARY, DyeColor.WHITE)
+			.add(KAOKAO_UP_SECONDARY, DyeColor.YELLOW)
+	);
+	public static final ItemStack KAOKAO_TUKUTUKU_TOP = createBannerItemStack(
+		Taiao.id("kaokao_tukutuku_top"),
+		Items.RED_BANNER,
+		new BannerPattern.Patterns()
+			.add(BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
+			.add(KAOKAO_UP_PRIMARY, DyeColor.WHITE)
+			.add(KAOKAO_UP_SECONDARY, DyeColor.YELLOW)
+	);
+	public static final ItemStack KAOKAO_TUKUTUKU_BOTTOM = createBannerItemStack(
+		Taiao.id("kaokao_tukutuku_bottom"),
+		Items.YELLOW_BANNER,
+		new BannerPattern.Patterns()
+			.add(BannerPatterns.STRIPE_TOP, DyeColor.BLACK)
 			.add(KAOKAO_UP_PRIMARY, DyeColor.WHITE)
 			.add(KAOKAO_UP_SECONDARY, DyeColor.YELLOW)
 	);
@@ -123,7 +165,7 @@ public class TaiaoBannerPatterns {
 	 * @param base     the base banner block
 	 * @param patterns ordered patterns to add to the banner
 	 */
-	public static @NotNull ItemStack getBannerItemStack(
+	public static @NotNull ItemStack createBannerItemStack(
 		@NotNull Identifier id,
 		Item base,
 		BannerPattern.@NotNull Patterns patterns
