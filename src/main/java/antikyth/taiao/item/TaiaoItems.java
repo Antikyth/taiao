@@ -5,15 +5,19 @@
 package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public class TaiaoItems {
 	public static final Item CONIFER_FRUIT = register(
@@ -80,7 +84,32 @@ public class TaiaoItems {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering items");
+		Taiao.LOGGER.debug("Registering items and composting recipes");
+
+		// Saplings
+		registerComposting(
+			0.3f,
+			TaiaoBlocks.KAURI_SAPLING,
+			TaiaoBlocks.KAHIKATEA_SAPLING,
+			TaiaoBlocks.RIMU_SAPLING,
+			TaiaoBlocks.CABBAGE_TREE_SAPLING,
+			TaiaoBlocks.MAMAKU_SAPLING,
+			TaiaoBlocks.WHEKII_PONGA_SAPLING
+		);
+		// Leaves
+		registerComposting(
+			0.3f,
+			TaiaoBlocks.KAURI_LEAVES,
+			TaiaoBlocks.KAHIKATEA_LEAVES,
+			TaiaoBlocks.RIMU_LEAVES,
+			TaiaoBlocks.CABBAGE_TREE_LEAVES,
+			TaiaoBlocks.MAMAKU_LEAVES,
+			TaiaoBlocks.WHEKII_PONGA_LEAVES
+		);
+		// Berries
+		registerComposting(0.3f, CONIFER_FRUIT);
+		// Plant-material-rich tall plants
+		registerComposting(0.65f, TaiaoBlocks.RAUPOO);
 	}
 
 	/**
@@ -88,6 +117,12 @@ public class TaiaoItems {
 	 */
 	public static Item register(Identifier id, Item item) {
 		return Registry.register(Registries.ITEM, id, item);
+	}
+
+	public static void registerComposting(float chance, ItemConvertible @NotNull ... items) {
+		for (ItemConvertible item : items) {
+			CompostingChanceRegistry.INSTANCE.add(item.asItem(), chance);
+		}
 	}
 
 	public static class TaiaoFoodComponents {
