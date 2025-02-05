@@ -63,6 +63,7 @@ public class TaiaoItemGroups {
 			group.add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
 			addWhekiiPongaBuildingBlocks(group::add);
 
+			addTallGroundPlants(group::add);
 			addWaterPlants(group::add);
 			addFruit(group::add);
 
@@ -92,6 +93,8 @@ public class TaiaoItemGroups {
 			addLogs(item -> group.addBefore(Items.OAK_LEAVES, item));
 			addLeaves(item -> group.addBefore(Items.BROWN_MUSHROOM_BLOCK, item));
 			addSaplings(item -> group.addBefore(Items.BROWN_MUSHROOM, item));
+
+			addTallGroundPlants(item -> group.addBefore(Items.SUNFLOWER, item));
 			addWaterPlants(item -> group.addBefore(Items.KELP, item));
 		});
 		// Tools & utilities
@@ -225,6 +228,10 @@ public class TaiaoItemGroups {
 
 	public static void addFruit(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoItems.CONIFER_FRUIT);
+	}
+
+	public static void addTallGroundPlants(@NotNull Consumer<ItemConvertible> add) {
+		add.accept(TaiaoBlocks.GIANT_CANE_RUSH);
 	}
 
 	public static void addWaterPlants(@NotNull Consumer<ItemConvertible> add) {

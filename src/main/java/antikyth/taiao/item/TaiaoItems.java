@@ -109,7 +109,11 @@ public class TaiaoItems {
 		// Berries
 		registerComposting(0.3f, CONIFER_FRUIT);
 		// Plant-material-rich tall plants
-		registerComposting(0.65f, TaiaoBlocks.RAUPOO);
+		registerComposting(
+			0.65f,
+			TaiaoBlocks.GIANT_CANE_RUSH,
+			TaiaoBlocks.RAUPOO
+		);
 	}
 
 	/**
@@ -120,8 +124,8 @@ public class TaiaoItems {
 	}
 
 	public static void registerComposting(float chance, ItemConvertible @NotNull ... items) {
-		for (ItemConvertible item : items) {
-			CompostingChanceRegistry.INSTANCE.add(item.asItem(), chance);
+		for (ItemConvertible convertible : items) {
+			CompostingChanceRegistry.INSTANCE.add(convertible.asItem(), chance);
 		}
 	}
 
