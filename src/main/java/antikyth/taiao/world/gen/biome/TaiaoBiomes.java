@@ -69,6 +69,7 @@ public class TaiaoBiomes {
 		SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
 
 		addBasicFeatures(generationSettings);
+		DefaultBiomeFeatures.addLargeFerns(generationSettings);
 		DefaultBiomeFeatures.addDefaultDisks(generationSettings);
 
 		// Forest floor vegetation
