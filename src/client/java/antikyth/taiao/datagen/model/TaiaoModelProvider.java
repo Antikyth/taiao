@@ -172,6 +172,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+		generator.register(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 	}
 
 	public static void registerTripleBlock(

@@ -82,6 +82,10 @@ public class TaiaoItems {
 		Taiao.id("kaakaapoo_spawn_egg"),
 		new SpawnEggItem(TaiaoEntities.KAAKAAPOO, 0x7a9539, 0xd4ae68, new FabricItemSettings())
 	);
+	public static final Item AUSTRALASIAN_BITTERN_SPAWN_EGG = register(
+		Taiao.id("australasian_bittern_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.AUSTRALASIAN_BITTERN, 0x3b3016, 0xcbb166, new FabricItemSettings())
+	);
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registering items and composting recipes");

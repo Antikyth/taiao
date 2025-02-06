@@ -224,6 +224,7 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoItems.PUUKEKO_SPAWN_EGG);
 		add.accept(TaiaoItems.MOA_SPAWN_EGG);
 		add.accept(TaiaoItems.KAAKAAPOO_SPAWN_EGG);
+		add.accept(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG);
 	}
 
 	public static void addFruit(@NotNull Consumer<ItemConvertible> add) {

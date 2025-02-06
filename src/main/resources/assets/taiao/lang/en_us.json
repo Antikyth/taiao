@@ -105,6 +105,7 @@
   "item.taiao.puukeko_spawn_egg": "Pūkeko Spawn Egg",
   "item.taiao.moa_spawn_egg": "Moa Spawn Egg",
   "item.taiao.kaakaapoo_spawn_egg": "Kākāpō Spawn Egg",
+  "item.taiao.australasian_bittern_spawn_egg": "Matuku-Hūrepo Spawn Egg",
 
   "entity.taiao.kauri_boat": "Kauri Boat",
   "entity.taiao.kauri_chest_boat": "Kauri Boat with Chest",
@@ -119,6 +120,7 @@
   "entity.taiao.puukeko": "Pūkeko",
   "entity.taiao.moa": "Moa",
   "entity.taiao.kaakaapoo": "Kākāpō",
+  "entity.taiao.australasian_bittern": "Matuku-Hūrepo",
 
   "biome.taiao.native_forest": "Aotearoa Native Forest",
   "biome.taiao.kahikatea_swamp": "Aotearoa Kahikatea Swamp",

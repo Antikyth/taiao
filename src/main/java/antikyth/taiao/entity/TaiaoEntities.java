@@ -15,58 +15,71 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class TaiaoEntities {
-    public static final EntityType<KiwiEntity> KIWI = register(
-            Taiao.id("kiwi"),
-            FabricEntityTypeBuilder.createLiving()
-                    .entityFactory(KiwiEntity::new)
-                    .spawnGroup(SpawnGroup.CREATURE)
-                    .dimensions(EntityDimensions.changing(0.4f, 0.5f))
-                    .defaultAttributes(KiwiEntity::createAttributes)
-                    .trackRangeChunks(10)
-                    .build()
-    );
-    /**
-     * A pūkeko.
-     */
-    public static final EntityType<PuukekoEntity> PUUKEKO = register(
-            Taiao.id("puukeko"),
-            FabricEntityTypeBuilder.createLiving()
-                    .entityFactory(PuukekoEntity::new)
-                    .spawnGroup(SpawnGroup.CREATURE)
-                    .dimensions(EntityDimensions.changing(0.4f, 0.7f))
-                    .defaultAttributes(PuukekoEntity::createAttributes)
-                    .trackRangeChunks(10)
-                    .build()
-    );
-    public static final EntityType<MoaEntity> MOA = register(
-            Taiao.id("moa"),
-            FabricEntityTypeBuilder.createLiving()
-                    .entityFactory(MoaEntity::new)
-                    .spawnGroup(SpawnGroup.CREATURE)
-                    .dimensions(EntityDimensions.changing(1.25f, 2.25f))
-                    .defaultAttributes(MoaEntity::createAttributes)
-                    .trackRangeChunks(10)
-                    .build()
-    );
-    /**
-     * A kākāpō.
-     */
-    public static final EntityType<KaakaapooEntity> KAAKAAPOO = register(
-            Taiao.id("kaakaapoo"),
-            FabricEntityTypeBuilder.createLiving()
-                    .entityFactory(KaakaapooEntity::new)
-                    .spawnGroup(SpawnGroup.CREATURE)
-                    .dimensions(EntityDimensions.changing(0.55f, 0.7f))
-                    .defaultAttributes(KaakaapooEntity::createAttributes)
-                    .trackRangeChunks(10)
-                    .build()
-    );
+	public static final EntityType<KiwiEntity> KIWI = register(
+		Taiao.id("kiwi"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(KiwiEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(0.4f, 0.5f))
+			.defaultAttributes(KiwiEntity::createAttributes)
+			.trackRangeChunks(10)
+			.build()
+	);
+	/**
+	 * A pūkeko.
+	 */
+	public static final EntityType<PuukekoEntity> PUUKEKO = register(
+		Taiao.id("puukeko"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(PuukekoEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(0.4f, 0.7f))
+			.defaultAttributes(PuukekoEntity::createAttributes)
+			.trackRangeChunks(10)
+			.build()
+	);
+	public static final EntityType<MoaEntity> MOA = register(
+		Taiao.id("moa"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(MoaEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(1.25f, 2.25f))
+			.defaultAttributes(MoaEntity::createAttributes)
+			.trackRangeChunks(10)
+			.build()
+	);
+	/**
+	 * A kākāpō.
+	 */
+	public static final EntityType<KaakaapooEntity> KAAKAAPOO = register(
+		Taiao.id("kaakaapoo"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(KaakaapooEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(0.55f, 0.7f))
+			.defaultAttributes(KaakaapooEntity::createAttributes)
+			.trackRangeChunks(10)
+			.build()
+	);
+	/**
+	 * A matuku-hūrepo, also known as an Australasian bittern in English.
+	 */
+	public static final EntityType<AustralasianBitternEntity> AUSTRALASIAN_BITTERN = register(
+		Taiao.id("australasian_bittern"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(AustralasianBitternEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(0.55f, 0.5f))
+			.defaultAttributes(AustralasianBitternEntity::createAttributes)
+			.trackRangeChunks(10)
+			.build()
+	);
 
-    public static <T extends Entity> EntityType<T> register(Identifier id, EntityType<T> entityType) {
-        return Registry.register(Registries.ENTITY_TYPE, id, entityType);
-    }
+	public static <T extends Entity> EntityType<T> register(Identifier id, EntityType<T> entityType) {
+		return Registry.register(Registries.ENTITY_TYPE, id, entityType);
+	}
 
-    public static void initialize() {
-        Taiao.LOGGER.debug("Registering entities");
-    }
+	public static void initialize() {
+		Taiao.LOGGER.debug("Registering entities");
+	}
 }

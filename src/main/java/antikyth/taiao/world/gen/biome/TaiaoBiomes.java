@@ -128,6 +128,10 @@ public class TaiaoBiomes {
 		DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
 		spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SLIME, 1, 1, 1));
 		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.PUUKEKO, 10, 4, 4));
+		spawnSettings.spawn(
+			SpawnGroup.CREATURE,
+			new SpawnSettings.SpawnEntry(TaiaoEntities.AUSTRALASIAN_BITTERN, 7, 4, 4)
+		);
 
 		return OverworldBiomeCreator.createBiome(
 			true,
