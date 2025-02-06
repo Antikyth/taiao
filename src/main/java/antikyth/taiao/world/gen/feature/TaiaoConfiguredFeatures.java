@@ -238,11 +238,11 @@ public class TaiaoConfiguredFeatures {
 				List.of(
 					new RandomFeatureEntry(
 						lookup.getOrThrow(TaiaoPlacedFeatures.YOUNG_KAHIKATEA_TREE_CHECKED),
-						0.1f
+						0.5f
 					),
 					new RandomFeatureEntry(
 						lookup.getOrThrow(TaiaoPlacedFeatures.OLD_KAHIKATEA_TREE_CHECKED),
-						0.01f
+						0.05f
 					)
 				),
 				lookup.getOrThrow(TaiaoPlacedFeatures.CABBAGE_TREE_CHECKED)

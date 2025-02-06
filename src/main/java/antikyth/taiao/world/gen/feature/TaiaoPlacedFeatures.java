@@ -82,7 +82,7 @@ public class TaiaoPlacedFeatures {
 	public static final RegistryKey<PlacedFeature> NATIVE_SWAMP_TREES = register(
 		TaiaoConfiguredFeatures.NATIVE_SWAMP_TREES.getValue(),
 		TaiaoConfiguredFeatures.NATIVE_SWAMP_TREES,
-		treeModifiers(PlacedFeatures.createCountExtraModifier(1, 0.1f, 1), 2)
+		treeModifiers(PlacedFeatures.createCountExtraModifier(2, 0.1f, 1), 2)
 	);
 
 	// Ground foliage patches
