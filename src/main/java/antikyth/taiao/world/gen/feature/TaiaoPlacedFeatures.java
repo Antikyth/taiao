@@ -19,6 +19,7 @@ import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;
 import net.minecraft.world.gen.feature.VegetationPlacedFeatures;
 import net.minecraft.world.gen.placementmodifier.*;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -93,11 +94,12 @@ public class TaiaoPlacedFeatures {
 	public static final RegistryKey<PlacedFeature> RAUPOO_PATCH = register(
 		TaiaoConfiguredFeatures.RAUPOO_PATCH.getValue(),
 		TaiaoConfiguredFeatures.RAUPOO_PATCH,
-		// Modifiers
-		RarityFilterPlacementModifier.of(3),
-		SquarePlacementModifier.of(),
-		PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-		BiomePlacementModifier.of()
+		tallPlantModifiers(3)
+	);
+	public static final RegistryKey<PlacedFeature> GIANT_CANE_RUSH_PATCH = register(
+		TaiaoConfiguredFeatures.GIANT_CANE_RUSH_PATCH.getValue(),
+		TaiaoConfiguredFeatures.GIANT_CANE_RUSH_PATCH,
+		tallPlantModifiers(5)
 	);
 
 	public static void bootstrap(@NotNull Registerable<PlacedFeature> registerable) {
@@ -128,6 +130,16 @@ public class TaiaoPlacedFeatures {
 		Block block
 	) {
 		return treeModifiersBuilder(countModifier, maxWaterDepth).add(PlacedFeatures.wouldSurvive(block)).build();
+	}
+
+	@Contract("_ -> new")
+	public static @NotNull @Unmodifiable List<PlacementModifier> tallPlantModifiers(int chance) {
+		return List.of(
+			RarityFilterPlacementModifier.of(chance),
+			SquarePlacementModifier.of(),
+			PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+			BiomePlacementModifier.of()
+		);
 	}
 
 	private static ImmutableList.@NotNull Builder<PlacementModifier> treeModifiersBuilder(

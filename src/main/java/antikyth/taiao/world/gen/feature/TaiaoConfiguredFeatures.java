@@ -272,6 +272,16 @@ public class TaiaoConfiguredFeatures {
 			createReedsRandomPatchFeatureConfig(64, TaiaoBlocks.RAUPOO, 4)
 		)
 	);
+	public static final RegistryKey<ConfiguredFeature<?, ?>> GIANT_CANE_RUSH_PATCH = register(
+		Taiao.id("patch_giant_cane_rush"),
+		lookup -> new ConfiguredFeature<>(
+			Feature.RANDOM_PATCH,
+			ConfiguredFeatures.createRandomPatchFeatureConfig(
+				TaiaoFeatures.CUSTOM_PLACEMENT_BLOCK,
+				new SimpleBlockFeatureConfig(BlockStateProvider.of(TaiaoBlocks.GIANT_CANE_RUSH))
+			)
+		)
+	);
 
 	public static void bootstrap(@NotNull Registerable<ConfiguredFeature<?, ?>> registerable) {
 		Taiao.LOGGER.debug("Registering configured features");

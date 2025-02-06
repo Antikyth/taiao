@@ -13,6 +13,7 @@ import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
+import antikyth.taiao.world.gen.feature.TaiaoFeatures;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
@@ -45,6 +46,7 @@ public class Taiao implements ModInitializer {
 		TaiaoEntities.initialize();
 		TaiaoBoats.initialize();
 
+		TaiaoFeatures.initialize();
 		TaiaoTreePlacers.initialize();
 		TaiaoBlockPredicates.initialize();
 		TaiaoBiomes.initializeBiolith();

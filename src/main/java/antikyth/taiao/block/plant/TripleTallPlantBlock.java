@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.plant;
 
+import antikyth.taiao.block.CustomPlacementBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class TripleTallPlantBlock extends PlantBlock {
+public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementBlock {
 	public static final EnumProperty<TripleBlockPart> PART = EnumProperty.of("part", TripleBlockPart.class);
 
 	public TripleTallPlantBlock(AbstractBlock.Settings settings) {
@@ -104,6 +105,37 @@ public class TripleTallPlantBlock extends PlantBlock {
 			TallPlantBlock.withWaterloggedState(world, upperPos, upperState),
 			Block.NOTIFY_ALL
 		);
+	}
+
+	@Override
+	public boolean placeAt(@NotNull WorldAccess world, @NotNull BlockState state, @NotNull BlockPos pos, int flags) {
+		BlockPos middlePos = pos.up();
+		BlockPos upperPos = middlePos.up();
+
+		// Enough room for all 3 parts
+		if (pos.getY() > world.getTopY() - 3) return false;
+		// Middle part is placeable
+		if (!world.getBlockState(middlePos).isReplaceable()) return false;
+		// Upper part is placeable
+		if (!world.getBlockState(upperPos).isReplaceable()) return false;
+
+		world.setBlockState(
+			pos,
+			TallPlantBlock.withWaterloggedState(world, pos, state.with(PART, TripleBlockPart.LOWER)),
+			flags
+		);
+		world.setBlockState(
+			middlePos,
+			TallPlantBlock.withWaterloggedState(world, middlePos, state.with(PART, TripleBlockPart.MIDDLE)),
+			flags
+		);
+		world.setBlockState(
+			upperPos,
+			TallPlantBlock.withWaterloggedState(world, upperPos, state.with(PART, TripleBlockPart.UPPER)),
+			flags
+		);
+
+		return true;
 	}
 
 	@Override
