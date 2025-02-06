@@ -10,8 +10,8 @@ import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.leaves.SlowMovementLeavesBlock;
 import antikyth.taiao.block.log.Strippable;
 import antikyth.taiao.block.log.ThinLogBlock;
+import antikyth.taiao.block.plant.GiantCaneRushBlock;
 import antikyth.taiao.block.plant.TallReedsBlock;
-import antikyth.taiao.block.plant.TripleTallPlantBlock;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.feature.tree.sapling.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -371,7 +371,7 @@ public class TaiaoBlocks {
 	).register(true);
 	public static final Block GIANT_CANE_RUSH = new Builder(
 		Taiao.id("giant_cane_rush"),
-		new TripleTallPlantBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN))
+		new GiantCaneRushBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN))
 	).register(true);
 
 	public static void initialize() {
