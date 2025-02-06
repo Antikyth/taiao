@@ -9,6 +9,7 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class GiantCaneRushBlock extends TripleTallPlantBlock {
@@ -20,7 +21,7 @@ public class GiantCaneRushBlock extends TripleTallPlantBlock {
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+	public VoxelShape getOutlineShape(@NotNull BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return state.get(PART) == TripleBlockPart.UPPER ? UPPER_SHAPE : NORMAL_SHAPE;
 	}
 }

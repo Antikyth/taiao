@@ -276,10 +276,7 @@ public class TaiaoConfiguredFeatures {
 		Taiao.id("patch_giant_cane_rush"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.RANDOM_PATCH,
-			ConfiguredFeatures.createRandomPatchFeatureConfig(
-				TaiaoFeatures.CUSTOM_PLACEMENT_BLOCK,
-				new SimpleBlockFeatureConfig(BlockStateProvider.of(TaiaoBlocks.GIANT_CANE_RUSH))
-			)
+			createTripleTallPlantRandomPatchFeatureConfig(96, TaiaoBlocks.GIANT_CANE_RUSH)
 		)
 	);
 
@@ -304,6 +301,39 @@ public class TaiaoConfiguredFeatures {
 			.add(fruitLeaves.getDefaultState().with(FruitLeavesBlock.FRUIT, true), fruitedWeight));
 	}
 
+	@Contract("_, _ -> new")
+	public static @NotNull RandomPatchFeatureConfig createTripleTallPlantRandomPatchFeatureConfig(
+		int tries,
+		@NotNull Block block
+	) {
+		return createTripleTallPlantRandomPatchFeatureConfig(tries, block.getDefaultState());
+	}
+
+	@Contract("_, _ -> new")
+	public static @NotNull RandomPatchFeatureConfig createTripleTallPlantRandomPatchFeatureConfig(
+		int tries,
+		BlockState state
+	) {
+		return ConfiguredFeatures.createRandomPatchFeatureConfig(
+			tries,
+			PlacedFeatures.createEntry(
+				TaiaoFeatures.CUSTOM_PLACEMENT_BLOCK,
+				new SimpleBlockFeatureConfig(BlockStateProvider.of(state)),
+				BlockFilterPlacementModifier.of(
+					BlockPredicate.bothOf(
+						BlockPredicate.wouldSurvive(state, BlockPos.ORIGIN),
+						// Positions available
+						BlockPredicate.allOf(
+							TaiaoBlockPredicates.air(),
+							TaiaoBlockPredicates.air(Direction.UP, 1),
+							TaiaoBlockPredicates.air(Direction.UP, 2)
+						)
+					)
+				)
+			)
+		);
+	}
+
 	@Contract("_, _, _ -> new")
 	public static @NotNull RandomPatchFeatureConfig createReedsRandomPatchFeatureConfig(
 		int tries,
@@ -325,21 +355,24 @@ public class TaiaoConfiguredFeatures {
 				Feature.SIMPLE_BLOCK,
 				new SimpleBlockFeatureConfig(BlockStateProvider.of(state)),
 				BlockFilterPlacementModifier.of(
-					BlockPredicate.allOf(
+					BlockPredicate.bothOf(
 						BlockPredicate.wouldSurvive(state, BlockPos.ORIGIN),
-						// Upper half is free of water
-						TaiaoBlockPredicates.air(Direction.UP),
-						BlockPredicate.eitherOf(
-							// On land
-							TaiaoBlockPredicates.air(),
-							// or near the shore
-							BlockPredicate.bothOf(
-								TaiaoBlockPredicates.water(),
-								TaiaoBlockPredicates.withinHorizontalRange(
-									BlockPredicate.solid(),
-									WithinHorizontalRangeBlockPredicate.Shape.CIRCLE,
-									true,
-									shoreRange
+						// Positions available
+						BlockPredicate.bothOf(
+							// Upper half is free of water
+							TaiaoBlockPredicates.air(Direction.UP),
+							BlockPredicate.eitherOf(
+								// On land
+								TaiaoBlockPredicates.air(),
+								// or near the shore
+								BlockPredicate.bothOf(
+									TaiaoBlockPredicates.water(),
+									TaiaoBlockPredicates.withinHorizontalRange(
+										BlockPredicate.solid(),
+										WithinHorizontalRangeBlockPredicate.Shape.CIRCLE,
+										true,
+										shoreRange
+									)
 								)
 							)
 						)
