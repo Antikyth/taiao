@@ -37,31 +37,31 @@ public class AustralasianBitternEntityModel<E extends Entity> extends AnimalMode
 
 		modelPartData.addChild(
 			"body",
-			ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -7.0F, -4.0F, 5.0F, 4.0F, 8.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(0.0F, 24.0F, 2.0F)
+			ModelPartBuilder.create().uv(0, 0).cuboid(-2.5f, -7f, -4f, 5f, 4f, 8f),
+			ModelTransform.pivot(0f, 24f, 2f)
 		);
 
 		modelPartData.addChild(
 			"head",
-			ModelPartBuilder.create().uv(0, 20).cuboid(-1.0F, -6.0F, -3.0F, 2.0F, 3.0F, 3.0F, new Dilation(0.0F))
-				.uv(10, 24).cuboid(-1F, -5.0F, -6.0F, 2.0F, 1.0F, 3.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(0.0F, 19.0F, -2.0F)
+			ModelPartBuilder.create().uv(0, 20).cuboid(-1f, -6f, -3f, 2f, 3f, 3f)
+				.uv(10, 24).cuboid(-1f, -5f, -6f, 2f, 1f, 3f),
+			ModelTransform.pivot(0f, 19f, -2f)
 		);
 		modelPartData.addChild(
 			"neck",
-			ModelPartBuilder.create().uv(0, 12).cuboid(-1.5F, -3.0F, -3.0F, 3.0F, 5.0F, 3.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(0.0F, 19.0F, -2.0F)
+			ModelPartBuilder.create().uv(0, 12).cuboid(-1.5f, -3f, -3f, 3f, 5f, 3f),
+			ModelTransform.pivot(0f, 19f, -2f)
 		);
 
 		modelPartData.addChild(
 			"left_leg",
-			ModelPartBuilder.create().uv(12, 18).cuboid(-1.5F, 0.0F, -3.0F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(1.5F, 21.0F, 2.0F)
+			ModelPartBuilder.create().uv(12, 18).cuboid(-1.5f, 0f, -3f, 3f, 3f, 3f),
+			ModelTransform.pivot(1.5f, 21f, 1f)
 		);
 		modelPartData.addChild(
 			"right_leg",
-			ModelPartBuilder.create().uv(12, 12).cuboid(-1.5F, 0.0F, -3.0F, 3.0F, 3.0F, 3.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(-1.5F, 21.0F, 2.0F)
+			ModelPartBuilder.create().uv(12, 12).cuboid(-1.5f, 0f, -3f, 3f, 3f, 3f),
+			ModelTransform.pivot(-1.5f, 21f, 1f)
 		);
 
 		return TexturedModelData.of(modelData, 32, 32);
