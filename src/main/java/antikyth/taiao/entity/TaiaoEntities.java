@@ -69,7 +69,7 @@ public class TaiaoEntities {
 		FabricEntityTypeBuilder.createLiving()
 			.entityFactory(AustralasianBitternEntity::new)
 			.spawnGroup(SpawnGroup.CREATURE)
-			.dimensions(EntityDimensions.changing(0.55f, 0.5f))
+			.dimensions(EntityDimensions.changing(0.45f, 0.5f))
 			.defaultAttributes(AustralasianBitternEntity::createAttributes)
 			.trackRangeChunks(10)
 			.build()
