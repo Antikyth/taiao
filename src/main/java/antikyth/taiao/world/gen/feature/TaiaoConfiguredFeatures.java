@@ -230,8 +230,8 @@ public class TaiaoConfiguredFeatures {
 			)
 		)
 	);
-	public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_SWAMP_TREES = register(
-		Taiao.id("trees_native_swamp"),
+	public static final RegistryKey<ConfiguredFeature<?, ?>> KAHIKATEA_SWAMP_TREES = register(
+		Taiao.id("trees_kahikatea_swamp"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.RANDOM_SELECTOR,
 			new RandomFeatureConfig(

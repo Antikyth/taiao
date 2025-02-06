@@ -79,9 +79,9 @@ public class TaiaoPlacedFeatures {
 		TaiaoConfiguredFeatures.NATIVE_FOREST_TREES,
 		treeModifiers(PlacedFeatures.createCountExtraModifier(11, 0.1f, 1), 0)
 	);
-	public static final RegistryKey<PlacedFeature> NATIVE_SWAMP_TREES = register(
-		TaiaoConfiguredFeatures.NATIVE_SWAMP_TREES.getValue(),
-		TaiaoConfiguredFeatures.NATIVE_SWAMP_TREES,
+	public static final RegistryKey<PlacedFeature> KAHIKATEA_SWAMP_TREES = register(
+		TaiaoConfiguredFeatures.KAHIKATEA_SWAMP_TREES.getValue(),
+		TaiaoConfiguredFeatures.KAHIKATEA_SWAMP_TREES,
 		treeModifiers(PlacedFeatures.createCountExtraModifier(2, 0.1f, 1), 2)
 	);
 

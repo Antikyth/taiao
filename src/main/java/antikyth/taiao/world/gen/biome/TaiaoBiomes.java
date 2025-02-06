@@ -39,7 +39,10 @@ public class TaiaoBiomes {
 		Taiao.id("native_forest"),
 		TaiaoBiomes::nativeForest
 	);
-	public static final RegistryKey<Biome> NATIVE_SWAMP = register(Taiao.id("native_swamp"), TaiaoBiomes::nativeSwamp);
+	public static final RegistryKey<Biome> KAHIKATEA_SWAMP = register(
+		Taiao.id("kahikatea_swamp"),
+		TaiaoBiomes::kahikateaSwamp
+	);
 
 	public static void initializeBiolith() {
 		Taiao.LOGGER.debug("Configuring biome placements and surface rules with Biolith");
@@ -51,8 +54,8 @@ public class TaiaoBiomes {
 		BiomePlacement.replaceOverworld(BiomeKeys.OLD_GROWTH_BIRCH_FOREST, NATIVE_FOREST, forestProportion);
 
 		double swampProportion = 1d / 2.5d;
-		BiomePlacement.replaceOverworld(BiomeKeys.SWAMP, NATIVE_SWAMP, swampProportion);
-		BiomePlacement.replaceOverworld(BiomeKeys.MANGROVE_SWAMP, NATIVE_SWAMP, swampProportion);
+		BiomePlacement.replaceOverworld(BiomeKeys.SWAMP, KAHIKATEA_SWAMP, swampProportion);
+		BiomePlacement.replaceOverworld(BiomeKeys.MANGROVE_SWAMP, KAHIKATEA_SWAMP, swampProportion);
 
 		// Add surface rules
 		SurfaceGeneration.addOverworldSurfaceRules(Taiao.id("rules/overworld"), TaiaoMaterialRules.ALL);
@@ -95,7 +98,7 @@ public class TaiaoBiomes {
 		);
 	}
 
-	public static Biome nativeSwamp(
+	public static Biome kahikateaSwamp(
 		RegistryEntryLookup<PlacedFeature> featureLookup,
 		RegistryEntryLookup<ConfiguredCarver<?>> carverLookup
 	) {
@@ -119,7 +122,7 @@ public class TaiaoBiomes {
 		addVegetation(generationSettings, OceanPlacedFeatures.SEAGRASS_SWAMP);
 
 		// Trees
-		addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_SWAMP_TREES);
+		addVegetation(generationSettings, TaiaoPlacedFeatures.KAHIKATEA_SWAMP_TREES);
 
 		// Spawns
 		DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
