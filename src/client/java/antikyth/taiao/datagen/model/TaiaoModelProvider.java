@@ -100,6 +100,13 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.registerLog(TaiaoBlocks.STRIPPED_RIMU_LOG)
 			.log(TaiaoBlocks.STRIPPED_RIMU_LOG)
 			.wood(TaiaoBlocks.STRIPPED_RIMU_WOOD);
+		registerChiseledLog(generator, TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG, TaiaoBlocks.STRIPPED_RIMU_LOG, null);
+		registerChiseledLog(
+			generator,
+			TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG,
+			TaiaoBlocks.STRIPPED_RIMU_LOG,
+			TaiaoBlocks.CHISELED_STRIPPED_RIMU_WOOD
+		);
 		// Rimu wood family
 		generator.registerCubeAllModelTexturePool(TaiaoBlocks.RIMU_PLANKS)
 			.family(TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());
@@ -173,6 +180,35 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+	}
+
+	public static void registerChiseledLog(
+		@NotNull BlockStateModelGenerator generator,
+		Block chiseled,
+		Block base,
+		@Nullable Block wood
+	) {
+		TextureMap textures = TextureMap.sideEnd(
+			TextureMap.getId(chiseled),
+			wood != null ? TextureMap.getId(base) : TextureMap.getSubId(base, "_top")
+		);
+
+		Identifier vertical = Models.CUBE_COLUMN.upload(
+			wood == null ? chiseled : wood,
+			textures,
+			generator.modelCollector
+		);
+		Identifier horizontal = Models.CUBE_COLUMN_HORIZONTAL.upload(
+			wood == null ? chiseled : wood,
+			textures,
+			generator.modelCollector
+		);
+
+		generator.blockStateCollector.accept(BlockStateModelGenerator.createAxisRotatedBlockState(
+			wood == null ? chiseled : wood,
+			vertical,
+			horizontal
+		));
 	}
 
 	public static void registerTripleBlock(

@@ -180,6 +180,8 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoBlocks.RIMU_WOOD);
 		add.accept(TaiaoBlocks.STRIPPED_RIMU_LOG);
 		add.accept(TaiaoBlocks.STRIPPED_RIMU_WOOD);
+		add.accept(TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG);
+		add.accept(TaiaoBlocks.CHISELED_STRIPPED_RIMU_WOOD);
 
 		add.accept(TaiaoBlocks.RIMU_PLANKS);
 		add.accept(TaiaoBlocks.RIMU_STAIRS);

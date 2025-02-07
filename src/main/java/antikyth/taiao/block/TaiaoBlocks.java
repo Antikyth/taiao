@@ -199,6 +199,15 @@ public class TaiaoBlocks {
 		Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
 	).strippable(STRIPPED_RIMU_WOOD).register(true);
 
+	public static final Block CHISELED_STRIPPED_RIMU_LOG = new Builder(
+		Taiao.id("chiseled_stripped_rimu_log"),
+		Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
+	).register(true);
+	public static final Block CHISELED_STRIPPED_RIMU_WOOD = new Builder(
+		Taiao.id("chiseled_stripped_rimu_wood"),
+		Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
+	).register(true);
+
 	// Rimu wood family
 	public static final Block RIMU_PLANKS = new Builder(
 		Taiao.id("rimu_planks"),

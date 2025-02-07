@@ -79,6 +79,8 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 		this.addDrop(TaiaoBlocks.STRIPPED_RIMU_LOG);
 		this.addDrop(TaiaoBlocks.RIMU_WOOD);
 		this.addDrop(TaiaoBlocks.STRIPPED_RIMU_WOOD);
+		this.addDrop(TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG);
+		this.addDrop(TaiaoBlocks.CHISELED_STRIPPED_RIMU_WOOD);
 		// Rimu wood family
 		this.addDropsForFamily(TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());
 
