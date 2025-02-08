@@ -16,20 +16,31 @@ import net.minecraft.world.biome.Biome;
 import java.util.concurrent.CompletableFuture;
 
 public class TaiaoBiomeTagProvider extends FabricTagProvider<Biome> {
-    public TaiaoBiomeTagProvider(
-            FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture
-    ) {
-        super(output, RegistryKeys.BIOME, registriesFuture);
-    }
+	public TaiaoBiomeTagProvider(
+		FabricDataOutput output,
+		CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture
+	) {
+		super(output, RegistryKeys.BIOME, registriesFuture);
+	}
 
-    @Override
-    protected void configure(RegistryWrapper.WrapperLookup lookup) {
-        // Vanilla tags
-        getOrCreateTagBuilder(BiomeTags.IS_FOREST).add(TaiaoBiomes.NATIVE_FOREST);
-        getOrCreateTagBuilder(BiomeTags.STRONGHOLD_BIASED_TO).add(TaiaoBiomes.NATIVE_FOREST);
+	@Override
+	protected void configure(RegistryWrapper.WrapperLookup lookup) {
+		// Vanilla tags
+		getOrCreateTagBuilder(BiomeTags.IS_FOREST).add(TaiaoBiomes.NATIVE_FOREST);
+		getOrCreateTagBuilder(BiomeTags.STRONGHOLD_BIASED_TO).add(TaiaoBiomes.NATIVE_FOREST);
 
-        // Conventional tags
-        getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS).add(TaiaoBiomes.NATIVE_FOREST);
-    }
+		getOrCreateTagBuilder(BiomeTags.MINESHAFT_HAS_STRUCTURE).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+		getOrCreateTagBuilder(BiomeTags.RUINED_PORTAL_SWAMP_HAS_STRUCTURE).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+		getOrCreateTagBuilder(BiomeTags.HAS_CLOSER_WATER_FOG).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+		getOrCreateTagBuilder(BiomeTags.WATER_ON_MAP_OUTLINES).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+		getOrCreateTagBuilder(BiomeTags.ALLOWS_SURFACE_SLIME_SPAWNS).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+		getOrCreateTagBuilder(BiomeTags.INCREASED_FIRE_BURNOUT).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+
+		// Conventional tags
+		getOrCreateTagBuilder(ConventionalBiomeTags.TREE_DECIDUOUS).add(TaiaoBiomes.NATIVE_FOREST);
+		getOrCreateTagBuilder(ConventionalBiomeTags.SWAMP).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+
+		getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE).add(TaiaoBiomes.NATIVE_FOREST);
+		getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+	}
 }
