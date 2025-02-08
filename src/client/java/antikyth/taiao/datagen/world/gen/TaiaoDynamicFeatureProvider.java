@@ -14,22 +14,22 @@ import java.util.concurrent.CompletableFuture;
 
 // Thanks to https://gist.github.com/Linguardium/b81e85b3541429bbd3ca63a93b24485f for providing a helpful reference for
 // making this configured feature provider!
-public class TaiaoConfiguredFeatureProvider extends FabricDynamicRegistryProvider {
-    public TaiaoConfiguredFeatureProvider(
-            FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture
-    ) {
-        super(output, registriesFuture);
-    }
+public class TaiaoDynamicFeatureProvider extends FabricDynamicRegistryProvider {
+	public TaiaoDynamicFeatureProvider(
+		FabricDataOutput output,
+		CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture
+	) {
+		super(output, registriesFuture);
+	}
 
-    @Override
-    protected void configure(RegistryWrapper.@NotNull WrapperLookup registries, @NotNull Entries entries) {
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE));
-        entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE));
-    }
+	@Override
+	protected void configure(RegistryWrapper.@NotNull WrapperLookup registries, @NotNull Entries entries) {
+		entries.addAll(registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE));
+		entries.addAll(registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE));
+	}
 
-    @Override
-    public String getName() {
-        return "Configured Features";
-    }
+	@Override
+	public String getName() {
+		return "Configured and Placed Features";
+	}
 }

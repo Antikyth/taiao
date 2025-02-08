@@ -9,3 +9,11 @@ accessible method net/minecraft/world/biome/OverworldBiomeCreator createBiome (Z
 
 # Configured features
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;
+
+# Structures
+accessible field net/minecraft/structure/pool/StructurePoolElement EMPTY_PROCESSORS Lnet/minecraft/registry/entry/RegistryEntry;
+accessible method net/minecraft/structure/pool/LegacySinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/structure/pool/StructurePool$Projection;)V
+
+accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;
+accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;
+accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Ljava/util/Map;Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;

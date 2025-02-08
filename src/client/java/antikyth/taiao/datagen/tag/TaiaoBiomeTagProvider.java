@@ -4,6 +4,7 @@
 
 package antikyth.taiao.datagen.tag;
 
+import antikyth.taiao.world.gen.biome.TaiaoBiomeTags;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -42,5 +43,9 @@ public class TaiaoBiomeTagProvider extends FabricTagProvider<Biome> {
 
 		getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_TEMPERATE).add(TaiaoBiomes.NATIVE_FOREST);
 		getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET).add(TaiaoBiomes.KAHIKATEA_SWAMP);
+
+		// Te Taiao o Aotearoa tags
+		getOrCreateTagBuilder(TaiaoBiomeTags.VILLAGE_MARAE_HAS_STRUCTURE)
+			.add(TaiaoBiomes.NATIVE_FOREST);
 	}
 }
