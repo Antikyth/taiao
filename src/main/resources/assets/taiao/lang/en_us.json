@@ -158,17 +158,14 @@
   "subtitles.taiao.entity.kaakaapoo.ching": "Kākāpō chings",
   "subtitles.taiao.entity.kaakaapoo.boom": "Kākāpō booms",
 
-  "block.taiao.poutama_tukutuku": "Poutama Tukutuku",
-  "block.taiao.poutama_tukutuku_top": "Poutama Tukutuku Top",
-  "block.taiao.poutama_tukutuku_bottom": "Poutama Tukutuku Bottom",
+  "block.taiao.poutama_tukutuku_left": "Left Poutama Tukutuku",
+  "block.taiao.poutama_tukutuku_right": "Right Poutama Tukutuku",
 
   "block.taiao.paatiki_tukutuku": "Pātiki Tukutuku",
   "block.taiao.paatiki_tukutuku_top": "Pātiki Tukutuku Top",
   "block.taiao.paatiki_tukutuku_bottom": "Pātiki Tukutuku Bottom",
 
   "block.taiao.kaokao_tukutuku": "Kaokao Tukutuku",
-  "block.taiao.kaokao_tukutuku_top": "Kaokao Tukutuku Top",
-  "block.taiao.kaokao_tukutuku_bottom": "Kaokao Tukutuku Bottom",
 
   "block.minecraft.banner.taiao.poutama_left_primary.black": "Black Poutama",
   "block.minecraft.banner.taiao.poutama_left_primary.blue": "Blue Poutama",
