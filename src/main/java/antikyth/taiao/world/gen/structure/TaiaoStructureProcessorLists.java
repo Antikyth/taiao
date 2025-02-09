@@ -57,6 +57,13 @@ public class TaiaoStructureProcessorLists {
 					new BlockMatchRuleTest(Blocks.ICE),
 					TaiaoBlocks.RIMU_PLANKS.getDefaultState()
 				),
+				// Since it is impossible to put dirt paths under jigsaw blocks in the structure without editing the NBT
+				// files, we replace dirt found in the structure with dirt paths.
+				new StructureProcessorRule(
+					new BlockMatchRuleTest(Blocks.DIRT),
+					AlwaysTrueRuleTest.INSTANCE,
+					Blocks.DIRT_PATH.getDefaultState()
+				),
 				new StructureProcessorRule(
 					new RandomBlockMatchRuleTest(Blocks.DIRT_PATH, 0.2F),
 					AlwaysTrueRuleTest.INSTANCE,

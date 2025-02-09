@@ -68,8 +68,19 @@ public class MaraeVillageStructurePools {
 						TaiaoStructurePools.createProcessedLegacySingleElement(
 							maraeId("streets/straight_1"),
 							streetProcessorList
-						),
-						2
+						), 8
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							maraeId("streets/corner_1"),
+							streetProcessorList
+						), 2
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							maraeId("streets/crossroad_1"),
+							streetProcessorList
+						), 2
 					)
 				),
 				StructurePool.Projection.TERRAIN_MATCHING
