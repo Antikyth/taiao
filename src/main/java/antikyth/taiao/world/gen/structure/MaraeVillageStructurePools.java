@@ -72,19 +72,93 @@ public class MaraeVillageStructurePools {
 				List.of(
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							villageId("streets/straight_1"),
-							streetProcessorList
-						), 10
-					),
-					Pair.of(
-						TaiaoStructurePools.createProcessedLegacySingleElement(
-							villageId("streets/corner_1"),
+							villageId("streets/corner_01"),
 							streetProcessorList
 						), 2
 					),
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							villageId("streets/crossroad_1"),
+							villageId("streets/corner_02"),
+							streetProcessorList
+						), 2
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/corner_03"),
+							streetProcessorList
+						), 2
+					),
+
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/straight_01"),
+							streetProcessorList
+						), 4
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/straight_02"),
+							streetProcessorList
+						), 4
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/straight_03"),
+							streetProcessorList
+						), 7
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/straight_04"),
+							streetProcessorList
+						), 7
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/straight_05"),
+							streetProcessorList
+						), 3
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/straight_06"),
+							streetProcessorList
+						), 4
+					),
+
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/crossroad_01"),
+							streetProcessorList
+						), 2
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/crossroad_02"),
+							streetProcessorList
+						), 1
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/crossroad_03"),
+							streetProcessorList
+						), 2
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/crossroad_04"),
+							streetProcessorList
+						), 2
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/crossroad_05"),
+							streetProcessorList
+						), 2
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("streets/crossroad_06"),
 							streetProcessorList
 						), 2
 					)

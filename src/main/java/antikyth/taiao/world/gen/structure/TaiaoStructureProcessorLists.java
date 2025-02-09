@@ -65,7 +65,7 @@ public class TaiaoStructureProcessorLists {
 					Blocks.DIRT_PATH.getDefaultState()
 				),
 				new StructureProcessorRule(
-					new RandomBlockMatchRuleTest(Blocks.DIRT_PATH, 0.2F),
+					new RandomBlockMatchRuleTest(Blocks.DIRT_PATH, 0.1F),
 					AlwaysTrueRuleTest.INSTANCE,
 					Blocks.GRASS_BLOCK.getDefaultState()
 				),
