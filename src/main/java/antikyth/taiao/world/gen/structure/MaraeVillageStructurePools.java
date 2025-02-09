@@ -5,6 +5,7 @@
 package antikyth.taiao.world.gen.structure;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -22,19 +23,24 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class MaraeVillageStructurePools {
-	public static final RegistryKey<StructurePool> TOWN_CENTERS = key(maraeId("town_centers"));
-	public static final RegistryKey<StructurePool> STREETS = key(maraeId("streets"));
-	public static final RegistryKey<StructurePool> HOUSES = key(maraeId("houses"));
-	public static final RegistryKey<StructurePool> TERMINATORS = key(maraeId("terminators"));
+	public static final RegistryKey<StructurePool> TOWN_CENTERS = key(villageId("town_centers"));
+	public static final RegistryKey<StructurePool> STREETS = key(villageId("streets"));
+	public static final RegistryKey<StructurePool> HOUSES = key(villageId("houses"));
+	public static final RegistryKey<StructurePool> TERMINATORS = key(villageId("terminators"));
 
-	public static final RegistryKey<StructurePool> TREES = key(maraeId("trees"));
-	public static final RegistryKey<StructurePool> DECOR = key(maraeId("decor"));
-	public static final RegistryKey<StructurePool> VILLAGERS = key(maraeId("villagers"));
+	public static final RegistryKey<StructurePool> TREES = key(villageId("trees"));
+	public static final RegistryKey<StructurePool> DECOR = key(villageId("decor"));
+	public static final RegistryKey<StructurePool> VILLAGERS = key(villageId("villagers"));
+	public static final RegistryKey<StructurePool> PETS = key(villageId("pets"));
 
 	public static void bootstrap(@NotNull Registerable<StructurePool> registerable) {
 		RegistryEntryLookup<PlacedFeature> placedFeatureLookup = registerable.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
 		RegistryEntryLookup<StructureProcessorList> processorListLookup = registerable.getRegistryLookup(RegistryKeys.PROCESSOR_LIST);
 		RegistryEntryLookup<StructurePool> poolLookup = registerable.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
+
+		RegistryEntry<PlacedFeature> cabbageTree = placedFeatureLookup.getOrThrow(TaiaoPlacedFeatures.CABBAGE_TREE_CHECKED);
+		RegistryEntry<PlacedFeature> mamakuTree = placedFeatureLookup.getOrThrow(TaiaoPlacedFeatures.MAMAKU_TREE_CHECKED);
+		RegistryEntry<PlacedFeature> whekiiPongaTree = placedFeatureLookup.getOrThrow(TaiaoPlacedFeatures.WHEKII_PONGA_TREE_CHECKED);
 
 		RegistryEntry<StructureProcessorList> farmProcessorList = processorListLookup.getOrThrow(
 			TaiaoStructureProcessorLists.FARM_MARAE
@@ -52,7 +58,7 @@ public class MaraeVillageStructurePools {
 				emptyPool,
 				List.of(
 					Pair.of(
-						TaiaoStructurePools.createLegacySingleElement(maraeId("town_centers/marae_wharenui_1")),
+						TaiaoStructurePools.createLegacySingleElement(villageId("town_centers/marae_wharenui_1")),
 						2
 					)
 				),
@@ -66,19 +72,19 @@ public class MaraeVillageStructurePools {
 				List.of(
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							maraeId("streets/straight_1"),
+							villageId("streets/straight_1"),
 							streetProcessorList
-						), 8
+						), 10
 					),
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							maraeId("streets/corner_1"),
+							villageId("streets/corner_1"),
 							streetProcessorList
 						), 2
 					),
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							maraeId("streets/crossroad_1"),
+							villageId("streets/crossroad_1"),
 							streetProcessorList
 						), 2
 					)
@@ -93,13 +99,13 @@ public class MaraeVillageStructurePools {
 				List.of(
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							maraeId("houses/marae_small_farm_1"),
+							villageId("houses/marae_small_farm_1"),
 							farmProcessorList
 						), 3
 					),
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							maraeId("houses/marae_small_farm_2"),
+							villageId("houses/marae_small_farm_2"),
 							farmProcessorList
 						), 3
 					),
@@ -141,9 +147,53 @@ public class MaraeVillageStructurePools {
 				StructurePool.Projection.TERRAIN_MATCHING
 			)
 		);
+
+		registerable.register(
+			TREES,
+			new StructurePool(
+				emptyPool,
+				List.of(
+					Pair.of(StructurePoolElement.ofFeature(cabbageTree), 1),
+					Pair.of(StructurePoolElement.ofFeature(mamakuTree), 1),
+					Pair.of(StructurePoolElement.ofFeature(whekiiPongaTree), 1)
+				),
+				StructurePool.Projection.RIGID
+			)
+		);
+		registerable.register(
+			DECOR,
+			new StructurePool(
+				emptyPool,
+				List.of(
+					Pair.of(TaiaoStructurePools.createLegacySingleElement(villageId("decor/lamp_1")), 2),
+					Pair.of(TaiaoStructurePools.createLegacySingleElement(villageId("decor/lamp_2")), 4),
+					Pair.of(StructurePoolElement.ofFeature(cabbageTree), 1),
+					Pair.of(StructurePoolElement.ofFeature(mamakuTree), 1),
+					Pair.of(StructurePoolElement.ofFeature(whekiiPongaTree), 1),
+					Pair.of(StructurePoolElement.ofEmpty(), 4)
+				),
+				StructurePool.Projection.RIGID
+			)
+		);
+		registerable.register(
+			VILLAGERS,
+			new StructurePool(
+				emptyPool,
+				List.of(), // TODO
+				StructurePool.Projection.RIGID
+			)
+		);
+		registerable.register(
+			PETS,
+			new StructurePool(
+				emptyPool,
+				List.of(), // TODO
+				StructurePool.Projection.RIGID
+			)
+		);
 	}
 
-	public static Identifier maraeId(String name) {
+	public static Identifier villageId(String name) {
 		return Taiao.id("village/marae/" + name);
 	}
 
