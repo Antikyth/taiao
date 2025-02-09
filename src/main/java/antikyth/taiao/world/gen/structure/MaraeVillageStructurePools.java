@@ -93,10 +93,15 @@ public class MaraeVillageStructurePools {
 				List.of(
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							maraeId("houses/marae_farm_1"),
+							maraeId("houses/marae_small_farm_1"),
 							farmProcessorList
-						),
-						3
+						), 3
+					),
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							maraeId("houses/marae_small_farm_2"),
+							farmProcessorList
+						), 3
 					),
 					Pair.of(StructurePoolElement.ofEmpty(), 6)
 				),
