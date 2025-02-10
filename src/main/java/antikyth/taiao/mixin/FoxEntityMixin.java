@@ -5,6 +5,7 @@
 package antikyth.taiao.mixin;
 
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -28,7 +29,7 @@ public class FoxEntityMixin {
 		return shouldHunt
 			|| entityType.equals(TaiaoEntities.KIWI)
 			|| (entityType.equals(TaiaoEntities.PUUKEKO) && entity.isBaby())
-			|| entityType.equals(TaiaoEntities.KAAKAAPOO)
+			|| (entityType.equals(TaiaoEntities.KAAKAAPOO) && TaiaoEntityPredicates.UNTAMED.test(entity))
 			|| entityType.equals(TaiaoEntities.AUSTRALASIAN_BITTERN);
 	}
 }

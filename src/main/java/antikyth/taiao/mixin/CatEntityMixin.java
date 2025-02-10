@@ -8,6 +8,7 @@ import antikyth.taiao.entity.AustralasianBitternEntity;
 import antikyth.taiao.entity.KaakaapooEntity;
 import antikyth.taiao.entity.KiwiEntity;
 import antikyth.taiao.entity.PuukekoEntity;
+import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.UntamedActiveTargetGoal;
@@ -46,7 +47,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 		);
 		this.targetSelector.add(
 			1,
-			new UntamedActiveTargetGoal<>(this, KaakaapooEntity.class, false, null)
+			new UntamedActiveTargetGoal<>(this, KaakaapooEntity.class, false, TaiaoEntityPredicates.UNTAMED)
 		);
 		this.targetSelector.add(
 			1,
