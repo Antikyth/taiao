@@ -29,12 +29,12 @@ public class VillagerClothingFeatureRendererMixin {
 		method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/LivingEntity;FFFFFF)V",
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/ModelWithHat;setHatVisible(Z)V")
 	)
-	public void alwaysRenderMaaoriVillagerHats(
-		ModelWithHat instance,
+	public void alwaysRenderMaaoriVillagerFaces(
+		ModelWithHat model,
 		boolean hatVisible,
-		@NotNull Operation<Void> original,
+		@NotNull Operation<Void> setHatVisible,
 		@Local(ordinal = 0) VillagerType villagerType
 	) {
-		original.call(instance, hatVisible || villagerType.equals(TaiaoVillagerTypes.MAAORI));
+		setHatVisible.call(model, hatVisible || villagerType.equals(TaiaoVillagerTypes.MAAORI));
 	}
 }

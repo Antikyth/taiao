@@ -35,9 +35,9 @@ public class CatSpawnerMixin {
 		@NotNull WorldView world,
 		BlockPos pos,
 		@Nullable EntityType<?> entityType,
-		Operation<Boolean> original
+		Operation<Boolean> canSpawn
 	) {
 		return !world.getBiome(pos).isIn(TaiaoBiomeTags.INHIBITS_CAT_SPAWNING)
-			&& original.call(location, world, pos, entityType);
+			&& canSpawn.call(location, world, pos, entityType);
 	}
 }
