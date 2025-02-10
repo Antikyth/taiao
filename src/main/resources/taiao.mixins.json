@@ -2,7 +2,15 @@
   "required": true,
   "package": "antikyth.taiao.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["AxeItemMixin", "CatSpawnerMixin", "TallPlantBlockMixin", "TradeOffersMixin"],
+  "mixins": [
+    "AxeItemMixin",
+    "CatEntityMixin",
+    "CatSpawnerMixin",
+    "FoxEntityMixin",
+    "TallPlantBlockMixin",
+    "TradeOffersMixin",
+    "WolfEntityMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
