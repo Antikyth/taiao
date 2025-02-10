@@ -45,6 +45,9 @@ public class TaiaoBiomeTagProvider extends FabricTagProvider<Biome> {
 		getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET).add(TaiaoBiomes.KAHIKATEA_SWAMP);
 
 		// Te Taiao o Aotearoa tags
+		getOrCreateTagBuilder(TaiaoBiomeTags.INHIBITS_CAT_SPAWNING)
+			.add(TaiaoBiomes.NATIVE_FOREST)
+			.add(TaiaoBiomes.KAHIKATEA_SWAMP);
 		getOrCreateTagBuilder(TaiaoBiomeTags.VILLAGE_MARAE_HAS_STRUCTURE)
 			.add(TaiaoBiomes.NATIVE_FOREST);
 	}
