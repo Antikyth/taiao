@@ -3,6 +3,7 @@
   "package": "antikyth.taiao.mixin.client",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "VillagerClothingFeatureRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
