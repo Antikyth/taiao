@@ -253,7 +253,11 @@ public class MaraeVillageStructurePools {
 			VILLAGERS,
 			new StructurePool(
 				emptyPool,
-				List.of(), // TODO
+				List.of(
+					Pair.of(TaiaoStructurePools.createLegacySingleElement(villageId("villagers/nitwit")), 1),
+					Pair.of(TaiaoStructurePools.createLegacySingleElement(villageId("villagers/baby")), 1),
+					Pair.of(TaiaoStructurePools.createLegacySingleElement(villageId("villagers/unemployed")), 10)
+				),
 				StructurePool.Projection.RIGID
 			)
 		);

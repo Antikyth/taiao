@@ -2,7 +2,7 @@
   "required": true,
   "package": "antikyth.taiao.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": ["AxeItemMixin", "TallPlantBlockMixin"],
+  "mixins": ["AxeItemMixin", "TallPlantBlockMixin", "TradeOffersMixin"],
   "injectors": {
     "defaultRequire": 1
   }
