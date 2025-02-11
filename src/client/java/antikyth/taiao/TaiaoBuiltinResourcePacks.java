@@ -9,8 +9,12 @@ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBuiltinResourcePacks {
+	/**
+	 * Replaces Māori names with English ones, where the English names are the more common usage.
+	 */
 	public static final Identifier ENGLISH_NAMES = register(
 		Taiao.id("english_names"),
 		ResourcePackActivationType.NORMAL
@@ -23,10 +27,10 @@ public class TaiaoBuiltinResourcePacks {
 	/**
 	 * Registers a built-in resource pack with a translatable name.
 	 * <p>
-	 * The translation key will be {@code pack.namespace.path}.
+	 * The translation key is created by {@link TaiaoBuiltinResourcePacks#translationKey(Identifier)}.
 	 */
 	public static Identifier register(Identifier id, ResourcePackActivationType activationType) {
-		return register(id, Text.translatable(id.toTranslationKey("pack")), activationType);
+		return register(id, Text.translatable(translationKey(id)), activationType);
 	}
 
 	public static Identifier register(Identifier id, Text name, ResourcePackActivationType activationType) {
@@ -40,5 +44,14 @@ public class TaiaoBuiltinResourcePacks {
 		);
 
 		return id;
+	}
+
+	/**
+	 * Creates the translation key for a resource pack.
+	 * <p>
+	 * The key will be {@code pack.namespace.path}.
+	 */
+	public static String translationKey(@NotNull Identifier id) {
+		return id.toTranslationKey("pack");
 	}
 }

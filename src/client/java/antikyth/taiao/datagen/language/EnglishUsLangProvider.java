@@ -239,7 +239,10 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		@NotNull Identifier resourcePackId,
 		String name
 	) {
-		builder.add(resourcePackId.toTranslationKey("pack"), String.format("%s %s", Taiao.MOD_NAME_SHORT, name));
+		builder.add(
+			TaiaoBuiltinResourcePacks.translationKey(resourcePackId),
+			String.format("%s %s", Taiao.MOD_NAME_SHORT, name)
+		);
 	}
 
 	public static void addEmiLootChestLootTable(
