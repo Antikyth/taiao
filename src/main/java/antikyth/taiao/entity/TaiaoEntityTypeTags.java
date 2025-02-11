@@ -13,18 +13,33 @@ import net.minecraft.util.Identifier;
 
 public final class TaiaoEntityTypeTags {
 	/**
-	 * Entities that cause a {@linkplain TaiaoEntities#KAAKAAPOO kākāpō} to {@linkplain FreezeWhenThreatenedGoal freeze}.
-	 * <p>
-	 * Kākāpō will freeze in the presence of predators if they are tamed or not, even if those tamed predators may not
-	 * be allowed to attack them.
+	 * Mammalian predators, like cats and dogs, which hunt most native birds.
 	 */
-	public static final TagKey<EntityType<?>> KAAKAAPOO_PREDATORS = tagKey(Taiao.id("kaakaapoo_predators"));
+	public static final TagKey<EntityType<?>> MAMMALIAN_PREDATORS = tagKey(Taiao.id("mammalian_predators"));
+
 	/**
 	 * Entities that a {@linkplain TaiaoEntities#PUUKEKO pūkeko} will attack if they are near pūkeko chicks.
 	 * <p>
 	 * Pūkeko will not attack entities that have been tamed.
 	 */
 	public static final TagKey<EntityType<?>> PUUKEKO_PREDATORS = tagKey(Taiao.id("puukeko_predators"));
+	/**
+	 * Entities that cause a {@linkplain TaiaoEntities#KAAKAAPOO kākāpō} to {@linkplain FreezeWhenThreatenedGoal freeze}.
+	 * <p>
+	 * Kākāpō will freeze in the presence of predators whether they are tamed or not, even if those tamed predators may
+	 * not be allowed to attack them.
+	 */
+	public static final TagKey<EntityType<?>> KAAKAAPOO_PREDATORS = tagKey(Taiao.id("kaakaapoo_predators"));
+	/**
+	 * Entities that cause an {@linkplain TaiaoEntities#AUSTRALASIAN_BITTERN Australasian bittern} to freeze or flee
+	 * from.
+	 * <p>
+	 * Australasian bitterns will freeze or flee from predators whether they are tamed or not, even if those tamed
+	 * predators may not be allowed to attack them.
+	 */
+	public static final TagKey<EntityType<?>> AUSTRALASIAN_BITTERN_PREDATORS = tagKey(
+		Taiao.id("australasian_bittern_predators")
+	);
 
 	public static TagKey<EntityType<?>> tagKey(Identifier id) {
 		return TagKey.of(RegistryKeys.ENTITY_TYPE, id);

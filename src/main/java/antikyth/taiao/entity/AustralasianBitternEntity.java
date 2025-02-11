@@ -4,9 +4,12 @@
 
 package antikyth.taiao.entity;
 
+import antikyth.taiao.entity.goal.FreezeWhenThreatenedGoal;
+import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
 import antikyth.taiao.item.TaiaoItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -25,7 +28,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class AustralasianBitternEntity extends AnimalEntity {
+public class AustralasianBitternEntity extends AnimalEntity implements ShushableEntity {
+	protected boolean shushed = false;
+
 	protected AustralasianBitternEntity(
 		EntityType<? extends AnimalEntity> entityType,
 		World world
@@ -34,23 +39,62 @@ public class AustralasianBitternEntity extends AnimalEntity {
 	}
 
 	@Override
+	public void setShushed(boolean shushed) {
+		this.shushed = shushed;
+	}
+
+	@Override
+	public boolean isShushed() {
+		return this.shushed;
+	}
+
+	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
-		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
+
+		// Freeze when predators are close
+		this.goalSelector.add(
+			2,
+			new FreezeWhenThreatenedGoal<>(
+				this,
+				8d,
+				LivingEntity.class,
+				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS)
+			)
+		);
+		// Flee when predators are a bit further away
 		this.goalSelector.add(
 			3,
+			new FleeEntityGoal<>(
+				this,
+				LivingEntity.class,
+				16f,
+				1.6d,
+				1.4d,
+				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS)
+			)
+		);
+
+		this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
+		this.goalSelector.add(
+			5,
 			new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD), false)
 		);
-		this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
-		this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0));
-		this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.add(7, new LookAroundGoal(this));
+		this.goalSelector.add(6, new FollowParentGoal(this, 1.1));
+		this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(9, new LookAroundGoal(this));
 	}
 
 	@Override
 	protected @Nullable SoundEvent getAmbientSound() {
 		return null;
+	}
+
+	@Override
+	public void playAmbientSound() {
+		if (!this.isShushed()) super.playAmbientSound();
 	}
 
 	@Override

@@ -28,13 +28,16 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 		getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(TaiaoEntities.PUUKEKO);
 
 		// Te Taiao o Aotearoa tags
+		getOrCreateTagBuilder(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS)
+			.add(EntityType.CAT)
+			.add(EntityType.WOLF)
+			.add(EntityType.FOX);
+
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.PUUKEKO_PREDATORS)
-			.add(EntityType.CAT)
-			.add(EntityType.WOLF)
-			.add(EntityType.FOX);
+			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS)
-			.add(EntityType.CAT)
-			.add(EntityType.WOLF)
-			.add(EntityType.FOX);
+			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
+		getOrCreateTagBuilder(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS)
+			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
 	}
 }
