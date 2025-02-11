@@ -4,11 +4,13 @@
 
 package antikyth.taiao.entity;
 
+import antikyth.taiao.entity.goal.FreezeWhenThreatenedGoal;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -32,143 +34,163 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class KaakaapooEntity extends TameableEntity {
-    protected static final float TAME_CHANCE = 1f / 3f;
+public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
+	protected static final float TAME_CHANCE = 1f / 3f;
+	protected boolean shushed = false;
 
-    protected KaakaapooEntity(
-            EntityType<? extends TameableEntity> entityType,
-            World world
-    ) {
-        super(entityType, world);
-    }
+	protected KaakaapooEntity(
+		EntityType<? extends TameableEntity> entityType,
+		World world
+	) {
+		super(entityType, world);
+	}
 
-    @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
-        this.goalSelector.add(2, new SitGoal(this));
-        this.goalSelector.add(
-                3,
-                new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.KAAKAAPOO_FOOD), false)
-        );
-        this.goalSelector.add(4, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, true));
-        this.goalSelector.add(5, new AnimalMateGoal(this, 1.0));
-        this.goalSelector.add(6, new FollowParentGoal(this, 1.1));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(9, new LookAroundGoal(this));
-    }
+	@Override
+	public void setShushed(boolean shushed) {
+		this.shushed = shushed;
+	}
 
-    @Override
-    protected @Nullable SoundEvent getAmbientSound() {
-        return TaiaoSoundEvents.ENTITY_KAAKAAPOO_BOOM;
-    }
+	@Override
+	protected void initGoals() {
+		this.goalSelector.add(0, new SwimGoal(this));
+		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
+		this.goalSelector.add(2, new SitGoal(this));
+		this.goalSelector.add(
+			3,
+			new FreezeWhenThreatenedGoal<>(
+				this,
+				8d,
+				LivingEntity.class,
+				entity -> entity.getType().isIn(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS)
+			)
+		);
+		this.goalSelector.add(
+			4,
+			new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.KAAKAAPOO_FOOD), false)
+		);
+		this.goalSelector.add(5, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, true));
+		this.goalSelector.add(6, new AnimalMateGoal(this, 1.0));
+		this.goalSelector.add(7, new FollowParentGoal(this, 1.1));
+		this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
+		this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(10, new LookAroundGoal(this));
+	}
 
-    @Override
-    protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-        return TaiaoSoundEvents.ENTITY_KAAKAAPOO_CHING;
-    }
+	@Override
+	protected @Nullable SoundEvent getAmbientSound() {
+		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_BOOM;
+	}
 
-    @Override
-    protected @Nullable SoundEvent getDeathSound() {
-        return TaiaoSoundEvents.ENTITY_KAAKAAPOO_CHING;
-    }
+	@Override
+	public void playAmbientSound() {
+		if (!this.shushed) super.playAmbientSound();
+	}
 
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_PARROT_STEP, 0.15f, 1f);
-    }
+	@Override
+	protected @Nullable SoundEvent getHurtSound(DamageSource source) {
+		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_CHING;
+	}
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
-    }
+	@Override
+	protected @Nullable SoundEvent getDeathSound() {
+		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_CHING;
+	}
 
-    // Kākāpō will drop NO drops and NO xp. We will NOT encourage killing kākāpō for any purpose.
-    @Override
-    public boolean shouldDropXp() {
-        return false;
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(SoundEvents.ENTITY_PARROT_STEP, 0.15f, 1f);
+	}
 
-    @Override
-    public @Nullable KaakaapooEntity createChild(ServerWorld world, PassiveEntity entity) {
-        KaakaapooEntity child = TaiaoEntities.KAAKAAPOO.create(world);
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return MobEntity.createMobAttributes()
+			.add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0)
+			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+	}
 
-        if (child != null && this.isTamed()) {
-            child.setOwnerUuid(this.getOwnerUuid());
-            child.setTamed(true);
-        }
+	// Kākāpō will drop NO drops and NO xp. We will NOT encourage killing kākāpō for any purpose.
+	@Override
+	public boolean shouldDropXp() {
+		return false;
+	}
 
-        return child;
-    }
+	@Override
+	public @Nullable KaakaapooEntity createChild(ServerWorld world, PassiveEntity entity) {
+		KaakaapooEntity child = TaiaoEntities.KAAKAAPOO.create(world);
 
-    @Override
-    public boolean isBreedingItem(@NotNull ItemStack stack) {
-        return stack.isIn(TaiaoItemTags.KAAKAAPOO_FOOD);
-    }
+		if (child != null && this.isTamed()) {
+			child.setOwnerUuid(this.getOwnerUuid());
+			child.setTamed(true);
+		}
 
-    @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getStackInHand(hand);
-        Item item = stack.getItem();
+		return child;
+	}
 
-        if (this.getWorld().isClient) {
-            if (this.isTamed()) {
-                if (this.isOwner(player)) return ActionResult.SUCCESS;
+	@Override
+	public boolean isBreedingItem(@NotNull ItemStack stack) {
+		return stack.isIn(TaiaoItemTags.KAAKAAPOO_FOOD);
+	}
 
-                // heal
-                if (this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth()) return ActionResult.SUCCESS;
-            }
+	@Override
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
+		Item item = stack.getItem();
 
-            return ActionResult.PASS;
-        } else {
-            if (this.isTamed()) {
-                if (this.isOwner(player)) {
-                    // Healing
-                    FoodComponent food = item.getFoodComponent();
-                    if (food != null && this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth()) {
-                        this.eat(player, hand, stack);
-                        this.heal(food.getHunger());
+		if (this.getWorld().isClient) {
+			if (this.isTamed()) {
+				if (this.isOwner(player)) return ActionResult.SUCCESS;
 
-                        return ActionResult.CONSUME;
-                    }
+				// heal
+				if (this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth()) return ActionResult.SUCCESS;
+			}
 
-                    // Sitting
-                    ActionResult result = super.interactMob(player, hand);
-                    if (!result.isAccepted() || this.isBaby()) {
-                        this.setSitting(!this.isSitting());
-                    }
+			return ActionResult.PASS;
+		} else {
+			if (this.isTamed()) {
+				if (this.isOwner(player)) {
+					// Healing
+					FoodComponent food = item.getFoodComponent();
+					if (food != null && this.isBreedingItem(stack) && this.getHealth() < this.getMaxHealth()) {
+						this.eat(player, hand, stack);
+						this.heal(food.getHunger());
 
-                    return result;
-                }
-            } else if (this.isBreedingItem(stack)) {
-                // Taming
-                this.eat(player, hand, stack);
+						return ActionResult.CONSUME;
+					}
 
-                if (this.random.nextFloat() < TAME_CHANCE) {
-                    this.setOwner(player);
-                    this.setSitting(true);
+					// Sitting
+					ActionResult result = super.interactMob(player, hand);
+					if (!result.isAccepted() || this.isBaby()) {
+						this.setSitting(!this.isSitting());
+					}
 
-                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
-                } else {
-                    this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
-                }
+					return result;
+				}
+			} else if (this.isBreedingItem(stack)) {
+				// Taming
+				this.eat(player, hand, stack);
 
-                this.setPersistent();
+				if (this.random.nextFloat() < TAME_CHANCE) {
+					this.setOwner(player);
+					this.setSitting(true);
 
-                return ActionResult.CONSUME;
-            }
+					this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_POSITIVE_PLAYER_REACTION_PARTICLES);
+				} else {
+					this.getWorld().sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+				}
 
-            ActionResult result = super.interactMob(player, hand);
-            if (result.isAccepted()) this.setPersistent();
+				this.setPersistent();
 
-            return result;
-        }
-    }
+				return ActionResult.CONSUME;
+			}
 
-    @Override
-    public EntityView method_48926() {
-        return this.getWorld();
-    }
+			ActionResult result = super.interactMob(player, hand);
+			if (result.isAccepted()) this.setPersistent();
+
+			return result;
+		}
+	}
+
+	@Override
+	public EntityView method_48926() {
+		return this.getWorld();
+	}
 }

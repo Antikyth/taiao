@@ -28,7 +28,8 @@ public class ProtectBabiesGoal<E extends LivingEntity> extends ActiveTargetGoal<
 		if (super.canStart()) {
 			// Are there any babies nearby?
 			for (MobEntity entity : this.mob.getWorld().getNonSpectatingEntities(
-				this.mob.getClass(), this.mob.getBoundingBox().expand(8d, 4d, 8d)
+				this.mob.getClass(),
+				this.mob.getBoundingBox().expand(8d, 4d, 8d)
 			)) {
 				if (entity.isBaby()) return true;
 			}
