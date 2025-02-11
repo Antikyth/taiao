@@ -30,7 +30,8 @@ public class TaiaoStructureSets {
 		Taiao.id("villages"),
 		(structureLookup, biomeLookup) -> new StructureSet(
 			List.of(StructureSet.createEntry(structureLookup.getOrThrow(TaiaoStructures.VILLAGE_MARAE))),
-			new RandomSpreadStructurePlacement(34, 8, SpreadType.LINEAR, 10387313)
+			// the salt is like the seed, using 7a1a0 because it looks like taiao :)
+			new RandomSpreadStructurePlacement(34, 8, SpreadType.LINEAR, 0x7a1a0)
 		)
 	);
 
