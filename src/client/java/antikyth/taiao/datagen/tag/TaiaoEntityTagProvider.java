@@ -25,7 +25,9 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 	@Override
 	protected void configure(RegistryWrapper.WrapperLookup lookup) {
 		// Vanilla tags
-		getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(TaiaoEntities.PUUKEKO);
+		getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
+			.add(TaiaoEntities.PUUKEKO)
+			.add(TaiaoEntities.AUSTRALASIAN_BITTERN);
 
 		// Te Taiao o Aotearoa tags
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS)
