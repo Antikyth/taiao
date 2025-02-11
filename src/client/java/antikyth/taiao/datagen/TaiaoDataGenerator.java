@@ -4,7 +4,10 @@
 
 package antikyth.taiao.datagen;
 
+import antikyth.taiao.TaiaoBuiltinResourcePacks;
 import antikyth.taiao.datagen.language.EnglishGbLangProvider;
+import antikyth.taiao.datagen.language.EnglishNamesGbLangProvider;
+import antikyth.taiao.datagen.language.EnglishNamesUsLangProvider;
 import antikyth.taiao.datagen.language.EnglishUsLangProvider;
 import antikyth.taiao.datagen.loottable.TaiaoBlockLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoChestLootTableProvider;
@@ -61,6 +64,30 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TaiaoDynamicFeatureProvider::new);
 		pack.addProvider(TaiaoBiomeProvider::new);
 		pack.addProvider(TaiaoStructureProvider::new);
+
+		// English-names language resource pack
+		FabricDataGenerator.Pack englishNamesPack = generator.createBuiltinResourcePack(
+			TaiaoBuiltinResourcePacks.ENGLISH_NAMES
+		);
+
+		englishNamesPack.addProvider(EnglishNamesUsLangProvider::new);
+		// British-like English
+		englishNamesPack.addProvider((FabricDataOutput output) -> new EnglishNamesGbLangProvider(
+			output,
+			"en_gb"
+		));
+		englishNamesPack.addProvider((FabricDataOutput output) -> new EnglishNamesGbLangProvider(
+			output,
+			"en_ca"
+		));
+		englishNamesPack.addProvider((FabricDataOutput output) -> new EnglishNamesGbLangProvider(
+			output,
+			"en_au"
+		));
+		englishNamesPack.addProvider((FabricDataOutput output) -> new EnglishNamesGbLangProvider(
+			output,
+			"en_nz"
+		));
 	}
 
 	@Override

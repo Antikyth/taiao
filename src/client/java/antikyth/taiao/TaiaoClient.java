@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 public class TaiaoClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
+		TaiaoBuiltinResourcePacks.initialize();
 		TaiaoEntityModels.initialize();
 
 		registerColors();

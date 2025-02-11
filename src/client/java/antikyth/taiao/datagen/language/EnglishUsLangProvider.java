@@ -5,6 +5,7 @@
 package antikyth.taiao.datagen.language;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.TaiaoBuiltinResourcePacks;
 import antikyth.taiao.TriConsumer;
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
@@ -22,9 +23,12 @@ import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
@@ -40,7 +44,10 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 	@Override
 	public void generateTranslations(@NotNull TranslationBuilder builder) {
-		builder.add(TaiaoItemGroups.TE_TAIAO_O_AOTEAROA, "Te Taiao o Aotearoa");
+		addBuiltinResourcePack(builder, TaiaoBuiltinResourcePacks.ENGLISH_NAMES, "English Names");
+
+		// Item groups
+		builder.add(TaiaoItemGroups.TE_TAIAO_O_AOTEAROA, Taiao.MOD_NAME);
 
 		// Kauri
 		addTreeBlocks(
@@ -197,7 +204,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addBannerPatterns(builder, EnglishUsLangProvider::addBannerPattern);
 
 		// Chest loot tables
-		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_HOUSE_CHEST, "Marae House Chest");
+		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_HOUSE_CHEST, "Marae Whare Chest");
 		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_PAATAKA_KAI_CHEST, "Marae Pātaka Kai Chest");
 	}
 
@@ -225,6 +232,14 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_UP_SECONDARY, "Kaokao Thin");
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_DOWN_PRIMARY, "Kaokao Thick Inverted");
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_DOWN_SECONDARY, "Kaokao Thin Inverted");
+	}
+
+	public static void addBuiltinResourcePack(
+		@NotNull TranslationBuilder builder,
+		@NotNull Identifier resourcePackId,
+		String name
+	) {
+		builder.add(resourcePackId.toTranslationKey("pack"), String.format("%s %s", Taiao.MOD_NAME_SHORT, name));
 	}
 
 	public static void addEmiLootChestLootTable(

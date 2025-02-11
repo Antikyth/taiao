@@ -22,8 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Taiao implements ModInitializer {
-	public static final String MOD_NAME = "Te Taiao o Aotearoa";
 	public static final String MOD_ID = "taiao";
+
+	public static final String MOD_NAME = "Te Taiao o Aotearoa";
+	public static final String MOD_NAME_SHORT = "Taiao";
 
 	boolean initialized = false;
 
