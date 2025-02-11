@@ -184,14 +184,14 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_BOOM, "Kākāpō booms");
 
 		// Tukutuku
-		addBlock(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_LEFT_ID, "Poutama Tukutuku Left");
-		addBlock(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_RIGHT_ID, "Poutama Tukutuku Right");
+		addItemStack(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_LEFT, "Poutama Tukutuku Left");
+		addItemStack(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_RIGHT, "Poutama Tukutuku Right");
 
-		addBlock(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_ID, "Pātiki Tukutuku");
-		addBlock(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_TOP_ID, "Pātiki Tukutuku Top");
-		addBlock(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_BOTTOM_ID, "Pātiki Tukutuku Bottom");
+		addItemStack(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU, "Pātiki Tukutuku");
+		addItemStack(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_TOP, "Pātiki Tukutuku Top");
+		addItemStack(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_BOTTOM, "Pātiki Tukutuku Bottom");
 
-		addBlock(builder, TaiaoBannerPatterns.KAOKAO_TUKUTUKU_ID, "Kaokao Tukutuku");
+		addItemStack(builder, TaiaoBannerPatterns.KAOKAO_TUKUTUKU, "Kaokao Tukutuku");
 
 		// Banner patterns
 		addBannerPatterns(builder, EnglishUsLangProvider::addBannerPattern);
@@ -273,8 +273,14 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		builder.add(getDyedTranslation.apply(DyeColor.YELLOW), String.format("Yellow %s", name));
 	}
 
-	public static void addBlock(@NotNull TranslationBuilder builder, @NotNull Identifier id, String name) {
-		builder.add(id.toTranslationKey("block"), name);
+	public static void addItemStack(TranslationBuilder builder, @NotNull ItemStack stack, String name) {
+		Text displayName = stack.getName();
+
+		if (displayName.getContent() instanceof TranslatableTextContent translatable) {
+			builder.add(translatable.getKey(), name);
+		} else {
+			Taiao.LOGGER.warn("Tried to add translation for non-translatable item stack '{}'", displayName.getString());
+		}
 	}
 
 	public static void addSubtitles(@NotNull TranslationBuilder builder, @NotNull SoundEvent soundEvent, String name) {
