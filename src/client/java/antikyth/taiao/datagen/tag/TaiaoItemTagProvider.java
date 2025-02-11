@@ -63,7 +63,7 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.addOptionalTag(TaiaoItemTags.CONVENTIONAL_VINES)
 			.add(TaiaoItems.CONIFER_FRUIT);
 		getOrCreateTagBuilder(TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD)
-			.addTag(ItemTags.FISHES)
+			.addOptionalTag(ItemTags.FISHES)
 			.add(Items.FROGSPAWN);
 
 		// Vanilla tags
