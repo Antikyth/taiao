@@ -27,7 +27,11 @@ public class VillagerClothingFeatureRendererMixin {
 	 */
 	@WrapOperation(
 		method = "render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/LivingEntity;FFFFFF)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/ModelWithHat;setHatVisible(Z)V")
+		at = @At(
+			value = "INVOKE",
+			target = "Lnet/minecraft/client/render/entity/model/ModelWithHat;setHatVisible(Z)V",
+			ordinal = 0
+		)
 	)
 	public void alwaysRenderMaaoriVillagerFaces(
 		ModelWithHat model,
