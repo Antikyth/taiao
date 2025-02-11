@@ -12,6 +12,7 @@ import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.*;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
+import antikyth.taiao.world.gen.loot.TaiaoLootTables;
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -192,8 +193,12 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		addBlock(builder, TaiaoBannerPatterns.KAOKAO_TUKUTUKU_ID, "Kaokao Tukutuku");
 
-		// Banner Patterns
+		// Banner patterns
 		addBannerPatterns(builder, EnglishUsLangProvider::addBannerPattern);
+
+		// Chest loot tables
+		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_HOUSE_CHEST, "Marae House Chest");
+		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_PAATAKA_KAI_CHEST, "Marae Pātaka Kai Chest");
 	}
 
 	/**
@@ -220,6 +225,20 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_UP_SECONDARY, "Kaokao Thin");
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_DOWN_PRIMARY, "Kaokao Thick Inverted");
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_DOWN_SECONDARY, "Kaokao Thin Inverted");
+	}
+
+	public static void addEmiLootChestLootTable(
+		@NotNull TranslationBuilder builder,
+		Identifier lootTable,
+		String name
+	) {
+		String translationKey = String.format(
+			"%s.%s",
+			new Identifier("emi_loot", "chest").toTranslationKey(),
+			lootTable
+		);
+
+		builder.add(translationKey, name);
 	}
 
 	public static void addBannerPattern(

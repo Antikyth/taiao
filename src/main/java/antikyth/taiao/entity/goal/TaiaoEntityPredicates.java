@@ -17,7 +17,7 @@ public class TaiaoEntityPredicates {
 	/**
 	 * Whether the entity is not a {@linkplain TameableEntity#isTamed() tamed} {@link TameableEntity}.
 	 */
-	public static final Predicate<LivingEntity> UNTAMED = entity -> !(entity instanceof TameableEntity tamed) || !tamed.isTamed();
+	public static final Predicate<LivingEntity> UNTAMED = entity -> !(entity instanceof TameableEntity tameable) || !tameable.isTamed();
 
 	/**
 	 * Whether the {@linkplain EntityType entity's type} belongs to the given tag.
