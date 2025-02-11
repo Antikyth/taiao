@@ -52,6 +52,11 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
 	}
 
 	@Override
+	public boolean isShushed() {
+		return shushed;
+	}
+
+	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
@@ -84,7 +89,7 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
 
 	@Override
 	public void playAmbientSound() {
-		if (!this.shushed) super.playAmbientSound();
+		if (!this.isShushed()) super.playAmbientSound();
 	}
 
 	@Override
