@@ -28,6 +28,10 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 		getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(TaiaoEntities.PUUKEKO);
 
 		// Te Taiao o Aotearoa tags
+		getOrCreateTagBuilder(TaiaoEntityTypeTags.PUUKEKO_PREDATORS)
+			.add(EntityType.CAT)
+			.add(EntityType.WOLF)
+			.add(EntityType.FOX);
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS)
 			.add(EntityType.CAT)
 			.add(EntityType.WOLF)

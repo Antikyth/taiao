@@ -13,6 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -20,9 +21,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
@@ -73,11 +72,13 @@ public class PuukekoEntity extends AnimalEntity {
 		this.targetSelector.add(1, new ParentRevengeGoal(this));
 		this.targetSelector.add(
 			2,
-			new ProtectBabiesGoal<>(this, CatEntity.class, true, true, TaiaoEntityPredicates.UNTAMED)
-		);
-		this.targetSelector.add(
-			3,
-			new ProtectBabiesGoal<>(this, WolfEntity.class, true, true, TaiaoEntityPredicates.UNTAMED)
+			new ProtectBabiesGoal<>(
+				this,
+				LivingEntity.class,
+				true,
+				true,
+				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.PUUKEKO_PREDATORS).and(TaiaoEntityPredicates.UNTAMED)
+			)
 		);
 	}
 

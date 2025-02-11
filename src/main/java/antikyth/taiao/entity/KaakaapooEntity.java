@@ -5,6 +5,7 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.entity.goal.FreezeWhenThreatenedGoal;
+import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
@@ -61,7 +62,7 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
 				this,
 				8d,
 				LivingEntity.class,
-				entity -> entity.getType().isIn(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS)
+				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS)
 			)
 		);
 		this.goalSelector.add(
