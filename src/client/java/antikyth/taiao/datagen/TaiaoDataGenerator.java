@@ -4,6 +4,8 @@
 
 package antikyth.taiao.datagen;
 
+import antikyth.taiao.datagen.language.EnglishGbLangProvider;
+import antikyth.taiao.datagen.language.EnglishUsLangProvider;
 import antikyth.taiao.datagen.loottable.TaiaoBlockLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoChestLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoEntityLootTableProvider;
@@ -21,6 +23,7 @@ import antikyth.taiao.world.gen.structure.TaiaoStructureSets;
 import antikyth.taiao.world.gen.structure.TaiaoStructures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +32,14 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(@NotNull FabricDataGenerator generator) {
 		FabricDataGenerator.Pack pack = generator.createPack();
+
+		// Languages
+		pack.addProvider(EnglishUsLangProvider::new);
+		// British-like English
+		pack.addProvider((FabricDataOutput output) -> new EnglishGbLangProvider(output, "en_gb"));
+		pack.addProvider((FabricDataOutput output) -> new EnglishGbLangProvider(output, "en_ca"));
+		pack.addProvider((FabricDataOutput output) -> new EnglishGbLangProvider(output, "en_au"));
+		pack.addProvider((FabricDataOutput output) -> new EnglishGbLangProvider(output, "en_nz"));
 
 		pack.addProvider(TaiaoModelProvider::new);
 		pack.addProvider(TaiaoRecipeProvider::new);
