@@ -39,5 +39,11 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS)
 			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
+
+		getOrCreateTagBuilder(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREY)
+			.add(EntityType.FROG)
+			.add(EntityType.COD)
+			.add(EntityType.SALMON)
+			.add(EntityType.TROPICAL_FISH);
 	}
 }

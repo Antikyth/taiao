@@ -76,15 +76,35 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 			)
 		);
 
-		this.goalSelector.add(4, new AnimalMateGoal(this, 1.0));
+		this.goalSelector.add(4, new PounceAtTargetGoal(this, 0.4f));
+		this.goalSelector.add(5, new MeleeAttackGoal(this, 1d, true));
+
+		this.goalSelector.add(6, new AnimalMateGoal(this, 1.0));
 		this.goalSelector.add(
-			5,
+			7,
 			new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD), false)
 		);
-		this.goalSelector.add(6, new FollowParentGoal(this, 1.1));
-		this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.add(9, new LookAroundGoal(this));
+		this.goalSelector.add(8, new FollowParentGoal(this, 1.1));
+		this.goalSelector.add(9, new WanderAroundFarGoal(this, 1.0));
+		this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(11, new LookAroundGoal(this));
+
+		this.targetSelector.add(
+			1,
+			new ActiveTargetGoal<>(
+				this,
+				LivingEntity.class,
+				10,
+				false,
+				false,
+				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREY)
+			)
+		);
+	}
+
+	@Override
+	public double getSwimHeight() {
+		return (double) this.getStandingEyeHeight() < 0.4d ? 0d : 0.25d;
 	}
 
 	@Override
@@ -115,7 +135,8 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
 			.add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0)
-			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
+			.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2d);
 	}
 
 	@Override

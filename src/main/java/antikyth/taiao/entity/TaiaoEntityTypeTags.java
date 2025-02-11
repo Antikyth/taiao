@@ -41,6 +41,11 @@ public final class TaiaoEntityTypeTags {
 		Taiao.id("australasian_bittern_predators")
 	);
 
+	/**
+	 * Entities that {@linkplain TaiaoEntities#AUSTRALASIAN_BITTERN Australasian bitterns} hunt.
+	 */
+	public static final TagKey<EntityType<?>> AUSTRALASIAN_BITTERN_PREY = tagKey(Taiao.id("australasian_bittern_prey"));
+
 	public static TagKey<EntityType<?>> tagKey(Identifier id) {
 		return TagKey.of(RegistryKeys.ENTITY_TYPE, id);
 	}
