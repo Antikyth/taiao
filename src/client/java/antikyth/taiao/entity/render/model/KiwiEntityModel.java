@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.render.model;
 
-import antikyth.taiao.Taiao;
+import antikyth.taiao.TaiaoClient;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
@@ -52,7 +52,7 @@ public class KiwiEntityModel<E extends LivingEntity> extends AnimalModel<E> {
 			"head",
 			ModelPartBuilder.create().uv(0, 13).cuboid(-1.5f, -1.5f, -3f, 3f, 3f, 3f)
 				.uv(12, 13).cuboid(-0.5f, -0.5f, -8f, 1f, 1f, 5f),
-			ModelTransform.pivot(0f, 18f, -3f)
+			ModelTransform.of(0f, 18f, -3f, TaiaoClient.degreesToRadians(HEAD_PITCH), 0f, 0f)
 		);
 
 		return TexturedModelData.of(modelData, 32, 32);
@@ -64,25 +64,33 @@ public class KiwiEntityModel<E extends LivingEntity> extends AnimalModel<E> {
 			this.body.resetTransform();
 			this.head.resetTransform();
 		} else {
-			this.body.pivotY = this.body.getDefaultTransform().pivotY + 2f;
-			this.head.pivotY = this.head.getDefaultTransform().pivotY + 2f;
+			ModelTransform bodyTransform = this.body.getDefaultTransform();
+			ModelTransform headTransform = this.head.getDefaultTransform();
+
+			this.body.pivotY = bodyTransform.pivotY + 2f;
+			this.head.pivotY = headTransform.pivotY + 2f;
+
+			this.head.roll = headTransform.roll + TaiaoClient.degreesToRadians(60f);
+			this.head.pitch = headTransform.pitch + TaiaoClient.degreesToRadians(30f);
 		}
 	}
 
 	@Override
 	public void setAngles(
-		E entity,
+		@NotNull E entity,
 		float limbSwing,
 		float limbSwingAmount,
 		float ageInTicks,
 		float headYawDegrees,
 		float headPitchDegrees
 	) {
-		this.head.pitch = Taiao.degreesToRadians(headPitchDegrees + HEAD_PITCH);
-		this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
+		if (!entity.isSleeping()) {
+			this.head.pitch += TaiaoClient.degreesToRadians(headPitchDegrees);
+			this.head.yaw += TaiaoClient.degreesToRadians(headYawDegrees);
 
-		this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
-		this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
+			this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
+			this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
+		}
 	}
 
 	@Override
