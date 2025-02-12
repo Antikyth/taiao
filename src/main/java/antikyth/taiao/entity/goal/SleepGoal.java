@@ -19,6 +19,7 @@ import java.util.function.Predicate;
 public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
 	protected final E entity;
 	protected final TargetPredicate scaryEntityPredicate;
+	protected final boolean nocturnal;
 
 	protected static final int MAX_CALM_DOWN_TIME = toGoalTicks(140);
 	protected int timer;
@@ -26,25 +27,27 @@ public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
 	protected final double horizontalDistance;
 	protected final double verticalDistance;
 
-	public SleepGoal(E entity, Predicate<LivingEntity> scaryEntityPredicate) {
-		this(entity, 12d, 6d, scaryEntityPredicate);
+	public SleepGoal(E entity, boolean nocturnal, Predicate<LivingEntity> scaryEntityPredicate) {
+		this(entity, nocturnal, 12d, 6d, scaryEntityPredicate);
 	}
 
-	public SleepGoal(E entity) {
-		this(entity, TaiaoEntityPredicates.ALWAYS_FALSE);
+	public SleepGoal(E entity, boolean nocturnal) {
+		this(entity, nocturnal, TaiaoEntityPredicates.ALWAYS_FALSE);
 	}
 
-	public SleepGoal(E entity, double horizontalDistance, double verticalDistance) {
-		this(entity, horizontalDistance, verticalDistance, TaiaoEntityPredicates.ALWAYS_FALSE);
+	public SleepGoal(E entity, boolean nocturnal, double horizontalDistance, double verticalDistance) {
+		this(entity, nocturnal, horizontalDistance, verticalDistance, TaiaoEntityPredicates.ALWAYS_FALSE);
 	}
 
 	public SleepGoal(
 		E entity,
+		boolean nocturnal,
 		double horizontalDistance,
 		double verticalDistance,
 		Predicate<LivingEntity> scaryEntityPredicate
 	) {
 		this.entity = entity;
+		this.nocturnal = nocturnal;
 
 		this.resetTimer();
 
@@ -63,6 +66,9 @@ public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
 		this.timer = this.entity.getRandom().nextInt(MAX_CALM_DOWN_TIME);
 	}
 
+	/**
+	 * Whether the entity is at a favored sleeping location.
+	 */
 	protected boolean isAtFavoredLocation() {
 		World world = this.entity.getWorld();
 		BlockPos pos = BlockPos.ofFloored(this.entity.getX(), this.entity.getBoundingBox().maxY, this.entity.getZ());
@@ -70,7 +76,14 @@ public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
 		return !world.isSkyVisible(pos) && this.entity.getPathfindingFavor(pos) >= 0f;
 	}
 
+	/**
+	 * Whether the entity feels safe.
+	 */
 	protected boolean isCalm() {
+		if (this.entity.inPowderSnow || this.entity.getAttacker() != null || this.entity.isOnFire()) {
+			return false;
+		}
+
 		World world = this.entity.getWorld();
 		Box surroundings = this.entity.getBoundingBox()
 			.expand(this.horizontalDistance, this.verticalDistance, this.horizontalDistance);
@@ -79,15 +92,25 @@ public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
 		return world.getTargets(LivingEntity.class, this.scaryEntityPredicate, this.entity, surroundings).isEmpty();
 	}
 
+	/**
+	 * Whether it is the correct time of day for the entity to sleep.
+	 */
+	protected boolean isCorrectTimeOfDay() {
+		World world = this.entity.getWorld();
+
+		return this.nocturnal ? world.isDay() : world.isNight();
+	}
+
+	/**
+	 * Whether the entity is able to sleep at the moment.
+	 */
 	protected boolean canSleep() {
 		if (this.timer > 0) {
 			this.timer--;
 
 			return false;
 		} else {
-			World world = this.entity.getWorld();
-
-			return world.isDay() && this.isAtFavoredLocation() && this.isCalm() && !this.entity.inPowderSnow;
+			return this.isCorrectTimeOfDay() && this.isAtFavoredLocation() && this.isCalm();
 		}
 	}
 
@@ -107,6 +130,7 @@ public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
 
 	@Override
 	public void start() {
+		this.timer = 0;
 		this.entity.startSleeping();
 
 		this.entity.getNavigation().stop();

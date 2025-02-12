@@ -2,13 +2,13 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.goal;
+package antikyth.taiao.entity.goal.control;
 
-import net.minecraft.entity.ai.control.LookControl;
+import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.mob.MobEntity;
 
-public class SleepyEntityLookControl extends LookControl {
-	public SleepyEntityLookControl(MobEntity entity) {
+public class SleepyEntityMoveControl extends MoveControl {
+	public SleepyEntityMoveControl(MobEntity entity) {
 		super(entity);
 	}
 

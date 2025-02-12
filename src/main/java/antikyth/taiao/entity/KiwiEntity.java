@@ -4,7 +4,12 @@
 
 package antikyth.taiao.entity;
 
-import antikyth.taiao.entity.goal.*;
+import antikyth.taiao.entity.goal.AvoidDaylightGoal;
+import antikyth.taiao.entity.goal.SleepGoal;
+import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
+import antikyth.taiao.entity.goal.WakeAndFollowParentGoal;
+import antikyth.taiao.entity.goal.control.SleepyEntityLookControl;
+import antikyth.taiao.entity.goal.control.SleepyEntityMoveControl;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
@@ -62,22 +67,26 @@ public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 		super(entityType, world);
 
 		this.lookControl = new SleepyEntityLookControl(this);
+		this.moveControl = new SleepyEntityMoveControl(this);
 	}
 
 	@Override
 	protected void initGoals() {
-		this.goalSelector.add(0, new SleepyEntitySwimGoal(this));
-		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
-		this.goalSelector.add(2, new SleepyEntityMateGoal(this, 1.0));
+		this.goalSelector.add(0, new SwimGoal(this));
+		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4d));
+		this.goalSelector.add(2, new AnimalMateGoal(this, 1d));
 		this.goalSelector.add(
 			3,
 			new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.KIWI_FOOD), false)
 		);
 		this.goalSelector.add(4, new AvoidDaylightGoal(this, 1.25d));
-		this.goalSelector.add(5, new SleepGoal<>(this, TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS)));
-		this.goalSelector.add(6, new SleepyEntityFollowParentGoal(this, 1.1));
-		this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0));
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(5, new WakeAndFollowParentGoal(this, 1.1d));
+		this.goalSelector.add(
+			6,
+			new SleepGoal<>(this, true, TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS))
+		);
+		this.goalSelector.add(7, new WanderAroundFarGoal(this, 1d));
+		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6f));
 		this.goalSelector.add(9, new LookAroundGoal(this));
 	}
 

@@ -8,8 +8,8 @@ import antikyth.taiao.entity.SleepyEntity;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 
-public class SleepyEntityFollowParentGoal extends FollowParentGoal {
-	public SleepyEntityFollowParentGoal(AnimalEntity animal, double speed) {
+public class WakeAndFollowParentGoal extends FollowParentGoal {
+	public WakeAndFollowParentGoal(AnimalEntity animal, double speed) {
 		super(animal, speed);
 	}
 
