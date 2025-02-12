@@ -61,14 +61,16 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 		offerChiseledBlockRecipe(
 			exporter,
 			RecipeCategory.BUILDING_BLOCKS,
+			TaiaoBlocks.STRIPPED_RIMU_LOG,
 			TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG,
-			TaiaoBlocks.STRIPPED_RIMU_LOG
+			2
 		);
 		offerChiseledBlockRecipe(
 			exporter,
 			RecipeCategory.BUILDING_BLOCKS,
+			TaiaoBlocks.STRIPPED_RIMU_WOOD,
 			TaiaoBlocks.CHISELED_STRIPPED_RIMU_WOOD,
-			TaiaoBlocks.STRIPPED_RIMU_WOOD
+			2
 		);
 		offerBarkBlockRecipe(
 			exporter,
@@ -98,6 +100,20 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 		// Whekī ponga wood
 		offerBarkBlockRecipe(exporter, TaiaoBlocks.WHEKII_PONGA_WOOD, TaiaoBlocks.WHEKII_PONGA_LOG);
 		offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD, TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
+	}
+
+	public static void offerChiseledBlockRecipe(
+		Consumer<RecipeJsonProvider> exporter,
+		RecipeCategory category,
+		ItemConvertible input,
+		ItemConvertible output,
+		int count
+	) {
+		ShapedRecipeJsonBuilder.create(category, output, count)
+			.input('#', input)
+			.pattern("#")
+			.pattern("#")
+			.criterion(hasItem(input), conditionsFromItem(input)).offerTo(exporter);
 	}
 
 	public static void offerBoatRecipes(
