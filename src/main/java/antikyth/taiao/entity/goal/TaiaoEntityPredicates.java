@@ -20,6 +20,15 @@ public class TaiaoEntityPredicates {
 	public static final Predicate<LivingEntity> UNTAMED = entity -> !(entity instanceof TameableEntity tameable) || !tameable.isTamed();
 
 	/**
+	 * A predicate that always returns true.
+	 */
+	public static final Predicate<LivingEntity> ALWAYS_TRUE = entity -> true;
+	/**
+	 * A predicate that always returns false.
+	 */
+	public static final Predicate<LivingEntity> ALWAYS_FALSE = entity -> false;
+
+	/**
 	 * Whether the {@linkplain EntityType entity's type} belongs to the given tag.
 	 */
 	@Contract(pure = true)

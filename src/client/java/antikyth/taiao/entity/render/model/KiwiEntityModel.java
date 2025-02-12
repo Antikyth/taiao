@@ -8,12 +8,12 @@ import antikyth.taiao.Taiao;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 // Made with Blockbench 4.12.1
-public class KiwiEntityModel<E extends Entity> extends AnimalModel<E> {
+public class KiwiEntityModel<E extends LivingEntity> extends AnimalModel<E> {
 	/**
 	 * The default pitch of the kiwi's head in degrees.
 	 */
@@ -56,6 +56,17 @@ public class KiwiEntityModel<E extends Entity> extends AnimalModel<E> {
 		);
 
 		return TexturedModelData.of(modelData, 32, 32);
+	}
+
+	@Override
+	public void animateModel(@NotNull E entity, float limbAngle, float limbDistance, float tickDelta) {
+		if (!entity.isSleeping()) {
+			this.body.resetTransform();
+			this.head.resetTransform();
+		} else {
+			this.body.pivotY = this.body.getDefaultTransform().pivotY + 2f;
+			this.head.pivotY = this.head.getDefaultTransform().pivotY + 2f;
+		}
 	}
 
 	@Override

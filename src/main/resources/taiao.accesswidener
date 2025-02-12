@@ -1,5 +1,9 @@
 accessWidener v2 named
 
+# Entity goals
+accessible field net/minecraft/entity/ai/goal/SwimGoal mob Lnet/minecraft/entity/mob/MobEntity;
+accessible field net/minecraft/entity/ai/goal/FollowParentGoal animal Lnet/minecraft/entity/passive/AnimalEntity;
+
 # Entity loot tables
 accessible field net/minecraft/data/server/loottable/EntityLootTableGenerator lootTables Ljava/util/Map;
 

@@ -35,6 +35,8 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 			.add(EntityType.WOLF)
 			.add(EntityType.FOX);
 
+		getOrCreateTagBuilder(TaiaoEntityTypeTags.KIWI_PREDATORS)
+			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.PUUKEKO_PREDATORS)
 			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS)
