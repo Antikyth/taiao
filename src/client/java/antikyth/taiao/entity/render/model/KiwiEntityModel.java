@@ -60,18 +60,15 @@ public class KiwiEntityModel<E extends LivingEntity> extends AnimalModel<E> {
 
 	@Override
 	public void animateModel(@NotNull E entity, float limbAngle, float limbDistance, float tickDelta) {
-		if (!entity.isSleeping()) {
-			this.body.resetTransform();
-			this.head.resetTransform();
-		} else {
-			ModelTransform bodyTransform = this.body.getDefaultTransform();
-			ModelTransform headTransform = this.head.getDefaultTransform();
+		this.body.resetTransform();
+		this.head.resetTransform();
 
-			this.body.pivotY = bodyTransform.pivotY + 2f;
-			this.head.pivotY = headTransform.pivotY + 2f;
+		if (entity.isSleeping()) {
+			this.body.pivotY += 2f;
+			this.head.pivotY += 2f;
 
-			this.head.roll = headTransform.roll + TaiaoClient.degreesToRadians(60f);
-			this.head.pitch = headTransform.pitch + TaiaoClient.degreesToRadians(30f);
+			this.head.roll += TaiaoClient.degreesToRadians(60f);
+			this.head.pitch += TaiaoClient.degreesToRadians(30f);
 		}
 	}
 
