@@ -105,7 +105,7 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity, 
 		);
 		this.goalSelector.add(5, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, true));
 		this.goalSelector.add(6, new AnimalMateGoal(this, 1.0));
-		this.goalSelector.add(7, new AvoidDaylightGoal(this, 1.25d));
+		this.goalSelector.add(7, new AvoidDaylightGoal(this, 1d));
 		this.goalSelector.add(8, new WakeAndFollowParentGoal(this, 1.1));
 		this.goalSelector.add(9, new TameableSleepGoal<>(this, true, PREDATOR_PREDICATE));
 		this.goalSelector.add(10, new WhileAwakeGoal(this, new WanderAroundFarGoal(this, 1.0)));

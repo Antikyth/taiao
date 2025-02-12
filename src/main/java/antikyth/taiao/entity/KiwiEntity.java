@@ -90,7 +90,7 @@ public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 			4,
 			new TemptGoal(this, 1d, Ingredient.fromTag(TaiaoItemTags.KIWI_FOOD), false)
 		);
-		this.goalSelector.add(5, new AvoidDaylightGoal(this, 1.25d));
+		this.goalSelector.add(5, new AvoidDaylightGoal(this, 1d));
 		this.goalSelector.add(6, new WakeAndFollowParentGoal(this, 1.1d));
 		this.goalSelector.add(7, new SleepGoal<>(this, true, PREDATOR_PREDICATE));
 		this.goalSelector.add(8, new WanderAroundFarGoal(this, 1d));
