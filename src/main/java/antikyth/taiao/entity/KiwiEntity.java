@@ -44,9 +44,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.IntFunction;
+import java.util.function.Predicate;
 
 public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 	protected static final float WHITE_CHANCE = 0.01f;
+
+	protected static final Predicate<LivingEntity> PREDATOR_PREDICATE = TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS);
 
 	protected static final TrackedData<Byte> KIWI_DATA = DataTracker.registerData(
 		KiwiEntity.class,
@@ -79,27 +82,17 @@ public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25d));
 		this.goalSelector.add(
 			2,
-			new FleeEntityGoal<>(
-				this,
-				LivingEntity.class,
-				8f,
-				1.2d,
-				1.2d,
-				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS)
-			)
+			new FleeEntityGoal<>(this, LivingEntity.class, 8f, 1.2d, 1.2d, PREDATOR_PREDICATE)
 		);
 
 		this.goalSelector.add(3, new AnimalMateGoal(this, 1d));
 		this.goalSelector.add(
 			4,
-			new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.KIWI_FOOD), false)
+			new TemptGoal(this, 1d, Ingredient.fromTag(TaiaoItemTags.KIWI_FOOD), false)
 		);
 		this.goalSelector.add(5, new AvoidDaylightGoal(this, 1.25d));
 		this.goalSelector.add(6, new WakeAndFollowParentGoal(this, 1.1d));
-		this.goalSelector.add(
-			7,
-			new SleepGoal<>(this, true, TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS))
-		);
+		this.goalSelector.add(7, new SleepGoal<>(this, true, PREDATOR_PREDICATE));
 		this.goalSelector.add(8, new WanderAroundFarGoal(this, 1d));
 		this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 6f));
 		this.goalSelector.add(10, new LookAroundGoal(this));

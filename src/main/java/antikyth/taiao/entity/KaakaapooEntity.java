@@ -40,9 +40,13 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
+
 public class KaakaapooEntity extends TameableEntity implements ShushableEntity, SleepyEntity {
 	protected static final float TAME_CHANCE = 1f / 3f;
 	protected boolean shushed = false;
+
+	protected static final Predicate<LivingEntity> PREDATOR_PREDICATE = TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS);
 
 	protected static final TrackedData<Byte> KAAKAAPOO_DATA = DataTracker.registerData(
 		KaakaapooEntity.class,
@@ -93,12 +97,7 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity, 
 		this.goalSelector.add(2, new SitGoal(this));
 		this.goalSelector.add(
 			3,
-			new FreezeWhenThreatenedGoal<>(
-				this,
-				8d,
-				LivingEntity.class,
-				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS)
-			)
+			new FreezeWhenThreatenedGoal<>(this, 8d, LivingEntity.class, PREDATOR_PREDICATE)
 		);
 		this.goalSelector.add(
 			4,
@@ -108,10 +107,7 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity, 
 		this.goalSelector.add(6, new AnimalMateGoal(this, 1.0));
 		this.goalSelector.add(7, new AvoidDaylightGoal(this, 1.25d));
 		this.goalSelector.add(8, new WakeAndFollowParentGoal(this, 1.1));
-		this.goalSelector.add(
-			9,
-			new TameableSleepGoal<>(this, true, TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS))
-		);
+		this.goalSelector.add(9, new TameableSleepGoal<>(this, true, PREDATOR_PREDICATE));
 		this.goalSelector.add(10, new WhileAwakeGoal(this, new WanderAroundFarGoal(this, 1.0)));
 		this.goalSelector.add(11, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.add(12, new LookAroundGoal(this));

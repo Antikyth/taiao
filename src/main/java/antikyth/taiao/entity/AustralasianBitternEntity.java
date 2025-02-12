@@ -28,8 +28,13 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
+
 public class AustralasianBitternEntity extends AnimalEntity implements ShushableEntity {
 	protected boolean shushed = false;
+
+	protected static final Predicate<LivingEntity> PREDATOR_PREDICATE = TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS);
+	protected static final Predicate<LivingEntity> PREY_PREDICATE = TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREY);
 
 	protected AustralasianBitternEntity(
 		EntityType<? extends AnimalEntity> entityType,
@@ -56,24 +61,12 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 		// Freeze when predators are close
 		this.goalSelector.add(
 			2,
-			new FreezeWhenThreatenedGoal<>(
-				this,
-				8d,
-				LivingEntity.class,
-				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS)
-			)
+			new FreezeWhenThreatenedGoal<>(this, 8d, LivingEntity.class, PREDATOR_PREDICATE)
 		);
 		// Flee when predators are a bit further away
 		this.goalSelector.add(
 			3,
-			new FleeEntityGoal<>(
-				this,
-				LivingEntity.class,
-				24f,
-				1.25d,
-				1.25d,
-				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS)
-			)
+			new FleeEntityGoal<>(this, LivingEntity.class, 24f, 1.25d, 1.25d, PREDATOR_PREDICATE)
 		);
 
 		this.goalSelector.add(4, new PounceAtTargetGoal(this, 0.4f));
@@ -91,14 +84,7 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 
 		this.targetSelector.add(
 			1,
-			new ActiveTargetGoal<>(
-				this,
-				LivingEntity.class,
-				10,
-				false,
-				false,
-				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREY)
-			)
+			new ActiveTargetGoal<>(this, LivingEntity.class, 10, false, false, PREY_PREDICATE)
 		);
 	}
 
