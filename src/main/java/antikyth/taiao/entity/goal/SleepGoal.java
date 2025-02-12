@@ -103,15 +103,22 @@ public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
 
 	/**
 	 * Whether the entity is able to sleep at the moment.
+	 * <p>
+	 * If sleeping conditions are met, calling this method decrements the timer (the entity 'starts to doze off').
+	 * Once the timer reaches zero, the entity is allowed to sleep.
 	 */
 	protected boolean canSleep() {
-		if (this.timer > 0) {
-			this.timer--;
+		if (this.isCorrectTimeOfDay() && this.isCalm() && this.isAtFavoredLocation()) {
+			if (this.timer > 0) {
+				this.timer--;
 
-			return false;
-		} else {
-			return this.isCorrectTimeOfDay() && this.isAtFavoredLocation() && this.isCalm();
+				return false;
+			}
+
+			return true;
 		}
+
+		return false;
 	}
 
 	@Override
