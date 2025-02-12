@@ -57,8 +57,8 @@ public class PuukekoEntity extends AnimalEntity {
 	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new AttackGoal(this));
-		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
+		this.goalSelector.add(1, new MeleeAttackGoal(this, 1.25d, true));
+		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25d));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0));
 		this.goalSelector.add(
 			3,
