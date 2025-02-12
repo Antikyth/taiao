@@ -34,6 +34,10 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 			.add(EntityType.CAT)
 			.add(EntityType.WOLF)
 			.add(EntityType.FOX);
+		getOrCreateTagBuilder(TaiaoEntityTypeTags.SCHOOLING_FISH_PREY)
+			.add(EntityType.COD)
+			.add(EntityType.SALMON)
+			.add(EntityType.TROPICAL_FISH);
 
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.KIWI_PREDATORS)
 			.addTag(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS);
@@ -46,8 +50,6 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREY)
 			.add(EntityType.FROG)
-			.add(EntityType.COD)
-			.add(EntityType.SALMON)
-			.add(EntityType.TROPICAL_FISH);
+			.addTag(TaiaoEntityTypeTags.SCHOOLING_FISH_PREY);
 	}
 }

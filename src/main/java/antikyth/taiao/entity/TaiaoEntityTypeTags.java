@@ -46,6 +46,10 @@ public final class TaiaoEntityTypeTags {
 	);
 
 	/**
+	 * Schooling fish, preyed on by various predators in aquatic and semiaquatic environments.
+	 */
+	public static final TagKey<EntityType<?>> SCHOOLING_FISH_PREY = tagKey(Taiao.id("prey/schooling_fishes"));
+	/**
 	 * Entities that {@linkplain TaiaoEntities#AUSTRALASIAN_BITTERN Australasian bitterns} hunt.
 	 */
 	public static final TagKey<EntityType<?>> AUSTRALASIAN_BITTERN_PREY = tagKey(Taiao.id("prey/of/australasian_bittern"));
