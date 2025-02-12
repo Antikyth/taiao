@@ -15,6 +15,7 @@ import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -73,21 +74,37 @@ public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4d));
-		this.goalSelector.add(2, new AnimalMateGoal(this, 1d));
+
+		this.goalSelector.add(1, new MeleeAttackGoal(this, 1.25d, true));
+		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25d));
 		this.goalSelector.add(
-			3,
+			2,
+			new FleeEntityGoal<>(
+				this,
+				LivingEntity.class,
+				8f,
+				1.2d,
+				1.2d,
+				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS)
+			)
+		);
+
+		this.goalSelector.add(3, new AnimalMateGoal(this, 1d));
+		this.goalSelector.add(
+			4,
 			new TemptGoal(this, 1.0, Ingredient.fromTag(TaiaoItemTags.KIWI_FOOD), false)
 		);
-		this.goalSelector.add(4, new AvoidDaylightGoal(this, 1.25d));
-		this.goalSelector.add(5, new WakeAndFollowParentGoal(this, 1.1d));
+		this.goalSelector.add(5, new AvoidDaylightGoal(this, 1.25d));
+		this.goalSelector.add(6, new WakeAndFollowParentGoal(this, 1.1d));
 		this.goalSelector.add(
-			6,
+			7,
 			new SleepGoal<>(this, true, TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS))
 		);
-		this.goalSelector.add(7, new WanderAroundFarGoal(this, 1d));
-		this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 6f));
-		this.goalSelector.add(9, new LookAroundGoal(this));
+		this.goalSelector.add(8, new WanderAroundFarGoal(this, 1d));
+		this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 6f));
+		this.goalSelector.add(10, new LookAroundGoal(this));
+
+		this.targetSelector.add(1, new RevengeGoal(this));
 	}
 
 	@Override
@@ -117,8 +134,9 @@ public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0)
-			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+			.add(EntityAttributes.GENERIC_MAX_HEALTH, 3d)
+			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25d)
+			.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2d);
 	}
 
 	// Kiwi will drop NO drops and NO xp. We will NOT encourage killing kiwi for any purpose.
