@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.render.model;
 
-import antikyth.taiao.Taiao;
+import antikyth.taiao.TaiaoClient;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.entity.Entity;
@@ -76,8 +76,8 @@ public class AustralasianBitternEntityModel<E extends Entity> extends AnimalMode
 		float headYawDegrees,
 		float headPitchDegrees
 	) {
-		this.head.pitch = Taiao.degreesToRadians(headPitchDegrees);
-		this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
+		this.head.pitch = TaiaoClient.degreesToRadians(headPitchDegrees);
+		this.head.yaw = TaiaoClient.degreesToRadians(headYawDegrees);
 
 		this.neck.pitch = this.head.pitch;
 		this.neck.yaw = this.head.yaw;
