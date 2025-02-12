@@ -13,6 +13,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * An overlay layer rendered when an entity is sleeping.
+ */
 public abstract class SleepyEyesFeatureRenderer<E extends LivingEntity, M extends EntityModel<E>> extends
 	FeatureRenderer<E, M> {
 	public SleepyEyesFeatureRenderer(FeatureRendererContext<E, M> context) {
@@ -40,5 +43,8 @@ public abstract class SleepyEyesFeatureRenderer<E extends LivingEntity, M extend
 		}
 	}
 
+	/**
+	 * Returns the overlay texture for when the entity is sleeping.
+	 */
 	public abstract Identifier getTexture(E entity);
 }
