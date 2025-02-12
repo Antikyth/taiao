@@ -68,15 +68,15 @@ public class KaakaapooEntityModel<E extends TameableEntity> extends AnimalModel<
 
 	@Override
 	public void animateModel(@NotNull E entity, float limbAngle, float limbDistance, float tickDelta) {
-		if (!entity.isInSittingPose()) {
-			this.head.resetTransform();
+		this.head.resetTransform();
 
-			this.body.resetTransform();
-			this.tail.resetTransform();
+		this.body.resetTransform();
+		this.tail.resetTransform();
 
-			this.leftLeg.resetTransform();
-			this.rightLeg.resetTransform();
-		} else {
+		this.leftLeg.resetTransform();
+		this.rightLeg.resetTransform();
+
+		if (entity.isInSittingPose()) {
 			this.head.pivotY = this.head.getDefaultTransform().pivotY + 2f;
 			this.head.pivotZ = this.head.getDefaultTransform().pivotZ - 1f;
 
@@ -87,6 +87,14 @@ public class KaakaapooEntityModel<E extends TameableEntity> extends AnimalModel<
 
 			this.leftLeg.pivotZ = this.leftLeg.getDefaultTransform().pivotZ + 1f;
 			this.rightLeg.pivotZ = this.rightLeg.getDefaultTransform().pivotZ + 1f;
+		}
+
+		if (entity.isSleeping()) {
+			this.head.yaw += TaiaoClient.degreesToRadians(115f);
+			this.head.pitch += TaiaoClient.degreesToRadians(20f);
+
+			this.head.pivotY -= 3f;
+			this.head.pivotZ -= 1f;
 		}
 	}
 
@@ -99,11 +107,13 @@ public class KaakaapooEntityModel<E extends TameableEntity> extends AnimalModel<
 		float headYawDegrees,
 		float headPitchDegrees
 	) {
-		this.head.pitch = TaiaoClient.degreesToRadians(headPitchDegrees);
-		this.head.yaw = TaiaoClient.degreesToRadians(headYawDegrees);
+		if (!entity.isSleeping()) {
+			this.head.pitch = TaiaoClient.degreesToRadians(headPitchDegrees);
+			this.head.yaw = TaiaoClient.degreesToRadians(headYawDegrees);
 
-		this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
-		this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
+			this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
+			this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
+		}
 	}
 
 	@Override

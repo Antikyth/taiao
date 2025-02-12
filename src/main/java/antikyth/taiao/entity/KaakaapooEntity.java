@@ -4,8 +4,9 @@
 
 package antikyth.taiao.entity;
 
-import antikyth.taiao.entity.goal.FreezeWhenThreatenedGoal;
-import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
+import antikyth.taiao.entity.goal.*;
+import antikyth.taiao.entity.goal.control.SleepyEntityLookControl;
+import antikyth.taiao.entity.goal.control.SleepyEntityMoveControl;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
@@ -16,6 +17,9 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -23,6 +27,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -35,15 +40,24 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
+public class KaakaapooEntity extends TameableEntity implements ShushableEntity, SleepyEntity {
 	protected static final float TAME_CHANCE = 1f / 3f;
 	protected boolean shushed = false;
+
+	protected static final TrackedData<Byte> KAAKAAPOO_DATA = DataTracker.registerData(
+		KaakaapooEntity.class,
+		TrackedDataHandlerRegistry.BYTE
+	);
+	protected static final int SLEEPING_FLAG = 0b0000_0001;
 
 	protected KaakaapooEntity(
 		EntityType<? extends TameableEntity> entityType,
 		World world
 	) {
 		super(entityType, world);
+
+		this.lookControl = new SleepyEntityLookControl(this);
+		this.moveControl = new SleepyEntityMoveControl(this);
 	}
 
 	@Override
@@ -54,6 +68,22 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
 	@Override
 	public boolean isShushed() {
 		return shushed;
+	}
+
+	@Override
+	public void setSleeping(boolean sleeping) {
+		byte data = this.dataTracker.get(KAAKAAPOO_DATA);
+
+		if (sleeping) {
+			this.dataTracker.set(KAAKAAPOO_DATA, (byte) (data | SLEEPING_FLAG));
+		} else {
+			this.dataTracker.set(KAAKAAPOO_DATA, (byte) (data & ~SLEEPING_FLAG));
+		}
+	}
+
+	@Override
+	public boolean isSleeping() {
+		return (this.dataTracker.get(KAAKAAPOO_DATA) & SLEEPING_FLAG) != 0;
 	}
 
 	@Override
@@ -76,10 +106,36 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
 		);
 		this.goalSelector.add(5, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, true));
 		this.goalSelector.add(6, new AnimalMateGoal(this, 1.0));
-		this.goalSelector.add(7, new FollowParentGoal(this, 1.1));
-		this.goalSelector.add(8, new WanderAroundFarGoal(this, 1.0));
-		this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.add(10, new LookAroundGoal(this));
+		this.goalSelector.add(7, new AvoidDaylightGoal(this, 1.25d));
+		this.goalSelector.add(8, new WakeAndFollowParentGoal(this, 1.1));
+		this.goalSelector.add(
+			9,
+			new TameableSleepGoal<>(this, true, TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KAAKAAPOO_PREDATORS))
+		);
+		this.goalSelector.add(10, new WhileAwakeGoal(this, new WanderAroundFarGoal(this, 1.0)));
+		this.goalSelector.add(11, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.add(12, new LookAroundGoal(this));
+	}
+
+	@Override
+	protected void initDataTracker() {
+		super.initDataTracker();
+
+		this.dataTracker.startTracking(KAAKAAPOO_DATA, (byte) 0b0000_0000);
+	}
+
+	@Override
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+
+		nbt.putBoolean("Sleeping", this.isSleeping());
+	}
+
+	@Override
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+
+		this.setSleeping(nbt.getBoolean("Sleeping"));
 	}
 
 	@Override
@@ -89,7 +145,7 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
 
 	@Override
 	public void playAmbientSound() {
-		if (!this.isShushed()) super.playAmbientSound();
+		if (!this.isShushed() && !this.isSleeping()) super.playAmbientSound();
 	}
 
 	@Override
@@ -134,6 +190,29 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity {
 	@Override
 	public boolean isBreedingItem(@NotNull ItemStack stack) {
 		return stack.isIn(TaiaoItemTags.KAAKAAPOO_FOOD);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+
+		if (this.canMoveVoluntarily()) {
+			// Wake up if touching water or with thunder.
+			if (this.isTouchingWater() || this.getWorld().isThundering()) {
+				this.wake();
+			}
+		}
+	}
+
+	@Override
+	public void tickMovement() {
+		if (this.isSleeping() || this.isImmobile()) {
+			this.jumping = false;
+			this.sidewaysSpeed = 0f;
+			this.forwardSpeed = 0f;
+		}
+
+		super.tickMovement();
 	}
 
 	@Override

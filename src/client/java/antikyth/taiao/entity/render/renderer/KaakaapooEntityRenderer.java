@@ -8,19 +8,33 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.KaakaapooEntity;
 import antikyth.taiao.entity.render.TaiaoEntityModels;
 import antikyth.taiao.entity.render.model.KaakaapooEntityModel;
+import antikyth.taiao.entity.render.renderer.feature.SleepyEyesFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class KaakaapooEntityRenderer extends MobEntityRenderer<KaakaapooEntity, KaakaapooEntityModel<KaakaapooEntity>> {
-    public static final Identifier TEXTURE = Taiao.id("textures/entity/kaakaapoo.png");
+	protected static final Identifier TEXTURES = Taiao.id("textures/entity/kaakaapoo");
 
-    public KaakaapooEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new KaakaapooEntityModel<>(context.getPart(TaiaoEntityModels.KAAKAAPOO)), 0.45f);
-    }
+	public static final Identifier TEXTURE = TEXTURES.withPath(path -> String.format("%s/kaakaapoo.png", path));
+	public static final Identifier SLEEPY_EYES_TEXTURE = TEXTURES.withPath(path -> String.format(
+		"%s/sleepy_eyes.png",
+		path
+	));
 
-    @Override
-    public Identifier getTexture(KaakaapooEntity entity) {
-        return TEXTURE;
-    }
+	public KaakaapooEntityRenderer(EntityRendererFactory.Context context) {
+		super(context, new KaakaapooEntityModel<>(context.getPart(TaiaoEntityModels.KAAKAAPOO)), 0.45f);
+
+		this.addFeature(new SleepyEyesFeatureRenderer<>(this) {
+			@Override
+			public Identifier getTexture(KaakaapooEntity entity) {
+				return SLEEPY_EYES_TEXTURE;
+			}
+		});
+	}
+
+	@Override
+	public Identifier getTexture(KaakaapooEntity entity) {
+		return TEXTURE;
+	}
 }
