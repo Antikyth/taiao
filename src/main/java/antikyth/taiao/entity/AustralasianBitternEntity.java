@@ -51,7 +51,7 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4));
+		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.25d));
 
 		// Freeze when predators are close
 		this.goalSelector.add(
@@ -69,9 +69,9 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 			new FleeEntityGoal<>(
 				this,
 				LivingEntity.class,
-				16f,
-				1.6d,
-				1.4d,
+				24f,
+				1.25d,
+				1.25d,
 				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS)
 			)
 		);
