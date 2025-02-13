@@ -47,7 +47,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addBuiltinResourcePack(builder, TaiaoBuiltinResourcePacks.ENGLISH_NAMES, "English Names");
 
 		// Item groups
-		builder.add(TaiaoItemGroups.TE_TAIAO_O_AOTEAROA, Taiao.MOD_NAME);
+		builder.add(TaiaoItemGroups.MAIN, Taiao.MOD_NAME);
 
 		// Kauri
 		addTreeBlocks(

@@ -18,11 +18,12 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class TaiaoItemGroups {
-	public static final RegistryKey<ItemGroup> TE_TAIAO_O_AOTEAROA = registerItemGroup(
+	public static final RegistryKey<ItemGroup> MAIN = registerItemGroup(
 		Taiao.id("item_group"),
-		TaiaoBlocks.CABBAGE_TREE_SAPLING.asItem()
+		() -> TaiaoBannerPatterns.KAOKAO_TUKUTUKU
 	);
 
 	@SuppressWarnings("CodeBlock2Expr")
@@ -30,7 +31,7 @@ public class TaiaoItemGroups {
 		Taiao.LOGGER.debug("Registering item groups");
 
 		// Add items to the item group.
-		ItemGroupEvents.modifyEntriesEvent(TE_TAIAO_O_AOTEAROA).register(group -> {
+		ItemGroupEvents.modifyEntriesEvent(MAIN).register(group -> {
 			group.add(TaiaoBlocks.KAURI_SAPLING);
 			group.add(TaiaoBlocks.KAURI_LEAVES);
 			addKauriBuildingBlocks(group::add);
@@ -255,11 +256,11 @@ public class TaiaoItemGroups {
 	/**
 	 * Register a new item group with the given {@code id} and {@code icon}.
 	 */
-	public static RegistryKey<ItemGroup> registerItemGroup(Identifier id, Item icon) {
+	public static RegistryKey<ItemGroup> registerItemGroup(Identifier id, Supplier<ItemStack> icon) {
 		RegistryKey<ItemGroup> key = RegistryKey.of(RegistryKeys.ITEM_GROUP, id);
 
 		ItemGroup group = FabricItemGroup.builder()
-			.icon(() -> new ItemStack(icon))
+			.icon(icon)
 			.displayName(Text.translatable(id.toTranslationKey("itemGroup")))
 			.build();
 
