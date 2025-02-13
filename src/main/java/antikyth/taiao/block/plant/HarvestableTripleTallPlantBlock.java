@@ -4,12 +4,12 @@
 
 package antikyth.taiao.block.plant;
 
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -106,7 +106,7 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 	) {
 		ItemStack stack = player.getStackInHand(hand);
 
-		if (!state.get(HARVESTED) && stack.isOf(Items.SHEARS)) {
+		if (!state.get(HARVESTED) && stack.isIn(ConventionalItemTags.SHEARS)) {
 			world.setBlockState(
 				pos,
 				state.with(HARVESTED, true),
