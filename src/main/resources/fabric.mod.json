@@ -29,7 +29,7 @@
       "antikyth.taiao.datagen.TaiaoDataGenerator"
     ],
     "emi": [
-      "antikyth.taiao.TaiaoEmiPlugin"
+      "antikyth.taiao.emi.TaiaoEmiPlugin"
     ]
   },
   "mixins": [

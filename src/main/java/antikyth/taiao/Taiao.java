@@ -18,6 +18,7 @@ import antikyth.taiao.world.gen.feature.TaiaoFeatures;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,5 +69,14 @@ public class Taiao implements ModInitializer {
 	 */
 	public static Identifier commonId(String name) {
 		return Identifier.of("c", name);
+	}
+
+	/**
+	 * Converts the given {@code id} to a {@link String} path separated by {@code /}.
+	 * <p>
+	 * E.g., {@code taiao:predators/mammals} would become {@code taiao/predators/mammals}.
+	 */
+	public static @NotNull String toPath(@NotNull Identifier id) {
+		return id.toString().replace(':', '/');
 	}
 }
