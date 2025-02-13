@@ -120,6 +120,9 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(TaiaoBlocks.MAMAKU_LOG)
 			.add(TaiaoBlocks.WHEKII_PONGA_LOG);
 
+		getOrCreateTagBuilder(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
+			.add(TaiaoBlocks.HARAKEKE_MAT);
+
 		addWoodFamilyTags(TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 		addWoodFamilyTags(TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
 		addWoodFamilyTags(TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());

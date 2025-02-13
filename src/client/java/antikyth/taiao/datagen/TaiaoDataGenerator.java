@@ -5,10 +5,7 @@
 package antikyth.taiao.datagen;
 
 import antikyth.taiao.TaiaoBuiltinResourcePacks;
-import antikyth.taiao.datagen.language.EnglishGbLangProvider;
-import antikyth.taiao.datagen.language.EnglishNamesGbLangProvider;
-import antikyth.taiao.datagen.language.EnglishNamesUsLangProvider;
-import antikyth.taiao.datagen.language.EnglishUsLangProvider;
+import antikyth.taiao.datagen.language.*;
 import antikyth.taiao.datagen.loottable.TaiaoBlockLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoChestLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoEntityLootTableProvider;
@@ -84,10 +81,7 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 			output,
 			"en_au"
 		));
-		englishNamesPack.addProvider((FabricDataOutput output) -> new EnglishNamesGbLangProvider(
-			output,
-			"en_nz"
-		));
+		englishNamesPack.addProvider(EnglishNamesNzLangProvider::new);
 	}
 
 	@Override

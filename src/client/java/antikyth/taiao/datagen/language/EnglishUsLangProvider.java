@@ -145,8 +145,11 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 
 		// Other blocks
+		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Harakeke Mat");
+		// Plants
 		builder.add(TaiaoBlocks.GIANT_CANE_RUSH, "Giant Cane Rush");
 		builder.add(TaiaoBlocks.RAUPOO, "Raupō");
+		builder.add(TaiaoBlocks.HARAKEKE, "Harakeke");
 
 		// Items
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Huarākau");

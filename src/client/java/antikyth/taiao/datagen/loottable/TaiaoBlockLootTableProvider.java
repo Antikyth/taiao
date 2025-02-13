@@ -125,8 +125,11 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 		this.addDrop(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
 		this.addDrop(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
 
+		this.addDrop(TaiaoBlocks.HARAKEKE_MAT);
+
 		this.addDrop(TaiaoBlocks.GIANT_CANE_RUSH, block -> tripleTallPlantDrops(block, Items.WHEAT_SEEDS, 0.125f));
 		this.addDrop(TaiaoBlocks.RAUPOO, BlockLootTableGenerator::dropsWithShears);
+		this.addDrop(TaiaoBlocks.HARAKEKE, block -> tripleTallPlantDrops(block, Items.WHEAT_SEEDS, 0.125f));
 	}
 
 	public void addDropsForFamily(@NotNull BlockFamily family) {

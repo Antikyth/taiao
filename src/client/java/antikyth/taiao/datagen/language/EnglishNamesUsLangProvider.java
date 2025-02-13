@@ -36,7 +36,10 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		);
 
 		// Other blocks
+		builder.add(TaiaoBlocks.HARAKEKE_MAT, "New Zealand Flax Mat");
+		// Plants
 		builder.add(TaiaoBlocks.RAUPOO, "Cattail");
+		builder.add(TaiaoBlocks.HARAKEKE, "New Zealand Flax");
 
 		// Items
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Conifer Fruit");

@@ -100,6 +100,9 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 		// Whekī ponga wood
 		offerBarkBlockRecipe(exporter, TaiaoBlocks.WHEKII_PONGA_WOOD, TaiaoBlocks.WHEKII_PONGA_LOG);
 		offerBarkBlockRecipe(exporter, TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD, TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG);
+
+		// Harakeke
+		offerCarpetRecipe(exporter, TaiaoBlocks.HARAKEKE_MAT, TaiaoBlocks.HARAKEKE);
 	}
 
 	public static void offerChiseledBlockRecipe(

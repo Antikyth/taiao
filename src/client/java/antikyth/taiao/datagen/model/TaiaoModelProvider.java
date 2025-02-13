@@ -158,8 +158,11 @@ public class TaiaoModelProvider extends FabricModelProvider {
 			.log(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG)
 			.wood(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
 
+		registerCarpet(generator, TaiaoBlocks.HARAKEKE_MAT);
+
 		registerTripleBlock(generator, TaiaoBlocks.GIANT_CANE_RUSH, TintType.NOT_TINTED);
 		generator.registerDoubleBlock(TaiaoBlocks.RAUPOO, TintType.NOT_TINTED);
+		registerTripleBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED);
 	}
 
 	@Override
@@ -180,6 +183,12 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+	}
+
+	public static void registerCarpet(@NotNull BlockStateModelGenerator generator, Block carpet) {
+		Identifier model = TexturedModel.CARPET.get(carpet).upload(carpet, generator.modelCollector);
+
+		generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(carpet, model));
 	}
 
 	public static void registerChiseledLog(

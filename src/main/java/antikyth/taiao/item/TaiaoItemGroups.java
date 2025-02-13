@@ -68,6 +68,8 @@ public class TaiaoItemGroups {
 			addWaterPlants(group::add);
 			addFruit(group::add);
 
+			addOtherBuildingBlocks(group::add);
+
 			addBanners(group::add);
 			addSpawnEggs(group::add);
 		});
@@ -88,6 +90,8 @@ public class TaiaoItemGroups {
 			addCabbageTreeBuildingBlocks(add);
 			addMamakuBuildingBlocks(add);
 			addWhekiiPongaBuildingBlocks(add);
+
+			addOtherBuildingBlocks(add);
 		});
 		// Natural blocks
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register(group -> {
@@ -222,6 +226,10 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
 	}
 
+	public static void addOtherBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
+		add.accept(TaiaoBlocks.HARAKEKE_MAT);
+	}
+
 	public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoItems.KIWI_SPAWN_EGG);
 		add.accept(TaiaoItems.PUUKEKO_SPAWN_EGG);
@@ -236,6 +244,7 @@ public class TaiaoItemGroups {
 
 	public static void addTallGroundPlants(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoBlocks.GIANT_CANE_RUSH);
+		add.accept(TaiaoBlocks.HARAKEKE);
 	}
 
 	public static void addWaterPlants(@NotNull Consumer<ItemConvertible> add) {
