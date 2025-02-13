@@ -12,7 +12,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.BlockRenderManager;
@@ -25,16 +25,17 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,30 +43,44 @@ public class TallBlockEmiStack extends EmiStack {
 	protected static final MinecraftClient CLIENT = MinecraftClient.getInstance();
 
 	protected final Block block;
-	protected final List<Pair<BlockPos, BlockState>> states;
+	protected final LinkedHashMap<BlockPos, BlockState> states;
 
-	protected BlockPos center = BlockPos.ORIGIN;
+	protected Vector3f center;
 	protected float scale = 1f;
-	protected boolean describeAllStates = false;
+	@Nullable
+	protected BlockState describeSingleState = null;
 	protected List<Property<?>> hiddenProperties = List.of();
 
 	protected static final Transformation TRANSFORMATION = new Transformation(
 		new Vector3f(30f, 210f, 0f),
-		new Vector3f(0.7f, -0.625f, 0f),
+		new Vector3f(),
 		new Vector3f(0.625f)
 	);
 
 	public TallBlockEmiStack(
 		Block block,
-		List<Pair<BlockPos, BlockState>> states
+		LinkedHashMap<BlockPos, BlockState> states
 	) {
-		this.block = block;
-		this.states = states;
+		this(block, states, new Vector3f());
+
+		// Determine 'center of mass'
+		BlockPos.Mutable sum = new BlockPos.Mutable();
+
+		for (BlockPos pos : states.keySet()) {
+			sum.set(sum, pos);
+		}
+
+		this.center = new Vector3f(
+			(float) sum.getX() / (float) states.size(),
+			(float) sum.getY() / (float) states.size(),
+			(float) sum.getZ() / (float) states.size()
+		);
 	}
 
-	public TallBlockEmiStack center(BlockPos center) {
+	public TallBlockEmiStack(Block block, LinkedHashMap<BlockPos, BlockState> states, Vector3f center) {
+		this.block = block;
+		this.states = states;
 		this.center = center;
-		return this;
 	}
 
 	public TallBlockEmiStack scale(float scale) {
@@ -74,10 +89,12 @@ public class TallBlockEmiStack extends EmiStack {
 	}
 
 	/**
-	 * Whether all states should be described in the tooltip (else, just the first).
+	 * A single {@link BlockState} to describe in the tooltip.
+	 * <p>
+	 * If {@code null} (the default), all states will be described.
 	 */
-	public TallBlockEmiStack describeAllStates(boolean describeAllStates) {
-		this.describeAllStates = describeAllStates;
+	public TallBlockEmiStack describeSingleState(@Nullable BlockState state) {
+		this.describeSingleState = state;
 		return this;
 	}
 
@@ -98,10 +115,9 @@ public class TallBlockEmiStack extends EmiStack {
 
 	@Override
 	public EmiStack copy() {
-		return new TallBlockEmiStack(this.block, this.states)
-			.center(this.center)
+		return new TallBlockEmiStack(this.block, this.states, this.center)
 			.scale(this.scale)
-			.describeAllStates(this.describeAllStates)
+			.describeSingleState(this.describeSingleState)
 			.hiddenProperties(this.hiddenProperties);
 	}
 
@@ -111,9 +127,10 @@ public class TallBlockEmiStack extends EmiStack {
 
 		matrices.push();
 
-		matrices.translate(x, y, 150);
+		// Transforms, the same applied to items when rendering in GUIs
+		matrices.translate(x + 8f, y + 8f, 150);
 		matrices.multiplyPositionMatrix(new Matrix4f().scaling(1f, -1f, 1f));
-		matrices.scale(16, 16, 16);
+		matrices.scale(16f, 16f, 16f);
 
 		MinecraftClient client = MinecraftClient.getInstance();
 		World world = client.world;
@@ -122,21 +139,26 @@ public class TallBlockEmiStack extends EmiStack {
 
 		BlockRenderManager blockRenderManager = client.getBlockRenderManager();
 		VertexConsumerProvider consumers = draw.getVertexConsumers();
-		VertexConsumer consumer = consumers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
+		VertexConsumer consumer = consumers.getBuffer(RenderLayers.getEntityBlockLayer(
+			this.block.getDefaultState(),
+			true
+		));
 
-		Random random = Random.create(42);
+		Random random = Random.create(42L);
 		consumer.light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
 
 		// Apply transforms
 		TRANSFORMATION.apply(false, matrices);
 		matrices.scale(this.scale, this.scale, this.scale);
+		// Items are shifted like this before being rendered
+		matrices.translate(-0.5f, -0.5f, -0.5f);
 		// Adjust the center of the multiblock
-		matrices.translate(-this.center.getX(), -this.center.getY(), -this.center.getZ());
+		matrices.translate(-this.center.x, -this.center.y, -this.center.z);
 
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		for (Pair<BlockPos, BlockState> part : this.states) {
-			BlockPos pos = part.getLeft();
-			BlockState state = part.getRight();
+		for (Map.Entry<BlockPos, BlockState> part : this.states.entrySet()) {
+			BlockPos pos = part.getKey();
+			BlockState state = part.getValue();
 
 			mutable.set(origin, pos);
 
@@ -193,11 +215,17 @@ public class TallBlockEmiStack extends EmiStack {
 				list.add(TooltipComponent.of(technicalName.asOrderedText()));
 			}
 
-			if (this.describeAllStates) {
+			if (this.describeSingleState != null) {
+				List<Text> propertyTexts = createPropertyTexts(this.describeSingleState);
+
+				for (Text text : propertyTexts) {
+					list.add(TooltipComponent.of(text.asOrderedText()));
+				}
+			} else {
 				// Add info for each state
-				for (Pair<BlockPos, BlockState> part : this.states) {
-					BlockPos pos = part.getLeft();
-					BlockState state = part.getRight();
+				for (Map.Entry<BlockPos, BlockState> part : this.states.entrySet()) {
+					BlockPos pos = part.getKey();
+					BlockState state = part.getValue();
 
 					List<Text> propertyTexts = createPropertyTexts(state);
 
@@ -213,12 +241,6 @@ public class TallBlockEmiStack extends EmiStack {
 							list.add(TooltipComponent.of(propertyText.asOrderedText()));
 						}
 					}
-				}
-			} else {
-				List<Text> propertyTexts = createPropertyTexts(states.get(0).getRight());
-
-				for (Text text : propertyTexts) {
-					list.add(TooltipComponent.of(text.asOrderedText()));
 				}
 			}
 

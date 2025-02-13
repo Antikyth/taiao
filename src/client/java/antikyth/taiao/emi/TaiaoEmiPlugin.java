@@ -23,12 +23,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TaiaoEmiPlugin implements EmiPlugin {
@@ -116,17 +115,14 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 	 */
 	@Contract("_, _ -> new")
 	protected static TallBlockEmiStack tripleTallPlantStack(Block block, @NotNull BlockState baseState) {
-		return new TallBlockEmiStack(
-			block,
-			List.of(
-				new Pair<>(new BlockPos(0, 0, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.LOWER)),
-				new Pair<>(new BlockPos(0, 1, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.MIDDLE)),
-				new Pair<>(new BlockPos(0, 2, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.UPPER))
-			)
-		)
-			.center(new BlockPos(0, 1, 0))
+		LinkedHashMap<BlockPos, BlockState> map = new LinkedHashMap<>(3);
+		map.put(new BlockPos(0, 0, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.LOWER));
+		map.put(new BlockPos(0, 1, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.MIDDLE));
+		map.put(new BlockPos(0, 2, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.UPPER));
+
+		return new TallBlockEmiStack(block, map)
 			.scale(0.5f)
-			.describeAllStates(false)
+			.describeSingleState(baseState)
 			.hiddenProperties(TripleTallPlantBlock.PART);
 	}
 }
