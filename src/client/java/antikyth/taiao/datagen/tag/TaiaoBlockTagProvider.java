@@ -127,6 +127,24 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		addWoodFamilyTags(TaiaoBlocks.WoodFamily.KAHIKATEA.getBlockFamily());
 		addWoodFamilyTags(TaiaoBlocks.WoodFamily.RIMU.getBlockFamily());
 		addWoodFamilyTags(TaiaoBlocks.WoodFamily.MAMAKU.getBlockFamily());
+
+		// Tool usage
+		getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
+			.add(TaiaoBlocks.KAURI_LEAVES)
+			.add(TaiaoBlocks.KAHIKATEA_LEAVES)
+			.add(TaiaoBlocks.RIMU_LEAVES)
+			.add(TaiaoBlocks.CABBAGE_TREE_LEAVES)
+			.add(TaiaoBlocks.MAMAKU_LEAVES)
+			.add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
+		getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
+			.add(TaiaoBlocks.GIANT_CANE_RUSH)
+			.add(TaiaoBlocks.RAUPOO)
+			.add(TaiaoBlocks.HARAKEKE);
+
+		getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
+			.add(TaiaoBlocks.GIANT_CANE_RUSH)
+			.add(TaiaoBlocks.RAUPOO)
+			.add(TaiaoBlocks.HARAKEKE);
 	}
 
 	/**
