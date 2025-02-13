@@ -14,7 +14,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -22,7 +21,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldEvents;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,13 +52,36 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 				|| (part == TripleBlockPart.UPPER && direction == Direction.UP)
 				// Changes below are okay if we can still be placed on that block
 				|| (part == TripleBlockPart.LOWER && direction == Direction.DOWN && state.canPlaceAt(world, pos))
-				// Valid connections to other parts of the same block are okay
-				|| this.canConnect(state, neighborState, direction)
 		) {
 			return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+		} else if (
+			// Valid connections to other parts of the same block are okay
+			this.canConnect(state, neighborState, direction)
+		) {
+			return this.getStateForConnectionUpdate(state, direction, neighborState, world, pos, neighborPos);
 		} else {
 			return Blocks.AIR.getDefaultState();
 		}
+	}
+
+	/**
+	 * Returns the {@link BlockState} after a connection is updated and is still valid.
+	 * <p>
+	 * The neighbor will be of the same block and will have a valid {@link TripleBlockPart} connection to this part.
+	 * <p>
+	 * By default, this returns
+	 * {@link PlantBlock#getStateForNeighborUpdate(BlockState, Direction, BlockState, WorldAccess, BlockPos, BlockPos) super.getStateForNeighborUpdate(...)},
+	 * but this may be overridden by subclasses; e.g., to sync state changes throughout the plant.
+	 */
+	protected BlockState getStateForConnectionUpdate(
+		BlockState state,
+		Direction direction,
+		BlockState neighborState,
+		WorldAccess world,
+		BlockPos pos,
+		BlockPos neighborPos
+	) {
+		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
 	@Override
@@ -85,15 +106,15 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 	public void onPlaced(
 		@NotNull World world,
 		@NotNull BlockPos pos,
-		BlockState state,
+		@NotNull BlockState state,
 		@Nullable LivingEntity placer,
 		ItemStack itemStack
 	) {
 		BlockPos middlePos = pos.up();
 		BlockPos upperPos = middlePos.up();
 
-		BlockState middleState = this.getDefaultState().with(PART, TripleBlockPart.MIDDLE);
-		BlockState upperState = this.getDefaultState().with(PART, TripleBlockPart.UPPER);
+		BlockState middleState = state.with(PART, TripleBlockPart.MIDDLE);
+		BlockState upperState = state.with(PART, TripleBlockPart.UPPER);
 
 		world.setBlockState(
 			middlePos,
@@ -229,29 +250,5 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 		}
 
 		return MathHelper.hashCode(pos.down(offset));
-	}
-
-	public enum TripleBlockPart implements StringIdentifiable {
-		LOWER("lower"),
-		MIDDLE("middle"),
-		UPPER("upper");
-
-		private final String name;
-
-		TripleBlockPart(String name) {
-			this.name = name;
-		}
-
-		@Contract(pure = true)
-		@Override
-		public @NotNull String asString() {
-			return this.name;
-		}
-
-		@Contract(pure = true)
-		@Override
-		public @NotNull String toString() {
-			return this.asString();
-		}
 	}
 }

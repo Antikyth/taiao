@@ -11,8 +11,8 @@ import antikyth.taiao.block.leaves.SlowMovementLeavesBlock;
 import antikyth.taiao.block.log.Strippable;
 import antikyth.taiao.block.log.ThinLogBlock;
 import antikyth.taiao.block.plant.GiantCaneRushBlock;
+import antikyth.taiao.block.plant.HarakekeBlock;
 import antikyth.taiao.block.plant.TallReedsBlock;
-import antikyth.taiao.block.plant.TripleTallPlantBlock;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.feature.tree.sapling.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -385,7 +385,7 @@ public class TaiaoBlocks {
 	).register(true);
 	public static final Block HARAKEKE = new Builder(
 		Taiao.id("harakeke"),
-		new TripleTallPlantBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN))
+		new HarakekeBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN))
 	).register(true);
 
 	public static final Block HARAKEKE_MAT = new Builder(

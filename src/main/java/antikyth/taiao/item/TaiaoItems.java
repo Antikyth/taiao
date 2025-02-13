@@ -118,6 +118,11 @@ public class TaiaoItems {
 			TaiaoBlocks.GIANT_CANE_RUSH,
 			TaiaoBlocks.RAUPOO
 		);
+		// Extra plant-material-rich tall plants
+		registerComposting(
+			0.85f,
+			TaiaoBlocks.HARAKEKE
+		);
 	}
 
 	/**

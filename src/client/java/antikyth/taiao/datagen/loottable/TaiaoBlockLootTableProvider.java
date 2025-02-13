@@ -6,8 +6,8 @@ package antikyth.taiao.datagen.loottable;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
+import antikyth.taiao.block.plant.TripleBlockPart;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
-import antikyth.taiao.block.plant.TripleTallPlantBlock.TripleBlockPart;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;

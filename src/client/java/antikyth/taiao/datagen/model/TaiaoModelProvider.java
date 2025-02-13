@@ -8,6 +8,8 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.log.ThinLogBlock;
+import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
+import antikyth.taiao.block.plant.TripleBlockPart;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -162,7 +164,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		registerTripleBlock(generator, TaiaoBlocks.GIANT_CANE_RUSH, TintType.NOT_TINTED);
 		generator.registerDoubleBlock(TaiaoBlocks.RAUPOO, TintType.NOT_TINTED);
-		registerTripleBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED);
+		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED);
 	}
 
 	@Override
@@ -252,22 +254,93 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		Identifier bottomModelId
 	) {
 		generator.blockStateCollector.accept(
-			VariantsBlockStateSupplier.create(tripleBlock)
-				.coordinate(BlockStateVariantMap.create(TripleTallPlantBlock.PART)
+			VariantsBlockStateSupplier.create(tripleBlock).coordinate(
+				BlockStateVariantMap.create(TripleTallPlantBlock.PART)
 					.register(
-						TripleTallPlantBlock.TripleBlockPart.UPPER,
+						TripleBlockPart.UPPER,
 						BlockStateVariant.create().put(VariantSettings.MODEL, topModelId)
 					)
 					.register(
-						TripleTallPlantBlock.TripleBlockPart.MIDDLE,
+						TripleBlockPart.MIDDLE,
 						BlockStateVariant.create().put(VariantSettings.MODEL, centerModelId)
 					)
 					.register(
-						TripleTallPlantBlock.TripleBlockPart.LOWER,
+						TripleBlockPart.LOWER,
 						BlockStateVariant.create().put(VariantSettings.MODEL, bottomModelId)
 					)
-				)
+			)
 		);
+	}
+
+	public static void registerHarvestableTriplePlantBlock(
+		@NotNull BlockStateModelGenerator generator,
+		Block plant,
+		@NotNull TintType tintType
+	) {
+		Identifier top = generator.createSubModel(plant, "_top", tintType.getCrossModel(), TextureMap::cross);
+		Identifier center = generator.createSubModel(plant, "_center", tintType.getCrossModel(), TextureMap::cross);
+		Identifier bottom = generator.createSubModel(plant, "_bottom", tintType.getCrossModel(), TextureMap::cross);
+
+		Identifier topHarvested = generator.createSubModel(
+			plant,
+			"_top_harvested",
+			tintType.getCrossModel(),
+			TextureMap::cross
+		);
+		Identifier centerHarvested = generator.createSubModel(
+			plant,
+			"_center_harvested",
+			tintType.getCrossModel(),
+			TextureMap::cross
+		);
+		Identifier bottomHarvested = generator.createSubModel(
+			plant,
+			"_bottom_harvested",
+			tintType.getCrossModel(),
+			TextureMap::cross
+		);
+
+		generator.blockStateCollector.accept(
+			VariantsBlockStateSupplier.create(plant).coordinate(
+				BlockStateVariantMap.create(
+						HarvestableTripleTallPlantBlock.PART,
+						HarvestableTripleTallPlantBlock.HARVESTED
+					)
+					.register(
+						TripleBlockPart.UPPER,
+						false,
+						BlockStateVariant.create().put(VariantSettings.MODEL, top)
+					)
+					.register(
+						TripleBlockPart.MIDDLE,
+						false,
+						BlockStateVariant.create().put(VariantSettings.MODEL, center)
+					)
+					.register(
+						TripleBlockPart.LOWER,
+						false,
+						BlockStateVariant.create().put(VariantSettings.MODEL, bottom)
+					)
+
+					.register(
+						TripleBlockPart.UPPER,
+						true,
+						BlockStateVariant.create().put(VariantSettings.MODEL, topHarvested)
+					)
+					.register(
+						TripleBlockPart.MIDDLE,
+						true,
+						BlockStateVariant.create().put(VariantSettings.MODEL, centerHarvested)
+					)
+					.register(
+						TripleBlockPart.LOWER,
+						true,
+						BlockStateVariant.create().put(VariantSettings.MODEL, bottomHarvested)
+					)
+			)
+		);
+
+		generator.registerItemModel(plant, "_top");
 	}
 
 	public static void registerFruitLeaves(@NotNull BlockStateModelGenerator generator, Block block) {

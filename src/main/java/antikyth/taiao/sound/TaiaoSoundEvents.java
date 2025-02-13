@@ -11,32 +11,34 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class TaiaoSoundEvents {
-    /**
-     * {@linkplain antikyth.taiao.entity.TaiaoEntities#KIWI Kiwi} chirp sounds.
-     */
-    public static final SoundEvent ENTITY_KIWI_CHIRP = register(Taiao.id("entity.kiwi.chirp"));
+	/**
+	 * {@linkplain antikyth.taiao.entity.TaiaoEntities#KIWI Kiwi} chirp sounds.
+	 */
+	public static final SoundEvent ENTITY_KIWI_CHIRP = register(Taiao.id("entity.kiwi.chirp"));
 
-    /**
-     * {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO Kākāpō} ching sounds.
-     */
-    public static final SoundEvent ENTITY_KAAKAAPOO_CHING = register(Taiao.id("entity.kaakaapoo.ching"));
-    /**
-     * {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO Kākāpō} boom sounds.
-     */
-    public static final SoundEvent ENTITY_KAAKAAPOO_BOOM = register(Taiao.id("entity.kaakaapoo.boom"));
+	/**
+	 * {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO Kākāpō} ching sounds.
+	 */
+	public static final SoundEvent ENTITY_KAAKAAPOO_CHING = register(Taiao.id("entity.kaakaapoo.ching"));
+	/**
+	 * {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO Kākāpō} boom sounds.
+	 */
+	public static final SoundEvent ENTITY_KAAKAAPOO_BOOM = register(Taiao.id("entity.kaakaapoo.boom"));
 
-    public static final SoundEvent ENTITY_PUUKEKO_BABY_AMBIENT = register(Taiao.id("entity.puukeko.baby.ambient"));
-    public static final SoundEvent ENTITY_PUUKEKO_ADULT_AMBIENT = register(Taiao.id("entity.puukeko.adult.ambient"));
+	public static final SoundEvent ENTITY_PUUKEKO_BABY_AMBIENT = register(Taiao.id("entity.puukeko.baby.ambient"));
+	public static final SoundEvent ENTITY_PUUKEKO_ADULT_AMBIENT = register(Taiao.id("entity.puukeko.adult.ambient"));
 
-    public static SoundEvent register(Identifier id) {
-        return register(id, id);
-    }
+	public static final SoundEvent BLOCK_HARAKEKE_SHEAR = register(Taiao.id("block.harakeke.shear"));
 
-    public static SoundEvent register(Identifier id, Identifier soundId) {
-        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(soundId));
-    }
+	public static SoundEvent register(Identifier id) {
+		return register(id, id);
+	}
 
-    public static void initialize() {
-        Taiao.LOGGER.debug("Registering sound events");
-    }
+	public static SoundEvent register(Identifier id, Identifier soundId) {
+		return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(soundId));
+	}
+
+	public static void initialize() {
+		Taiao.LOGGER.debug("Registering sound events");
+	}
 }
