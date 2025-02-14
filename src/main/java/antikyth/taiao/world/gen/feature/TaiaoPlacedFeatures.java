@@ -104,7 +104,7 @@ public class TaiaoPlacedFeatures {
 	public static final RegistryKey<PlacedFeature> HARAKEKE_PATCH = register(
 		TaiaoConfiguredFeatures.HARAKEKE_PATCH.getValue(),
 		TaiaoConfiguredFeatures.HARAKEKE_PATCH,
-		tallPlantModifiers(3)
+		tallPlantModifiers(4)
 	);
 
 	public static void bootstrap(@NotNull Registerable<PlacedFeature> registerable) {
