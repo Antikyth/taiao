@@ -174,7 +174,8 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 				.with(drops)
 				.conditionally(
 					BlockStatePropertyLootCondition.builder(tripleTallPlant)
-						.properties(StatePredicate.Builder.create().exactMatch(TripleTallPlantBlock.PART, part))
+						.properties(StatePredicate.Builder.create()
+							.exactMatch(TripleTallPlantBlock.TRIPLE_BLOCK_PART, part))
 				);
 
 			// Ensure that the other parts are in the correct positions.
@@ -192,7 +193,7 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 									.blocks(tripleTallPlant)
 									.state(
 										StatePredicate.Builder.create()
-											.exactMatch(TripleTallPlantBlock.PART, otherPart)
+											.exactMatch(TripleTallPlantBlock.TRIPLE_BLOCK_PART, otherPart)
 											.build()
 									)
 									.build()

@@ -5,6 +5,7 @@
 package antikyth.taiao.block.plant;
 
 import antikyth.taiao.block.CustomPlacementBlock;
+import antikyth.taiao.block.TaiaoStateProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -26,12 +27,12 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementBlock {
-	public static final EnumProperty<TripleBlockPart> PART = EnumProperty.of("part", TripleBlockPart.class);
+	public static final EnumProperty<TripleBlockPart> TRIPLE_BLOCK_PART = TaiaoStateProperties.TRIPLE_BLOCK_PART;
 
 	public TripleTallPlantBlock(AbstractBlock.Settings settings) {
 		super(settings);
 
-		this.setDefaultState(this.getDefaultState().with(PART, TripleBlockPart.LOWER));
+		this.setDefaultState(this.getDefaultState().with(TRIPLE_BLOCK_PART, TripleBlockPart.LOWER));
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 		BlockPos pos,
 		BlockPos neighborPos
 	) {
-		TripleBlockPart part = state.get(PART);
+		TripleBlockPart part = state.get(TRIPLE_BLOCK_PART);
 
 		if (
 			// Unaffected by horizontally adjacent changes
@@ -113,8 +114,8 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 		BlockPos middlePos = pos.up();
 		BlockPos upperPos = middlePos.up();
 
-		BlockState middleState = state.with(PART, TripleBlockPart.MIDDLE);
-		BlockState upperState = state.with(PART, TripleBlockPart.UPPER);
+		BlockState middleState = state.with(TRIPLE_BLOCK_PART, TripleBlockPart.MIDDLE);
+		BlockState upperState = state.with(TRIPLE_BLOCK_PART, TripleBlockPart.UPPER);
 
 		world.setBlockState(
 			middlePos,
@@ -142,17 +143,21 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 
 		world.setBlockState(
 			pos,
-			TallPlantBlock.withWaterloggedState(world, pos, state.with(PART, TripleBlockPart.LOWER)),
+			TallPlantBlock.withWaterloggedState(world, pos, state.with(TRIPLE_BLOCK_PART, TripleBlockPart.LOWER)),
 			flags
 		);
 		world.setBlockState(
 			middlePos,
-			TallPlantBlock.withWaterloggedState(world, middlePos, state.with(PART, TripleBlockPart.MIDDLE)),
+			TallPlantBlock.withWaterloggedState(
+				world,
+				middlePos,
+				state.with(TRIPLE_BLOCK_PART, TripleBlockPart.MIDDLE)
+			),
 			flags
 		);
 		world.setBlockState(
 			upperPos,
-			TallPlantBlock.withWaterloggedState(world, upperPos, state.with(PART, TripleBlockPart.UPPER)),
+			TallPlantBlock.withWaterloggedState(world, upperPos, state.with(TRIPLE_BLOCK_PART, TripleBlockPart.UPPER)),
 			flags
 		);
 
@@ -161,7 +166,7 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 
 	@Override
 	public boolean canPlaceAt(@NotNull BlockState state, WorldView world, BlockPos pos) {
-		if (state.get(PART) == TripleBlockPart.LOWER) return super.canPlaceAt(state, world, pos);
+		if (state.get(TRIPLE_BLOCK_PART) == TripleBlockPart.LOWER) return super.canPlaceAt(state, world, pos);
 
 		return canConnect(state, world.getBlockState(pos.down()), Direction.DOWN);
 	}
@@ -182,7 +187,7 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 	// TODO: does this need to handle upper/middle parts too?
 	//     : why does the vanilla double tall plant only handle the lower part?
 	protected static void onBreakInCreative(World world, BlockPos pos, @NotNull BlockState state, PlayerEntity player) {
-		TripleBlockPart part = state.get(PART);
+		TripleBlockPart part = state.get(TRIPLE_BLOCK_PART);
 		BlockPos lowerPos;
 
 		if (part == TripleBlockPart.MIDDLE) lowerPos = pos.down(1);
@@ -191,7 +196,7 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 
 		BlockState lowerState = world.getBlockState(lowerPos);
 
-		if (lowerState.isOf(state.getBlock()) && lowerState.get(PART) == TripleBlockPart.LOWER) {
+		if (lowerState.isOf(state.getBlock()) && lowerState.get(TRIPLE_BLOCK_PART) == TripleBlockPart.LOWER) {
 			boolean isWater = lowerState.getFluidState().isOf(Fluids.WATER);
 			BlockState replacementState = isWater ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState();
 
@@ -218,8 +223,8 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 	protected boolean canConnect(BlockState state, @NotNull BlockState otherState, Direction direction) {
 		if (!otherState.isOf(this)) return false;
 
-		TripleBlockPart part = state.get(PART);
-		TripleBlockPart otherPart = otherState.get(PART);
+		TripleBlockPart part = state.get(TRIPLE_BLOCK_PART);
+		TripleBlockPart otherPart = otherState.get(TRIPLE_BLOCK_PART);
 
 		if (direction == Direction.UP) {
 			if (part == TripleBlockPart.LOWER && otherPart == TripleBlockPart.MIDDLE) return true;
@@ -236,14 +241,14 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		super.appendProperties(builder);
 
-		builder.add(PART);
+		builder.add(TRIPLE_BLOCK_PART);
 	}
 
 	@Override
 	public long getRenderingSeed(@NotNull BlockState state, BlockPos pos) {
 		// The rendering seed of the upper and middle parts should match that of the lower part.
 		int offset;
-		switch (state.get(PART)) {
+		switch (state.get(TRIPLE_BLOCK_PART)) {
 			case UPPER -> offset = 2;
 			case MIDDLE -> offset = 1;
 			default -> offset = 0;

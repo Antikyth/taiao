@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.plant;
 
+import antikyth.taiao.block.TaiaoStateProperties;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,12 +32,12 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implements Fertilizable {
-	public static final BooleanProperty HARVESTED = BooleanProperty.of("harvested");
+	public static final BooleanProperty HARVESTABLE = TaiaoStateProperties.HARVESTABLE;
 
 	public HarvestableTripleTallPlantBlock(Settings settings) {
 		super(settings);
 
-		this.setDefaultState(this.getDefaultState().with(HARVESTED, false));
+		this.setDefaultState(this.getDefaultState().with(HARVESTABLE, true));
 	}
 
 	@Nullable
@@ -56,7 +57,7 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		super.appendProperties(builder);
 
-		builder.add(HARVESTED);
+		builder.add(HARVESTABLE);
 	}
 
 	/**
@@ -70,13 +71,13 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 
 	@Override
 	public boolean hasRandomTicks(@NotNull BlockState state) {
-		return state.get(PART) == TripleBlockPart.LOWER && state.get(HARVESTED);
+		return state.get(TRIPLE_BLOCK_PART) == TripleBlockPart.LOWER && !state.get(HARVESTABLE);
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (hasRandomTicks(state) && random.nextInt(5) == 0 && receivingEnoughLight(world, pos)) {
-			BlockState lowerState = state.with(HARVESTED, false);
+			BlockState lowerState = state.with(HARVESTABLE, true);
 
 			world.setBlockState(pos, lowerState, Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
 			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(lowerState));
@@ -92,7 +93,7 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 		BlockPos pos,
 		BlockPos neighborPos
 	) {
-		return state.with(HARVESTED, neighborState.get(HARVESTED));
+		return state.with(HARVESTABLE, neighborState.get(HARVESTABLE));
 	}
 
 	@Override
@@ -106,10 +107,10 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 	) {
 		ItemStack stack = player.getStackInHand(hand);
 
-		if (!state.get(HARVESTED) && stack.isIn(ConventionalItemTags.SHEARS)) {
+		if (state.get(HARVESTABLE) && stack.isIn(ConventionalItemTags.SHEARS)) {
 			world.setBlockState(
 				pos,
-				state.with(HARVESTED, true),
+				state.with(HARVESTABLE, false),
 				Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD
 			);
 
@@ -143,7 +144,7 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 
 	@Override
 	public boolean isFertilizable(WorldView world, BlockPos pos, @NotNull BlockState state, boolean isClient) {
-		return state.get(HARVESTED);
+		return !state.get(HARVESTABLE);
 	}
 
 	@Override
@@ -153,6 +154,6 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 
 	@Override
 	public void grow(@NotNull ServerWorld world, Random random, BlockPos pos, @NotNull BlockState state) {
-		world.setBlockState(pos, state.with(HARVESTED, false), Block.NOTIFY_LISTENERS);
+		world.setBlockState(pos, state.with(HARVESTABLE, true), Block.NOTIFY_LISTENERS);
 	}
 }

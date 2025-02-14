@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.leaves;
 
+import antikyth.taiao.block.TaiaoStateProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
@@ -31,69 +32,69 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class FruitLeavesBlock extends LeavesBlock implements Fertilizable {
-    public static final BooleanProperty FRUIT = BooleanProperty.of("fruit");
-    public final Item fruitItem;
+	public static final BooleanProperty FRUIT = TaiaoStateProperties.FRUIT;
+	public final Item fruitItem;
 
-    public FruitLeavesBlock(Item fruitItem, Settings settings) {
-        super(settings);
+	public FruitLeavesBlock(Item fruitItem, Settings settings) {
+		super(settings);
 
-        this.fruitItem = fruitItem;
-        this.setDefaultState(this.getDefaultState().with(FRUIT, false));
-    }
+		this.fruitItem = fruitItem;
+		this.setDefaultState(this.getDefaultState().with(FRUIT, false));
+	}
 
-    public ActionResult pickFruit(@Nullable Entity picker, @NotNull BlockState state, World world, BlockPos pos) {
-        if (state.get(FRUIT)) {
-            FruitLeavesBlock.dropStack(world, pos, new ItemStack(this.fruitItem, 1));
+	public ActionResult pickFruit(@Nullable Entity picker, @NotNull BlockState state, World world, BlockPos pos) {
+		if (state.get(FRUIT)) {
+			FruitLeavesBlock.dropStack(world, pos, new ItemStack(this.fruitItem, 1));
 
-            world.playSound(
-                    null,
-                    pos,
-                    SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES,
-                    SoundCategory.BLOCKS,
-                    1f,
-                    MathHelper.nextBetween(world.random, 0.8f, 1.2f)
-            );
+			world.playSound(
+				null,
+				pos,
+				SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES,
+				SoundCategory.BLOCKS,
+				1f,
+				MathHelper.nextBetween(world.random, 0.8f, 1.2f)
+			);
 
-            world.setBlockState(pos, state.with(FRUIT, false), FruitLeavesBlock.NOTIFY_LISTENERS);
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(picker, state));
+			world.setBlockState(pos, state.with(FRUIT, false), FruitLeavesBlock.NOTIFY_LISTENERS);
+			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(picker, state));
 
-            return ActionResult.success(world.isClient);
-        }
+			return ActionResult.success(world.isClient);
+		}
 
-        return ActionResult.PASS;
-    }
+		return ActionResult.PASS;
+	}
 
-    @Override
-    public ActionResult onUse(
-            BlockState state,
-            World world,
-            BlockPos pos,
-            PlayerEntity player,
-            Hand hand,
-            BlockHitResult hit
-    ) {
-        return this.pickFruit(player, state, world, pos);
-    }
+	@Override
+	public ActionResult onUse(
+		BlockState state,
+		World world,
+		BlockPos pos,
+		PlayerEntity player,
+		Hand hand,
+		BlockHitResult hit
+	) {
+		return this.pickFruit(player, state, world, pos);
+	}
 
-    @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        super.appendProperties(builder);
+	@Override
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
 
-        builder.add(FRUIT);
-    }
+		builder.add(FRUIT);
+	}
 
-    @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, @NotNull BlockState state, boolean isClient) {
-        return !state.get(FRUIT);
-    }
+	@Override
+	public boolean isFertilizable(WorldView world, BlockPos pos, @NotNull BlockState state, boolean isClient) {
+		return !state.get(FRUIT);
+	}
 
-    @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-        return true;
-    }
+	@Override
+	public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+		return true;
+	}
 
-    @Override
-    public void grow(@NotNull ServerWorld world, Random random, BlockPos pos, @NotNull BlockState state) {
-        world.setBlockState(pos, state.with(FRUIT, true), FruitLeavesBlock.NOTIFY_LISTENERS);
-    }
+	@Override
+	public void grow(@NotNull ServerWorld world, Random random, BlockPos pos, @NotNull BlockState state) {
+		world.setBlockState(pos, state.with(FRUIT, true), FruitLeavesBlock.NOTIFY_LISTENERS);
+	}
 }

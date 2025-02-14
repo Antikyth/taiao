@@ -22,6 +22,6 @@ public class GiantCaneRushBlock extends TripleTallPlantBlock {
 
 	@Override
 	public VoxelShape getOutlineShape(@NotNull BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return state.get(PART) == TripleBlockPart.UPPER ? UPPER_SHAPE : NORMAL_SHAPE;
+		return state.get(TRIPLE_BLOCK_PART) == TripleBlockPart.UPPER ? UPPER_SHAPE : NORMAL_SHAPE;
 	}
 }

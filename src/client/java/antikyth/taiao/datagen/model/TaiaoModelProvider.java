@@ -255,7 +255,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 	) {
 		generator.blockStateCollector.accept(
 			VariantsBlockStateSupplier.create(tripleBlock).coordinate(
-				BlockStateVariantMap.create(TripleTallPlantBlock.PART)
+				BlockStateVariantMap.create(TripleTallPlantBlock.TRIPLE_BLOCK_PART)
 					.register(
 						TripleBlockPart.UPPER,
 						BlockStateVariant.create().put(VariantSettings.MODEL, topModelId)
@@ -303,38 +303,38 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.blockStateCollector.accept(
 			VariantsBlockStateSupplier.create(plant).coordinate(
 				BlockStateVariantMap.create(
-						HarvestableTripleTallPlantBlock.PART,
-						HarvestableTripleTallPlantBlock.HARVESTED
+						HarvestableTripleTallPlantBlock.TRIPLE_BLOCK_PART,
+						HarvestableTripleTallPlantBlock.HARVESTABLE
 					)
 					.register(
 						TripleBlockPart.UPPER,
-						false,
+						true,
 						BlockStateVariant.create().put(VariantSettings.MODEL, top)
 					)
 					.register(
 						TripleBlockPart.MIDDLE,
-						false,
+						true,
 						BlockStateVariant.create().put(VariantSettings.MODEL, center)
 					)
 					.register(
 						TripleBlockPart.LOWER,
-						false,
+						true,
 						BlockStateVariant.create().put(VariantSettings.MODEL, bottom)
 					)
 
 					.register(
 						TripleBlockPart.UPPER,
-						true,
+						false,
 						BlockStateVariant.create().put(VariantSettings.MODEL, topHarvested)
 					)
 					.register(
 						TripleBlockPart.MIDDLE,
-						true,
+						false,
 						BlockStateVariant.create().put(VariantSettings.MODEL, centerHarvested)
 					)
 					.register(
 						TripleBlockPart.LOWER,
-						true,
+						false,
 						BlockStateVariant.create().put(VariantSettings.MODEL, bottomHarvested)
 					)
 			)

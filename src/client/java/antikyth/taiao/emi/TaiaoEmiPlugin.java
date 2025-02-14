@@ -53,8 +53,8 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 	protected static EmiRecipe triplePlantHarvestRecipe(Block block, EmiStack output) {
 		Identifier recipeId = Taiao.id("/world/shearing/" + Taiao.toPath(Registries.BLOCK.getId(block)));
 
-		BlockState unharvestedState = block.getDefaultState().with(HarvestableTripleTallPlantBlock.HARVESTED, false);
-		BlockState harvestedState = block.getDefaultState().with(HarvestableTripleTallPlantBlock.HARVESTED, true);
+		BlockState unharvestedState = block.getDefaultState().with(HarvestableTripleTallPlantBlock.HARVESTABLE, true);
+		BlockState harvestedState = block.getDefaultState().with(HarvestableTripleTallPlantBlock.HARVESTABLE, false);
 
 		TallBlockEmiStack unharvestedStack = tripleTallPlantStack(block, unharvestedState);
 		TallBlockEmiStack harvestedStack = tripleTallPlantStack(block, harvestedState);
@@ -111,18 +111,18 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 	 * Creates a {@link TallBlockEmiStack} for a {@link TripleTallPlantBlock}.
 	 *
 	 * @param block     the {@link TripleTallPlantBlock}
-	 * @param baseState the {@link BlockState} to base each {@linkplain TripleTallPlantBlock#PART part} on
+	 * @param baseState the {@link BlockState} to base each {@linkplain TripleTallPlantBlock#TRIPLE_BLOCK_PART part} on
 	 */
 	@Contract("_, _ -> new")
 	protected static TallBlockEmiStack tripleTallPlantStack(Block block, @NotNull BlockState baseState) {
 		LinkedHashMap<BlockPos, BlockState> map = new LinkedHashMap<>(3);
-		map.put(new BlockPos(0, 0, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.LOWER));
-		map.put(new BlockPos(0, 1, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.MIDDLE));
-		map.put(new BlockPos(0, 2, 0), baseState.with(TripleTallPlantBlock.PART, TripleBlockPart.UPPER));
+		map.put(new BlockPos(0, 0, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.LOWER));
+		map.put(new BlockPos(0, 1, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.MIDDLE));
+		map.put(new BlockPos(0, 2, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.UPPER));
 
 		return new TallBlockEmiStack(block, map)
 			.scale(0.5f)
 			.describeSingleState(baseState)
-			.hiddenProperties(TripleTallPlantBlock.PART);
+			.hiddenProperties(TripleTallPlantBlock.TRIPLE_BLOCK_PART);
 	}
 }
