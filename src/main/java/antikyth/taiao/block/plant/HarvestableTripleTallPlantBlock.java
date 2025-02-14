@@ -40,24 +40,18 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 		this.setDefaultState(this.getDefaultState().with(HARVESTABLE, true));
 	}
 
+	@Override
+	protected BlockState getDefaultPlacementState() {
+		return this.getDefaultState().with(HARVESTABLE, false);
+	}
+
 	@Nullable
 	protected SoundEvent getShearSound() {
 		return null;
 	}
 
-	public ItemStack getHarvest() {
-		return new ItemStack(this, 3);
-	}
-
 	public void dropHarvest(World world, BlockPos pos) {
-		dropStack(world, pos, getHarvest());
-	}
-
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-
-		builder.add(HARVESTABLE);
+		dropStack(world, pos, new ItemStack(this, 3));
 	}
 
 	/**
@@ -155,5 +149,12 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 	@Override
 	public void grow(@NotNull ServerWorld world, Random random, BlockPos pos, @NotNull BlockState state) {
 		world.setBlockState(pos, state.with(HARVESTABLE, true), Block.NOTIFY_LISTENERS);
+	}
+
+	@Override
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+
+		builder.add(HARVESTABLE);
 	}
 }

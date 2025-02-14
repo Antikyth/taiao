@@ -97,10 +97,14 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 		// Upper part is placeable
 		if (!world.getBlockState(pos.up(2)).canReplace(ctx)) return null;
 
-		BlockState state = super.getPlacementState(ctx);
+		return TallPlantBlock.withWaterloggedState(world, pos, this.getDefaultPlacementState());
+	}
 
-		if (state != null) return TallPlantBlock.withWaterloggedState(world, pos, state);
-		else return null;
+	/**
+	 * Returns the default state when placed by item.
+	 */
+	protected BlockState getDefaultPlacementState() {
+		return this.getDefaultState();
 	}
 
 	@Override
