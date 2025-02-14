@@ -6,6 +6,7 @@ package antikyth.taiao.emi;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.block.log.Strippable;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
 import antikyth.taiao.block.plant.TripleBlockPart;
@@ -48,16 +49,16 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 	 * Creates a {@linkplain EmiWorldInteractionRecipe world interaction recipe} for shearing a
 	 * {@link HarvestableTripleTallPlantBlock}.
 	 *
-	 * @param output the itemStack dropped after harvesting
+	 * @param output the item stack dropped after harvesting
 	 */
 	protected static EmiRecipe triplePlantHarvestRecipe(Block block, EmiStack output) {
 		Identifier recipeId = Taiao.id("/world/shearing/" + Taiao.toPath(Registries.BLOCK.getId(block)));
 
-		BlockState unharvestedState = block.getDefaultState().with(HarvestableTripleTallPlantBlock.HARVESTABLE, true);
-		BlockState harvestedState = block.getDefaultState().with(HarvestableTripleTallPlantBlock.HARVESTABLE, false);
+		BlockState unharvestedState = block.getDefaultState().with(TaiaoStateProperties.HARVESTABLE, true);
+		BlockState harvestedState = block.getDefaultState().with(TaiaoStateProperties.HARVESTABLE, false);
 
-		TallBlockEmiStack unharvestedStack = tripleTallPlantStack(block, unharvestedState);
-		TallBlockEmiStack harvestedStack = tripleTallPlantStack(block, harvestedState);
+		TallBlockEmiStack unharvestedStack = tripleTallPlantStack(unharvestedState);
+		TallBlockEmiStack harvestedStack = tripleTallPlantStack(harvestedState);
 
 		EmiIngredient shears = damaged(EmiIngredient.of(ConventionalItemTags.SHEARS), 1);
 
@@ -110,19 +111,19 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 	/**
 	 * Creates a {@link TallBlockEmiStack} for a {@link TripleTallPlantBlock}.
 	 *
-	 * @param block     the {@link TripleTallPlantBlock}
 	 * @param baseState the {@link BlockState} to base each {@linkplain TripleTallPlantBlock#TRIPLE_BLOCK_PART part} on
 	 */
-	@Contract("_, _ -> new")
-	protected static TallBlockEmiStack tripleTallPlantStack(Block block, @NotNull BlockState baseState) {
+	@Contract("_ -> new")
+	protected static TallBlockEmiStack tripleTallPlantStack(@NotNull BlockState baseState) {
 		LinkedHashMap<BlockPos, BlockState> map = new LinkedHashMap<>(3);
 		map.put(new BlockPos(0, 0, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.LOWER));
 		map.put(new BlockPos(0, 1, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.MIDDLE));
 		map.put(new BlockPos(0, 2, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.UPPER));
 
-		return new TallBlockEmiStack(block, map)
+		return new TallBlockEmiStack(baseState.getBlock(), map)
 			.scale(0.5f)
+			.offsetRotation(true)
 			.describeSingleState(baseState)
-			.hiddenProperties(TripleTallPlantBlock.TRIPLE_BLOCK_PART);
+			.showProperties(TaiaoStateProperties.HARVESTABLE);
 	}
 }

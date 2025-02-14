@@ -44,12 +44,25 @@ public class TallBlockEmiStack extends EmiStack {
 	protected final LinkedHashMap<BlockPos, BlockState> states;
 
 	protected Vector3f center;
-	protected float scale = 1f;
 	@Nullable
 	protected BlockState describeSingleState = null;
-	protected List<Property<?>> hiddenProperties = List.of();
+	protected List<Property<?>> shownProperties = List.of();
 
+	protected boolean offsetRotation = false;
+	protected float scale = 1f;
+
+	/**
+	 * The default block item GUI transformation.
+	 */
 	protected static final Transformation TRANSFORMATION = new Transformation(
+		new Vector3f(30f, 225f, 0f),
+		new Vector3f(),
+		new Vector3f(0.625f)
+	);
+	/**
+	 * The default block item GUI transformation with a slight rotational offset.
+	 */
+	protected static final Transformation TRANSFORMATION_OFFSET = new Transformation(
 		new Vector3f(30f, 210f, 0f),
 		new Vector3f(),
 		new Vector3f(0.625f)
@@ -87,6 +100,14 @@ public class TallBlockEmiStack extends EmiStack {
 	}
 
 	/**
+	 * Whether to offset the rotation slightly (useful for making cross models look less weird).
+	 */
+	public TallBlockEmiStack offsetRotation(boolean offsetRotation) {
+		this.offsetRotation = offsetRotation;
+		return this;
+	}
+
+	/**
 	 * A single {@link BlockState} to describe in the tooltip.
 	 * <p>
 	 * If {@code null} (the default), all states will be described.
@@ -97,17 +118,17 @@ public class TallBlockEmiStack extends EmiStack {
 	}
 
 	/**
-	 * {@link BlockState} properties to hide in the tooltip.
+	 * {@link BlockState} properties to show in the tooltip.
 	 */
-	public TallBlockEmiStack hiddenProperties(Property<?>... hiddenProperties) {
-		return this.hiddenProperties(List.of(hiddenProperties));
+	public TallBlockEmiStack showProperties(Property<?>... shownProperties) {
+		return this.showProperties(List.of(shownProperties));
 	}
 
 	/**
-	 * {@link BlockState} properties to hide in the tooltip.
+	 * {@link BlockState} properties to show in the tooltip.
 	 */
-	public TallBlockEmiStack hiddenProperties(List<Property<?>> hiddenProperties) {
-		this.hiddenProperties = hiddenProperties;
+	public TallBlockEmiStack showProperties(List<Property<?>> shownProperties) {
+		this.shownProperties = shownProperties;
 		return this;
 	}
 
@@ -115,8 +136,9 @@ public class TallBlockEmiStack extends EmiStack {
 	public EmiStack copy() {
 		return new TallBlockEmiStack(this.block, this.states, this.center)
 			.scale(this.scale)
+			.offsetRotation(this.offsetRotation)
 			.describeSingleState(this.describeSingleState)
-			.hiddenProperties(this.hiddenProperties);
+			.showProperties(this.shownProperties);
 	}
 
 	@Override
@@ -205,7 +227,7 @@ public class TallBlockEmiStack extends EmiStack {
 			Property<?> property = entry.getKey();
 			Comparable<?> value = entry.getValue();
 
-			if (!this.hiddenProperties.contains(property)) {
+			if (this.shownProperties.contains(property)) {
 				MutableText keyText = Text.literal(property.getName() + ": ").formatted(Formatting.GRAY);
 				MutableText valueText = Text.literal(Util.getValueAsString(property, value));
 
@@ -250,7 +272,9 @@ public class TallBlockEmiStack extends EmiStack {
 		consumer.light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
 
 		// Apply transforms
-		TRANSFORMATION.apply(false, matrices);
+		Transformation transformation = this.offsetRotation ? TRANSFORMATION_OFFSET : TRANSFORMATION;
+		transformation.apply(false, matrices);
+
 		matrices.scale(this.scale, this.scale, this.scale);
 		// Items are shifted like this before being rendered
 		matrices.translate(-0.5f, -0.5f, -0.5f);
