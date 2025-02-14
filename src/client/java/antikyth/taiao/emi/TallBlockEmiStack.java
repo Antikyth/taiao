@@ -10,7 +10,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
+import net.minecraft.client.render.LightmapTextureManager;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.NbtCompound;
@@ -33,8 +36,8 @@ import java.util.List;
 import java.util.Map;
 
 public class TallBlockEmiStack extends EmiStack {
-	protected static final MinecraftClient CLIENT = MinecraftClient.getInstance();
-	protected static final BlockRenderer BLOCK_RENDERER = new BlockRenderer(CLIENT);
+	protected final MinecraftClient client = MinecraftClient.getInstance();
+	protected final BlockRenderManager blockRenderManager = client.getBlockRenderManager();
 
 	protected final Block block;
 	protected final LinkedHashMap<BlockPos, BlockState> states;
@@ -175,7 +178,7 @@ public class TallBlockEmiStack extends EmiStack {
 			// Name
 			list.add(TooltipComponent.of(this.getName().asOrderedText()));
 			// Technical name
-			if (CLIENT.options.advancedItemTooltips) {
+			if (this.client.options.advancedItemTooltips) {
 				Text technicalName = Text.literal(this.getId().toString()).formatted(Formatting.DARK_GRAY);
 
 				list.add(TooltipComponent.of(technicalName.asOrderedText()));
@@ -256,14 +259,34 @@ public class TallBlockEmiStack extends EmiStack {
 		matrices.multiplyPositionMatrix(new Matrix4f().scaling(1f, -1f, 1f));
 		matrices.scale(16f, 16f, 16f);
 
-		BLOCK_RENDERER.renderBlocks(
-			matrices,
-			vertices,
-			this.offsetRotation ? TRANSFORMATION_OFFSET : TRANSFORMATION,
-			this.offset,
-			this.states.entrySet(),
-			this.scale
-		);
+		Transformation transformation = this.offsetRotation ? TRANSFORMATION_OFFSET : TRANSFORMATION;
+
+		// Set up transformations for the blocks themselves
+		transformation.apply(false, matrices);
+		matrices.scale(this.scale, this.scale, this.scale);
+		matrices.translate(-0.5f, -0.5f, -0.5f);
+
+		matrices.translate(this.offset.x, this.offset.y, this.offset.z);
+
+		// Render all blocks
+		for (Map.Entry<BlockPos, BlockState> entry : this.states.entrySet()) {
+			BlockPos pos = entry.getKey();
+			BlockState state = entry.getValue();
+
+			matrices.push();
+
+			// Render block
+			matrices.translate(pos.getX(), pos.getY(), pos.getZ());
+			this.blockRenderManager.renderBlockAsEntity(
+				state,
+				matrices,
+				vertices,
+				LightmapTextureManager.MAX_LIGHT_COORDINATE,
+				OverlayTexture.DEFAULT_UV
+			);
+
+			matrices.pop();
+		}
 
 		matrices.pop();
 
