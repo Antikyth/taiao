@@ -1,4 +1,54 @@
 {
+  "block.harakeke.break": {
+    "sounds": [
+      "minecraft:block/hanging_roots/break1",
+      "minecraft:block/hanging_roots/break2",
+      "minecraft:block/hanging_roots/break3",
+      "minecraft:block/hanging_roots/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.harakeke.fall": {
+    "sounds": [
+      "minecraft:block/hanging_roots/step1",
+      "minecraft:block/hanging_roots/step2",
+      "minecraft:block/hanging_roots/step3",
+      "minecraft:block/hanging_roots/step4",
+      "minecraft:block/hanging_roots/step5",
+      "minecraft:block/hanging_roots/step6"
+    ]
+  },
+  "block.harakeke.hit": {
+    "sounds": [
+      "minecraft:block/hanging_roots/step1",
+      "minecraft:block/hanging_roots/step2",
+      "minecraft:block/hanging_roots/step3",
+      "minecraft:block/hanging_roots/step4",
+      "minecraft:block/hanging_roots/step5",
+      "minecraft:block/hanging_roots/step6"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.harakeke.place": {
+    "sounds": [
+      "minecraft:block/hanging_roots/break1",
+      "minecraft:block/hanging_roots/break2",
+      "minecraft:block/hanging_roots/break3",
+      "minecraft:block/hanging_roots/break4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.harakeke.step": {
+    "sounds": [
+      "minecraft:block/hanging_roots/step1",
+      "minecraft:block/hanging_roots/step2",
+      "minecraft:block/hanging_roots/step3",
+      "minecraft:block/hanging_roots/step4",
+      "minecraft:block/hanging_roots/step5",
+      "minecraft:block/hanging_roots/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.harakeke.shear": {
     "sounds": [
       "minecraft:mob/sheep/shear"

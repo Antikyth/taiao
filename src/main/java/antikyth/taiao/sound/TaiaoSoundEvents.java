@@ -28,6 +28,11 @@ public class TaiaoSoundEvents {
 	public static final SoundEvent ENTITY_PUUKEKO_BABY_AMBIENT = register(Taiao.id("entity.puukeko.baby.ambient"));
 	public static final SoundEvent ENTITY_PUUKEKO_ADULT_AMBIENT = register(Taiao.id("entity.puukeko.adult.ambient"));
 
+	public static final SoundEvent BLOCK_HARAKEKE_BREAK = register(Taiao.id("block.harakeke.break"));
+	public static final SoundEvent BLOCK_HARAKEKE_STEP = register(Taiao.id("block.harakeke.step"));
+	public static final SoundEvent BLOCK_HARAKEKE_PLACE = register(Taiao.id("block.harakeke.place"));
+	public static final SoundEvent BLOCK_HARAKEKE_HIT = register(Taiao.id("block.harakeke.hit"));
+	public static final SoundEvent BLOCK_HARAKEKE_FALL = register(Taiao.id("block.harakeke.fall"));
 	public static final SoundEvent BLOCK_HARAKEKE_SHEAR = register(Taiao.id("block.harakeke.shear"));
 
 	public static SoundEvent register(Identifier id) {

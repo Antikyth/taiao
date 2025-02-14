@@ -14,6 +14,7 @@ import antikyth.taiao.block.plant.GiantCaneRushBlock;
 import antikyth.taiao.block.plant.HarakekeBlock;
 import antikyth.taiao.block.plant.TallReedsBlock;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.sound.TaiaoBlockSoundGroups;
 import antikyth.taiao.world.gen.feature.tree.sapling.*;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
@@ -385,7 +386,7 @@ public class TaiaoBlocks {
 	).register(true);
 	public static final Block HARAKEKE = new Builder(
 		Taiao.id("harakeke"),
-		new HarakekeBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN))
+		new HarakekeBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN).sounds(TaiaoBlockSoundGroups.HARAKEKE))
 	).register(true);
 
 	public static final Block HARAKEKE_MAT = new Builder(
@@ -394,7 +395,7 @@ public class TaiaoBlocks {
 			AbstractBlock.Settings.create()
 				.mapColor(MapColor.OAK_TAN)
 				.strength(0.1f)
-				.sounds(BlockSoundGroup.WOOL)
+				.sounds(TaiaoBlockSoundGroups.HARAKEKE)
 				.burnable()
 		)
 	).copyFlammable(Blocks.WHITE_CARPET).register(true);
