@@ -72,9 +72,15 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOG_CONNECTION_OVERRIDE)
 			.addTag(TaiaoBlockTags.THIN_LOGS)
 			.addTag(BlockTags.LEAVES);
+
 		getOrCreateTagBuilder(TaiaoBlockTags.REEDS_PLANTABLE_ON)
 			.addOptionalTag(BlockTags.DIRT);
 		getOrCreateTagBuilder(TaiaoBlockTags.HYDRATES_REEDS)
+			.add(Blocks.FROSTED_ICE);
+
+		getOrCreateTagBuilder(TaiaoBlockTags.HARAKEKE_PLANTABLE_ON)
+			.addOptionalTag(BlockTags.DIRT);
+		getOrCreateTagBuilder(TaiaoBlockTags.HYDRATES_HARAKEKE)
 			.add(Blocks.FROSTED_ICE);
 
 		// Vanilla tags

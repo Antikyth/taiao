@@ -44,6 +44,9 @@ public final class TaiaoBlockTags {
 	 */
 	public static final TagKey<Block> HYDRATES_REEDS = createTagKey(Taiao.id("hydrates_reeds"));
 
+	public static final TagKey<Block> HARAKEKE_PLANTABLE_ON = createTagKey(Taiao.id("harakeke_plantable_on"));
+	public static final TagKey<Block> HYDRATES_HARAKEKE = createTagKey(Taiao.id("hydrates_harakeke"));
+
 	public static TagKey<Block> createTagKey(Identifier id) {
 		return TagKey.of(RegistryKeys.BLOCK, id);
 	}
