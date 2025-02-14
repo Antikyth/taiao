@@ -101,6 +101,11 @@ public class TaiaoPlacedFeatures {
 		TaiaoConfiguredFeatures.GIANT_CANE_RUSH_PATCH,
 		tallPlantModifiers(5)
 	);
+	public static final RegistryKey<PlacedFeature> HARAKEKE_PATCH = register(
+		TaiaoConfiguredFeatures.HARAKEKE_PATCH.getValue(),
+		TaiaoConfiguredFeatures.HARAKEKE_PATCH,
+		tallPlantModifiers(3)
+	);
 
 	public static void bootstrap(@NotNull Registerable<PlacedFeature> registerable) {
 		Taiao.LOGGER.debug("Registering placed features");

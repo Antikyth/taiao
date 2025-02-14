@@ -78,6 +78,7 @@ public class TaiaoBiomes {
 		// Forest floor vegetation
 		addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_FOREST_GRASS_PATCH);
 		DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
+		addVegetation(generationSettings, TaiaoPlacedFeatures.HARAKEKE_PATCH);
 
 		// Trees
 		addVegetation(generationSettings, TaiaoPlacedFeatures.NATIVE_FOREST_TREES);
@@ -118,6 +119,7 @@ public class TaiaoBiomes {
 		DefaultBiomeFeatures.addDefaultMushrooms(generationSettings);
 		addVegetation(generationSettings, TaiaoPlacedFeatures.RAUPOO_PATCH);
 		addVegetation(generationSettings, TaiaoPlacedFeatures.GIANT_CANE_RUSH_PATCH);
+		addVegetation(generationSettings, TaiaoPlacedFeatures.HARAKEKE_PATCH);
 
 		addVegetation(generationSettings, OceanPlacedFeatures.SEAGRASS_SWAMP);
 

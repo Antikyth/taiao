@@ -279,6 +279,13 @@ public class TaiaoConfiguredFeatures {
 			createTripleTallPlantRandomPatchFeatureConfig(96, TaiaoBlocks.GIANT_CANE_RUSH)
 		)
 	);
+	public static final RegistryKey<ConfiguredFeature<?, ?>> HARAKEKE_PATCH = register(
+		Taiao.id("patch_harakeke"),
+		lookup -> new ConfiguredFeature<>(
+			Feature.RANDOM_PATCH,
+			createTripleTallPlantRandomPatchFeatureConfig(96, TaiaoBlocks.HARAKEKE)
+		)
+	);
 
 	public static void bootstrap(@NotNull Registerable<ConfiguredFeature<?, ?>> registerable) {
 		Taiao.LOGGER.debug("Registering configured features");
