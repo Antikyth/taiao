@@ -81,6 +81,7 @@ public class TaiaoClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.RAUPOO, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.GIANT_CANE_RUSH, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.HARAKEKE, RenderLayer.getCutout());
 	}
 
 	public static void registerSpawnEggColors(Item @NotNull ... items) {

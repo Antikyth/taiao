@@ -164,11 +164,13 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		registerTripleBlock(generator, TaiaoBlocks.GIANT_CANE_RUSH, TintType.NOT_TINTED);
 		generator.registerDoubleBlock(TaiaoBlocks.RAUPOO, TintType.NOT_TINTED);
-		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED);
+		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED, false);
 	}
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerator generator) {
+		generator.register(TaiaoBlocks.HARAKEKE.asItem(), Models.GENERATED);
+
 		generator.register(TaiaoItems.CONIFER_FRUIT, Models.GENERATED);
 
 		generator.register(TaiaoItems.KAURI_BOAT, Models.GENERATED);
@@ -275,7 +277,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
 	public static void registerHarvestableTriplePlantBlock(
 		@NotNull BlockStateModelGenerator generator,
 		Block plant,
-		@NotNull TintType tintType
+		@NotNull TintType tintType,
+		boolean registerItem
 	) {
 		Identifier top = generator.createSubModel(plant, "_top", tintType.getCrossModel(), TextureMap::cross);
 		Identifier center = generator.createSubModel(plant, "_center", tintType.getCrossModel(), TextureMap::cross);
@@ -340,7 +343,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 			)
 		);
 
-		generator.registerItemModel(plant, "_top");
+		if (registerItem) generator.registerItemModel(plant, "_top");
 	}
 
 	public static void registerFruitLeaves(@NotNull BlockStateModelGenerator generator, Block block) {
