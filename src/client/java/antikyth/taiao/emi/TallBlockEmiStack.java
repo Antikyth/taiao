@@ -10,8 +10,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.NbtCompound;
@@ -23,7 +22,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -36,11 +34,12 @@ import java.util.Map;
 
 public class TallBlockEmiStack extends EmiStack {
 	protected static final MinecraftClient CLIENT = MinecraftClient.getInstance();
+	protected static final BlockRenderer BLOCK_RENDERER = new BlockRenderer(CLIENT);
 
 	protected final Block block;
 	protected final LinkedHashMap<BlockPos, BlockState> states;
 
-	protected Vector3f center;
+	protected Vector3f offset;
 	@Nullable
 	protected BlockState describeSingleState = null;
 	protected List<Property<?>> shownProperties = List.of();
@@ -78,17 +77,17 @@ public class TallBlockEmiStack extends EmiStack {
 			sum.set(sum, pos);
 		}
 
-		this.center = new Vector3f(
-			(float) sum.getX() / (float) states.size(),
-			(float) sum.getY() / (float) states.size(),
-			(float) sum.getZ() / (float) states.size()
+		this.offset = new Vector3f(
+			-(float) sum.getX() / (float) states.size(),
+			-(float) sum.getY() / (float) states.size(),
+			-(float) sum.getZ() / (float) states.size()
 		);
 	}
 
-	public TallBlockEmiStack(Block block, LinkedHashMap<BlockPos, BlockState> states, Vector3f center) {
+	public TallBlockEmiStack(Block block, LinkedHashMap<BlockPos, BlockState> states, Vector3f offset) {
 		this.block = block;
 		this.states = states;
-		this.center = center;
+		this.offset = offset;
 	}
 
 	public TallBlockEmiStack scale(float scale) {
@@ -131,7 +130,7 @@ public class TallBlockEmiStack extends EmiStack {
 
 	@Override
 	public EmiStack copy() {
-		return new TallBlockEmiStack(this.block, this.states, this.center)
+		return new TallBlockEmiStack(this.block, this.states, this.offset)
 			.scale(this.scale)
 			.offsetRotation(this.offsetRotation)
 			.describeSingleState(this.describeSingleState)
@@ -248,6 +247,7 @@ public class TallBlockEmiStack extends EmiStack {
 	@Override
 	public void render(@NotNull DrawContext draw, int x, int y, float delta, int flags) {
 		MatrixStack matrices = draw.getMatrices();
+		VertexConsumerProvider vertices = draw.getVertexConsumers();
 
 		matrices.push();
 
@@ -256,58 +256,14 @@ public class TallBlockEmiStack extends EmiStack {
 		matrices.multiplyPositionMatrix(new Matrix4f().scaling(1f, -1f, 1f));
 		matrices.scale(16f, 16f, 16f);
 
-		ClientPlayerEntity player = CLIENT.player;
-		BlockPos origin = player != null ? player.getBlockPos() : BlockPos.ORIGIN;
-
-		VertexConsumerProvider consumers = draw.getVertexConsumers();
-		VertexConsumer consumer = consumers.getBuffer(RenderLayers.getEntityBlockLayer(
-			this.block.getDefaultState(),
-			true
-		));
-
-		Random random = Random.create(42L);
-		consumer.light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
-
-		BrightBlockRenderView fakeWorld = new BrightBlockRenderView(CLIENT.world);
-
-		// Apply transforms
-		Transformation transformation = this.offsetRotation ? TRANSFORMATION_OFFSET : TRANSFORMATION;
-		transformation.apply(false, matrices);
-
-		matrices.scale(this.scale, this.scale, this.scale);
-		// Items are shifted like this before being rendered
-		matrices.translate(-0.5f, -0.5f, -0.5f);
-		// Adjust the center of the multiblock
-		matrices.translate(-this.center.x, -this.center.y, -this.center.z);
-
-		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		for (Map.Entry<BlockPos, BlockState> part : this.states.entrySet()) {
-			BlockPos pos = part.getKey();
-			BlockState state = part.getValue();
-
-			mutable.set(origin, pos);
-
-			// Render
-			matrices.push();
-
-			matrices.translate(pos.getX(), pos.getY(), pos.getZ());
-			CLIENT.getBlockRenderManager()
-				.getModelRenderer()
-				.render(
-					fakeWorld,
-					new NoAmbientOcclusionBakedModel(CLIENT.getBlockRenderManager().getModel(state)),
-					state,
-					mutable,
-					matrices,
-					consumer,
-					false,
-					random,
-					state.getRenderingSeed(mutable),
-					OverlayTexture.DEFAULT_UV
-				);
-
-			matrices.pop();
-		}
+		BLOCK_RENDERER.renderBlocks(
+			matrices,
+			vertices,
+			this.offsetRotation ? TRANSFORMATION_OFFSET : TRANSFORMATION,
+			this.offset,
+			this.states.entrySet(),
+			this.scale
+		);
 
 		matrices.pop();
 
