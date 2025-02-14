@@ -15,7 +15,6 @@ import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.NbtCompound;
@@ -28,7 +27,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -122,61 +120,6 @@ public class TallBlockEmiStack extends EmiStack {
 	}
 
 	@Override
-	public void render(@NotNull DrawContext draw, int x, int y, float delta, int flags) {
-		MatrixStack matrices = draw.getMatrices();
-
-		matrices.push();
-
-		// Transforms, the same applied to items when rendering in GUIs
-		matrices.translate(x + 8f, y + 8f, 150);
-		matrices.multiplyPositionMatrix(new Matrix4f().scaling(1f, -1f, 1f));
-		matrices.scale(16f, 16f, 16f);
-
-		MinecraftClient client = MinecraftClient.getInstance();
-		World world = client.world;
-		ClientPlayerEntity player = client.player;
-		BlockPos origin = player != null ? player.getBlockPos() : BlockPos.ORIGIN;
-
-		BlockRenderManager blockRenderManager = client.getBlockRenderManager();
-		VertexConsumerProvider consumers = draw.getVertexConsumers();
-		VertexConsumer consumer = consumers.getBuffer(RenderLayers.getEntityBlockLayer(
-			this.block.getDefaultState(),
-			true
-		));
-
-		Random random = Random.create(42L);
-		consumer.light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
-
-		// Apply transforms
-		TRANSFORMATION.apply(false, matrices);
-		matrices.scale(this.scale, this.scale, this.scale);
-		// Items are shifted like this before being rendered
-		matrices.translate(-0.5f, -0.5f, -0.5f);
-		// Adjust the center of the multiblock
-		matrices.translate(-this.center.x, -this.center.y, -this.center.z);
-
-		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		for (Map.Entry<BlockPos, BlockState> part : this.states.entrySet()) {
-			BlockPos pos = part.getKey();
-			BlockState state = part.getValue();
-
-			mutable.set(origin, pos);
-
-			// Render
-			matrices.push();
-
-			matrices.translate(pos.getX(), pos.getY(), pos.getZ());
-			blockRenderManager.renderBlock(state, mutable, world, matrices, consumer, false, random);
-
-			matrices.pop();
-		}
-
-		matrices.pop();
-
-		draw.draw();
-	}
-
-	@Override
 	public boolean isEmpty() {
 		return this.states.isEmpty();
 	}
@@ -189,6 +132,11 @@ public class TallBlockEmiStack extends EmiStack {
 	@Override
 	public Object getKey() {
 		return this.block;
+	}
+
+	@Override
+	public Text getName() {
+		return this.block.getName();
 	}
 
 	@Override
@@ -279,7 +227,54 @@ public class TallBlockEmiStack extends EmiStack {
 	}
 
 	@Override
-	public Text getName() {
-		return this.block.getName();
+	public void render(@NotNull DrawContext draw, int x, int y, float delta, int flags) {
+		MatrixStack matrices = draw.getMatrices();
+
+		matrices.push();
+
+		// Transforms, the same applied to items when rendering in GUIs
+		matrices.translate(x + 8f, y + 8f, 150);
+		matrices.multiplyPositionMatrix(new Matrix4f().scaling(1f, -1f, 1f));
+		matrices.scale(16f, 16f, 16f);
+
+		ClientPlayerEntity player = CLIENT.player;
+		BlockPos origin = player != null ? player.getBlockPos() : BlockPos.ORIGIN;
+
+		VertexConsumerProvider consumers = draw.getVertexConsumers();
+		VertexConsumer consumer = consumers.getBuffer(RenderLayers.getEntityBlockLayer(
+			this.block.getDefaultState(),
+			true
+		));
+
+		Random random = Random.create(42L);
+		consumer.light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
+
+		// Apply transforms
+		TRANSFORMATION.apply(false, matrices);
+		matrices.scale(this.scale, this.scale, this.scale);
+		// Items are shifted like this before being rendered
+		matrices.translate(-0.5f, -0.5f, -0.5f);
+		// Adjust the center of the multiblock
+		matrices.translate(-this.center.x, -this.center.y, -this.center.z);
+
+		BlockPos.Mutable mutable = new BlockPos.Mutable();
+		for (Map.Entry<BlockPos, BlockState> part : this.states.entrySet()) {
+			BlockPos pos = part.getKey();
+			BlockState state = part.getValue();
+
+			mutable.set(origin, pos);
+
+			// Render
+			matrices.push();
+
+			matrices.translate(pos.getX(), pos.getY(), pos.getZ());
+			CLIENT.getBlockRenderManager().renderBlock(state, mutable, CLIENT.world, matrices, consumer, false, random);
+
+			matrices.pop();
+		}
+
+		matrices.pop();
+
+		draw.draw();
 	}
 }
