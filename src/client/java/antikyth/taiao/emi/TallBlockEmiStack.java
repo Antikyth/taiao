@@ -11,10 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.LightmapTextureManager;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.NbtCompound;
@@ -271,6 +268,8 @@ public class TallBlockEmiStack extends EmiStack {
 		Random random = Random.create(42L);
 		consumer.light(LightmapTextureManager.MAX_LIGHT_COORDINATE);
 
+		BrightBlockRenderView fakeWorld = new BrightBlockRenderView(CLIENT.world);
+
 		// Apply transforms
 		Transformation transformation = this.offsetRotation ? TRANSFORMATION_OFFSET : TRANSFORMATION;
 		transformation.apply(false, matrices);
@@ -292,7 +291,20 @@ public class TallBlockEmiStack extends EmiStack {
 			matrices.push();
 
 			matrices.translate(pos.getX(), pos.getY(), pos.getZ());
-			CLIENT.getBlockRenderManager().renderBlock(state, mutable, CLIENT.world, matrices, consumer, false, random);
+			CLIENT.getBlockRenderManager()
+				.getModelRenderer()
+				.render(
+					fakeWorld,
+					new NoAmbientOcclusionBakedModel(CLIENT.getBlockRenderManager().getModel(state)),
+					state,
+					mutable,
+					matrices,
+					consumer,
+					false,
+					random,
+					state.getRenderingSeed(mutable),
+					OverlayTexture.DEFAULT_UV
+				);
 
 			matrices.pop();
 		}
