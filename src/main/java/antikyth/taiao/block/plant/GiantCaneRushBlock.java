@@ -13,8 +13,8 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public class GiantCaneRushBlock extends TripleTallPlantBlock {
-	protected static final VoxelShape NORMAL_SHAPE = GiantCaneRushBlock.createCuboidShape(1d, 0d, 1d, 15d, 16d, 15d);
-	protected static final VoxelShape UPPER_SHAPE = GiantCaneRushBlock.createCuboidShape(1d, 0d, 1d, 15d, 12d, 15d);
+	protected static final VoxelShape NORMAL_SHAPE = createCuboidShape(1d, 0d, 1d, 15d, 16d, 15d);
+	protected static final VoxelShape UPPER_SHAPE = createCuboidShape(1d, 0d, 1d, 15d, 12d, 15d);
 
 	public GiantCaneRushBlock(Settings settings) {
 		super(settings);
