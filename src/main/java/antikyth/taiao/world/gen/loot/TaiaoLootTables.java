@@ -31,8 +31,13 @@ public class TaiaoLootTables {
 					.rolls(UniformLootNumberProvider.create(3f, 8f))
 					.with(
 						ItemEntry.builder(TaiaoItems.CONIFER_FRUIT)
-							.weight(10)
+							.weight(5)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 10f)))
+					)
+					.with(
+						ItemEntry.builder(TaiaoBlocks.HARAKEKE)
+							.weight(10)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 7f)))
 					)
 					.with(
 						ItemEntry.builder(Items.FERN)
@@ -88,12 +93,12 @@ public class TaiaoLootTables {
 					)
 					.with(
 						ItemEntry.builder(TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG)
-							.weight(3)
-							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+							.weight(2)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 					.with(
 						ItemEntry.builder(TaiaoBlocks.CHISELED_STRIPPED_RIMU_WOOD)
-							.weight(1)
+							.weight(2)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 			)
