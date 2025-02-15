@@ -11,6 +11,7 @@ import antikyth.taiao.block.log.Strippable;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
 import antikyth.taiao.block.plant.TripleBlockPart;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
+import antikyth.taiao.item.TaiaoItems;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipe;
@@ -29,6 +30,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TaiaoEmiPlugin implements EmiPlugin {
@@ -36,7 +38,17 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 	public void register(@NotNull EmiRegistry registry) {
 		Taiao.LOGGER.debug("Registering EMI recipes");
 
-		// Harvesting recipes
+		// Picking recipes
+		registry.addRecipe(fruitLeavesHarvestRecipe(
+			TaiaoBlocks.KAHIKATEA_LEAVES,
+			EmiStack.of(TaiaoItems.CONIFER_FRUIT)
+		));
+		registry.addRecipe(fruitLeavesHarvestRecipe(
+			TaiaoBlocks.RIMU_LEAVES,
+			EmiStack.of(TaiaoItems.CONIFER_FRUIT)
+		));
+
+		// Shearing recipes
 		registry.addRecipe(triplePlantHarvestRecipe(TaiaoBlocks.HARAKEKE, EmiStack.of(TaiaoBlocks.HARAKEKE, 3)));
 
 		// Stripping recipes
@@ -57,8 +69,8 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 		BlockState unharvestedState = block.getDefaultState().with(TaiaoStateProperties.HARVESTABLE, true);
 		BlockState harvestedState = block.getDefaultState().with(TaiaoStateProperties.HARVESTABLE, false);
 
-		TallBlockEmiStack unharvestedStack = tripleTallPlantStack(unharvestedState);
-		TallBlockEmiStack harvestedStack = tripleTallPlantStack(harvestedState);
+		TallBlockStatesEmiStack unharvestedStack = tripleTallPlantStack(unharvestedState);
+		TallBlockStatesEmiStack harvestedStack = tripleTallPlantStack(harvestedState);
 
 		EmiIngredient shears = damaged(EmiIngredient.of(ConventionalItemTags.SHEARS), 1);
 
@@ -90,6 +102,19 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 			.build();
 	}
 
+	protected static @NotNull EmiRecipe fruitLeavesHarvestRecipe(Block block, EmiStack output) {
+		Identifier recipeId = Taiao.id("/world/picking/" + Taiao.toPath(Registries.BLOCK.getId(block)));
+
+		BlockState unharvestedState = block.getDefaultState().with(TaiaoStateProperties.FRUIT, true);
+		BlockState harvestedState = block.getDefaultState().with(TaiaoStateProperties.FRUIT, false);
+
+		return new SingleInputWorldInteractionRecipe(
+			recipeId,
+			List.of(new BlockStateEmiStack(unharvestedState).showProperties(TaiaoStateProperties.FRUIT)),
+			List.of(output, new BlockStateEmiStack(harvestedState).showProperties(TaiaoStateProperties.FRUIT))
+		);
+	}
+
 	/**
 	 * Adds the given amount of {@code damage} to all {@link ItemStack}s in the given {@code ingredient}.
 	 *
@@ -109,18 +134,18 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 	}
 
 	/**
-	 * Creates a {@link TallBlockEmiStack} for a {@link TripleTallPlantBlock}.
+	 * Creates a {@link TallBlockStatesEmiStack} for a {@link TripleTallPlantBlock}.
 	 *
 	 * @param baseState the {@link BlockState} to base each {@linkplain TripleTallPlantBlock#TRIPLE_BLOCK_PART part} on
 	 */
 	@Contract("_ -> new")
-	protected static TallBlockEmiStack tripleTallPlantStack(@NotNull BlockState baseState) {
+	protected static TallBlockStatesEmiStack tripleTallPlantStack(@NotNull BlockState baseState) {
 		LinkedHashMap<BlockPos, BlockState> map = new LinkedHashMap<>(3);
 		map.put(new BlockPos(0, 0, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.LOWER));
 		map.put(new BlockPos(0, 1, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.MIDDLE));
 		map.put(new BlockPos(0, 2, 0), baseState.with(TripleTallPlantBlock.TRIPLE_BLOCK_PART, TripleBlockPart.UPPER));
 
-		return new TallBlockEmiStack(baseState.getBlock(), map)
+		return new TallBlockStatesEmiStack(baseState.getBlock(), map)
 			.scale(0.5f)
 			.offsetRotation(true)
 			.describeSingleState(baseState)
