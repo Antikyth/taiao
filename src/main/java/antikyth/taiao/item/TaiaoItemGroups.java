@@ -193,6 +193,7 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoBlocks.RIMU_SLAB);
 		add.accept(TaiaoBlocks.RIMU_FENCE);
 		add.accept(TaiaoBlocks.RIMU_FENCE_GATE);
+		add.accept(TaiaoBlocks.RIMU_DOOR);
 		add.accept(TaiaoBlocks.RIMU_PRESSURE_PLATE);
 		add.accept(TaiaoBlocks.RIMU_BUTTON);
 	}

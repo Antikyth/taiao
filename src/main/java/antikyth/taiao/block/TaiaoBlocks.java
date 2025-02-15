@@ -239,6 +239,13 @@ public class TaiaoBlocks {
 		Taiao.id("rimu_fence"),
 		new FenceBlock(FabricBlockSettings.copyOf(RIMU_PLANKS))
 	).copyFlammable(RIMU_PLANKS).register(true);
+	public static final Block RIMU_DOOR = new Builder(
+		Taiao.id("rimu_door"),
+		new DoorBlock(
+			FabricBlockSettings.copyOf(Blocks.JUNGLE_DOOR).mapColor(RIMU_PLANKS.getDefaultMapColor()),
+			BlockSetType.OAK
+		)
+	).copyFlammable(RIMU_PLANKS).register(true);
 
 	// Tī kōuka foliage
 	public static final Block CABBAGE_TREE_SAPLING = new Builder(
@@ -450,6 +457,7 @@ public class TaiaoBlocks {
 				.pressurePlate(TaiaoBlocks.RIMU_PRESSURE_PLATE)
 				.slab(TaiaoBlocks.RIMU_SLAB)
 				.stairs(TaiaoBlocks.RIMU_STAIRS)
+				.door(TaiaoBlocks.RIMU_DOOR)
 				.group("wooden")
 				.unlockCriterionName("has_planks")
 				.build()

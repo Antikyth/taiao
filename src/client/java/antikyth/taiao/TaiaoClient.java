@@ -61,27 +61,59 @@ public class TaiaoClient implements ClientModInitializer {
 	public static void registerRenderLayers() {
 		Taiao.LOGGER.debug("Registering block render layers");
 
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.KAURI_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_KAURI_SAPLING, RenderLayer.getCutout());
+		// Saplings
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.KAURI_SAPLING,
+			TaiaoBlocks.POTTED_KAURI_SAPLING
+		);
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.KAHIKATEA_SAPLING,
+			TaiaoBlocks.POTTED_KAHIKATEA_SAPLING
+		);
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.RIMU_SAPLING,
+			TaiaoBlocks.POTTED_RIMU_SAPLING
+		);
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.CABBAGE_TREE_SAPLING,
+			TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING
+		);
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.MAMAKU_SAPLING,
+			TaiaoBlocks.POTTED_MAMAKU_SAPLING
+		);
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.WHEKII_PONGA_SAPLING,
+			TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING
+		);
 
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.KAHIKATEA_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_KAHIKATEA_SAPLING, RenderLayer.getCutout());
+		// Plants
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.RAUPOO,
+			TaiaoBlocks.GIANT_CANE_RUSH,
+			TaiaoBlocks.HARAKEKE
+		);
+		// Other blocks
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.RIMU_DOOR
+		);
+	}
 
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.RIMU_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_RIMU_SAPLING, RenderLayer.getCutout());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.CABBAGE_TREE_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_CABBAGE_TREE_SAPLING, RenderLayer.getCutout());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.MAMAKU_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_MAMAKU_SAPLING, RenderLayer.getCutout());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.WHEKII_PONGA_SAPLING, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.POTTED_WHEKII_PONGA_SAPLING, RenderLayer.getCutout());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.RAUPOO, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.GIANT_CANE_RUSH, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(TaiaoBlocks.HARAKEKE, RenderLayer.getCutout());
+	/**
+	 * Puts the given {@code blocks} in the {@link BlockRenderLayerMap} with the given {@code layer}.
+	 */
+	public static void registerRenderLayer(RenderLayer layer, Block @NotNull ... blocks) {
+		for (Block block : blocks) {
+			BlockRenderLayerMap.INSTANCE.putBlock(block, layer);
+		}
 	}
 
 	public static void registerSpawnEggColors(Item @NotNull ... items) {
