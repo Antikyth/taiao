@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.datagen.language;
+package antikyth.taiao.datagen.language.englishnames;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

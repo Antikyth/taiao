@@ -75,6 +75,17 @@ public class TaiaoEntities {
 			.build()
 	);
 
+	public static final EntityType<EelEntity> EEL = register(
+		Taiao.id("eel"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(EelEntity::new)
+			.spawnGroup(SpawnGroup.WATER_AMBIENT)
+			.dimensions(EntityDimensions.changing(0.7f, 0.4f))
+			.defaultAttributes(EelEntity::createFishAttributes)
+			.trackRangeChunks(4)
+			.build()
+	);
+
 	public static <T extends Entity> EntityType<T> register(Identifier id, EntityType<T> entityType) {
 		return Registry.register(Registries.ENTITY_TYPE, id, entityType);
 	}

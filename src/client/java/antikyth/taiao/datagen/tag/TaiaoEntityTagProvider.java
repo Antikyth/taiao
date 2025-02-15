@@ -28,6 +28,8 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 		getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
 			.add(TaiaoEntities.PUUKEKO)
 			.add(TaiaoEntities.AUSTRALASIAN_BITTERN);
+		getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS)
+			.add(TaiaoEntities.EEL);
 
 		// Te Taiao o Aotearoa tags
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS)
@@ -50,6 +52,7 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREY)
 			.add(EntityType.FROG)
+			.add(TaiaoEntities.EEL)
 			.addTag(TaiaoEntityTypeTags.SCHOOLING_FISH_PREY);
 	}
 }

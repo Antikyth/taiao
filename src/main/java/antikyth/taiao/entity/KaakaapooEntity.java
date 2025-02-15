@@ -136,7 +136,7 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity, 
 
 	@Override
 	protected @Nullable SoundEvent getAmbientSound() {
-		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_BOOM;
+		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_AMBIENT;
 	}
 
 	@Override
@@ -146,12 +146,12 @@ public class KaakaapooEntity extends TameableEntity implements ShushableEntity, 
 
 	@Override
 	protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_CHING;
+		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_HURT;
 	}
 
 	@Override
 	protected @Nullable SoundEvent getDeathSound() {
-		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_CHING;
+		return TaiaoSoundEvents.ENTITY_KAAKAAPOO_DEATH;
 	}
 
 	@Override

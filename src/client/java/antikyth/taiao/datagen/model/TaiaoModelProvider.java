@@ -173,6 +173,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		generator.register(TaiaoItems.CONIFER_FRUIT, Models.GENERATED);
 
+		generator.register(TaiaoItems.EEL_BUCKET, Models.GENERATED);
+
 		generator.register(TaiaoItems.KAURI_BOAT, Models.GENERATED);
 		generator.register(TaiaoItems.KAURI_CHEST_BOAT, Models.GENERATED);
 		generator.register(TaiaoItems.KAHIKATEA_BOAT, Models.GENERATED);
@@ -187,6 +189,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+		generator.register(TaiaoItems.EEL_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 	}
 
 	public static void registerCarpet(@NotNull BlockStateModelGenerator generator, Block carpet) {

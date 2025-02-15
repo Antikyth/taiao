@@ -154,7 +154,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		// Items
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Huarākau");
 
-		// Animals
+		// Birds
 		addAnimal(builder, TaiaoEntities.KIWI, TaiaoItems.KIWI_SPAWN_EGG, TaiaoItemTags.KIWI_FOOD, "Kiwi");
 		addAnimal(builder, TaiaoEntities.PUUKEKO, TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoItemTags.PUUKEKO_FOOD, "Pūkeko");
 		addAnimal(builder, TaiaoEntities.MOA, TaiaoItems.MOA_SPAWN_EGG, TaiaoItemTags.MOA_FOOD, "Moa");
@@ -172,6 +172,9 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD,
 			"Matuku-Hūrepo"
 		);
+		// Fishes
+		addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Eel");
+		builder.add(TaiaoItems.EEL_BUCKET, "Bucket of Eel");
 
 		// Biomes
 		addBiome(builder, TaiaoBiomes.NATIVE_FOREST, "Aotearoa Native Forest");
@@ -187,11 +190,24 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addItemTag(builder, TaiaoItemTags.CONVENTIONAL_VINES, "Vines");
 
 		// Subtitles
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KIWI_CHIRP, "Kiwi chirps");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KIWI_AMBIENT, "Kiwi chirps");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KIWI_DEATH, "Kiwi dies");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KIWI_HURT, "Kiwi hurts");
+
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_AMBIENT, "Baby pūkeko squawks");
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT, "Pūkeko squawks");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_CHING, "Kākāpō chings");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_BOOM, "Kākāpō booms");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_DEATH, "Baby pūkeko dies");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_DEATH, "Pūkeko dies");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_HURT, "Baby pūkeko hurts");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_HURT, "Pūkeko hurts");
+
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_AMBIENT, "Kākāpō booms");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_DEATH, "Kākāpō dies");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_HURT, "Kākāpō hurts");
+
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_DEATH, "Eel dies");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_FLOP, "Eel flops");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_HURT, "Eel hurts");
 
 		// Tukutuku
 		addItemStack(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_LEFT, "Poutama Tukutuku Left");
@@ -348,7 +364,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 	) {
 		builder.add(entity, name);
 		builder.add(spawnEgg, String.format("%s Spawn Egg", name));
-		addItemTag(builder, foodTag, String.format("%s Food", name));
+		if (foodTag != null) addItemTag(builder, foodTag, String.format("%s Food", name));
 	}
 
 	public static void addBoat(

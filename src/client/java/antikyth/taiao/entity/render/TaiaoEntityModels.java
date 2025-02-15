@@ -19,28 +19,28 @@ import net.minecraft.registry.Registries;
 public class TaiaoEntityModels {
 	public static final EntityModelLayer KIWI = registerModelLayer(
 		TaiaoEntities.KIWI,
-		"main",
 		KiwiEntityModel::getTexturedModelData
 	);
 	public static final EntityModelLayer PUUKEKO = registerModelLayer(
 		TaiaoEntities.PUUKEKO,
-		"main",
 		PuukekoEntityModel::getTexturedModelData
 	);
 	public static final EntityModelLayer MOA = registerModelLayer(
 		TaiaoEntities.MOA,
-		"main",
 		MoaEntityModel::getTexturedModelData
 	);
 	public static final EntityModelLayer KAAKAAPOO = registerModelLayer(
 		TaiaoEntities.KAAKAAPOO,
-		"main",
 		KaakaapooEntityModel::getTexturedModelData
 	);
 	public static final EntityModelLayer AUSTRALASIAN_BITTERN = registerModelLayer(
 		TaiaoEntities.AUSTRALASIAN_BITTERN,
-		"main",
 		AustralasianBitternEntityModel::getTexturedModelData
+	);
+
+	public static final EntityModelLayer EEL = registerModelLayer(
+		TaiaoEntities.EEL,
+		EelEntityModel::getTexturedModelData
 	);
 
 	public static void initialize() {
@@ -56,6 +56,15 @@ public class TaiaoEntityModels {
 		EntityRendererRegistry.register(TaiaoEntities.MOA, MoaEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.KAAKAAPOO, KaakaapooEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.AUSTRALASIAN_BITTERN, AustralasianBitternEntityRenderer::new);
+
+		EntityRendererRegistry.register(TaiaoEntities.EEL, EelEntityRenderer::new);
+	}
+
+	public static EntityModelLayer registerModelLayer(
+		EntityType<?> entityType,
+		EntityModelLayerRegistry.TexturedModelDataProvider texturedModelDataProvider
+	) {
+		return registerModelLayer(entityType, "main", texturedModelDataProvider);
 	}
 
 	public static EntityModelLayer registerModelLayer(

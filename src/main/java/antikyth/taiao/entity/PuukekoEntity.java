@@ -84,17 +84,19 @@ public class PuukekoEntity extends AnimalEntity {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return isBaby() ? TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_AMBIENT : TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT;
+		return this.isBaby()
+			? TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_AMBIENT
+			: TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT;
+		return this.isBaby() ? TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_HURT : TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_AMBIENT;
+		return this.isBaby() ? TaiaoSoundEvents.ENTITY_PUUKEKO_BABY_DEATH : TaiaoSoundEvents.ENTITY_PUUKEKO_ADULT_DEATH;
 	}
 
 	@Override

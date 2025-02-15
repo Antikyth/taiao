@@ -10,12 +10,11 @@ import antikyth.taiao.entity.TaiaoEntities;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
-import net.minecraft.item.FoodComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +22,16 @@ public class TaiaoItems {
 	public static final Item CONIFER_FRUIT = register(
 		Taiao.id("conifer_fruit"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.CONIFER_FRUIT))
+	);
+
+	public static final Item EEL_BUCKET = register(
+		Taiao.id("eel_bucket"),
+		new EntityBucketItem(
+			TaiaoEntities.EEL,
+			Fluids.WATER,
+			SoundEvents.ITEM_BUCKET_EMPTY_FISH,
+			new FabricItemSettings().maxCount(1)
+		)
 	);
 
 	public static final Item KAURI_BOAT = TerraformBoatItemHelper.registerBoatItem(
@@ -85,6 +94,10 @@ public class TaiaoItems {
 	public static final Item AUSTRALASIAN_BITTERN_SPAWN_EGG = register(
 		Taiao.id("australasian_bittern_spawn_egg"),
 		new SpawnEggItem(TaiaoEntities.AUSTRALASIAN_BITTERN, 0x3b3016, 0xcbb166, new FabricItemSettings())
+	);
+	public static final Item EEL_SPAWN_EGG = register(
+		Taiao.id("eel_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.EEL, 0x251e2c, 0x9f99b7, new FabricItemSettings())
 	);
 
 	public static void initialize() {

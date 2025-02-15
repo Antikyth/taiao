@@ -2,13 +2,15 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.datagen.language;
+package antikyth.taiao.datagen.language.englishnames;
 
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.datagen.language.EnglishUsLangProvider;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.loot.TaiaoLootTables;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -52,6 +54,10 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 			TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD,
 			"Australasian Bittern"
 		);
+
+		// Biomes
+		EnglishUsLangProvider.addBiome(builder, TaiaoBiomes.NATIVE_FOREST, "New Zealand Native Forest");
+		EnglishUsLangProvider.addBiome(builder, TaiaoBiomes.KAHIKATEA_SWAMP, "New Zealand Kahikatea Swamp");
 
 		// Chest loot tables
 		EnglishUsLangProvider.addEmiLootChestLootTable(

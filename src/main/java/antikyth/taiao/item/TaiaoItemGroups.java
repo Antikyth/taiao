@@ -69,8 +69,9 @@ public class TaiaoItemGroups {
 			addFruit(group::add);
 
 			addOtherBuildingBlocks(group::add);
-
 			addBanners(group::add);
+
+			addEntityBuckets(group::add);
 			addSpawnEggs(group::add);
 		});
 
@@ -105,6 +106,7 @@ public class TaiaoItemGroups {
 		// Tools & utilities
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(group -> {
 			addBoats(item -> group.addBefore(Items.RAIL, item));
+			addEntityBuckets(item -> group.addBefore(Items.LAVA_BUCKET, item));
 		});
 		// Functional blocks
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(group -> {
@@ -237,6 +239,12 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoItems.MOA_SPAWN_EGG);
 		add.accept(TaiaoItems.KAAKAAPOO_SPAWN_EGG);
 		add.accept(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG);
+
+		add.accept(TaiaoItems.EEL_SPAWN_EGG);
+	}
+
+	public static void addEntityBuckets(@NotNull Consumer<ItemConvertible> add) {
+		add.accept(TaiaoItems.EEL_BUCKET);
 	}
 
 	public static void addFruit(@NotNull Consumer<ItemConvertible> add) {

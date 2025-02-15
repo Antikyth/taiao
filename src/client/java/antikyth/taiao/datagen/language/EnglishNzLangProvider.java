@@ -1,0 +1,30 @@
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+package antikyth.taiao.datagen.language;
+
+import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.sound.TaiaoSoundEvents;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+
+public class EnglishNzLangProvider extends EnglishGbLangProvider {
+	public EnglishNzLangProvider(FabricDataOutput dataOutput) {
+		super(dataOutput, "en_nz");
+	}
+
+	@Override
+	public void generateTranslations(TranslationBuilder builder) {
+		super.generateTranslations(builder);
+
+		// Fishes
+		EnglishUsLangProvider.addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Tuna");
+		builder.add(TaiaoItems.EEL_BUCKET, "Bucket of Tuna");
+
+		// Subtitles
+		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_DEATH, "Tuna dies");
+		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_FLOP, "Tuna flops");
+		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_HURT, "Tuna hurts");
+	}
+}

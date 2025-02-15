@@ -102,7 +102,7 @@ public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 
 	@Override
 	protected @Nullable SoundEvent getAmbientSound() {
-		return TaiaoSoundEvents.ENTITY_KIWI_CHIRP;
+		return TaiaoSoundEvents.ENTITY_KIWI_AMBIENT;
 	}
 
 	@Override
@@ -112,12 +112,12 @@ public class KiwiEntity extends AnimalEntity implements SleepyEntity {
 
 	@Override
 	protected @Nullable SoundEvent getHurtSound(DamageSource source) {
-		return TaiaoSoundEvents.ENTITY_KIWI_CHIRP;
+		return TaiaoSoundEvents.ENTITY_KIWI_HURT;
 	}
 
 	@Override
 	protected @Nullable SoundEvent getDeathSound() {
-		return TaiaoSoundEvents.ENTITY_KIWI_CHIRP;
+		return TaiaoSoundEvents.ENTITY_KIWI_DEATH;
 	}
 
 	@Override

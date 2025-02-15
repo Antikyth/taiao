@@ -19,6 +19,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.SpawnSettings.SpawnEntry;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -85,9 +86,12 @@ public class TaiaoBiomes {
 
 		// Spawns
 		DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
-		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.KIWI, 10, 4, 4));
-		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.MOA, 8, 4, 4));
-		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.KAAKAAPOO, 10, 1, 2));
+
+		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KIWI, 10, 4, 4));
+		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.MOA, 8, 4, 4));
+		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KAAKAAPOO, 10, 1, 2));
+
+		spawnSettings.spawn(SpawnGroup.WATER_AMBIENT, new SpawnEntry(TaiaoEntities.EEL, 5, 1, 3));
 
 		return OverworldBiomeCreator.createBiome(
 			true,
@@ -128,12 +132,15 @@ public class TaiaoBiomes {
 
 		// Spawns
 		DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);
-		spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SLIME, 1, 1, 1));
-		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(TaiaoEntities.PUUKEKO, 10, 4, 4));
+		spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnEntry(EntityType.SLIME, 1, 1, 1));
+
+		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.PUUKEKO, 10, 4, 4));
 		spawnSettings.spawn(
 			SpawnGroup.CREATURE,
-			new SpawnSettings.SpawnEntry(TaiaoEntities.AUSTRALASIAN_BITTERN, 7, 4, 4)
+			new SpawnEntry(TaiaoEntities.AUSTRALASIAN_BITTERN, 7, 4, 4)
 		);
+
+		spawnSettings.spawn(SpawnGroup.WATER_AMBIENT, new SpawnEntry(TaiaoEntities.EEL, 5, 1, 3));
 
 		return OverworldBiomeCreator.createBiome(
 			true,
