@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.emi;
+package antikyth.taiao.emi.stack;
 
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.block.Block;
@@ -14,12 +14,9 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
@@ -31,8 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TallBlockStatesEmiStack extends AbstractBlockStateEmiStack {
-	protected final Block block;
+public class TallBlockStatesEmiStack extends BlockEmiStack {
 	protected final LinkedHashMap<BlockPos, BlockState> states;
 
 	protected Vector3f offset;
@@ -41,11 +37,27 @@ public class TallBlockStatesEmiStack extends AbstractBlockStateEmiStack {
 
 	protected float scale = 1f;
 
+	/**
+	 * Creates a {@link TallBlockStatesEmiStack} of the given {@code block}.
+	 * <p>
+	 * All {@code states} must be of the given {@code block}; providing any {@link BlockState}s not of the same
+	 * {@code block} is undefined behavior.
+	 * <p>
+	 * Block positions are automatically offset based on the center of all positions. To prevent this or provide a
+	 * custom offset, use {@link TallBlockStatesEmiStack#TallBlockStatesEmiStack(Block, LinkedHashMap, Vector3f)}.
+	 * <p>
+	 * For a single {@link BlockState}, see {@link BlockStateEmiStack}.
+	 *
+	 * @param states a map of positions relative to the {@link BlockPos#ORIGIN} to the corresponding {@link BlockState}
+	 *               at that position
+	 */
 	public TallBlockStatesEmiStack(
 		Block block,
-		LinkedHashMap<BlockPos, BlockState> states
+		@NotNull LinkedHashMap<BlockPos, BlockState> states
 	) {
-		this(block, states, new Vector3f());
+		super(block);
+
+		this.states = states;
 
 		// Determine 'center of mass'
 		BlockPos.Mutable sum = new BlockPos.Mutable();
@@ -61,12 +73,33 @@ public class TallBlockStatesEmiStack extends AbstractBlockStateEmiStack {
 		);
 	}
 
+	/**
+	 * Creates a {@link TallBlockStatesEmiStack} of the given {@code block}.
+	 * <p>
+	 * All {@code states} must be of the given {@code block}; providing any {@link BlockState}s not of the same
+	 * {@code block} is undefined behavior.
+	 * <p>
+	 * To have an offset automatically determined to center the states, use
+	 * {@link TallBlockStatesEmiStack#TallBlockStatesEmiStack(Block, LinkedHashMap)}.
+	 * <p>
+	 * For a single {@link BlockState}, see {@link BlockStateEmiStack}.
+	 *
+	 * @param states a map of positions relative to the {@link BlockPos#ORIGIN} to the corresponding {@link BlockState}
+	 *               at that position
+	 * @param offset an offset to shift all the block positions by
+	 */
 	public TallBlockStatesEmiStack(Block block, LinkedHashMap<BlockPos, BlockState> states, Vector3f offset) {
-		this.block = block;
+		super(block);
+
 		this.states = states;
 		this.offset = offset;
 	}
 
+	/**
+	 * Scale the size of the blocks rendered by {@code scale}.
+	 * <p>
+	 * {@code 1f} is the default scaling factor.
+	 */
 	public TallBlockStatesEmiStack scale(float scale) {
 		this.scale = scale;
 		return this;
@@ -117,31 +150,6 @@ public class TallBlockStatesEmiStack extends AbstractBlockStateEmiStack {
 	@Override
 	public boolean isEmpty() {
 		return this.states.isEmpty();
-	}
-
-	@Override
-	public NbtCompound getNbt() {
-		return null;
-	}
-
-	@Override
-	public Object getKey() {
-		return this.block;
-	}
-
-	@Override
-	public Text getName() {
-		return this.block.getName();
-	}
-
-	@Override
-	public Identifier getId() {
-		return Registries.BLOCK.getId(this.block);
-	}
-
-	@Override
-	public List<Text> getTooltipText() {
-		return List.of(this.getName());
 	}
 
 	@Override

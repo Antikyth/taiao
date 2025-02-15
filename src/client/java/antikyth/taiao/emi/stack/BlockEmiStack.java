@@ -2,17 +2,21 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.emi;
+package antikyth.taiao.emi.stack;
 
 import dev.emi.emi.api.stack.EmiStack;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.json.Transformation;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
@@ -21,14 +25,7 @@ import org.joml.Vector3f;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractBlockStateEmiStack extends EmiStack {
-	protected final MinecraftClient client = MinecraftClient.getInstance();
-	protected final BlockRenderManager blockRenderManager = client.getBlockRenderManager();
-
-	protected boolean offsetRotation = false;
-
-	protected List<Property<?>> shownProperties = List.of();
-
+public abstract class BlockEmiStack extends EmiStack {
 	/**
 	 * The default block item GUI transformation.
 	 */
@@ -45,6 +42,46 @@ public abstract class AbstractBlockStateEmiStack extends EmiStack {
 		new Vector3f(),
 		new Vector3f(0.625f)
 	);
+
+	protected final MinecraftClient client = MinecraftClient.getInstance();
+	protected final BlockRenderManager blockRenderManager = client.getBlockRenderManager();
+
+	protected final Block block;
+
+	protected List<Property<?>> shownProperties = List.of();
+	protected boolean offsetRotation = false;
+
+	/**
+	 * @param block the block that all block states in this stack are of
+	 */
+	protected BlockEmiStack(Block block) {
+		this.block = block;
+	}
+
+	@Override
+	public Object getKey() {
+		return this.block;
+	}
+
+	@Override
+	public Identifier getId() {
+		return Registries.BLOCK.getId(this.block);
+	}
+
+	@Override
+	public Text getName() {
+		return this.block.getName();
+	}
+
+	@Override
+	public List<Text> getTooltipText() {
+		return List.of(this.getName());
+	}
+
+	@Override
+	public NbtCompound getNbt() {
+		return null;
+	}
 
 	protected List<Text> createPropertyTexts(@NotNull BlockState state) {
 		List<Text> propertyTexts = Lists.newArrayList();

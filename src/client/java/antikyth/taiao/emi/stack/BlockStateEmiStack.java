@@ -2,8 +2,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.emi;
+package antikyth.taiao.emi.stack;
 
+import antikyth.taiao.block.plant.TripleTallPlantBlock;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.DrawContext;
@@ -13,22 +14,26 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.List;
 
-public class BlockStateEmiStack extends AbstractBlockStateEmiStack {
+public class BlockStateEmiStack extends BlockEmiStack {
 	protected final BlockState state;
 
-	public BlockStateEmiStack(BlockState state) {
+	/**
+	 * Creates a {@link BlockStateEmiStack} of the given {@code state}.
+	 * <p>
+	 * For a block with multiple parts, like a {@link TripleTallPlantBlock}, see {@link TallBlockStatesEmiStack}.
+	 */
+	public BlockStateEmiStack(@NotNull BlockState state) {
+		super(state.getBlock());
+
 		this.state = state;
 	}
 
@@ -65,31 +70,6 @@ public class BlockStateEmiStack extends AbstractBlockStateEmiStack {
 	@Override
 	public boolean isEmpty() {
 		return false;
-	}
-
-	@Override
-	public NbtCompound getNbt() {
-		return null;
-	}
-
-	@Override
-	public Object getKey() {
-		return this.state;
-	}
-
-	@Override
-	public Identifier getId() {
-		return Registries.BLOCK.getId(this.state.getBlock());
-	}
-
-	@Override
-	public Text getName() {
-		return this.state.getBlock().getName();
-	}
-
-	@Override
-	public List<Text> getTooltipText() {
-		return List.of(this.getName());
 	}
 
 	@Override
