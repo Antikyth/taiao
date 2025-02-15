@@ -5,6 +5,7 @@
 package antikyth.taiao.emi.stack;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.TaiaoClient;
 import dev.emi.emi.api.render.EmiTooltipComponents;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.block.Block;
@@ -16,11 +17,9 @@ import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -129,20 +128,11 @@ public abstract class BlockEmiStack extends EmiStack {
 			Comparable<?> value = entry.getValue();
 
 			if (this.shownProperties.contains(property)) {
-				MutableText keyText = Text.literal(property.getName() + ": ").formatted(Formatting.GRAY);
-				MutableText valueText = Text.literal(Util.getValueAsString(property, value));
-
-				MutableText combined;
-
-				if (Boolean.TRUE.equals(value)) {
-					combined = keyText.append(valueText.formatted(Formatting.GREEN));
-				} else if (Boolean.FALSE.equals(value)) {
-					combined = keyText.append(valueText.formatted(Formatting.RED));
-				} else {
-					combined = keyText.append(valueText);
-				}
-
-				components.add(TooltipComponent.of(combined.asOrderedText()));
+				components.add(TooltipComponent.of(
+					TaiaoClient.propertyText(property, value)
+						.formatted(Formatting.GRAY)
+						.asOrderedText()
+				));
 			}
 		}
 

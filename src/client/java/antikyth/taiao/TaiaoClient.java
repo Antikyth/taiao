@@ -21,6 +21,11 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.state.property.Property;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.NotNull;
@@ -177,5 +182,21 @@ public class TaiaoClient implements ClientModInitializer {
 	 */
 	public static float degreesToRadians(float degrees) {
 		return degrees * (float) (Math.PI / 180d);
+	}
+
+	/**
+	 * Returns {@link MutableText} of a description of the given {@code property} and {@code value}.
+	 */
+	public static MutableText propertyText(@NotNull Property<?> property, Comparable<?> value) {
+		MutableText propertyText = Text.literal(property.getName() + ": ");
+		MutableText valueText = Text.literal(Util.getValueAsString(property, value));
+
+		if (Boolean.TRUE.equals(value)) {
+			valueText.formatted(Formatting.GREEN);
+		} else if (Boolean.FALSE.equals(value)) {
+			valueText.formatted(Formatting.RED);
+		}
+
+		return propertyText.append(valueText);
 	}
 }
