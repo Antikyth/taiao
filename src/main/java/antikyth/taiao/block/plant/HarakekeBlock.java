@@ -19,8 +19,8 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class HarakekeBlock extends HarvestableTripleTallPlantBlock {
-	protected static final VoxelShape NORMAL_SHAPE = createCuboidShape(2d, 0d, 1d, 14d, 16d, 14d);
-	protected static final VoxelShape TOP_SHAPE = createCuboidShape(2d, 0d, 1d, 14d, 14d, 14d);
+	protected static final VoxelShape NORMAL_SHAPE = createCuboidShape(2d, 0d, 2d, 14d, 16d, 14d);
+	protected static final VoxelShape TOP_SHAPE = createCuboidShape(2d, 0d, 2d, 14d, 14d, 14d);
 
 	public HarakekeBlock(AbstractBlock.Settings settings) {
 		super(settings);
