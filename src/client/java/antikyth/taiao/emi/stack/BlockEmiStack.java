@@ -4,10 +4,13 @@
 
 package antikyth.taiao.emi.stack;
 
+import antikyth.taiao.Taiao;
+import dev.emi.emi.api.render.EmiTooltipComponents;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.nbt.NbtCompound;
@@ -83,8 +86,43 @@ public abstract class BlockEmiStack extends EmiStack {
 		return null;
 	}
 
-	protected List<Text> createPropertyTexts(@NotNull BlockState state) {
-		List<Text> propertyTexts = Lists.newArrayList();
+	/**
+	 * Adds {@link TooltipComponent}s to the stack's tooltip.
+	 * <p>
+	 * Override to add information specific to this stack.
+	 */
+	protected void addTooltipComponents(List<TooltipComponent> components) {
+	}
+
+	@Override
+	public List<TooltipComponent> getTooltip() {
+		List<TooltipComponent> components = Lists.newArrayList();
+
+		// Name
+		components.add(TooltipComponent.of(this.getName().asOrderedText()));
+
+		this.addTooltipComponents(components);
+
+		// Technical name
+		if (this.client.options.advancedItemTooltips) {
+			Text technicalName = Text.literal(this.getId().toString()).formatted(Formatting.DARK_GRAY);
+
+			components.add(TooltipComponent.of(technicalName.asOrderedText()));
+		}
+
+		EmiTooltipComponents.appendModName(components, Taiao.MOD_ID);
+
+		components.addAll(super.getTooltip());
+
+		return components;
+	}
+
+	/**
+	 * Returns a list of {@link TooltipComponent}s of the {@link BlockEmiStack#shownProperties} for the given
+	 * {@code state}.
+	 */
+	protected List<TooltipComponent> createPropertyComponents(@NotNull BlockState state) {
+		List<TooltipComponent> components = Lists.newArrayList();
 
 		for (Map.Entry<Property<?>, Comparable<?>> entry : state.getEntries().entrySet()) {
 			Property<?> property = entry.getKey();
@@ -104,10 +142,10 @@ public abstract class BlockEmiStack extends EmiStack {
 					combined = keyText.append(valueText);
 				}
 
-				propertyTexts.add(combined);
+				components.add(TooltipComponent.of(combined.asOrderedText()));
 			}
 		}
 
-		return propertyTexts;
+		return components;
 	}
 }

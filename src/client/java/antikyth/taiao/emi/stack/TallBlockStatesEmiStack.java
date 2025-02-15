@@ -18,7 +18,6 @@ import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -153,52 +152,32 @@ public class TallBlockStatesEmiStack extends BlockEmiStack {
 	}
 
 	@Override
-	public List<TooltipComponent> getTooltip() {
-		List<TooltipComponent> list = Lists.newArrayList();
+	protected void addTooltipComponents(List<TooltipComponent> components) {
+		if (this.describeSingleState != null) {
+			components.addAll(this.createPropertyComponents(this.describeSingleState));
+		} else {
+			// Add info for each state
+			for (Map.Entry<BlockPos, BlockState> part : this.states.entrySet()) {
+				BlockPos pos = part.getKey();
+				BlockState state = part.getValue();
 
-		if (!this.isEmpty()) {
-			// Name
-			list.add(TooltipComponent.of(this.getName().asOrderedText()));
-			// Technical name
-			if (this.client.options.advancedItemTooltips) {
-				Text technicalName = Text.literal(this.getId().toString()).formatted(Formatting.DARK_GRAY);
+				List<TooltipComponent> properties = this.createPropertyComponents(state);
 
-				list.add(TooltipComponent.of(technicalName.asOrderedText()));
-			}
+				if (!properties.isEmpty()) {
+					// Blank line
+					components.add(TooltipComponent.of(Text.empty().asOrderedText()));
 
-			if (this.describeSingleState != null) {
-				List<Text> propertyTexts = this.createPropertyTexts(this.describeSingleState);
-
-				for (Text text : propertyTexts) {
-					list.add(TooltipComponent.of(text.asOrderedText()));
-				}
-			} else {
-				// Add info for each state
-				for (Map.Entry<BlockPos, BlockState> part : this.states.entrySet()) {
-					BlockPos pos = part.getKey();
-					BlockState state = part.getValue();
-
-					List<Text> propertyTexts = this.createPropertyTexts(state);
-
-					if (!propertyTexts.isEmpty()) {
-						list.add(TooltipComponent.of(Text.empty().asOrderedText()));
-
-						// Position text
-						list.add(TooltipComponent.of(Text.literal(pos.toShortString() + ":")
+					// Position text
+					components.add(TooltipComponent.of(
+						Text.literal(pos.toShortString() + ":")
 							.formatted(Formatting.DARK_GRAY)
-							.asOrderedText()));
+							.asOrderedText()
+					));
 
-						for (Text propertyText : propertyTexts) {
-							list.add(TooltipComponent.of(propertyText.asOrderedText()));
-						}
-					}
+					components.addAll(properties);
 				}
 			}
-
-			list.addAll(super.getTooltip());
 		}
-
-		return list;
 	}
 
 	@Override

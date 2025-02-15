@@ -15,9 +15,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import org.apache.commons.compress.utils.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
@@ -73,26 +70,8 @@ public class BlockStateEmiStack extends BlockEmiStack {
 	}
 
 	@Override
-	public List<TooltipComponent> getTooltip() {
-		List<TooltipComponent> list = Lists.newArrayList();
-
-		// Name
-		list.add(TooltipComponent.of(this.getName().asOrderedText()));
-		// Technical name
-		if (this.client.options.advancedItemTooltips) {
-			Text technicalName = Text.literal(this.getId().toString()).formatted(Formatting.DARK_GRAY);
-
-			list.add(TooltipComponent.of(technicalName.asOrderedText()));
-		}
-
-		// Property descriptions
-		for (Text text : this.createPropertyTexts(this.state)) {
-			list.add(TooltipComponent.of(text.asOrderedText()));
-		}
-
-		list.addAll(super.getTooltip());
-
-		return list;
+	protected void addTooltipComponents(@NotNull List<TooltipComponent> components) {
+		components.addAll(this.createPropertyComponents(this.state));
 	}
 
 	@Override
