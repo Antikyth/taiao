@@ -175,6 +175,8 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 		// Fishes
 		addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Eel");
+		builder.add(TaiaoItems.EEL, "Raw Eel");
+		builder.add(TaiaoItems.COOKED_EEL, "Cooked Eel");
 		builder.add(TaiaoItems.EEL_BUCKET, "Bucket of Eel");
 
 		// Biomes

@@ -23,6 +23,14 @@ public class TaiaoItems {
 		Taiao.id("conifer_fruit"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.CONIFER_FRUIT))
 	);
+	public static final Item EEL = register(
+		Taiao.id("eel"),
+		new Item(new FabricItemSettings().food(TaiaoFoodComponents.EEL))
+	);
+	public static final Item COOKED_EEL = register(
+		Taiao.id("cooked_eel"),
+		new Item(new FabricItemSettings().food(TaiaoFoodComponents.COOKED_EEL))
+	);
 
 	public static final Item EEL_BUCKET = register(
 		Taiao.id("eel_bucket"),
@@ -155,6 +163,15 @@ public class TaiaoItems {
 		public static final FoodComponent CONIFER_FRUIT = new FoodComponent.Builder()
 			.hunger(1)
 			.saturationModifier(0.1f)
+			.build();
+
+		public static final FoodComponent EEL = new FoodComponent.Builder()
+			.hunger(3)
+			.saturationModifier(0.3f)
+			.build();
+		public static final FoodComponent COOKED_EEL = new FoodComponent.Builder()
+			.hunger(7)
+			.saturationModifier(0.8f)
 			.build();
 	}
 

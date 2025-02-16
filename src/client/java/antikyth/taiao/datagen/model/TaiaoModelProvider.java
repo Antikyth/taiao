@@ -177,6 +177,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		generator.register(TaiaoItems.CONIFER_FRUIT, Models.GENERATED);
 
+		generator.register(TaiaoItems.EEL, Models.GENERATED);
+		generator.register(TaiaoItems.COOKED_EEL, Models.GENERATED);
 		generator.register(TaiaoItems.EEL_BUCKET, Models.GENERATED);
 
 		generator.register(TaiaoItems.KAURI_BOAT, Models.GENERATED);

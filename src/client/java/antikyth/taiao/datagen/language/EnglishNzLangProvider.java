@@ -24,6 +24,8 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 
 		// Fishes
 		EnglishUsLangProvider.addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Tuna");
+		builder.add(TaiaoItems.EEL, "Raw Tuna");
+		builder.add(TaiaoItems.COOKED_EEL, "Cooked Tuna");
 		builder.add(TaiaoItems.EEL_BUCKET, "Bucket of Tuna");
 
 		// Subtitles

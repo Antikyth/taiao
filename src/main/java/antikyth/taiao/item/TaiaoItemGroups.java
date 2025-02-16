@@ -64,12 +64,14 @@ public class TaiaoItemGroups {
 			group.add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
 			addWhekiiPongaBuildingBlocks(group::add);
 
-			addTallGroundPlants(group::add);
-			addWaterPlants(group::add);
-			addFruit(group::add);
-
 			addOtherBuildingBlocks(group::add);
 			addBanners(group::add);
+
+			addTallGroundPlants(group::add);
+			addWaterPlants(group::add);
+
+			addFruit(group::add);
+			addFish(group::add);
 
 			addEntityBuckets(group::add);
 			addSpawnEggs(group::add);
@@ -80,6 +82,7 @@ public class TaiaoItemGroups {
 		// Food
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(group -> {
 			addFruit(item -> group.addBefore(Items.CARROT, item));
+			addFish(item -> group.addBefore(Items.BREAD, item));
 		});
 		// Building blocks
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(group -> {
@@ -249,6 +252,11 @@ public class TaiaoItemGroups {
 
 	public static void addFruit(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoItems.CONIFER_FRUIT);
+	}
+
+	public static void addFish(@NotNull Consumer<ItemConvertible> add) {
+		add.accept(TaiaoItems.EEL);
+		add.accept(TaiaoItems.COOKED_EEL);
 	}
 
 	public static void addTallGroundPlants(@NotNull Consumer<ItemConvertible> add) {
