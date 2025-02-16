@@ -146,6 +146,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		// Other blocks
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Harakeke Mat");
+		builder.add(TaiaoBlocks.HIINAKI, "Eel Trap");
 		// Plants
 		builder.add(TaiaoBlocks.GIANT_CANE_RUSH, "Giant Cane Rush");
 		builder.add(TaiaoBlocks.RAUPOO, "Raupō");

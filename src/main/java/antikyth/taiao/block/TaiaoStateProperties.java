@@ -16,4 +16,5 @@ public class TaiaoStateProperties {
 		"part",
 		TripleBlockPart.class
 	);
+	public static final EnumProperty<LongBlockHalf> LONG_BLOCK_HALF = EnumProperty.of("half", LongBlockHalf.class);
 }

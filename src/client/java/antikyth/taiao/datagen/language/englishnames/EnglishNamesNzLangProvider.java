@@ -23,6 +23,7 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 
 		// Other blocks
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Flax Mat");
+		builder.add(TaiaoBlocks.HIINAKI, "Eel Trap");
 		// Plants
 		builder.add(TaiaoBlocks.HARAKEKE, "Flax");
 

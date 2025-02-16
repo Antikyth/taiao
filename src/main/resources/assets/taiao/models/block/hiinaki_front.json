@@ -1,0 +1,34 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"textures": {
+		"1": "taiao:block/hiinaki_front",
+		"2": "taiao:block/hiinaki_side_front"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1", "cullface": "north"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#2"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface": "west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface": "up"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface": "down"}
+			}
+		},
+		{
+			"name": "entrance",
+			"from": [5, 5, 0],
+			"to": [11, 11, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5, 0]},
+			"faces": {
+				"east": {"uv": [4, 5, 12, 11], "texture": "#2"},
+				"west": {"uv": [4, 5, 12, 11], "texture": "#2"},
+				"up": {"uv": [5, 4, 11, 12], "texture": "#2"},
+				"down": {"uv": [5, 4, 11, 12], "texture": "#2"}
+			}
+		}
+	]
+}

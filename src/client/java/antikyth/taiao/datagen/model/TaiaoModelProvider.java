@@ -5,7 +5,9 @@
 package antikyth.taiao.datagen.model;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.log.ThinLogBlock;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
@@ -165,6 +167,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		registerTripleBlock(generator, TaiaoBlocks.GIANT_CANE_RUSH, TintType.NOT_TINTED);
 		generator.registerDoubleBlock(TaiaoBlocks.RAUPOO, TintType.NOT_TINTED);
 		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED, false);
+
+		registerHiinaki(generator, TaiaoBlocks.HIINAKI);
 	}
 
 	@Override
@@ -190,6 +194,27 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.EEL_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+	}
+
+	public static void registerHiinaki(BlockStateModelGenerator generator, Block hiinaki) {
+		Identifier frontModelId = Taiao.id("block/hiinaki_front");
+		Identifier backModelId = Taiao.id("block/hiinaki_back");
+
+		generator.blockStateCollector.accept(
+			VariantsBlockStateSupplier.create(hiinaki)
+				.coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
+				.coordinate(
+					BlockStateVariantMap.create(TaiaoStateProperties.LONG_BLOCK_HALF)
+						.register(
+							LongBlockHalf.FRONT,
+							BlockStateVariant.create().put(VariantSettings.MODEL, frontModelId)
+						)
+						.register(
+							LongBlockHalf.BACK,
+							BlockStateVariant.create().put(VariantSettings.MODEL, backModelId)
+						)
+				)
+		);
 	}
 
 	public static void registerCarpet(@NotNull BlockStateModelGenerator generator, Block carpet) {

@@ -111,6 +111,11 @@ public class TaiaoClient implements ClientModInitializer {
 			RenderLayer.getCutout(),
 			TaiaoBlocks.RIMU_DOOR
 		);
+
+		registerRenderLayer(
+			RenderLayer.getCutout(),
+			TaiaoBlocks.HIINAKI
+		);
 	}
 
 	/**

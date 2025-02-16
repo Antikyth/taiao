@@ -39,6 +39,16 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class TaiaoBlocks {
+	public static final Block HIINAKI = new Builder(
+		Taiao.id("hiinaki"),
+		new HiinakiBlock(
+			FabricBlockSettings.create()
+				.mapColor(MapColor.WATER_BLUE)
+				.sounds(TaiaoBlockSoundGroups.HARAKEKE)
+				.nonOpaque()
+		)
+	).register(true);
+
 	// Kauri foliage
 	public static final Block KAURI_SAPLING = new Builder(
 		Taiao.id("kauri_sapling"),

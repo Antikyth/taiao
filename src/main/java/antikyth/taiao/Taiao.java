@@ -5,6 +5,7 @@
 package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.TaiaoVillagerTypes;
 import antikyth.taiao.entity.spawn.TaiaoSpawnRestrictions;
@@ -44,6 +45,7 @@ public class Taiao implements ModInitializer {
 		TaiaoSoundEvents.initialize();
 
 		TaiaoBlocks.initialize();
+		TaiaoBlockEntities.initialize();
 		TaiaoItems.initialize();
 		TaiaoItemGroups.initialize();
 		TaiaoBannerPatterns.initialize();

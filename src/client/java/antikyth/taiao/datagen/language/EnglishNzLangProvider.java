@@ -4,6 +4,7 @@
 
 package antikyth.taiao.datagen.language;
 
+import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
@@ -17,6 +18,9 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 	@Override
 	public void generateTranslations(TranslationBuilder builder) {
 		super.generateTranslations(builder);
+
+		// Other blocks
+		builder.add(TaiaoBlocks.HIINAKI, "Hīnaki");
 
 		// Fishes
 		EnglishUsLangProvider.addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Tuna");

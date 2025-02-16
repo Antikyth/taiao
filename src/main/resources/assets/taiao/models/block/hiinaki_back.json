@@ -1,0 +1,32 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "taiao:block/hiinaki_side_front"
+	},
+	"elements": [
+		{
+			"from": [2, 2, 0],
+			"to": [14, 14, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 2, 0]},
+			"faces": {
+				"east": {"uv": [3, 2, 16, 14], "texture": "#1"},
+				"south": {"uv": [2, 2, 14, 14], "texture": "#1"},
+				"west": {"uv": [0, 2, 13, 14], "texture": "#1"},
+				"up": {"uv": [2, 0, 14, 13], "texture": "#1"},
+				"down": {"uv": [2, 3, 14, 16], "texture": "#1"}
+			}
+		},
+		{
+			"from": [5, 5, 13],
+			"to": [11, 11, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5, 14]},
+			"faces": {
+				"east": {"uv": [0, 5, 3, 11], "texture": "#1"},
+				"south": {"uv": [5, 5, 11, 11], "texture": "#1"},
+				"west": {"uv": [13, 5, 16, 11], "texture": "#1"},
+				"up": {"uv": [5, 0, 11, 3], "texture": "#1"},
+				"down": {"uv": [5, 13, 11, 16], "texture": "#1"}
+			}
+		}
+	]
+}
