@@ -45,7 +45,9 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.WEEPING_VINES)
 			.add(Items.TWISTING_VINES);
 		getOrCreateTagBuilder(ConventionalItemTags.FOODS)
-			.add(TaiaoItems.CONIFER_FRUIT);
+			.add(TaiaoItems.CONIFER_FRUIT)
+			.add(TaiaoItems.EEL)
+			.add(TaiaoItems.COOKED_EEL);
 
 		// Te Taiao o Aotearoa item tags
 		getOrCreateTagBuilder(TaiaoItemTags.KIWI_FOOD)
@@ -65,6 +67,9 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		getOrCreateTagBuilder(TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD)
 			.addOptionalTag(ItemTags.FISHES)
 			.add(Items.FROGSPAWN);
+
+		getOrCreateTagBuilder(TaiaoItemTags.HIINAKI_BAIT)
+			.addOptionalTag(ConventionalItemTags.FOODS);
 
 		// Vanilla tags
 		getOrCreateTagBuilder(ItemTags.BOATS)

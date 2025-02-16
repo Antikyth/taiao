@@ -5,6 +5,7 @@
 package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.entity.render.TaiaoBlockEntityRenderers;
 import antikyth.taiao.entity.render.TaiaoEntityModels;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.api.ClientModInitializer;
@@ -35,6 +36,7 @@ public class TaiaoClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		TaiaoBuiltinResourcePacks.initialize();
 		TaiaoEntityModels.initialize();
+		TaiaoBlockEntityRenderers.initialize();
 
 		registerColors();
 		registerRenderLayers();

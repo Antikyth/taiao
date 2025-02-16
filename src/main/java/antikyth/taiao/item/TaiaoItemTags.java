@@ -6,6 +6,7 @@ package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlockTags;
+import antikyth.taiao.block.TaiaoBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
@@ -28,6 +29,11 @@ public final class TaiaoItemTags {
 	 * Whekī ponga logs.
 	 */
 	public static final TagKey<Item> WHEKII_PONGA_LOGS = createTagKey(TaiaoBlockTags.WHEKII_PONGA_LOGS);
+
+	/**
+	 * Bait that can be used in a {@linkplain TaiaoBlocks#HIINAKI hīnaki} to attract eels.
+	 */
+	public static final TagKey<Item> HIINAKI_BAIT = createTagKey(Taiao.id("hiinaki_bait"));
 
 	/**
 	 * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#KIWI kiwi}.

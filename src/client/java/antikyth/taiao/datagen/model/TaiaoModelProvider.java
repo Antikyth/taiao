@@ -217,6 +217,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 						)
 				)
 		);
+		generator.registerItemModel(hiinaki);
 	}
 
 	public static void registerCarpet(@NotNull BlockStateModelGenerator generator, Block carpet) {

@@ -5,9 +5,11 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
+import antikyth.taiao.item.TaiaoItemTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -18,6 +20,8 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.*;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -64,8 +68,67 @@ public class HiinakiBlock extends BlockWithEntity {
 	}
 
 	@Override
-	public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-		return new HiinakiBlockEntity(pos, state);
+	public @Nullable BlockEntity createBlockEntity(BlockPos pos, @NotNull BlockState state) {
+		// FIXME: is this allowable?
+		return switch (state.get(HALF)) {
+			case FRONT -> new HiinakiBlockEntity(pos, state);
+			case BACK -> null;
+		};
+	}
+
+	protected static @Nullable BlockEntity getBlockEntity(World world, BlockPos pos, @NotNull BlockState state) {
+		if (state.get(HALF) == LongBlockHalf.BACK) {
+			pos = pos.offset(LongBlockHalf.BACK.getDirectionTowardsOtherHalf(state.get(FACING)));
+		}
+
+		return world.getBlockEntity(pos);
+	}
+
+	@Override
+	public ActionResult onUse(
+		BlockState state,
+		World world,
+		BlockPos pos,
+		PlayerEntity player,
+		Hand hand,
+		BlockHitResult hit
+	) {
+		if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
+			ItemStack stack = player.getStackInHand(hand);
+			if (blockEntity.hasTrappedEntity()) {
+				if (!world.isClient && blockEntity.killTrappedEntity()) {
+					// TODO: add use trap stat
+					return ActionResult.success(true);
+				}
+
+				return ActionResult.success(false);
+			} else if (blockEntity.hasBait()) {
+				if (!world.isClient) {
+					ItemStack bait = blockEntity.removeBait(player);
+
+					if (!player.getInventory().insertStack(bait)) {
+						player.dropItem(stack, false);
+					}
+
+					return ActionResult.success(true);
+				}
+
+				return ActionResult.success(false);
+			} else if (stack.isIn(TaiaoItemTags.HIINAKI_BAIT)) {
+				if (!world.isClient) {
+					ItemStack bait = player.getAbilities().creativeMode ? stack.copy() : stack;
+
+					if (blockEntity.addBait(player, bait)) {
+						// TODO: add use bait stat
+						return ActionResult.success(true);
+					}
+				}
+
+				return ActionResult.success(false);
+			}
+		}
+
+		return ActionResult.PASS;
 	}
 
 	@Override
@@ -89,6 +152,26 @@ public class HiinakiBlock extends BlockWithEntity {
 			}
 		} else {
 			return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+		}
+	}
+
+	@Override
+	public void onStateReplaced(
+		@NotNull BlockState state,
+		World world,
+		BlockPos pos,
+		@NotNull BlockState newState,
+		boolean moved
+	) {
+		if (!newState.isOf(state.getBlock())) {
+			if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
+				// Scatter bait
+				ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), blockEntity.getBait());
+				// Free trapped entity
+				blockEntity.freeTrappedEntity(false);
+			}
+
+			super.onStateReplaced(state, world, pos, newState, moved);
 		}
 	}
 
@@ -178,6 +261,21 @@ public class HiinakiBlock extends BlockWithEntity {
 			world.updateNeighbors(pos, Blocks.AIR);
 			state.updateNeighbors(world, pos, Block.NOTIFY_ALL);
 		}
+	}
+
+	@Override
+	public BlockState rotate(@NotNull BlockState state, @NotNull BlockRotation rotation) {
+		return state.with(FACING, rotation.rotate(state.get(FACING)));
+	}
+
+	@Override
+	public BlockState mirror(@NotNull BlockState state, @NotNull BlockMirror mirror) {
+		return state.rotate(mirror.getRotation(state.get(FACING)));
+	}
+
+	@Override
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+		return false;
 	}
 
 	@Override

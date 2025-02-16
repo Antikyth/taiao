@@ -46,6 +46,8 @@ public class TaiaoBlocks {
 				.mapColor(MapColor.WATER_BLUE)
 				.sounds(TaiaoBlockSoundGroups.HARAKEKE)
 				.nonOpaque()
+				.notSolid()
+				.breakInstantly()
 		)
 	).register(true);
 
