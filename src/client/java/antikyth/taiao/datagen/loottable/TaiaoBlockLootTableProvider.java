@@ -13,8 +13,9 @@ import antikyth.taiao.block.plant.TripleTallPlantBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.data.family.BlockFamily;
-import net.minecraft.data.server.loottable.BlockLootTableGenerator;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
@@ -135,7 +136,10 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 		this.addDrop(TaiaoBlocks.HARAKEKE_MAT);
 
 		this.addDrop(TaiaoBlocks.GIANT_CANE_RUSH, block -> tripleTallPlantDrops(block, Items.WHEAT_SEEDS, 0.125f));
-		this.addDrop(TaiaoBlocks.RAUPOO, BlockLootTableGenerator::dropsWithShears);
+		this.addDrop(
+			TaiaoBlocks.RAUPOO,
+			block -> this.dropsWithProperty(block, TallPlantBlock.HALF, DoubleBlockHalf.LOWER)
+		);
 		this.addDrop(TaiaoBlocks.HARAKEKE, block -> tripleTallPlantDrops(block, Items.WHEAT_SEEDS, 0.125f));
 	}
 
