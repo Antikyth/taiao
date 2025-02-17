@@ -234,7 +234,7 @@ public class HiinakiBlock extends BlockWithEntity {
 				if (otherState.isOf(this) && otherState.get(HALF) == half.getOtherHalf() && facing == otherFacing) {
 					world.setBlockState(
 						otherPos,
-						Blocks.WATER.getDefaultState(),
+						otherState.get(WATERLOGGED) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState(),
 						Block.NOTIFY_ALL | Block.SKIP_DROPS
 					);
 					world.syncWorldEvent(
