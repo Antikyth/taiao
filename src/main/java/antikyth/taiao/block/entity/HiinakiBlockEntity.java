@@ -40,7 +40,7 @@ public class HiinakiBlockEntity extends BlockEntity {
 	@Nullable
 	protected TrappedEntity trappedEntity;
 	/**
-	 * An entityNbt representing the currently trapped entityNbt (used purely for rendering purposes).
+	 * An entity representing the currently trapped entity (used purely for rendering purposes).
 	 */
 	@Nullable
 	protected Entity renderedEntity;
@@ -83,7 +83,7 @@ public class HiinakiBlockEntity extends BlockEntity {
 	/**
 	 * Adds bait to the hīnaki.
 	 *
-	 * @param user the entityNbt adding bait
+	 * @param user the entity adding bait
 	 * @param bait the bait to add
 	 * @return whether the bait was taken/added
 	 */
@@ -150,11 +150,11 @@ public class HiinakiBlockEntity extends BlockEntity {
 //	}
 
 	/**
-	 * Traps the {@code entityNbt} in the hīnaki if no other entityNbt is currently trapped.
+	 * Traps the {@code entity} in the hīnaki if no other entity is currently trapped.
 	 * <p>
 	 * If {@linkplain HiinakiBlockEntity#hasBait() there is currently bait in the hīnaki}, the bait is eaten.
 	 *
-	 * @return whether the entityNbt was successfully trapped
+	 * @return whether the entity was successfully trapped
 	 */
 	public boolean trapEntity(Entity entity) {
 		if (!this.hasTrappedEntity()) {
@@ -180,10 +180,10 @@ public class HiinakiBlockEntity extends BlockEntity {
 	}
 
 	/**
-	 * Releases the trapped entityNbt.
+	 * Releases the trapped entity.
 	 *
-	 * @param force whether to release the entityNbt even if the entrance is blocked
-	 * @return if the entityNbt was released, the released entityNbt
+	 * @param force whether to release the entity even if the entrance is blocked
+	 * @return if the entity was released, the released entity
 	 */
 	public @Nullable Entity releaseEntity(boolean force, boolean spawn) {
 		if (this.trappedEntity != null) {
@@ -193,7 +193,7 @@ public class HiinakiBlockEntity extends BlockEntity {
 			boolean hasCollision = world != null
 				&& !world.getBlockState(releasePos).getCollisionShape(this.world, releasePos).isEmpty();
 
-			// Don't release entityNbt into a solid block unless forced.
+			// Don't release entity into a solid block unless forced.
 			if (hasCollision && !force) return null;
 
 			Entity entity = EntityType.loadEntityWithPassengers(
