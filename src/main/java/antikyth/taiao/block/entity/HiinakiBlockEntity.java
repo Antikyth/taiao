@@ -5,6 +5,7 @@
 package antikyth.taiao.block.entity;
 
 import antikyth.taiao.block.HiinakiBlock;
+import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -12,7 +13,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -223,7 +223,6 @@ public class HiinakiBlockEntity extends BlockEntity {
 
 				entity.refreshPositionAndAngles(x, y, z, this.getYaw(), 0f);
 
-				// TODO: play exit sound?
 				this.blockChanged(entity);
 
 				if (this.world != null && spawn) {
@@ -238,16 +237,28 @@ public class HiinakiBlockEntity extends BlockEntity {
 	}
 
 	/**
-	 * {@linkplain Entity#kill() Kills} the currently trapped entityNbt.
+	 * Hurts and releases the currently trapped entity.
 	 *
-	 * @param force whether to kill the entityNbt even if the entrance is blocked
-	 * @return whether the trapped entityNbt was killed (if there was an entityNbt trapped)
+	 * @param damage   the amount of damage to deal
+	 * @param attacker the entity trying to kill the trapped entity (can be {@code null})
+	 * @param force    whether to kill the entity even if the entrance is blocked
+	 * @return whether there was a trapped entity to hurt
 	 */
-	public boolean killTrappedEntity(boolean force, @Nullable LivingEntity attacker) {
+	public boolean tryKillTrappedEntity(boolean force, float damage, @Nullable LivingEntity attacker) {
 		Entity entity = this.releaseEntity(force, false);
 
 		if (entity != null) {
-			entity.damage(entity.getDamageSources().create(DamageTypes.GENERIC_KILL, attacker), Float.MAX_VALUE);
+			boolean damaged = entity.damage(
+				entity.getDamageSources().create(TaiaoDamageTypes.HIINAKI, attacker),
+				damage
+			);
+
+			if (damaged && attacker != null) {
+				attacker.applyDamageEffects(attacker, entity);
+				attacker.onAttacking(entity);
+			}
+
+			if (entity.isAlive() && this.world != null) this.world.spawnEntity(entity);
 
 			return true;
 		} else {

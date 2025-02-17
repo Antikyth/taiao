@@ -6,6 +6,7 @@ package antikyth.taiao.datagen.language;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
@@ -36,5 +37,14 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_DEATH, "Tuna dies");
 		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_FLOP, "Tuna flops");
 		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_HURT, "Tuna hurts");
+
+		// Damage types
+		EnglishUsLangProvider.addDamageType(
+			builder,
+			TaiaoDamageTypes.HIINAKI,
+			"%1$s died in a hīnaki",
+			null,
+			"%1$s died in a hīnaki at the hands of %2$s"
+		);
 	}
 }

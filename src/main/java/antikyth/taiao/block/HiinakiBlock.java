@@ -98,7 +98,7 @@ public class HiinakiBlock extends BlockWithEntity {
 		if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
 			ItemStack stack = player.getStackInHand(hand);
 			if (blockEntity.hasTrappedEntity()) {
-				if (!world.isClient && blockEntity.killTrappedEntity(false, player)) {
+				if (!world.isClient && blockEntity.tryKillTrappedEntity(false, 5f, player)) {
 					// TODO: add use trap stat
 					return ActionResult.success(true);
 				}

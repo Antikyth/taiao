@@ -6,10 +6,6 @@ package antikyth.taiao.datagen.language.englishnames;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.datagen.language.EnglishUsLangProvider;
-import antikyth.taiao.entity.TaiaoEntities;
-import antikyth.taiao.item.TaiaoItemTags;
-import antikyth.taiao.item.TaiaoItems;
-import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,22 +20,9 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 
 		// Other blocks
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Flax Mat");
-		builder.add(TaiaoBlocks.HIINAKI, "Eel Trap");
 		// Plants
 		builder.add(TaiaoBlocks.HARAKEKE, "Flax");
 
-		// Item tags
-		EnglishUsLangProvider.addItemTag(builder, TaiaoItemTags.HIINAKI_BAIT, "Eel Trap Bait");
-
-		// Fishes
-		EnglishUsLangProvider.addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Eel");
-		builder.add(TaiaoItems.EEL, "Raw Eel");
-		builder.add(TaiaoItems.COOKED_EEL, "Cooked Eel");
-		builder.add(TaiaoItems.EEL_BUCKET, "Bucket of Eel");
-
-		// Subtitles
-		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_DEATH, "Eel dies");
-		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_FLOP, "Eel flops");
-		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_HURT, "Eel hurts");
+		EnglishUsLangProvider.addEelTranslations(builder);
 	}
 }

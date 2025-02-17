@@ -19,6 +19,7 @@ import antikyth.taiao.datagen.tag.*;
 import antikyth.taiao.datagen.world.gen.TaiaoBiomeProvider;
 import antikyth.taiao.datagen.world.gen.TaiaoDynamicFeatureProvider;
 import antikyth.taiao.datagen.world.gen.TaiaoStructureProvider;
+import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
 import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
@@ -68,6 +69,9 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TaiaoBiomeProvider::new);
 		pack.addProvider(TaiaoStructureProvider::new);
 
+		// Damage types
+		pack.addProvider(TaiaoDamageTypeProvider::new);
+
 		// English-names language resource pack
 		FabricDataGenerator.Pack englishNamesPack = generator.createBuiltinResourcePack(
 			TaiaoBuiltinResourcePacks.ENGLISH_NAMES
@@ -94,14 +98,18 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 	public void buildRegistry(RegistryBuilder builder) {
 		DataGeneratorEntrypoint.super.buildRegistry(builder);
 
+		// Features
 		builder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, TaiaoConfiguredFeatures::bootstrap);
 		builder.addRegistry(RegistryKeys.PLACED_FEATURE, TaiaoPlacedFeatures::bootstrap);
-
+		// Biomes
 		builder.addRegistry(RegistryKeys.BIOME, TaiaoBiomes::bootstrap);
-
+		// Structures
 		builder.addRegistry(RegistryKeys.PROCESSOR_LIST, TaiaoStructureProcessorLists::bootstrap);
 		builder.addRegistry(RegistryKeys.TEMPLATE_POOL, TaiaoStructurePools::bootstrap);
 		builder.addRegistry(RegistryKeys.STRUCTURE, TaiaoStructures::bootstrap);
 		builder.addRegistry(RegistryKeys.STRUCTURE_SET, TaiaoStructureSets::bootstrap);
+
+		// Damage types
+		builder.addRegistry(RegistryKeys.DAMAGE_TYPE, TaiaoDamageTypes::bootstrap);
 	}
 }

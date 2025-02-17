@@ -10,6 +10,7 @@ import antikyth.taiao.TriConsumer;
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.*;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
@@ -22,6 +23,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.data.family.BlockFamily;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
@@ -33,6 +35,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -146,7 +149,6 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		// Other blocks
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Harakeke Mat");
-		builder.add(TaiaoBlocks.HIINAKI, "Eel Trap");
 		// Plants
 		builder.add(TaiaoBlocks.GIANT_CANE_RUSH, "Giant Cane Rush");
 		builder.add(TaiaoBlocks.RAUPOO, "Raupō");
@@ -173,11 +175,8 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD,
 			"Matuku-Hūrepo"
 		);
-		// Fishes
-		addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Eel");
-		builder.add(TaiaoItems.EEL, "Raw Eel");
-		builder.add(TaiaoItems.COOKED_EEL, "Cooked Eel");
-		builder.add(TaiaoItems.EEL_BUCKET, "Bucket of Eel");
+		// Eels
+		addEelTranslations(builder);
 
 		// Biomes
 		addBiome(builder, TaiaoBiomes.NATIVE_FOREST, "Aotearoa Native Forest");
@@ -185,7 +184,6 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		// Item tags
 		addItemTag(builder, TaiaoItemTags.FERNS, "Ferns");
-		addItemTag(builder, TaiaoItemTags.HIINAKI_BAIT, "Eel Trap Bait");
 
 		// Block tags
 		addBlockAndItemTag(builder, TaiaoBlockTags.THIN_LOGS, TaiaoItemTags.THIN_LOGS, "Thin Logs");
@@ -211,10 +209,6 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_AMBIENT, "Kākāpō booms");
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_DEATH, "Kākāpō dies");
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_HURT, "Kākāpō hurts");
-
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_DEATH, "Eel dies");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_FLOP, "Eel flops");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_HURT, "Eel hurts");
 
 		// Tukutuku
 		addItemStack(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_LEFT, "Poutama Tukutuku Left");
@@ -258,6 +252,67 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_UP_SECONDARY, "Kaokao Thin");
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_DOWN_PRIMARY, "Kaokao Thick Inverted");
 		add.accept(builder, TaiaoBannerPatterns.KAOKAO_DOWN_SECONDARY, "Kaokao Thin Inverted");
+	}
+
+	public static void addEelTranslations(@NotNull TranslationBuilder builder) {
+		// Other blocks
+		builder.add(TaiaoBlocks.HIINAKI, "Eel Trap");
+
+		// Item tags
+		EnglishUsLangProvider.addItemTag(builder, TaiaoItemTags.HIINAKI_BAIT, "Eel Trap Bait");
+
+		// Fishes
+		EnglishUsLangProvider.addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Eel");
+		builder.add(TaiaoItems.EEL, "Raw Eel");
+		builder.add(TaiaoItems.COOKED_EEL, "Cooked Eel");
+		builder.add(TaiaoItems.EEL_BUCKET, "Bucket of Eel");
+
+		// Subtitles
+		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_DEATH, "Eel dies");
+		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_FLOP, "Eel flops");
+		EnglishUsLangProvider.addSubtitles(builder, TaiaoSoundEvents.ENTITY_EEL_HURT, "Eel hurts");
+
+		// Damage types
+		addDamageType(
+			builder,
+			TaiaoDamageTypes.HIINAKI,
+			"%1$s died in an eel trap",
+			null,
+			"%1$s died in an eel trap at the hands of %2$s"
+		);
+	}
+
+	public static void addDamageType(
+		@NotNull TranslationBuilder builder,
+		RegistryKey<DamageType> damageType,
+		String text,
+		@Nullable String itemText,
+		@Nullable String playerText
+	) {
+		String messageId;
+
+		DamageType type = TaiaoDamageTypes.DAMAGE_TYPES.get(damageType);
+		if (type != null) {
+			messageId = type.msgId();
+		} else {
+			messageId = damageType.getValue().toShortTranslationKey();
+		}
+
+		addDamageType(builder, messageId, text, itemText, playerText);
+	}
+
+	public static void addDamageType(
+		@NotNull TranslationBuilder builder,
+		String messageId,
+		String text,
+		@Nullable String itemText,
+		@Nullable String playerText
+	) {
+		String translationKey = "death.attack." + messageId;
+
+		builder.add(translationKey, text);
+		if (itemText != null) builder.add(translationKey + ".item", itemText);
+		if (playerText != null) builder.add(translationKey + ".player", playerText);
 	}
 
 	public static void addBuiltinResourcePack(
