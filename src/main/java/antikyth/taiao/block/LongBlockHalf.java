@@ -30,4 +30,11 @@ public enum LongBlockHalf implements StringIdentifiable {
 	public Direction getDirectionTowardsOtherHalf(Direction facing) {
 		return this == LongBlockHalf.BACK ? facing : facing.getOpposite();
 	}
+
+	public LongBlockHalf getOtherHalf() {
+		return switch (this) {
+			case FRONT -> BACK;
+			case BACK -> FRONT;
+		};
+	}
 }

@@ -16,8 +16,8 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 // TODO: add stat for using
 @SuppressWarnings("deprecation")
 public class HiinakiBlock extends BlockWithEntity {
+	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
 	public static final EnumProperty<LongBlockHalf> HALF = TaiaoStateProperties.LONG_BLOCK_HALF;
 
@@ -65,6 +66,7 @@ public class HiinakiBlock extends BlockWithEntity {
 			this.getDefaultState()
 				.with(FACING, Direction.NORTH)
 				.with(HALF, LongBlockHalf.FRONT)
+				.with(WATERLOGGED, false)
 		);
 	}
 
@@ -76,7 +78,7 @@ public class HiinakiBlock extends BlockWithEntity {
 		};
 	}
 
-	protected static @Nullable BlockEntity getBlockEntity(World world, BlockPos pos, @NotNull BlockState state) {
+	protected static @Nullable BlockEntity getBlockEntity(BlockView world, BlockPos pos, @NotNull BlockState state) {
 		if (state.get(HALF) == LongBlockHalf.BACK) {
 			pos = pos.offset(LongBlockHalf.BACK.getDirectionTowardsOtherHalf(state.get(FACING)));
 		}
@@ -96,7 +98,7 @@ public class HiinakiBlock extends BlockWithEntity {
 		if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
 			ItemStack stack = player.getStackInHand(hand);
 			if (blockEntity.hasTrappedEntity()) {
-				if (!world.isClient && blockEntity.killTrappedEntity(false)) {
+				if (!world.isClient && blockEntity.killTrappedEntity(false, player)) {
 					// TODO: add use trap stat
 					return ActionResult.success(true);
 				}
@@ -140,15 +142,19 @@ public class HiinakiBlock extends BlockWithEntity {
 		BlockPos pos,
 		BlockPos neighborPos
 	) {
-		// Block is permanently waterlogged
-		world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+		if (state.get(WATERLOGGED)) world.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 
 		if (direction == state.get(HALF).getDirectionTowardsOtherHalf(state.get(FACING))) {
-			if (neighborState.isOf(this) && neighborState.get(HALF) != state.get(HALF) && neighborState.get(FACING) == state.get(
-				FACING)) {
+			if (
+				neighborState.isOf(this)
+					&& neighborState.get(HALF) != state.get(HALF)
+					&& neighborState.get(FACING) == state.get(FACING)
+			) {
+				// Correct placement
 				return state;
 			} else {
-				return Blocks.WATER.getDefaultState();
+				// Disconnected parts, so break
+				return Blocks.AIR.getDefaultState();
 			}
 		} else {
 			return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
@@ -176,8 +182,8 @@ public class HiinakiBlock extends BlockWithEntity {
 	}
 
 	@Override
-	public FluidState getFluidState(BlockState state) {
-		return Fluids.WATER.getStill(false);
+	public FluidState getFluidState(@NotNull BlockState state) {
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
 
 	@Override
@@ -203,20 +209,11 @@ public class HiinakiBlock extends BlockWithEntity {
 		BlockPos frontPos = ctx.getBlockPos();
 		BlockPos backPos = frontPos.offset(playerFacing);
 
-		FluidState frontFluidState = world.getFluidState(frontPos);
-		FluidState backFluidState = world.getFluidState(backPos);
-
-		if (
-			// In water
-			frontFluidState.isIn(FluidTags.WATER) && backFluidState.isIn(FluidTags.WATER)
-				// Fully submerged
-				&& frontFluidState.getLevel() == 8 && backFluidState.getLevel() == 8
-				// Can place at the back position
-				&& world.getBlockState(backPos).canReplace(ctx) && world.getWorldBorder().contains(backPos)
-		) {
+		// Ensure we can place the back part
+		if (world.getBlockState(backPos).canReplace(ctx) && world.getWorldBorder().contains(backPos)) {
 			Direction facing = playerFacing.getOpposite();
 
-			return this.getDefaultState().with(FACING, facing);
+			return this.getDefaultState().with(FACING, facing).with(WATERLOGGED, world.isWater(frontPos));
 		} else {
 			return null;
 		}
@@ -228,15 +225,24 @@ public class HiinakiBlock extends BlockWithEntity {
 			LongBlockHalf half = state.get(HALF);
 			Direction facing = state.get(FACING);
 
-			// Break the back half
-			if (half == LongBlockHalf.FRONT) {
-				BlockPos backPos = pos.offset(half.getDirectionTowardsOtherHalf(state.get(FACING)));
-				BlockState backState = world.getBlockState(backPos);
-				Direction backFacing = backState.get(FACING);
+			// Break the front half
+			if (half == LongBlockHalf.BACK) {
+				BlockPos otherPos = pos.offset(half.getDirectionTowardsOtherHalf(state.get(FACING)));
+				BlockState otherState = world.getBlockState(otherPos);
+				Direction otherFacing = otherState.get(FACING);
 
-				if (backState.isOf(this) && backState.get(HALF) == LongBlockHalf.BACK && facing == backFacing) {
-					world.setBlockState(backPos, Blocks.WATER.getDefaultState(), Block.NOTIFY_ALL | Block.SKIP_DROPS);
-					world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, backPos, Block.getRawIdFromState(backState));
+				if (otherState.isOf(this) && otherState.get(HALF) == half.getOtherHalf() && facing == otherFacing) {
+					world.setBlockState(
+						otherPos,
+						Blocks.WATER.getDefaultState(),
+						Block.NOTIFY_ALL | Block.SKIP_DROPS
+					);
+					world.syncWorldEvent(
+						player,
+						WorldEvents.BLOCK_BROKEN,
+						otherPos,
+						Block.getRawIdFromState(otherState)
+					);
 				}
 			}
 		}
@@ -260,7 +266,7 @@ public class HiinakiBlock extends BlockWithEntity {
 
 			world.setBlockState(
 				backPos,
-				state.with(HALF, LongBlockHalf.BACK),
+				state.with(HALF, LongBlockHalf.BACK).with(WATERLOGGED, world.isWater(backPos)),
 				Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD
 			);
 
@@ -307,5 +313,15 @@ public class HiinakiBlock extends BlockWithEntity {
 
 		builder.add(FACING);
 		builder.add(HALF);
+		builder.add(WATERLOGGED);
 	}
+
+//	@Override
+//	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+//		@NotNull World world,
+//		BlockState state,
+//		BlockEntityType<T> type
+//	) {
+//		return world.isClient ? checkType(type, TaiaoBlockEntities.HIINAKI, HiinakiBlockEntity::clientTick) : null;
+//	}
 }

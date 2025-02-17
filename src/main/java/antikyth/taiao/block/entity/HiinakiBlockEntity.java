@@ -11,6 +11,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageTypes;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -20,6 +23,7 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
@@ -28,15 +32,15 @@ public class HiinakiBlockEntity extends BlockEntity {
 	protected static final String BAIT_KEY = "Bait";
 	protected static final String TRAPPED_ENTITY_KEY = "TrappedEntity";
 
+	protected static final String ENTITY_DATA_KEY = "EntityData";
+	protected static final String TICKS_IN_HIINAKI_KEY = "TicksInHiinaki";
+
 	protected ItemStack bait = ItemStack.EMPTY;
 
-	/**
-	 * The NBT of the currently trapped entity, if there is one.
-	 */
 	@Nullable
-	protected NbtCompound trappedEntityNbt;
+	protected TrappedEntity trappedEntity;
 	/**
-	 * An entity representing the currently trapped entity (used purely for rendering purposes).
+	 * An entityNbt representing the currently trapped entityNbt (used purely for rendering purposes).
 	 */
 	@Nullable
 	protected Entity renderedEntity;
@@ -53,6 +57,21 @@ public class HiinakiBlockEntity extends BlockEntity {
 		this(TaiaoBlockEntities.HIINAKI, pos, state);
 	}
 
+	/**
+	 * {@return whether the entrance to the hīnaki is blocked}
+	 */
+	public boolean isEntranceBlocked() {
+		if (this.world != null) {
+			BlockPos pos = this.getPos();
+			BlockState state = this.getCachedState();
+			Direction facing = state.get(HiinakiBlock.FACING);
+
+			return Block.sideCoversSmallSquare(this.world, pos.offset(facing), facing.getOpposite());
+		} else {
+			return false;
+		}
+	}
+
 	public boolean hasBait() {
 		return !this.bait.isEmpty();
 	}
@@ -64,7 +83,7 @@ public class HiinakiBlockEntity extends BlockEntity {
 	/**
 	 * Adds bait to the hīnaki.
 	 *
-	 * @param user the entity adding bait
+	 * @param user the entityNbt adding bait
 	 * @param bait the bait to add
 	 * @return whether the bait was taken/added
 	 */
@@ -90,23 +109,28 @@ public class HiinakiBlockEntity extends BlockEntity {
 	}
 
 	public boolean hasTrappedEntity() {
-		return this.trappedEntityNbt != null;
+		return this.trappedEntity != null;
 	}
 
+	/**
+	 * Returns the yaw in degrees relative to {@link Direction#NORTH}.
+	 */
 	public float getYaw() {
-		return this.getCachedState().get(HiinakiBlock.FACING).asRotation();
+		return (this.getCachedState().get(HiinakiBlock.FACING).asRotation() + 180f) % 360f;
 	}
 
 	/**
 	 * {@return an entity representing the currently trapped entity (only to be used for rendering purposes)}
 	 */
 	public @Nullable Entity getRenderedEntity() {
-		if (this.trappedEntityNbt != null && this.renderedEntity == null) {
-			this.renderedEntity = EntityType.loadEntityWithPassengers(
-				this.trappedEntityNbt,
-				this.world,
-				Function.identity()
-			);
+		if (this.trappedEntity != null) {
+			if (this.renderedEntity == null) {
+				this.renderedEntity = EntityType.loadEntityWithPassengers(
+					this.trappedEntity.nbt,
+					this.world,
+					Function.identity()
+				);
+			}
 		} else {
 			this.renderedEntity = null;
 		}
@@ -114,26 +138,38 @@ public class HiinakiBlockEntity extends BlockEntity {
 		return this.renderedEntity;
 	}
 
+//	public static void clientTick(
+//		World ignoredWorld,
+//		BlockPos ignoredPos,
+//		BlockState ignoredState,
+//		@NotNull HiinakiBlockEntity blockEntity
+//	) {
+//		if (blockEntity.renderedEntity != null) {
+//			blockEntity.renderedEntity.age++;
+//		}
+//	}
+
 	/**
-	 * Traps the {@code entity} in the hīnaki if no other entity is currently trapped.
+	 * Traps the {@code entityNbt} in the hīnaki if no other entityNbt is currently trapped.
 	 * <p>
 	 * If {@linkplain HiinakiBlockEntity#hasBait() there is currently bait in the hīnaki}, the bait is eaten.
 	 *
-	 * @return whether the entity was successfully trapped
+	 * @return whether the entityNbt was successfully trapped
 	 */
 	public boolean trapEntity(Entity entity) {
 		if (!this.hasTrappedEntity()) {
 			// Eat the bait
-			this.bait.decrement(1);
+			if (entity instanceof LivingEntity living) {
+				living.eatFood(living.getWorld(), this.bait);
+			}
 
 			entity.stopRiding();
 			entity.removeAllPassengers();
 
 			NbtCompound entityNbt = new NbtCompound();
 			entity.saveNbt(entityNbt);
-			this.trappedEntityNbt = entityNbt;
+			this.trappedEntity = new TrappedEntity(entityNbt, 0);
 
-			// TODO: play sound?
 			this.blockChanged(entity);
 
 			entity.discard();
@@ -144,25 +180,39 @@ public class HiinakiBlockEntity extends BlockEntity {
 	}
 
 	/**
-	 * Releases the trapped entity.
+	 * Releases the trapped entityNbt.
 	 *
-	 * @param force whether to release the entity even if the entrance is blocked
-	 * @return if the entity was released, the released entity
+	 * @param force whether to release the entityNbt even if the entrance is blocked
+	 * @return if the entityNbt was released, the released entityNbt
 	 */
 	public @Nullable Entity releaseEntity(boolean force, boolean spawn) {
-		if (this.trappedEntityNbt != null) {
+		if (this.trappedEntity != null) {
 			BlockPos pos = this.getPos();
 			Direction facing = this.getCachedState().get(HiinakiBlock.FACING);
 			BlockPos releasePos = pos.offset(facing);
 			boolean hasCollision = world != null
 				&& !world.getBlockState(releasePos).getCollisionShape(this.world, releasePos).isEmpty();
 
-			// Don't release entity into a solid block unless forced.
+			// Don't release entityNbt into a solid block unless forced.
 			if (hasCollision && !force) return null;
 
-			Entity entity = EntityType.loadEntityWithPassengers(this.trappedEntityNbt, this.world, Function.identity());
+			Entity entity = EntityType.loadEntityWithPassengers(
+				this.trappedEntity.nbt,
+				this.world,
+				Function.identity()
+			);
 			if (entity != null) {
-				this.trappedEntityNbt = null;
+				entity.age += this.trappedEntity.ticksInHiinaki;
+				if (entity instanceof AnimalEntity animal) {
+					int age = animal.getBreedingAge();
+
+					if (age < 0) animal.setBreedingAge(Math.min(0, age + this.trappedEntity.ticksInHiinaki));
+					else if (age > 0) animal.setBreedingAge(Math.max(0, age - this.trappedEntity.ticksInHiinaki));
+
+					animal.setLoveTicks(Math.max(0, animal.getLoveTicks() - this.trappedEntity.ticksInHiinaki));
+				}
+
+				this.trappedEntity = null;
 
 				float width = entity.getWidth();
 				double forwardOffset = hasCollision ? 0d : 0.55d + (double) (width / 2f);
@@ -188,16 +238,17 @@ public class HiinakiBlockEntity extends BlockEntity {
 	}
 
 	/**
-	 * {@linkplain Entity#kill() Kills} the currently trapped entity.
+	 * {@linkplain Entity#kill() Kills} the currently trapped entityNbt.
 	 *
-	 * @param force whether to kill the entity even if the entrance is blocked
-	 * @return whether the trapped entity was killed (if there was an entity trapped)
+	 * @param force whether to kill the entityNbt even if the entrance is blocked
+	 * @return whether the trapped entityNbt was killed (if there was an entityNbt trapped)
 	 */
-	public boolean killTrappedEntity(boolean force) {
+	public boolean killTrappedEntity(boolean force, @Nullable LivingEntity attacker) {
 		Entity entity = this.releaseEntity(force, false);
 
 		if (entity != null) {
-			entity.kill();
+			entity.damage(entity.getDamageSources().create(DamageTypes.GENERIC_KILL, attacker), Float.MAX_VALUE);
+
 			return true;
 		} else {
 			return false;
@@ -224,11 +275,17 @@ public class HiinakiBlockEntity extends BlockEntity {
 
 		// Bait
 		this.bait = ItemStack.fromNbt(nbt.getCompound(BAIT_KEY));
+
 		// Entity
 		if (nbt.contains(TRAPPED_ENTITY_KEY, NbtElement.COMPOUND_TYPE)) {
-			this.trappedEntityNbt = nbt.getCompound(TRAPPED_ENTITY_KEY);
+			NbtCompound entityNbt = nbt.getCompound(TRAPPED_ENTITY_KEY);
+
+			this.trappedEntity = new TrappedEntity(
+				entityNbt.getCompound(ENTITY_DATA_KEY),
+				entityNbt.getInt(TICKS_IN_HIINAKI_KEY)
+			);
 		} else {
-			this.trappedEntityNbt = null;
+			this.trappedEntity = null;
 		}
 	}
 
@@ -243,8 +300,13 @@ public class HiinakiBlockEntity extends BlockEntity {
 		nbt.put(BAIT_KEY, baitNbt);
 
 		// Entity
-		if (this.trappedEntityNbt != null) {
-			nbt.put(TRAPPED_ENTITY_KEY, this.trappedEntityNbt);
+		if (this.trappedEntity != null) {
+			NbtCompound entityNbt = new NbtCompound();
+
+			entityNbt.put(ENTITY_DATA_KEY, this.trappedEntity.nbt);
+			entityNbt.putInt(TICKS_IN_HIINAKI_KEY, this.trappedEntity.ticksInHiinaki);
+
+			nbt.put(TRAPPED_ENTITY_KEY, entityNbt);
 		} else {
 			nbt.remove(TRAPPED_ENTITY_KEY);
 		}
@@ -262,5 +324,17 @@ public class HiinakiBlockEntity extends BlockEntity {
 	@Override
 	public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
 		return BlockEntityUpdateS2CPacket.create(this);
+	}
+
+	protected static class TrappedEntity {
+		final NbtCompound nbt;
+		int ticksInHiinaki;
+
+		TrappedEntity(@NotNull NbtCompound nbt, int ticksInHiinaki) {
+			nbt.remove("UUID");
+
+			this.nbt = nbt;
+			this.ticksInHiinaki = ticksInHiinaki;
+		}
 	}
 }

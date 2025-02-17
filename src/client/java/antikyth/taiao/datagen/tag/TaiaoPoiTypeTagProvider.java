@@ -25,6 +25,6 @@ public class TaiaoPoiTypeTagProvider extends FabricTagProvider<PointOfInterestTy
 	@Override
 	protected void configure(RegistryWrapper.WrapperLookup lookup) {
 		getOrCreateTagBuilder(TaiaoPoiTypeTags.EEL_TRAPS)
-			.add(TaiaoPoiTypes.HIINAKI);
+			.add(TaiaoPoiTypes.WATERLOGGED_HIINAKI);
 	}
 }

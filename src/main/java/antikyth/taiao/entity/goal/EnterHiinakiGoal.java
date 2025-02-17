@@ -24,7 +24,7 @@ public class EnterHiinakiGoal<E extends Entity & Trappable> extends Goal {
 
 		if (hiinakiPos != null && hiinakiPos.isWithinDistance(this.entity.getPos(), 2)) {
 			if (this.entity.getWorld().getBlockEntity(hiinakiPos) instanceof HiinakiBlockEntity blockEntity) {
-				if (!blockEntity.hasTrappedEntity()) {
+				if (!blockEntity.hasTrappedEntity() && !blockEntity.isEntranceBlocked()) {
 					return true;
 				} else {
 					this.entity.setHiinakiPos(null);

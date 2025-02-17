@@ -23,11 +23,11 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 public class TaiaoPoiTypes {
-	public static final RegistryKey<PointOfInterestType> HIINAKI = register(
+	public static final RegistryKey<PointOfInterestType> WATERLOGGED_HIINAKI = register(
 		Taiao.id("hiinaki"),
 		0,
 		1,
-		state -> state.get(HiinakiBlock.HALF) == LongBlockHalf.FRONT,
+		state -> state.get(HiinakiBlock.HALF) == LongBlockHalf.FRONT && state.get(HiinakiBlock.WATERLOGGED),
 		TaiaoBlocks.HIINAKI
 	);
 

@@ -47,25 +47,27 @@ public class HiinakiBlockEntityRenderer implements BlockEntityRenderer<HiinakiBl
 		matrices.translate(0.5f, 0.4f, 0.5f);
 		// Yaw
 		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(blockEntity.getYaw()));
-		// Move back to the center of both blocks
-		matrices.translate(0f, 0f, 0.5f);
-
-		matrices.scale(0.5f, 0.5f, 0.5f);
+		// Shift towards the back of the hīnaki
+		matrices.translate(0f, 0f, 0.675f);
 
 		Entity trappedEntity = blockEntity.getRenderedEntity();
 		if (trappedEntity != null) {
+			matrices.scale(0.75f, 0.75f, 0.75f);
+
 			this.entityRenderDispatcher.render(
 				trappedEntity,
 				0d,
 				0d,
 				0d,
 				0f,
-				tickDelta,
+				0f,
 				matrices,
 				vertexConsumers,
 				light
 			);
 		} else if (blockEntity.hasBait()) {
+			matrices.scale(0.5f, 0.5f, 0.5f);
+
 			this.itemRenderer.renderItem(
 				blockEntity.getBait(),
 				ModelTransformationMode.FIXED,
