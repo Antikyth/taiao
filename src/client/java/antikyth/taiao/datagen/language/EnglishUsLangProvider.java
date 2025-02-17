@@ -183,6 +183,10 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addBiome(builder, TaiaoBiomes.NATIVE_FOREST, "Aotearoa Native Forest");
 		addBiome(builder, TaiaoBiomes.KAHIKATEA_SWAMP, "Aotearoa Kahikatea Swamp");
 
+		// Item tags
+		addItemTag(builder, TaiaoItemTags.FERNS, "Ferns");
+		addItemTag(builder, TaiaoItemTags.HIINAKI_BAIT, "Eel Trap Bait");
+
 		// Block tags
 		addBlockAndItemTag(builder, TaiaoBlockTags.THIN_LOGS, TaiaoItemTags.THIN_LOGS, "Thin Logs");
 		addBlockTag(builder, TaiaoBlockTags.THIN_LOG_CONNECTION_OVERRIDE, "Thin Logs Connection Override");

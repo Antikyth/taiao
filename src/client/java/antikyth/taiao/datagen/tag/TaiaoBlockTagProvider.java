@@ -62,6 +62,9 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.add(TaiaoBlocks.STRIPPED_WHEKII_PONGA_LOG)
 			.add(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
 
+		getOrCreateTagBuilder(TaiaoBlockTags.EEL_TRAPS)
+			.add(TaiaoBlocks.HIINAKI);
+
 		getOrCreateTagBuilder(TaiaoBlockTags.THIN_LOGS)
 			.addTag(TaiaoBlockTags.CABBAGE_TREE_LOGS)
 			.addTag(TaiaoBlockTags.MAMAKU_LOGS);

@@ -31,6 +31,10 @@ public final class TaiaoItemTags {
 	public static final TagKey<Item> WHEKII_PONGA_LOGS = createTagKey(TaiaoBlockTags.WHEKII_PONGA_LOGS);
 
 	/**
+	 * Ferns and fern tree leaves; used for crafting.
+	 */
+	public static final TagKey<Item> FERNS = createTagKey(Taiao.id("ferns"));
+	/**
 	 * Bait that can be used in a {@linkplain TaiaoBlocks#HIINAKI hīnaki} to attract eels.
 	 */
 	public static final TagKey<Item> HIINAKI_BAIT = createTagKey(Taiao.id("hiinaki_bait"));

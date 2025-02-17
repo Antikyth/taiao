@@ -4,6 +4,8 @@
 
 package antikyth.taiao.datagen.loottable;
 
+import antikyth.taiao.block.HiinakiBlock;
+import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.plant.TripleBlockPart;
@@ -37,6 +39,11 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 	@Override
 	public void generate() {
+		this.addDrop(
+			TaiaoBlocks.HIINAKI,
+			block -> this.dropsWithProperty(block, HiinakiBlock.HALF, LongBlockHalf.FRONT)
+		);
+
 		// Kauri foliage
 		this.addDrop(TaiaoBlocks.KAURI_SAPLING);
 		addPottedPlantDrops(TaiaoBlocks.POTTED_KAURI_SAPLING);

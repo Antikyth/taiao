@@ -61,6 +61,7 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TaiaoBiomeTagProvider::new);
 		pack.addProvider(TaiaoStructureTagProvider::new);
 		pack.addProvider(TaiaoBannerPatternTagProvider::new);
+		pack.addProvider(TaiaoPoiTypeTagProvider::new);
 
 		// World gen
 		pack.addProvider(TaiaoDynamicFeatureProvider::new);

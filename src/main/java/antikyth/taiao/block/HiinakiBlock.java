@@ -5,6 +5,7 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
+import antikyth.taiao.block.entity.HiinakiDummyBlockEntity;
 import antikyth.taiao.item.TaiaoItemTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -69,10 +70,9 @@ public class HiinakiBlock extends BlockWithEntity {
 
 	@Override
 	public @Nullable BlockEntity createBlockEntity(BlockPos pos, @NotNull BlockState state) {
-		// FIXME: is this allowable?
 		return switch (state.get(HALF)) {
 			case FRONT -> new HiinakiBlockEntity(pos, state);
-			case BACK -> null;
+			case BACK -> new HiinakiDummyBlockEntity(pos, state);
 		};
 	}
 
@@ -96,7 +96,7 @@ public class HiinakiBlock extends BlockWithEntity {
 		if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
 			ItemStack stack = player.getStackInHand(hand);
 			if (blockEntity.hasTrappedEntity()) {
-				if (!world.isClient && blockEntity.killTrappedEntity()) {
+				if (!world.isClient && blockEntity.killTrappedEntity(false)) {
 					// TODO: add use trap stat
 					return ActionResult.success(true);
 				}
@@ -168,7 +168,7 @@ public class HiinakiBlock extends BlockWithEntity {
 				// Scatter bait
 				ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), blockEntity.getBait());
 				// Free trapped entity
-				blockEntity.freeTrappedEntity(false);
+				blockEntity.releaseEntity(true, true);
 			}
 
 			super.onStateReplaced(state, world, pos, newState, moved);
@@ -226,13 +226,15 @@ public class HiinakiBlock extends BlockWithEntity {
 	public void onBreak(@NotNull World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		if (!world.isClient && player.isCreative()) {
 			LongBlockHalf half = state.get(HALF);
+			Direction facing = state.get(FACING);
 
 			// Break the back half
 			if (half == LongBlockHalf.FRONT) {
 				BlockPos backPos = pos.offset(half.getDirectionTowardsOtherHalf(state.get(FACING)));
 				BlockState backState = world.getBlockState(backPos);
+				Direction backFacing = backState.get(FACING);
 
-				if (backState.isOf(this) && backState.get(HALF) == LongBlockHalf.BACK) {
+				if (backState.isOf(this) && backState.get(HALF) == LongBlockHalf.BACK && facing == backFacing) {
 					world.setBlockState(backPos, Blocks.WATER.getDefaultState(), Block.NOTIFY_ALL | Block.SKIP_DROPS);
 					world.syncWorldEvent(player, WorldEvents.BLOCK_BROKEN, backPos, Block.getRawIdFromState(backState));
 				}
@@ -256,7 +258,11 @@ public class HiinakiBlock extends BlockWithEntity {
 		if (!world.isClient) {
 			BlockPos backPos = pos.offset(LongBlockHalf.FRONT.getDirectionTowardsOtherHalf(state.get(FACING)));
 
-			world.setBlockState(backPos, state.with(HALF, LongBlockHalf.BACK), Block.NOTIFY_ALL);
+			world.setBlockState(
+				backPos,
+				state.with(HALF, LongBlockHalf.BACK),
+				Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD
+			);
 
 			world.updateNeighbors(pos, Blocks.AIR);
 			state.updateNeighbors(world, pos, Block.NOTIFY_ALL);

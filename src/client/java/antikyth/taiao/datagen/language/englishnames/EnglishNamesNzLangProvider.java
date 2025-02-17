@@ -7,6 +7,7 @@ package antikyth.taiao.datagen.language.englishnames;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.datagen.language.EnglishUsLangProvider;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -26,6 +27,9 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 		builder.add(TaiaoBlocks.HIINAKI, "Eel Trap");
 		// Plants
 		builder.add(TaiaoBlocks.HARAKEKE, "Flax");
+
+		// Item tags
+		EnglishUsLangProvider.addItemTag(builder, TaiaoItemTags.HIINAKI_BAIT, "Eel Trap Bait");
 
 		// Fishes
 		EnglishUsLangProvider.addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Eel");

@@ -28,6 +28,8 @@ public final class TaiaoBlockTags {
 	 */
 	public static final TagKey<Block> WHEKII_PONGA_LOGS = createTagKey(Taiao.id("whekii_ponga_logs"));
 
+	public static final TagKey<Block> EEL_TRAPS = createTagKey(Taiao.id("eel_traps"));
+
 	/**
 	 * Blocks that {@linkplain antikyth.taiao.block.log.ThinLogBlock thin logs} should be able to connect to when they otherwise would not.
 	 */

@@ -4,6 +4,8 @@
 
 package antikyth.taiao.entity;
 
+import antikyth.taiao.entity.goal.EnterHiinakiGoal;
+import antikyth.taiao.entity.goal.InvestigateHiinakiGoal;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.entity.EntityType;
@@ -11,12 +13,33 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.FishEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class EelEntity extends FishEntity {
+public class EelEntity extends FishEntity implements Trappable {
+	protected BlockPos hiinakiPos;
+
 	public EelEntity(EntityType<? extends FishEntity> entityType, World world) {
 		super(entityType, world);
+	}
+
+	@Override
+	protected void initGoals() {
+		super.initGoals();
+
+		this.goalSelector.add(1, new EnterHiinakiGoal<>(this));
+		this.goalSelector.add(3, new InvestigateHiinakiGoal<>(this, 1000, 0.5f));
+	}
+
+	@Override
+	public void setHiinakiPos(BlockPos hiinakiPos) {
+		this.hiinakiPos = hiinakiPos;
+	}
+
+	@Override
+	public BlockPos getHiinakiPos() {
+		return hiinakiPos;
 	}
 
 	@Override

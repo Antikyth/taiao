@@ -5,6 +5,7 @@
 package antikyth.taiao.datagen.tag;
 
 import antikyth.taiao.block.TaiaoBlockTags;
+import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -68,6 +69,11 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.addOptionalTag(ItemTags.FISHES)
 			.add(Items.FROGSPAWN);
 
+		getOrCreateTagBuilder(TaiaoItemTags.FERNS)
+			.add(Items.FERN)
+			.add(Items.LARGE_FERN)
+			.add(TaiaoBlocks.MAMAKU_LEAVES.asItem())
+			.add(TaiaoBlocks.WHEKII_PONGA_LEAVES.asItem());
 		getOrCreateTagBuilder(TaiaoItemTags.HIINAKI_BAIT)
 			.addOptionalTag(ConventionalItemTags.FOODS);
 

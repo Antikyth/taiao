@@ -15,8 +15,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBlockEntities {
 	public static final BlockEntityType<HiinakiBlockEntity> HIINAKI = register(
-		Taiao.id("hiinaki"), BlockEntityType.Builder.create(
+		Taiao.id("hiinaki"),
+		BlockEntityType.Builder.create(
 			HiinakiBlockEntity::new,
+			TaiaoBlocks.HIINAKI
+		)
+	);
+	public static final BlockEntityType<HiinakiDummyBlockEntity> HIINAKI_DUMMY = register(
+		Taiao.id("hiinaki_dummy"),
+		BlockEntityType.Builder.create(
+			HiinakiDummyBlockEntity::new,
 			TaiaoBlocks.HIINAKI
 		)
 	);

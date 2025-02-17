@@ -34,6 +34,14 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public void generate(Consumer<RecipeJsonProvider> exporter) {
+		ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, TaiaoBlocks.HIINAKI)
+			.input('#', TaiaoItemTags.FERNS)
+			.pattern("###")
+			.pattern("# #")
+			.pattern("###")
+			.criterion("has_fern", conditionsFromTag(TaiaoItemTags.FERNS))
+			.offerTo(exporter);
+
 		generateFamily(exporter, TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 		// Kauri planks
 		offerPlanksRecipe(exporter, TaiaoBlocks.KAURI_PLANKS, TaiaoItemTags.KAURI_LOGS, 4);

@@ -26,7 +26,6 @@ public class TaiaoItemGroups {
 		() -> TaiaoBannerPatterns.KAOKAO_TUKUTUKU
 	);
 
-	@SuppressWarnings("CodeBlock2Expr")
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registering item groups");
 
@@ -66,6 +65,8 @@ public class TaiaoItemGroups {
 
 			addOtherBuildingBlocks(group::add);
 			addBanners(group::add);
+
+			addEntityRelatingBlocks(group::add);
 
 			addTallGroundPlants(group::add);
 			addWaterPlants(group::add);
@@ -113,6 +114,7 @@ public class TaiaoItemGroups {
 		});
 		// Functional blocks
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(group -> {
+			addEntityRelatingBlocks(item -> group.addBefore(Items.SUSPICIOUS_SAND, item));
 			addBanners(stack -> group.addBefore(Items.SKELETON_SKULL, stack));
 		});
 	}
@@ -234,6 +236,10 @@ public class TaiaoItemGroups {
 
 	public static void addOtherBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoBlocks.HARAKEKE_MAT);
+	}
+
+	public static void addEntityRelatingBlocks(@NotNull Consumer<ItemConvertible> add) {
+		add.accept(TaiaoBlocks.HIINAKI);
 	}
 
 	public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {

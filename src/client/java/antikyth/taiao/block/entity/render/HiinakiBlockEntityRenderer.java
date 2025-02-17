@@ -15,10 +15,9 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 public class HiinakiBlockEntityRenderer implements BlockEntityRenderer<HiinakiBlockEntity> {
 	protected final EntityRenderDispatcher entityRenderDispatcher;
@@ -38,20 +37,23 @@ public class HiinakiBlockEntityRenderer implements BlockEntityRenderer<HiinakiBl
 		int light,
 		int overlay
 	) {
-		matrices.push();
-
-		matrices.translate(0f, 0.4f, 0f);
-		matrices.scale(0.5f, 0.5f, 0.5f);
-
 		World world = blockEntity.getWorld();
 		BlockPos pos = blockEntity.getPos();
 		BlockState state = blockEntity.getCachedState();
 
-		// TODO: positioning and rotation based on facing property
+		matrices.push();
 
-		if (blockEntity.hasTrappedEntity()) {
-			Entity trappedEntity = Objects.requireNonNull(blockEntity.getTrappedEntity());
+		// Center of front block
+		matrices.translate(0.5f, 0.4f, 0.5f);
+		// Yaw
+		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(blockEntity.getYaw()));
+		// Move back to the center of both blocks
+		matrices.translate(0f, 0f, 0.5f);
 
+		matrices.scale(0.5f, 0.5f, 0.5f);
+
+		Entity trappedEntity = blockEntity.getRenderedEntity();
+		if (trappedEntity != null) {
 			this.entityRenderDispatcher.render(
 				trappedEntity,
 				0d,
@@ -81,7 +83,7 @@ public class HiinakiBlockEntityRenderer implements BlockEntityRenderer<HiinakiBl
 
 	@Override
 	public boolean rendersOutsideBoundingBox(HiinakiBlockEntity blockEntity) {
-		// renders across the two blocks that hiinaki takes up
+		// renders across the two blocks that hīnaki takes up
 		return true;
 	}
 }
