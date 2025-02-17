@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.goal;
 
-import antikyth.taiao.entity.ShushableEntity;
+import antikyth.taiao.entity.Shushable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -64,11 +64,11 @@ public class FreezeWhenThreatenedGoal<E extends LivingEntity> extends Goal {
 	public void start() {
 		this.mob.getNavigation().stop();
 
-		if (this.mob instanceof ShushableEntity shushable) shushable.setShushed(true);
+		if (this.mob instanceof Shushable shushable) shushable.setShushed(true);
 	}
 
 	@Override
 	public void stop() {
-		if (this.mob instanceof ShushableEntity shushable) shushable.setShushed(false);
+		if (this.mob instanceof Shushable shushable) shushable.setShushed(false);
 	}
 }

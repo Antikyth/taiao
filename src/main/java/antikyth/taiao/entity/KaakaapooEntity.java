@@ -42,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class KaakaapooEntity extends TameableEntity implements ShushableEntity, SleepyEntity {
+public class KaakaapooEntity extends TameableEntity implements Shushable, Sleepy {
 	protected static final float TAME_CHANCE = 1f / 3f;
 	protected boolean shushed = false;
 

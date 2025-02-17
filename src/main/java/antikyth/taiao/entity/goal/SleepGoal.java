@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.goal;
 
-import antikyth.taiao.entity.SleepyEntity;
+import antikyth.taiao.entity.Sleepy;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public class SleepGoal<E extends PathAwareEntity & SleepyEntity> extends Goal {
+public class SleepGoal<E extends PathAwareEntity & Sleepy> extends Goal {
 	protected final E entity;
 	protected final TargetPredicate scaryEntityPredicate;
 	protected final boolean nocturnal;

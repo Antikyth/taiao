@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
 
-public class AustralasianBitternEntity extends AnimalEntity implements ShushableEntity {
+public class AustralasianBitternEntity extends AnimalEntity implements Shushable {
 	protected boolean shushed = false;
 
 	protected static final Predicate<LivingEntity> PREDATOR_PREDICATE = TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.AUSTRALASIAN_BITTERN_PREDATORS);

@@ -46,7 +46,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
 
-public class KiwiEntity extends AnimalEntity implements SleepyEntity {
+public class KiwiEntity extends AnimalEntity implements Sleepy {
 	protected static final float WHITE_CHANCE = 0.01f;
 
 	protected static final Predicate<LivingEntity> PREDATOR_PREDICATE = TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.KIWI_PREDATORS);

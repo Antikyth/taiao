@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity;
 
-public interface SleepyEntity {
+public interface Sleepy {
 	/**
 	 * Sets whether the entity is sleeping.
 	 */
@@ -18,7 +18,7 @@ public interface SleepyEntity {
 	/**
 	 * Stop sleeping.
 	 * <p>
-	 * Equivalent to {@link SleepyEntity#setSleeping(boolean) setSleeping}{@code (false)}.
+	 * Equivalent to {@link Sleepy#setSleeping(boolean) setSleeping}{@code (false)}.
 	 */
 	default void wake() {
 		this.setSleeping(false);
@@ -27,7 +27,7 @@ public interface SleepyEntity {
 	/**
 	 * Start sleeping.
 	 * <p>
-	 * Equivalent to {@link SleepyEntity#setSleeping(boolean) setSleeping}{@code (true)}.
+	 * Equivalent to {@link Sleepy#setSleeping(boolean) setSleeping}{@code (true)}.
 	 */
 	default void startSleeping() {
 		this.setSleeping(true);

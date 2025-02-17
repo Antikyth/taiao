@@ -4,14 +4,14 @@
 
 package antikyth.taiao.entity.goal;
 
-import antikyth.taiao.entity.SleepyEntity;
+import antikyth.taiao.entity.Sleepy;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;
 
-public class TameableSleepGoal<E extends TameableEntity & SleepyEntity> extends SleepGoal<E> {
+public class TameableSleepGoal<E extends TameableEntity & Sleepy> extends SleepGoal<E> {
 	public TameableSleepGoal(
 		E entity,
 		boolean nocturnal,

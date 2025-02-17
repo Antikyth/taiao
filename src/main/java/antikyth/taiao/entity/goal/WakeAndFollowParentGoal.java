@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.goal;
 
-import antikyth.taiao.entity.SleepyEntity;
+import antikyth.taiao.entity.Sleepy;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 
@@ -15,7 +15,7 @@ public class WakeAndFollowParentGoal extends FollowParentGoal {
 
 	@Override
 	public void start() {
-		if (this.animal instanceof SleepyEntity sleepy) sleepy.wake();
+		if (this.animal instanceof Sleepy sleepy) sleepy.wake();
 
 		super.start();
 	}

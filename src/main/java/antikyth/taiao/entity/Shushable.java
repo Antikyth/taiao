@@ -16,7 +16,7 @@ package antikyth.taiao.entity;
  * }
  * }</code>
  */
-public interface ShushableEntity {
+public interface Shushable {
 	/**
 	 * Sets whether the entity should be 'shushed' (i.e., not allowed to make ambient sounds).
 	 */
