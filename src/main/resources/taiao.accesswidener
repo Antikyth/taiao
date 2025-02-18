@@ -1,11 +1,14 @@
 accessWidener v2 named
 
+accessible method net/minecraft/entity/LivingEntity applyFoodEffects (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V
+
 # Entity goals
 accessible field net/minecraft/entity/ai/goal/SwimGoal mob Lnet/minecraft/entity/mob/MobEntity;
 accessible field net/minecraft/entity/ai/goal/FollowParentGoal animal Lnet/minecraft/entity/passive/AnimalEntity;
 
-# Entity loot tables
+# Loot tables
 accessible field net/minecraft/data/server/loottable/EntityLootTableGenerator lootTables Ljava/util/Map;
+accessible method net/minecraft/loot/context/LootContextTypes register (Ljava/lang/String;Ljava/util/function/Consumer;)Lnet/minecraft/loot/context/LootContextType;
 
 # Biomes
 accessible method net/minecraft/world/biome/OverworldBiomeCreator createBiome (ZFFLnet/minecraft/world/biome/SpawnSettings$Builder;Lnet/minecraft/world/biome/GenerationSettings$LookupBackedBuilder;Lnet/minecraft/sound/MusicSound;)Lnet/minecraft/world/biome/Biome;

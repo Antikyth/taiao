@@ -7,13 +7,17 @@ package antikyth.taiao.world.gen.feature;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
+import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.blockpredicate.WithinHorizontalRangeBlockPredicate;
+import antikyth.taiao.world.gen.entityprovider.EntityTypeProvider;
+import antikyth.taiao.world.gen.feature.config.HiinakiFeatureConfig;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernBushFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinStraightTrunkPlacer;
+import antikyth.taiao.world.gen.loot.TaiaoLootTables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -51,6 +55,18 @@ import java.util.function.Function;
 
 public class TaiaoConfiguredFeatures {
 	protected static Map<RegistryKey<ConfiguredFeature<?, ?>>, Function<RegistryEntryLookup<PlacedFeature>, ConfiguredFeature<?, ?>>> TO_REGISTER = new HashMap<>();
+
+	public static final RegistryKey<ConfiguredFeature<?, ?>> HIINAKI = register(
+		Taiao.id("hiinaki"),
+		lookup -> new ConfiguredFeature<>(
+			TaiaoFeatures.HIINAKI,
+			new HiinakiFeatureConfig(
+				new HiinakiFeatureConfig.ContentWeights(5, 4, 1),
+				TaiaoLootTables.HIINAKI_BAIT,
+				EntityTypeProvider.of(TaiaoEntities.EEL)
+			)
+		)
+	);
 
 	// Trees
 	public static final RegistryKey<ConfiguredFeature<?, ?>> KAURI_TREE = register(

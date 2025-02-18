@@ -14,8 +14,10 @@ import antikyth.taiao.item.TaiaoBoats;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
+import antikyth.taiao.world.gen.TaiaoBiomeModifications;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
+import antikyth.taiao.world.gen.entityprovider.TaiaoEntityTypeProviderTypes;
 import antikyth.taiao.world.gen.feature.TaiaoFeatures;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import antikyth.taiao.world.poi.TaiaoPoiTypes;
@@ -59,9 +61,11 @@ public class Taiao implements ModInitializer {
 		TaiaoBoats.initialize();
 
 		TaiaoFeatures.initialize();
+		TaiaoEntityTypeProviderTypes.initialize();
 		TaiaoTreePlacers.initialize();
 		TaiaoBlockPredicates.initialize();
 		TaiaoBiomes.initializeBiolith();
+		TaiaoBiomeModifications.initialize();
 	}
 
 	/**

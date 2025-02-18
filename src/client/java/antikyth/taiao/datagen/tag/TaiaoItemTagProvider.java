@@ -75,7 +75,8 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TaiaoBlocks.MAMAKU_LEAVES.asItem())
 			.add(TaiaoBlocks.WHEKII_PONGA_LEAVES.asItem());
 		getOrCreateTagBuilder(TaiaoItemTags.HIINAKI_BAIT)
-			.addOptionalTag(ConventionalItemTags.FOODS);
+			.addOptionalTag(ConventionalItemTags.FOODS)
+			.add(Items.FROGSPAWN);
 
 		// Vanilla tags
 		getOrCreateTagBuilder(ItemTags.BOATS)

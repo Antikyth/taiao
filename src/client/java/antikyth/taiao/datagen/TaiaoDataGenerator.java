@@ -14,6 +14,7 @@ import antikyth.taiao.datagen.language.englishnames.EnglishNamesUsLangProvider;
 import antikyth.taiao.datagen.loottable.TaiaoBlockLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoChestLootTableProvider;
 import antikyth.taiao.datagen.loottable.TaiaoEntityLootTableProvider;
+import antikyth.taiao.datagen.loottable.TaiaoTrapBaitLootTableProvider;
 import antikyth.taiao.datagen.model.TaiaoModelProvider;
 import antikyth.taiao.datagen.tag.*;
 import antikyth.taiao.datagen.world.gen.TaiaoBiomeProvider;
@@ -54,6 +55,7 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TaiaoBlockLootTableProvider::new);
 		pack.addProvider(TaiaoEntityLootTableProvider::new);
 		pack.addProvider(TaiaoChestLootTableProvider::new);
+		pack.addProvider(TaiaoTrapBaitLootTableProvider::new);
 
 		// Tags
 		TaiaoBlockTagProvider blockTagProvider = pack.addProvider(TaiaoBlockTagProvider::new);

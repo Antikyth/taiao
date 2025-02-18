@@ -6,6 +6,7 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.CustomPlacementBlock;
+import antikyth.taiao.world.gen.feature.config.HiinakiFeatureConfig;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -21,6 +22,8 @@ public class TaiaoFeatures {
 		Taiao.id("custom_placement_block"),
 		new CustomPlacementBlockFeature()
 	);
+
+	public static final Feature<HiinakiFeatureConfig> HIINAKI = register(Taiao.id("hiinaki"), new HiinakiFeature());
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registering features");

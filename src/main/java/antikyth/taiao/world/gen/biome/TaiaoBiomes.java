@@ -91,8 +91,6 @@ public class TaiaoBiomes {
 		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.MOA, 8, 4, 4));
 		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KAAKAAPOO, 10, 1, 2));
 
-		spawnSettings.spawn(SpawnGroup.WATER_AMBIENT, new SpawnEntry(TaiaoEntities.EEL, 5, 1, 3));
-
 		return OverworldBiomeCreator.createBiome(
 			true,
 			0.7f,
@@ -129,6 +127,9 @@ public class TaiaoBiomes {
 
 		// Trees
 		addVegetation(generationSettings, TaiaoPlacedFeatures.KAHIKATEA_SWAMP_TREES);
+
+		// Eel traps
+		generationSettings.feature(GenerationStep.Feature.SURFACE_STRUCTURES, TaiaoPlacedFeatures.HIINAKI_SWAMP);
 
 		// Spawns
 		DefaultBiomeFeatures.addBatsAndMonsters(spawnSettings);

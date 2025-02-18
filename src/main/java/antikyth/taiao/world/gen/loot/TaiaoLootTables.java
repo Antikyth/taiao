@@ -22,8 +22,30 @@ import java.util.function.BiConsumer;
 @SuppressWarnings("unused")
 public class TaiaoLootTables {
 	protected static Map<Identifier, LootTable.Builder> CHEST_LOOT_TABLES = new HashMap<>();
+	protected static Map<Identifier, LootTable.Builder> BAIT_LOOT_TABLES = new HashMap<>();
 
-	public static final Identifier VILLAGE_MARAE_HOUSE_CHEST = register(
+	// TODO: add wētā
+	public static final Identifier HIINAKI_BAIT = registerBait(
+		Taiao.id("bait/hiinaki"),
+		LootTable.builder()
+			.pool(
+				LootPool.builder()
+					.with(
+						ItemEntry.builder(TaiaoItems.EEL)
+							.weight(5)
+					)
+					.with(
+						ItemEntry.builder(Items.CHICKEN)
+							.weight(5)
+					)
+					.with(
+						ItemEntry.builder(Items.FROGSPAWN)
+							.weight(5)
+					)
+			)
+	);
+
+	public static final Identifier VILLAGE_MARAE_HOUSE_CHEST = registerChest(
 		Taiao.id("chests/village/village_marae_house"),
 		LootTable.builder()
 			.pool(
@@ -103,7 +125,7 @@ public class TaiaoLootTables {
 					)
 			)
 	);
-	public static final Identifier VILLAGE_MARAE_PAATAKA_KAI_CHEST = register(
+	public static final Identifier VILLAGE_MARAE_PAATAKA_KAI_CHEST = registerChest(
 		Taiao.id("chests/village/village_marae_paataka_kai"),
 		LootTable.builder()
 			.pool(
@@ -136,16 +158,30 @@ public class TaiaoLootTables {
 			)
 	);
 
-	public static void bootstrap(BiConsumer<Identifier, LootTable.Builder> exporter) {
-		Taiao.LOGGER.debug("Registering loot tables");
+	public static void bootstrapChestLootTables(BiConsumer<Identifier, LootTable.Builder> exporter) {
+		Taiao.LOGGER.debug("Registering chest loot tables");
 
 		for (Map.Entry<Identifier, LootTable.Builder> entry : CHEST_LOOT_TABLES.entrySet()) {
 			exporter.accept(entry.getKey(), entry.getValue());
 		}
 	}
 
-	public static Identifier register(Identifier id, LootTable.Builder builder) {
+	public static void bootstrapBaitLootTables(BiConsumer<Identifier, LootTable.Builder> exporter) {
+		Taiao.LOGGER.debug("Registering bait loot tables");
+
+		for (Map.Entry<Identifier, LootTable.Builder> entry : BAIT_LOOT_TABLES.entrySet()) {
+			exporter.accept(entry.getKey(), entry.getValue());
+		}
+	}
+
+	public static Identifier registerChest(Identifier id, LootTable.Builder builder) {
 		CHEST_LOOT_TABLES.put(id, builder);
+
+		return id;
+	}
+
+	public static Identifier registerBait(Identifier id, LootTable.Builder builder) {
+		BAIT_LOOT_TABLES.put(id, builder);
 
 		return id;
 	}

@@ -30,6 +30,17 @@ import java.util.Map;
 public class TaiaoPlacedFeatures {
 	protected static Map<RegistryKey<PlacedFeature>, Pair<RegistryKey<ConfiguredFeature<?, ?>>, List<PlacementModifier>>> TO_REGISTER = new HashMap<>();
 
+	public static final RegistryKey<PlacedFeature> HIINAKI_SWAMP = register(
+		Taiao.id("hiinaki_swamp"),
+		TaiaoConfiguredFeatures.HIINAKI,
+		hiinakiModifiers(RarityFilterPlacementModifier.of(4), 2)
+	);
+	public static final RegistryKey<PlacedFeature> HIINAKI_RIVER = register(
+		Taiao.id("hiinaki_river"),
+		TaiaoConfiguredFeatures.HIINAKI,
+		hiinakiModifiers(RarityFilterPlacementModifier.of(4), 5)
+	);
+
 	// Trees
 	public static final RegistryKey<PlacedFeature> KAURI_TREE_CHECKED = register(
 		Taiao.id("kauri_tree_checked"),
@@ -120,6 +131,19 @@ public class TaiaoPlacedFeatures {
 				new PlacedFeature(lookup.getOrThrow(pair.getLeft()), pair.getRight())
 			);
 		}
+	}
+
+	public static @NotNull @Unmodifiable List<PlacementModifier> hiinakiModifiers(
+		PlacementModifier rarityModifier,
+		int maxWaterDepth
+	) {
+		return List.of(
+			rarityModifier,
+			SurfaceWaterDepthFilterPlacementModifier.of(maxWaterDepth),
+			SquarePlacementModifier.of(),
+			PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP,
+			BiomePlacementModifier.of()
+		);
 	}
 
 	public static @NotNull @Unmodifiable List<PlacementModifier> treeModifiers(

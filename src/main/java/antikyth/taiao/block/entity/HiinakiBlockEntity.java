@@ -20,8 +20,11 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -153,6 +156,28 @@ public class HiinakiBlockEntity extends BlockEntity {
 //	}
 
 	/**
+	 * Traps a new entity of the given {@code entityType} (if non-null) and no other entity is currently trapped.
+	 * <p>
+	 * If {@linkplain HiinakiBlockEntity#hasBait() there is currently bait in the hīnaki}, the bait is removed.
+	 *
+	 * @return whether the trapped entity was successfully changed
+	 */
+	public boolean setTrappedEntityType(@Nullable EntityType<?> entityType) {
+		if (!this.hasTrappedEntity() && entityType != null) {
+			this.bait.decrement(1);
+
+			NbtCompound entityNbt = new NbtCompound();
+			entityNbt.putString("id", Registries.ENTITY_TYPE.getId(entityType).toString());
+
+			this.trappedEntity = new TrappedEntity(entityNbt, 0);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Traps the {@code entity} in the hīnaki if no other entity is currently trapped.
 	 * <p>
 	 * If {@linkplain HiinakiBlockEntity#hasBait() there is currently bait in the hīnaki}, the bait is eaten.
@@ -162,8 +187,28 @@ public class HiinakiBlockEntity extends BlockEntity {
 	public boolean trapEntity(Entity entity) {
 		if (!this.hasTrappedEntity()) {
 			// Eat the bait
-			if (entity instanceof LivingEntity living) {
-				living.eatFood(living.getWorld(), this.bait);
+			if (this.hasBait()) {
+				// Bypassing `LivingEntity#eatFood`'s requirement of the stack actually being food
+				if (this.world != null && entity instanceof LivingEntity living) {
+					World world = living.getWorld();
+
+					this.world.playSound(
+						null,
+						entity.getX(),
+						entity.getY(),
+						entity.getZ(),
+						living.getEatSound(this.bait),
+						SoundCategory.NEUTRAL,
+						1f,
+						1f + (world.random.nextFloat() - world.random.nextFloat()) * 0.4f
+					);
+
+					living.applyFoodEffects(this.bait, world, living);
+
+					this.bait.decrement(1);
+
+					living.emitGameEvent(GameEvent.EAT);
+				}
 			}
 
 			entity.stopRiding();
