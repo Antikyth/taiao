@@ -139,8 +139,8 @@ public class TaiaoPlacedFeatures {
 	) {
 		return List.of(
 			rarityModifier,
-			SurfaceWaterDepthFilterPlacementModifier.of(maxWaterDepth),
 			SquarePlacementModifier.of(),
+			SurfaceWaterDepthFilterPlacementModifier.of(maxWaterDepth),
 			PlacedFeatures.OCEAN_FLOOR_WG_HEIGHTMAP,
 			BiomePlacementModifier.of()
 		);
