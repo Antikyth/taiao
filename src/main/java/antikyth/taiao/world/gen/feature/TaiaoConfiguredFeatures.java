@@ -61,7 +61,7 @@ public class TaiaoConfiguredFeatures {
 		lookup -> new ConfiguredFeature<>(
 			TaiaoFeatures.HIINAKI,
 			new HiinakiFeatureConfig(
-				new HiinakiFeatureConfig.ContentWeights(5, 4, 1),
+				new HiinakiFeatureConfig.ContentWeights(3, 6, 2),
 				TaiaoLootTables.HIINAKI_BAIT,
 				EntityTypeProvider.ofTag(TaiaoEntityTypeTags.HIINAKI_TRAPPED_ENTITIES)
 			)
