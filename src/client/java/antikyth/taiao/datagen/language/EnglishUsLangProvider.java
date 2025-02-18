@@ -17,6 +17,7 @@ import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
+import antikyth.taiao.stat.TaiaoStats;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.loot.TaiaoLootTables;
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
@@ -284,6 +285,15 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			null,
 			"%1$s died in an eel trap at the hands of %2$s"
 		);
+
+		// Stats
+		addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Eel Traps Baited");
+		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Animals Trapped in an Eel Trap Hurt");
+		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Trapped in an Eel Trap Freed");
+	}
+
+	public static void addStat(@NotNull TranslationBuilder builder, @NotNull Identifier stat, String name) {
+		builder.add(stat.toTranslationKey("stat"), name);
 	}
 
 	public static void addDamageType(

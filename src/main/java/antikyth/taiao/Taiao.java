@@ -14,6 +14,7 @@ import antikyth.taiao.item.TaiaoBannerPatterns;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
+import antikyth.taiao.stat.TaiaoStats;
 import antikyth.taiao.world.gen.TaiaoBiomeModifications;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
@@ -45,6 +46,7 @@ public class Taiao implements ModInitializer {
 
 		LOGGER.info("Initializing {}", MOD_NAME);
 
+		TaiaoStats.initialize();
 		TaiaoSoundEvents.initialize();
 
 		TaiaoBlocks.initialize();

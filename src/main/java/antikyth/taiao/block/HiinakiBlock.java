@@ -8,6 +8,7 @@ import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.entity.HiinakiDummyBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.item.TaiaoItemTags;
+import antikyth.taiao.stat.TaiaoStats;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -100,9 +101,11 @@ public class HiinakiBlock extends BlockWithEntity {
 	) {
 		if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
 			ItemStack stack = player.getStackInHand(hand);
+
 			if (blockEntity.hasTrappedEntity()) {
 				if (!world.isClient && blockEntity.tryKillTrappedEntity(false, 5f, player)) {
-					// TODO: add use trap stat
+					player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED);
+
 					return ActionResult.success(true);
 				}
 
@@ -124,7 +127,8 @@ public class HiinakiBlock extends BlockWithEntity {
 					ItemStack bait = player.getAbilities().creativeMode ? stack.copy() : stack;
 
 					if (blockEntity.addBait(player, bait)) {
-						// TODO: add use bait stat
+						player.incrementStat(TaiaoStats.HIINAKI_BAIT_ADDED);
+
 						return ActionResult.success(true);
 					}
 				}
@@ -224,28 +228,36 @@ public class HiinakiBlock extends BlockWithEntity {
 
 	@Override
 	public void onBreak(@NotNull World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		if (!world.isClient && player.isCreative()) {
-			LongBlockHalf half = state.get(HALF);
-			Direction facing = state.get(FACING);
+		if (!world.isClient) {
+			if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
+				if (blockEntity.hasTrappedEntity()) {
+					player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED);
+				}
+			}
 
-			// Break the front half
-			if (half == LongBlockHalf.BACK) {
-				BlockPos otherPos = pos.offset(half.getDirectionTowardsOtherHalf(state.get(FACING)));
-				BlockState otherState = world.getBlockState(otherPos);
-				Direction otherFacing = otherState.get(FACING);
+			if (player.isCreative()) {
+				LongBlockHalf half = state.get(HALF);
+				Direction facing = state.get(FACING);
 
-				if (otherState.isOf(this) && otherState.get(HALF) == half.getOtherHalf() && facing == otherFacing) {
-					world.setBlockState(
-						otherPos,
-						otherState.get(WATERLOGGED) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState(),
-						Block.NOTIFY_ALL | Block.SKIP_DROPS
-					);
-					world.syncWorldEvent(
-						player,
-						WorldEvents.BLOCK_BROKEN,
-						otherPos,
-						Block.getRawIdFromState(otherState)
-					);
+				// Break the front half
+				if (half == LongBlockHalf.BACK) {
+					BlockPos otherPos = pos.offset(half.getDirectionTowardsOtherHalf(state.get(FACING)));
+					BlockState otherState = world.getBlockState(otherPos);
+					Direction otherFacing = otherState.get(FACING);
+
+					if (otherState.isOf(this) && otherState.get(HALF) == half.getOtherHalf() && facing == otherFacing) {
+						world.setBlockState(
+							otherPos,
+							otherState.get(WATERLOGGED) ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState(),
+							Block.NOTIFY_ALL | Block.SKIP_DROPS
+						);
+						world.syncWorldEvent(
+							player,
+							WorldEvents.BLOCK_BROKEN,
+							otherPos,
+							Block.getRawIdFromState(otherState)
+						);
+					}
 				}
 			}
 		}

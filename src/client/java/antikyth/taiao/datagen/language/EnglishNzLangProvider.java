@@ -10,6 +10,7 @@ import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
+import antikyth.taiao.stat.TaiaoStats;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 public class EnglishNzLangProvider extends EnglishGbLangProvider {
@@ -45,6 +46,19 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 			"%1$s died in a hīnaki",
 			null,
 			"%1$s died in a hīnaki at the hands of %2$s"
+		);
+
+		// Stats
+		EnglishUsLangProvider.addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Hīnaki Baited");
+		EnglishUsLangProvider.addStat(
+			builder,
+			TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED,
+			"Animals Trapped in a Hīnaki Hurt"
+		);
+		EnglishUsLangProvider.addStat(
+			builder,
+			TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED,
+			"Animals Trapped in a Hīnaki Freed"
 		);
 	}
 }
