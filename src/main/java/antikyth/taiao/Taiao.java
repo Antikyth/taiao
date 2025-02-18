@@ -6,11 +6,11 @@ package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
+import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.TaiaoVillagerTypes;
 import antikyth.taiao.entity.spawn.TaiaoSpawnRestrictions;
 import antikyth.taiao.item.TaiaoBannerPatterns;
-import antikyth.taiao.item.TaiaoBoats;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;

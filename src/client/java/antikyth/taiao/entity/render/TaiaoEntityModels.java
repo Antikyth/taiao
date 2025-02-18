@@ -5,10 +5,10 @@
 package antikyth.taiao.entity.render;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.render.model.*;
 import antikyth.taiao.entity.render.renderer.*;
-import antikyth.taiao.item.TaiaoBoats;
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
