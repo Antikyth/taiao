@@ -58,8 +58,9 @@ public class MaraeVillageStructurePools {
 				emptyPool,
 				List.of(
 					Pair.of(
-						TaiaoStructurePools.createLegacySingleElement(villageId("town_centers/marae_wharenui_1")),
-						2
+						TaiaoStructurePools.createLegacySingleElement(
+							villageId("town_centers/wharenui_1")
+						), 2
 					)
 				),
 				StructurePool.Projection.RIGID
@@ -172,18 +173,23 @@ public class MaraeVillageStructurePools {
 				terminatorsPool,
 				List.of(
 					Pair.of(
-						TaiaoStructurePools.createProcessedLegacySingleElement(
-							villageId("houses/marae_small_farm_1"),
-							farmProcessorList
-						), 3
+						TaiaoStructurePools.createLegacySingleElement(
+							villageId("houses/wharepuni_1")
+						), 10
 					),
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
-							villageId("houses/marae_small_farm_2"),
+							villageId("houses/small_farm_1"),
 							farmProcessorList
-						), 3
+						), 4
 					),
-					Pair.of(StructurePoolElement.ofEmpty(), 6)
+					Pair.of(
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("houses/small_farm_2"),
+							farmProcessorList
+						), 4
+					),
+					Pair.of(StructurePoolElement.ofEmpty(), 4)
 				),
 				StructurePool.Projection.RIGID
 			)
