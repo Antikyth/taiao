@@ -144,6 +144,10 @@ public class HiinakiBlockEntity extends BlockEntity {
 		return this.renderedEntity;
 	}
 
+	// This client tick code would be used to age the rendered entity for the purposes of animation. Unfortunately it
+	// has had to be disabled because the animations are super flickery - seemingly the `tickDelta` passed to the
+	// renderer is not the correct `tickDelta` to use for entity animations. It would be nice to fix this in the future,
+	// if possible.
 //	public static void clientTick(
 //		World ignoredWorld,
 //		BlockPos ignoredPos,
@@ -155,8 +159,19 @@ public class HiinakiBlockEntity extends BlockEntity {
 //		}
 //	}
 
+	public static void serverTick(
+		World ignoredWorld,
+		BlockPos ignoredPos,
+		BlockState ignoredState,
+		@NotNull HiinakiBlockEntity blockEntity
+	) {
+		if (blockEntity.trappedEntity != null) {
+			blockEntity.trappedEntity.ticksInHiinaki++;
+		}
+	}
+
 	/**
-	 * Traps a new entity of the given {@code entityType} (if non-null) and no other entity is currently trapped.
+	 * Traps a new entity of the given {@code entityType} (if non-null) and if no other entity is currently trapped.
 	 * <p>
 	 * If {@linkplain HiinakiBlockEntity#hasBait() there is currently bait in the hīnaki}, the bait is removed.
 	 *

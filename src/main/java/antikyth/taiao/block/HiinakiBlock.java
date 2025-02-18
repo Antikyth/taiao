@@ -6,9 +6,12 @@ package antikyth.taiao.block;
 
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.entity.HiinakiDummyBlockEntity;
+import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.item.TaiaoItemTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -316,12 +319,18 @@ public class HiinakiBlock extends BlockWithEntity {
 		builder.add(WATERLOGGED);
 	}
 
-//	@Override
-//	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
-//		@NotNull World world,
-//		BlockState state,
-//		BlockEntityType<T> type
-//	) {
-//		return world.isClient ? checkType(type, TaiaoBlockEntities.HIINAKI, HiinakiBlockEntity::clientTick) : null;
-//	}
+	@Override
+	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+		@NotNull World world,
+		BlockState state,
+		BlockEntityType<T> type
+	) {
+//		return checkType(
+//			type,
+//			TaiaoBlockEntities.HIINAKI,
+//			world.isClient ? HiinakiBlockEntity::clientTick : HiinakiBlockEntity::serverTick
+//		);
+
+		return world.isClient ? null : checkType(type, TaiaoBlockEntities.HIINAKI, HiinakiBlockEntity::serverTick);
+	}
 }
