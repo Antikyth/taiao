@@ -168,19 +168,22 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.registerDoubleBlock(TaiaoBlocks.RAUPOO, TintType.NOT_TINTED);
 		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED, false);
 
-		registerHiinaki(generator, TaiaoBlocks.HIINAKI);
+		registerHiinaki(generator, TaiaoBlocks.HIINAKI, Taiao.id("hiinaki_front"), Taiao.id("hiinaki_back"));
 	}
 
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerator generator) {
+		generator.register(TaiaoBlocks.HIINAKI.asItem(), Models.GENERATED);
 		generator.register(TaiaoBlocks.HARAKEKE.asItem(), Models.GENERATED);
 
+		// Fruit
 		generator.register(TaiaoItems.CONIFER_FRUIT, Models.GENERATED);
-
+		// Fishes
 		generator.register(TaiaoItems.EEL, Models.GENERATED);
 		generator.register(TaiaoItems.COOKED_EEL, Models.GENERATED);
 		generator.register(TaiaoItems.EEL_BUCKET, Models.GENERATED);
 
+		// Boats
 		generator.register(TaiaoItems.KAURI_BOAT, Models.GENERATED);
 		generator.register(TaiaoItems.KAURI_CHEST_BOAT, Models.GENERATED);
 		generator.register(TaiaoItems.KAHIKATEA_BOAT, Models.GENERATED);
@@ -190,6 +193,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.MAMAKU_RAFT, Models.GENERATED);
 		generator.register(TaiaoItems.MAMAKU_CHEST_RAFT, Models.GENERATED);
 
+		// Spawn eggs
 		generator.register(TaiaoItems.KIWI_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.MOA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
@@ -198,9 +202,14 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.EEL_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 	}
 
-	public static void registerHiinaki(BlockStateModelGenerator generator, Block hiinaki) {
-		Identifier frontModelId = Taiao.id("block/hiinaki_front");
-		Identifier backModelId = Taiao.id("block/hiinaki_back");
+	public static void registerHiinaki(
+		@NotNull BlockStateModelGenerator generator,
+		Block hiinaki,
+		Identifier frontModel,
+		Identifier backModel
+	) {
+		frontModel = frontModel.withPath(path -> "block/" + path);
+		backModel = backModel.withPath(path -> "block/" + path);
 
 		generator.blockStateCollector.accept(
 			VariantsBlockStateSupplier.create(hiinaki)
@@ -209,15 +218,14 @@ public class TaiaoModelProvider extends FabricModelProvider {
 					BlockStateVariantMap.create(TaiaoStateProperties.LONG_BLOCK_HALF)
 						.register(
 							LongBlockHalf.FRONT,
-							BlockStateVariant.create().put(VariantSettings.MODEL, frontModelId)
+							BlockStateVariant.create().put(VariantSettings.MODEL, frontModel)
 						)
 						.register(
 							LongBlockHalf.BACK,
-							BlockStateVariant.create().put(VariantSettings.MODEL, backModelId)
+							BlockStateVariant.create().put(VariantSettings.MODEL, backModel)
 						)
 				)
 		);
-		generator.registerItemModel(hiinaki);
 	}
 
 	public static void registerCarpet(@NotNull BlockStateModelGenerator generator, Block carpet) {
