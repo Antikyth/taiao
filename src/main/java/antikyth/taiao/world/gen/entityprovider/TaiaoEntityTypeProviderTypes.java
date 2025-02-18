@@ -19,6 +19,10 @@ public class TaiaoEntityTypeProviderTypes {
 		Taiao.id("simple"),
 		SimpleEntityTypeProvider.CODEC
 	);
+	public static final EntityTypeProvider.Type<TagEntityTypeProvider> TAG = register(
+		Taiao.id("tag"),
+		TagEntityTypeProvider.CODEC
+	);
 
 	public static final EntityTypeProvider.Type<ProbabilityEntityTypeProvider> PROBABILITY = register(
 		Taiao.id("probability"),

@@ -13,6 +13,11 @@ import net.minecraft.util.Identifier;
 
 public final class TaiaoEntityTypeTags {
 	/**
+	 * Entities that can be naturally generated in {@linkplain antikyth.taiao.block.TaiaoBlocks#HIINAKI hīnaki}.
+	 */
+	public static final TagKey<EntityType<?>> HIINAKI_TRAPPED_ENTITIES = tagKey(Taiao.id("hiinaki_trapped_entities"));
+
+	/**
 	 * Mammalian predators, like cats and dogs, which hunt most native birds.
 	 */
 	public static final TagKey<EntityType<?>> MAMMALIAN_PREDATORS = tagKey(Taiao.id("predators/mammals"));

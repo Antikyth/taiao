@@ -7,7 +7,7 @@ package antikyth.taiao.world.gen.feature;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
-import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.TaiaoEntityTypeTags;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.blockpredicate.WithinHorizontalRangeBlockPredicate;
 import antikyth.taiao.world.gen.entityprovider.EntityTypeProvider;
@@ -63,7 +63,7 @@ public class TaiaoConfiguredFeatures {
 			new HiinakiFeatureConfig(
 				new HiinakiFeatureConfig.ContentWeights(5, 4, 1),
 				TaiaoLootTables.HIINAKI_BAIT,
-				EntityTypeProvider.of(TaiaoEntities.EEL)
+				EntityTypeProvider.ofTag(TaiaoEntityTypeTags.HIINAKI_TRAPPED_ENTITIES)
 			)
 		)
 	);

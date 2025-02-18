@@ -7,7 +7,10 @@ package antikyth.taiao.world.gen.entityprovider;
 import antikyth.taiao.registry.TaiaoRegistries;
 import com.mojang.serialization.Codec;
 import net.minecraft.entity.EntityType;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.random.Random;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class EntityTypeProvider {
@@ -18,8 +21,14 @@ public abstract class EntityTypeProvider {
 			EntityTypeProvider.Type::codec
 		);
 
-	public static SimpleEntityTypeProvider of(EntityType<?> entityType) {
+	@Contract("_ -> new")
+	public static @NotNull SimpleEntityTypeProvider of(EntityType<?> entityType) {
 		return new SimpleEntityTypeProvider(entityType);
+	}
+
+	@Contract("_ -> new")
+	public static @NotNull TagEntityTypeProvider ofTag(TagKey<EntityType<?>> tag) {
+		return new TagEntityTypeProvider(tag);
 	}
 
 	/**

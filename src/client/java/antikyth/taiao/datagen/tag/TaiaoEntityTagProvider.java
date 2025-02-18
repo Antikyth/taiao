@@ -32,6 +32,9 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 			.add(TaiaoEntities.EEL);
 
 		// Te Taiao o Aotearoa tags
+		getOrCreateTagBuilder(TaiaoEntityTypeTags.HIINAKI_TRAPPED_ENTITIES)
+			.add(TaiaoEntities.EEL);
+
 		getOrCreateTagBuilder(TaiaoEntityTypeTags.MAMMALIAN_PREDATORS)
 			.add(EntityType.CAT)
 			.add(EntityType.WOLF)
