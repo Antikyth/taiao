@@ -5,13 +5,13 @@
 package antikyth.taiao.entity.goal;
 
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
-import antikyth.taiao.entity.Trappable;
+import antikyth.taiao.entity.HiinakiTrappable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EnterHiinakiGoal<E extends Entity & Trappable> extends Goal {
+public class EnterHiinakiGoal<E extends Entity & HiinakiTrappable> extends Goal {
 	protected final E entity;
 
 	public EnterHiinakiGoal(E entity) {
@@ -45,7 +45,7 @@ public class EnterHiinakiGoal<E extends Entity & Trappable> extends Goal {
 		World world = this.entity.getWorld();
 		BlockPos hiinakiPos = this.entity.getHiinakiPos();
 
-		if (world.getBlockEntity(hiinakiPos) instanceof HiinakiBlockEntity blockEntity) {
+		if (hiinakiPos != null && world.getBlockEntity(hiinakiPos) instanceof HiinakiBlockEntity blockEntity) {
 			blockEntity.trapEntity(this.entity);
 		}
 	}

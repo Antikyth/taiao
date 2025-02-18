@@ -6,7 +6,7 @@ package antikyth.taiao.entity.goal;
 
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
-import antikyth.taiao.entity.Trappable;
+import antikyth.taiao.entity.HiinakiTrappable;
 import antikyth.taiao.world.poi.TaiaoPoiTypeTags;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
@@ -22,7 +22,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class InvestigateHiinakiGoal<E extends PathAwareEntity & Trappable> extends Goal {
+public class InvestigateHiinakiGoal<E extends PathAwareEntity & HiinakiTrappable> extends Goal {
 	protected final E entity;
 
 	protected final float chance;
@@ -68,14 +68,17 @@ public class InvestigateHiinakiGoal<E extends PathAwareEntity & Trappable> exten
 	@Override
 	public void tick() {
 		if (!this.entity.getNavigation().isFollowingPath()) {
-			if (!this.entity.getHiinakiPos().isWithinDistance(this.entity.getBlockPos(), 16)) {
-				this.entity.setHiinakiPos(null);
-			} else {
-				BlockPos hiinakiPos = this.entity.getHiinakiPos();
+			BlockPos hiinakiPos = this.entity.getHiinakiPos();
 
-				this.entity.getNavigation()
-					.startMovingTo(hiinakiPos.getX(), hiinakiPos.getY(), hiinakiPos.getZ(), 1d);
+			if (hiinakiPos != null) {
+				if (!hiinakiPos.isWithinDistance(this.entity.getBlockPos(), 16)) {
+					this.entity.setHiinakiPos(null);
+				} else {
+					this.entity.getNavigation()
+						.startMovingTo(hiinakiPos.getX(), hiinakiPos.getY(), hiinakiPos.getZ(), 1d);
+				}
 			}
+
 		}
 
 		super.tick();

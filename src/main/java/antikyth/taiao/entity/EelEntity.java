@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class EelEntity extends FishEntity implements Trappable {
+public class EelEntity extends FishEntity implements HiinakiTrappable {
 	protected BlockPos hiinakiPos;
 
 	public EelEntity(EntityType<? extends FishEntity> entityType, World world) {
