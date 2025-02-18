@@ -6,6 +6,7 @@ package antikyth.taiao.block.entity;
 
 import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.entity.damage.TaiaoDamageTypes;
+import antikyth.taiao.item.TaiaoItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -85,13 +86,15 @@ public class HiinakiBlockEntity extends BlockEntity {
 
 	/**
 	 * Adds bait to the hīnaki.
+	 * <p>
+	 * Bait is added if there is no bait already in the hīnaki.
 	 *
 	 * @param user the entity adding bait
-	 * @param bait the bait to add
+	 * @param bait the bait to add - must be in {@link TaiaoItemTags#HIINAKI_BAIT}
 	 * @return whether the bait was taken/added
 	 */
 	public boolean addBait(@Nullable Entity user, ItemStack bait) {
-		if (this.bait.isEmpty() && !bait.isEmpty()) {
+		if (this.bait.isEmpty() && !bait.isEmpty() && bait.isIn(TaiaoItemTags.HIINAKI_BAIT)) {
 			this.bait = bait.split(1);
 
 			this.blockChanged(user);

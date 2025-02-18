@@ -9,6 +9,7 @@ import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
+import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.world.gen.feature.config.HiinakiFeatureConfig;
 import antikyth.taiao.world.gen.loot.TaiaoLootContextTypes;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -81,8 +82,14 @@ public class HiinakiFeature extends Feature<HiinakiFeatureConfig> {
 							ObjectArrayList<ItemStack> baitStacks = baitTable.generateLoot(parameters);
 
 							for (ItemStack bait : baitStacks) {
-								if (!blockEntity.addBait(null, bait)) {
+								if (blockEntity.hasBait()) {
 									Taiao.LOGGER.warn("Tried to overfill a generated hīnaki");
+									break;
+								} else if (!blockEntity.addBait(null, bait)) {
+									Taiao.LOGGER.warn(
+										"Tried to put '{}' in a generated hīnaki, but it isn't in the '{}' tag", bait,
+										TaiaoItemTags.HIINAKI_BAIT
+									);
 									break;
 								}
 							}
