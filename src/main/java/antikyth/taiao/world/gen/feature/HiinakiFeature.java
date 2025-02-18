@@ -24,7 +24,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
@@ -39,16 +38,11 @@ public class HiinakiFeature extends Feature<HiinakiFeatureConfig> {
 	public boolean generate(@NotNull FeatureContext<HiinakiFeatureConfig> context) {
 		Random random = context.getRandom();
 		HiinakiFeatureConfig config = context.getConfig();
-		BlockPos origin = context.getOrigin();
 		StructureWorldAccess world = context.getWorld();
 
 		Direction facing = Direction.Type.HORIZONTAL.random(random);
 
-		int x = origin.getX() + (random.nextInt(8) - random.nextInt(8));
-		int z = origin.getZ() + (random.nextInt(8) - random.nextInt(8));
-		int y = world.getTopY(Heightmap.Type.OCEAN_FLOOR, x, z);
-
-		BlockPos frontPos = new BlockPos(x, y, z);
+		BlockPos frontPos = context.getOrigin();
 		BlockPos backPos = frontPos.offset(LongBlockHalf.FRONT.getDirectionTowardsOtherHalf(facing));
 
 		if (
@@ -87,8 +81,6 @@ public class HiinakiFeature extends Feature<HiinakiFeatureConfig> {
 							ObjectArrayList<ItemStack> baitStacks = baitTable.generateLoot(parameters);
 
 							for (ItemStack bait : baitStacks) {
-								Taiao.LOGGER.info("Adding bait '{}'", bait);
-
 								if (!blockEntity.addBait(null, bait)) {
 									Taiao.LOGGER.warn("Tried to overfill a generated hīnaki");
 									break;
