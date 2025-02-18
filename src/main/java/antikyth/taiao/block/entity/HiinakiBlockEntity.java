@@ -116,61 +116,6 @@ public class HiinakiBlockEntity extends BlockEntity {
 	}
 
 	/**
-	 * Returns the yaw in degrees relative to {@link Direction#NORTH}.
-	 * <p>
-	 * This is used for rendering contents and setting the yaw of
-	 * {@linkplain HiinakiBlockEntity#releaseEntity(boolean, boolean) released entities}.
-	 */
-	public float getYaw() {
-		return (-this.getCachedState().get(HiinakiBlock.FACING).asRotation() + 180f) % 360f;
-	}
-
-	/**
-	 * {@return an entity representing the currently trapped entity (only to be used for rendering purposes)}
-	 */
-	public @Nullable Entity getRenderedEntity() {
-		if (this.trappedEntity != null) {
-			if (this.renderedEntity == null) {
-				this.renderedEntity = EntityType.loadEntityWithPassengers(
-					this.trappedEntity.nbt,
-					this.world,
-					Function.identity()
-				);
-			}
-		} else {
-			this.renderedEntity = null;
-		}
-
-		return this.renderedEntity;
-	}
-
-	// This client tick code would be used to age the rendered entity for the purposes of animation. Unfortunately it
-	// has had to be disabled because the animations are super flickery - seemingly the `tickDelta` passed to the
-	// renderer is not the correct `tickDelta` to use for entity animations. It would be nice to fix this in the future,
-	// if possible.
-//	public static void clientTick(
-//		World ignoredWorld,
-//		BlockPos ignoredPos,
-//		BlockState ignoredState,
-//		@NotNull HiinakiBlockEntity blockEntity
-//	) {
-//		if (blockEntity.renderedEntity != null) {
-//			blockEntity.renderedEntity.age++;
-//		}
-//	}
-
-	public static void serverTick(
-		World ignoredWorld,
-		BlockPos ignoredPos,
-		BlockState ignoredState,
-		@NotNull HiinakiBlockEntity blockEntity
-	) {
-		if (blockEntity.trappedEntity != null) {
-			blockEntity.trappedEntity.ticksInHiinaki++;
-		}
-	}
-
-	/**
 	 * Traps a new entity of the given {@code entityType} (if non-null) and if no other entity is currently trapped.
 	 * <p>
 	 * If {@linkplain HiinakiBlockEntity#hasBait() there is currently bait in the hīnaki}, the bait is removed.
@@ -231,7 +176,7 @@ public class HiinakiBlockEntity extends BlockEntity {
 
 			NbtCompound entityNbt = new NbtCompound();
 			entity.saveNbt(entityNbt);
-			this.trappedEntity = new TrappedEntity(entityNbt, 0);
+			this.trappedEntity = new TrappedEntity(entityNbt);
 
 			this.blockChanged(entity);
 
@@ -329,6 +274,61 @@ public class HiinakiBlockEntity extends BlockEntity {
 		}
 	}
 
+	/**
+	 * Returns the yaw in degrees relative to {@link Direction#NORTH}.
+	 * <p>
+	 * This is used for rendering contents and setting the yaw of
+	 * {@linkplain HiinakiBlockEntity#releaseEntity(boolean, boolean) released entities}.
+	 */
+	public float getYaw() {
+		return (-this.getCachedState().get(HiinakiBlock.FACING).asRotation() + 180f) % 360f;
+	}
+
+	/**
+	 * {@return an entity representing the currently trapped entity (only to be used for rendering purposes)}
+	 */
+	public @Nullable Entity getRenderedEntity() {
+		if (this.trappedEntity != null) {
+			if (this.renderedEntity == null) {
+				this.renderedEntity = EntityType.loadEntityWithPassengers(
+					this.trappedEntity.nbt,
+					this.world,
+					Function.identity()
+				);
+			}
+		} else {
+			this.renderedEntity = null;
+		}
+
+		return this.renderedEntity;
+	}
+
+	// This client tick code would be used to age the rendered entity for the purposes of animation. Unfortunately it
+	// has had to be disabled because the animations are super flickery - seemingly the `tickDelta` passed to the
+	// renderer is not the correct `tickDelta` to use for entity animations. It would be nice to fix this in the future,
+	// if possible.
+//	public static void clientTick(
+//		World ignoredWorld,
+//		BlockPos ignoredPos,
+//		BlockState ignoredState,
+//		@NotNull HiinakiBlockEntity blockEntity
+//	) {
+//		if (blockEntity.renderedEntity != null) {
+//			blockEntity.renderedEntity.age++;
+//		}
+//	}
+
+	public static void serverTick(
+		World ignoredWorld,
+		BlockPos ignoredPos,
+		BlockState ignoredState,
+		@NotNull HiinakiBlockEntity blockEntity
+	) {
+		if (blockEntity.trappedEntity != null) {
+			blockEntity.trappedEntity.ticksInHiinaki++;
+		}
+	}
+
 	protected void blockChanged(@Nullable Entity user) {
 		this.markDirty();
 
@@ -403,6 +403,10 @@ public class HiinakiBlockEntity extends BlockEntity {
 	protected static class TrappedEntity {
 		final NbtCompound nbt;
 		int ticksInHiinaki;
+
+		TrappedEntity(@NotNull NbtCompound nbt) {
+			this(nbt, 0);
+		}
 
 		TrappedEntity(@NotNull NbtCompound nbt, int ticksInHiinaki) {
 			nbt.remove("UUID");
