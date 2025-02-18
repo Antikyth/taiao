@@ -33,12 +33,12 @@ public class TaiaoPlacedFeatures {
 	public static final RegistryKey<PlacedFeature> HIINAKI_SWAMP = register(
 		Taiao.id("hiinaki_swamp"),
 		TaiaoConfiguredFeatures.HIINAKI,
-		hiinakiModifiers(RarityFilterPlacementModifier.of(4), 2)
+		hiinakiModifiers(RarityFilterPlacementModifier.of(4), 3)
 	);
 	public static final RegistryKey<PlacedFeature> HIINAKI_RIVER = register(
 		Taiao.id("hiinaki_river"),
 		TaiaoConfiguredFeatures.HIINAKI,
-		hiinakiModifiers(RarityFilterPlacementModifier.of(4), 5)
+		hiinakiModifiers(RarityFilterPlacementModifier.of(4), 7)
 	);
 
 	// Trees
