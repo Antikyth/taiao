@@ -17,11 +17,14 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,13 +37,8 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 
 	@Override
 	public void generate(Consumer<RecipeJsonProvider> exporter) {
-		ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, TaiaoBlocks.HIINAKI)
-			.input('#', TaiaoItemTags.FERNS)
-			.pattern("###")
-			.pattern("# #")
-			.pattern("###")
-			.criterion("has_fern", conditionsFromTag(TaiaoItemTags.FERNS))
-			.offerTo(exporter);
+		offerHiinakiRecipe(exporter, TaiaoItemTags.FERNS);
+		offerHiinakiRecipe(exporter, TaiaoItemTags.CONVENTIONAL_VINES);
 
 		generateFamily(exporter, TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 		// Kauri planks
@@ -140,6 +138,21 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 		CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(input), RecipeCategory.FOOD, output, xp, 200)
 			.criterion(hasItem(input), conditionsFromItem(input))
 			.offerTo(exporter);
+	}
+
+	public static void offerHiinakiRecipe(Consumer<RecipeJsonProvider> exporter, @NotNull TagKey<Item> inputs) {
+		ItemConvertible output = TaiaoBlocks.HIINAKI;
+		Identifier itemId = Registries.ITEM.getId(output.asItem());
+		Identifier tagId = inputs.id();
+		Identifier recipeId = itemId.withPath(path -> path + "_" + tagId.toUnderscoreSeparatedString());
+
+		ShapedRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, output)
+			.input('#', inputs)
+			.pattern("###")
+			.pattern("# #")
+			.pattern("###")
+			.criterion("has_" + tagId.getPath(), conditionsFromTag(inputs))
+			.offerTo(exporter, recipeId);
 	}
 
 	public static void offerChiseledBlockRecipe(
