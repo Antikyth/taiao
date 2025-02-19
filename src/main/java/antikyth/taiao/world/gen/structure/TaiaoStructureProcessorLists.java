@@ -49,7 +49,8 @@ public class TaiaoStructureProcessorLists {
 		new RuleStructureProcessor(
 			ImmutableList.of(
 				new StructureProcessorRule(
-					new BlockMatchRuleTest(Blocks.DIRT_PATH), new BlockMatchRuleTest(Blocks.WATER),
+					new BlockMatchRuleTest(Blocks.DIRT_PATH),
+					new BlockMatchRuleTest(Blocks.WATER),
 					TaiaoBlocks.RIMU_PLANKS.getDefaultState()
 				),
 				new StructureProcessorRule(
@@ -68,16 +69,6 @@ public class TaiaoStructureProcessorLists {
 					new RandomBlockMatchRuleTest(Blocks.DIRT_PATH, 0.1F),
 					AlwaysTrueRuleTest.INSTANCE,
 					Blocks.GRASS_BLOCK.getDefaultState()
-				),
-				new StructureProcessorRule(
-					new BlockMatchRuleTest(Blocks.GRASS_BLOCK),
-					new BlockMatchRuleTest(Blocks.WATER),
-					Blocks.WATER.getDefaultState()
-				),
-				new StructureProcessorRule(
-					new BlockMatchRuleTest(Blocks.DIRT),
-					new BlockMatchRuleTest(Blocks.WATER),
-					Blocks.WATER.getDefaultState()
 				)
 			)
 		)
