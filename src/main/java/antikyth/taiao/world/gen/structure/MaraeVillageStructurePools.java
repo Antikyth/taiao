@@ -178,6 +178,11 @@ public class MaraeVillageStructurePools {
 						), 10
 					),
 					Pair.of(
+						TaiaoStructurePools.createLegacySingleElement(
+							villageId("houses/kaauta_1")
+						), 3
+					),
+					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
 							villageId("houses/small_farm_1"),
 							farmProcessorList
