@@ -140,6 +140,8 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 
 		// Enough room for all 3 parts
 		if (pos.getY() > world.getTopY() - 3) return false;
+		// Lower part is placeable
+		if (!world.getBlockState(pos).isReplaceable()) return false;
 		// Middle part is placeable
 		if (!world.getBlockState(middlePos).isReplaceable()) return false;
 		// Upper part is placeable

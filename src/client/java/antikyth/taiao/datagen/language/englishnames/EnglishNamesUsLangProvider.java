@@ -74,6 +74,11 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		);
 		EnglishUsLangProvider.addEmiLootChestLootTable(
 			builder,
+			TaiaoLootTables.VILLAGE_MARAE_PAA_HARAKEKE_CHEST,
+			"Marae New Zealand Flax Garden Chest"
+		);
+		EnglishUsLangProvider.addEmiLootChestLootTable(
+			builder,
 			TaiaoLootTables.VILLAGE_MARAE_KAAUTA_CHEST,
 			"Marae Outdoor Kitchen Chest"
 		);

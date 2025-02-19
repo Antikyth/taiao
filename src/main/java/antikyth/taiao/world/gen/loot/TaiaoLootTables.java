@@ -157,6 +157,48 @@ public class TaiaoLootTables {
 					)
 			)
 	);
+	public static final Identifier VILLAGE_MARAE_PAA_HARAKEKE_CHEST = registerChest(
+		Taiao.id("chests/village/village_marae_paa_harakeke"),
+		LootTable.builder()
+			.pool(
+				LootPool.builder()
+					.rolls(UniformLootNumberProvider.create(3f, 8f))
+					.with(
+						ItemEntry.builder(TaiaoBlocks.HARAKEKE)
+							.weight(16)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 10f)))
+					)
+					.with(
+						ItemEntry.builder(TaiaoBlocks.HARAKEKE_MAT)
+							.weight(6)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 5f)))
+					)
+					.with(
+						ItemEntry.builder(TaiaoBlocks.RAUPOO)
+							.weight(4)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 7f)))
+					)
+					.with(
+						ItemEntry.builder(TaiaoBlocks.THATCH_ROOF)
+							.weight(2)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(TaiaoBlocks.THATCH_ROOF_TOP)
+							.weight(1)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					// TODO: add tukutuku
+					.with(
+						ItemEntry.builder(Items.EMERALD)
+							.weight(2)
+					)
+					.with(
+						ItemEntry.builder(Items.SHEARS)
+							.weight(3)
+					)
+			)
+	);
 	public static final Identifier VILLAGE_MARAE_KAAUTA_CHEST = registerChest(
 		Taiao.id("chests/village/village_marae_kaauta"),
 		LootTable.builder()

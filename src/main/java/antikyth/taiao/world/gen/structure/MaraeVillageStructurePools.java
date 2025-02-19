@@ -175,7 +175,7 @@ public class MaraeVillageStructurePools {
 					Pair.of(
 						TaiaoStructurePools.createLegacySingleElement(
 							villageId("houses/wharepuni_1")
-						), 10
+						), 12
 					),
 					Pair.of(
 						TaiaoStructurePools.createLegacySingleElement(
@@ -183,10 +183,15 @@ public class MaraeVillageStructurePools {
 						), 3
 					),
 					Pair.of(
+						TaiaoStructurePools.createLegacySingleElement(
+							villageId("houses/paa_harakeke_1")
+						), 3
+					),
+					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
 							villageId("houses/small_farm_1"),
 							farmProcessorList
-						), 4
+						), 5
 					),
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(

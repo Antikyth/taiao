@@ -29,7 +29,7 @@ public class CustomPlacementBlockFeature extends Feature<SimpleBlockFeatureConfi
 		if (state.canPlaceAt(world, pos)) {
 			if (state.getBlock() instanceof CustomPlacementBlock block) {
 				return block.placeAt(world, state, pos, Block.NOTIFY_LISTENERS);
-			} else {
+			} else if (world.getBlockState(pos).isReplaceable()) {
 				world.setBlockState(pos, state, Block.NOTIFY_LISTENERS);
 
 				return true;
