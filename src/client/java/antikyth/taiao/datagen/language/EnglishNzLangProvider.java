@@ -50,15 +50,7 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 
 		// Stats
 		EnglishUsLangProvider.addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Hīnaki Baited");
-		EnglishUsLangProvider.addStat(
-			builder,
-			TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED,
-			"Animals Trapped in a Hīnaki Hurt"
-		);
-		EnglishUsLangProvider.addStat(
-			builder,
-			TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED,
-			"Animals Trapped in a Hīnaki Freed"
-		);
+		EnglishUsLangProvider.addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Hīnaki Used");
+		EnglishUsLangProvider.addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Freed from Hīnaki");
 	}
 }

@@ -288,8 +288,8 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		// Stats
 		addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Eel Traps Baited");
-		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Animals Trapped in an Eel Trap Hurt");
-		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Trapped in an Eel Trap Freed");
+		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Eel Traps Used");
+		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Freed from Eel Traps");
 	}
 
 	public static void addStat(@NotNull TranslationBuilder builder, @NotNull Identifier stat, String name) {
