@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class EelEntity extends FishEntity implements HiinakiTrappable {
+	@Nullable
 	protected BlockPos hiinakiPos;
 
 	public EelEntity(EntityType<? extends FishEntity> entityType, World world) {
@@ -28,17 +29,17 @@ public class EelEntity extends FishEntity implements HiinakiTrappable {
 	protected void initGoals() {
 		super.initGoals();
 
-		this.goalSelector.add(1, new EnterHiinakiGoal<>(this));
-		this.goalSelector.add(3, new InvestigateHiinakiGoal<>(this, 1000, 0.5f));
+		this.goalSelector.add(1, new EnterHiinakiGoal<>(this, 200, 0.4f));
+		this.goalSelector.add(3, new InvestigateHiinakiGoal<>(this, 1000, 0.75f, 32));
 	}
 
 	@Override
-	public void setHiinakiPos(BlockPos hiinakiPos) {
+	public void setHiinakiPos(@Nullable BlockPos hiinakiPos) {
 		this.hiinakiPos = hiinakiPos;
 	}
 
 	@Override
-	public BlockPos getHiinakiPos() {
+	public @Nullable BlockPos getHiinakiPos() {
 		return hiinakiPos;
 	}
 

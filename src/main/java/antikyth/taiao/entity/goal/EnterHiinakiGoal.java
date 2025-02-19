@@ -6,16 +6,26 @@ package antikyth.taiao.entity.goal;
 
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.entity.HiinakiTrappable;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class EnterHiinakiGoal<E extends Entity & HiinakiTrappable> extends Goal {
+public class EnterHiinakiGoal<E extends LivingEntity & HiinakiTrappable> extends Goal {
 	protected final E entity;
 
-	public EnterHiinakiGoal(E entity) {
+	protected final float chance;
+	protected final int maxCooldown;
+	protected int timer;
+
+	public EnterHiinakiGoal(E entity, int maxCooldown, float chance) {
 		this.entity = entity;
+		this.maxCooldown = toGoalTicks(maxCooldown);
+		this.chance = chance;
+	}
+
+	protected void resetTimer() {
+		this.timer = this.entity.getRandom().nextInt(this.maxCooldown);
 	}
 
 	@Override
@@ -24,10 +34,18 @@ public class EnterHiinakiGoal<E extends Entity & HiinakiTrappable> extends Goal 
 
 		if (hiinakiPos != null && hiinakiPos.isWithinDistance(this.entity.getPos(), 2)) {
 			if (this.entity.getWorld().getBlockEntity(hiinakiPos) instanceof HiinakiBlockEntity blockEntity) {
-				if (!blockEntity.hasTrappedEntity() && !blockEntity.isEntranceBlocked()) {
-					return true;
-				} else {
+				if (blockEntity.hasTrappedEntity() || blockEntity.isEntranceBlocked()) {
 					this.entity.setHiinakiPos(null);
+
+					return false;
+				} else if (this.timer > 0) {
+					this.timer--;
+
+					return false;
+				} else {
+					this.resetTimer();
+
+					return this.entity.getRandom().nextFloat() < this.chance;
 				}
 			}
 		}

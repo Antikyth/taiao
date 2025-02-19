@@ -25,24 +25,29 @@ import java.util.stream.Collectors;
 public class InvestigateHiinakiGoal<E extends PathAwareEntity & HiinakiTrappable> extends Goal {
 	protected final E entity;
 
+	protected final int investigationRange;
+
 	protected final float chance;
-	protected final int maxFindHiinakiTime;
+	protected final int maxCooldown;
 	protected int timer;
 
 	/**
 	 * @param maxCooldown the maximum number of ticks before the entity attempts to search for a hīnaki
 	 * @param chance      the chance of the entity beginning its search once the timer reaches zero
 	 */
-	public InvestigateHiinakiGoal(E entity, int maxCooldown, float chance) {
+	public InvestigateHiinakiGoal(E entity, int maxCooldown, float chance, int investigationRange) {
 		this.entity = entity;
-		this.maxFindHiinakiTime = toGoalTicks(maxCooldown);
+
+		this.investigationRange = investigationRange;
+
+		this.maxCooldown = toGoalTicks(maxCooldown);
 		this.chance = chance;
 
 		this.setControls(EnumSet.of(Control.MOVE));
 	}
 
 	protected void resetTimer() {
-		this.timer = this.entity.getRandom().nextInt(maxFindHiinakiTime);
+		this.timer = this.entity.getRandom().nextInt(maxCooldown);
 	}
 
 	@Override
@@ -55,7 +60,7 @@ public class InvestigateHiinakiGoal<E extends PathAwareEntity & HiinakiTrappable
 			this.resetTimer();
 
 			if (this.entity.getRandom().nextFloat() < this.chance) {
-				List<BlockPos> hiinaki = this.getNearbyBaitedHiinaki(16);
+				List<BlockPos> hiinaki = this.getNearbyBaitedHiinaki(this.investigationRange);
 				this.entity.setHiinakiPos(hiinaki.isEmpty() ? null : hiinaki.get(0));
 
 				return this.hasValidTarget();
@@ -71,7 +76,7 @@ public class InvestigateHiinakiGoal<E extends PathAwareEntity & HiinakiTrappable
 			BlockPos hiinakiPos = this.entity.getHiinakiPos();
 
 			if (hiinakiPos != null) {
-				if (!hiinakiPos.isWithinDistance(this.entity.getBlockPos(), 16)) {
+				if (!hiinakiPos.isWithinDistance(this.entity.getBlockPos(), this.investigationRange)) {
 					this.entity.setHiinakiPos(null);
 				} else {
 					this.entity.getNavigation()
