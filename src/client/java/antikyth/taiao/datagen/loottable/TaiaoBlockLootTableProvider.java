@@ -33,6 +33,8 @@ import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+
 public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 	public TaiaoBlockLootTableProvider(FabricDataOutput dataOutput) {
 		super(dataOutput);
@@ -134,6 +136,8 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 		this.addDrop(TaiaoBlocks.STRIPPED_WHEKII_PONGA_WOOD);
 
 		this.addDrop(TaiaoBlocks.HARAKEKE_MAT);
+		this.addDrop(TaiaoBlocks.THATCH_ROOF);
+		this.addDrop(TaiaoBlocks.THATCH_ROOF_TOP);
 
 		this.addDrop(TaiaoBlocks.GIANT_CANE_RUSH, block -> tripleTallPlantDrops(block, Items.WHEAT_SEEDS, 0.125f));
 		this.addDrop(
@@ -146,8 +150,15 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 	public void addDropsForFamily(@NotNull BlockFamily family) {
 		this.addDrop(family.getBaseBlock());
 
-		for (Block block : family.getVariants().values()) {
-			this.addDrop(block);
+		for (Map.Entry<BlockFamily.Variant, Block> entry : family.getVariants().entrySet()) {
+			BlockFamily.Variant variant = entry.getKey();
+			Block block = entry.getValue();
+
+			if (variant == BlockFamily.Variant.DOOR) {
+				this.addDrop(block, this::doorDrops);
+			} else {
+				this.addDrop(block);
+			}
 		}
 	}
 
