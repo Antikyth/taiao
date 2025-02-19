@@ -235,6 +235,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_PAATAKA_KAI_CHEST, "Marae Pātaka Kai Chest");
 		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_PAA_HARAKEKE_CHEST, "Marae Pā Harakeke Chest");
 		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_KAAUTA_CHEST, "Marae Kāuta Chest");
+		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_FISHER_CHEST, "Marae Fisherman's Chest");
 	}
 
 	/**

@@ -184,6 +184,11 @@ public class MaraeVillageStructurePools {
 					),
 					Pair.of(
 						TaiaoStructurePools.createLegacySingleElement(
+							villageId("houses/fisher_whare_1")
+						), 2
+					),
+					Pair.of(
+						TaiaoStructurePools.createLegacySingleElement(
 							villageId("houses/paa_harakeke_1")
 						), 3
 					),
@@ -191,7 +196,7 @@ public class MaraeVillageStructurePools {
 						TaiaoStructurePools.createProcessedLegacySingleElement(
 							villageId("houses/small_farm_1"),
 							farmProcessorList
-						), 5
+						), 6
 					),
 					Pair.of(
 						TaiaoStructurePools.createProcessedLegacySingleElement(
