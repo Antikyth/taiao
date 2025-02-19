@@ -67,5 +67,15 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 			TaiaoLootTables.VILLAGE_MARAE_HOUSE_CHEST,
 			"Marae House Chest"
 		);
+		EnglishUsLangProvider.addEmiLootChestLootTable(
+			builder,
+			TaiaoLootTables.VILLAGE_MARAE_PAATAKA_KAI_CHEST,
+			"Marae Food Pantry Chest"
+		);
+		EnglishUsLangProvider.addEmiLootChestLootTable(
+			builder,
+			TaiaoLootTables.VILLAGE_MARAE_KAAUTA_CHEST,
+			"Marae Outdoor Kitchen Chest"
+		);
 	}
 }

@@ -157,6 +157,57 @@ public class TaiaoLootTables {
 					)
 			)
 	);
+	public static final Identifier VILLAGE_MARAE_KAAUTA_CHEST = registerChest(
+		Taiao.id("chests/village/village_marae_kaauta"),
+		LootTable.builder()
+			.pool(
+				LootPool.builder()
+					.rolls(UniformLootNumberProvider.create(3f, 8f))
+					.with(
+						ItemEntry.builder(Items.CHICKEN)
+							.weight(12)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(Items.COD)
+							.weight(4)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(TaiaoItems.EEL)
+							.weight(4)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(Items.WHEAT)
+							.weight(2)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(Items.POTATO)
+							.weight(2)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(Items.CARROT)
+							.weight(2)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(Items.FEATHER)
+							.weight(3)
+					)
+					.with(
+						ItemEntry.builder(Items.CHARCOAL)
+							.weight(3)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(Items.EMERALD)
+							.weight(1)
+					)
+			)
+	);
 
 	public static void bootstrapChestLootTables(BiConsumer<Identifier, LootTable.Builder> exporter) {
 		Taiao.LOGGER.debug("Registering chest loot tables");
