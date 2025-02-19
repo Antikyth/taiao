@@ -113,6 +113,17 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 		// Harakeke
 		offerCarpetRecipe(exporter, TaiaoBlocks.HARAKEKE_MAT, TaiaoBlocks.HARAKEKE);
 
+		createStairsRecipe(TaiaoBlocks.THATCH_ROOF, Ingredient.ofItems(TaiaoBlocks.RAUPOO))
+			.criterion("has_raupoo", conditionsFromItem(TaiaoBlocks.RAUPOO))
+			.offerTo(exporter);
+		createSlabRecipe(
+			RecipeCategory.BUILDING_BLOCKS,
+			TaiaoBlocks.THATCH_ROOF_TOP,
+			Ingredient.ofItems(TaiaoBlocks.RAUPOO)
+		)
+			.criterion("has_raupoo", conditionsFromItem(TaiaoBlocks.RAUPOO))
+			.offerTo(exporter);
+
 		// Cooking
 		generateCookingRecipes(exporter);
 	}

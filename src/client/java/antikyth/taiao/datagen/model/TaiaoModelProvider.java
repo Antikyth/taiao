@@ -19,6 +19,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.data.client.BlockStateModelGenerator.TintType;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
@@ -169,6 +170,9 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED, false);
 
 		registerHiinaki(generator, TaiaoBlocks.HIINAKI, Taiao.id("hiinaki_front"), Taiao.id("hiinaki_back"));
+
+		registerNorthDefaultHorizontalFacing(generator, TaiaoBlocks.THATCH_ROOF);
+		registerNorthDefaultHorizontalFacing(generator, TaiaoBlocks.THATCH_ROOF_TOP);
 	}
 
 	@Override
@@ -200,6 +204,16 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.EEL_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+	}
+
+	public static void registerNorthDefaultHorizontalFacing(@NotNull BlockStateModelGenerator generator, Block block) {
+		Identifier model = Registries.BLOCK.getId(block).withPath(path -> "block/" + path);
+
+		generator.blockStateCollector.accept(
+			VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, model))
+				.coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
+		);
+		generator.registerParentedItemModel(block, model);
 	}
 
 	public static void registerHiinaki(

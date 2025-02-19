@@ -419,6 +419,15 @@ public class TaiaoBlocks {
 		)
 	).copyFlammable(Blocks.WHITE_CARPET).register(true);
 
+	public static final Block THATCH_ROOF = new Builder(
+		Taiao.id("thatch_roof"),
+		new ThatchRoofBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK))
+	).copyFlammable(Blocks.HAY_BLOCK).register(true);
+	public static final Block THATCH_ROOF_TOP = new Builder(
+		Taiao.id("thatch_roof_top"),
+		new ThatchRoofTopBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK))
+	).copyFlammable(Blocks.HAY_BLOCK).register(true);
+
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registering blocks");
 

@@ -20,6 +20,9 @@ public class EnglishNamesGbLangProvider extends FabricLanguageProvider {
 	@Override
 	public void generateTranslations(@NotNull TranslationBuilder builder) {
 		// Other blocks
+		builder.add(TaiaoBlocks.THATCH_ROOF, "Bulrush Thatched Roof");
+		builder.add(TaiaoBlocks.THATCH_ROOF_TOP, "Bulrush Thatched Roof Top");
+		// Plants
 		builder.add(TaiaoBlocks.RAUPOO, "Bulrush");
 	}
 }

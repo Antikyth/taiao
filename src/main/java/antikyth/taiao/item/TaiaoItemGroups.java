@@ -236,6 +236,8 @@ public class TaiaoItemGroups {
 
 	public static void addOtherBuildingBlocks(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoBlocks.HARAKEKE_MAT);
+		add.accept(TaiaoBlocks.THATCH_ROOF);
+		add.accept(TaiaoBlocks.THATCH_ROOF_TOP);
 	}
 
 	public static void addEntityRelatingBlocks(@NotNull Consumer<ItemConvertible> add) {
