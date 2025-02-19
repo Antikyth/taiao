@@ -32,7 +32,6 @@ public class TaiaoSoundEvents {
 	public static final SoundEvent ENTITY_PUUKEKO_BABY_HURT = register(Taiao.id("entity.puukeko.baby.hurt"));
 	public static final SoundEvent ENTITY_PUUKEKO_ADULT_HURT = register(Taiao.id("entity.puukeko.adult.hurt"));
 
-	public static final SoundEvent ENTITY_EEL_AMBIENT = register(Taiao.id("entity.eel.ambient"));
 	public static final SoundEvent ENTITY_EEL_DEATH = register(Taiao.id("entity.eel.death"));
 	public static final SoundEvent ENTITY_EEL_FLOP = register(Taiao.id("entity.eel.flop"));
 	public static final SoundEvent ENTITY_EEL_HURT = register(Taiao.id("entity.eel.hurt"));

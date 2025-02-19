@@ -180,9 +180,6 @@
     "subtitle": "subtitles.taiao.entity.kaakaapoo.hurt"
   },
 
-  "entity.eel.ambient": {
-    "sounds": []
-  },
   "entity.eel.death": {
     "sounds": [
       "entity/fish/hurt1",

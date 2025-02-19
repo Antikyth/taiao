@@ -44,11 +44,6 @@ public class EelEntity extends FishEntity implements HiinakiTrappable {
 	}
 
 	@Override
-	protected @Nullable SoundEvent getAmbientSound() {
-		return TaiaoSoundEvents.ENTITY_EEL_AMBIENT;
-	}
-
-	@Override
 	protected SoundEvent getFlopSound() {
 		return TaiaoSoundEvents.ENTITY_EEL_FLOP;
 	}
