@@ -8,8 +8,9 @@ import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
-import antikyth.taiao.entity.TaiaoVillagerTypes;
 import antikyth.taiao.entity.spawn.TaiaoSpawnRestrictions;
+import antikyth.taiao.entity.villager.TaiaoTradeOffers;
+import antikyth.taiao.entity.villager.TaiaoVillagerTypes;
 import antikyth.taiao.item.TaiaoBannerPatterns;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
@@ -60,6 +61,7 @@ public class Taiao implements ModInitializer {
 		TaiaoEntities.initialize();
 		TaiaoSpawnRestrictions.initialize();
 		TaiaoVillagerTypes.initialize();
+		TaiaoTradeOffers.initialize();
 		TaiaoBoats.initialize();
 
 		TaiaoFeatures.initialize();

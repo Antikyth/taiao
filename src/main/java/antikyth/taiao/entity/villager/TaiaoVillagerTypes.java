@@ -2,11 +2,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity;
+package antikyth.taiao.entity.villager;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.event.FishermanBoatTradeOfferCallback;
-import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -29,8 +27,6 @@ public class TaiaoVillagerTypes {
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registering villager types");
-
-		FishermanBoatTradeOfferCallback.EVENT.register(builder -> builder.put(MAAORI, TaiaoItems.KAURI_BOAT));
 	}
 
 	/**
