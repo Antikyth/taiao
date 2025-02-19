@@ -7,6 +7,8 @@ package antikyth.taiao.world.gen.loot;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
+import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorLists;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -25,23 +27,19 @@ public class TaiaoLootTables {
 	protected static Map<Identifier, LootTable.Builder> BAIT_LOOT_TABLES = new HashMap<>();
 
 	// TODO: add wētā
+	/**
+	 * The bait used for {@linkplain TaiaoConfiguredFeatures#HIINAKI hīnaki features}.
+	 * <p>
+	 * For the bait put in a marae village fisher hīnaki, see {@link TaiaoStructureProcessorLists#FISHER_MARAE}.
+	 */
 	public static final Identifier HIINAKI_BAIT = registerBait(
 		Taiao.id("bait/hiinaki"),
 		LootTable.builder()
 			.pool(
 				LootPool.builder()
-					.with(
-						ItemEntry.builder(TaiaoItems.EEL)
-							.weight(5)
-					)
-					.with(
-						ItemEntry.builder(Items.CHICKEN)
-							.weight(5)
-					)
-					.with(
-						ItemEntry.builder(Items.FROGSPAWN)
-							.weight(5)
-					)
+					.with(ItemEntry.builder(TaiaoItems.EEL))
+					.with(ItemEntry.builder(Items.CHICKEN))
+					.with(ItemEntry.builder(Items.FROGSPAWN))
 			)
 	);
 

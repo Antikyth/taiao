@@ -6,6 +6,7 @@ package antikyth.taiao.world.gen.structure;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.world.gen.feature.TaiaoPlacedFeatures;
+import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorLists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -47,6 +48,9 @@ public class MaraeVillageStructurePools {
 		);
 		RegistryEntry<StructureProcessorList> streetProcessorList = processorListLookup.getOrThrow(
 			TaiaoStructureProcessorLists.STREET_MARAE
+		);
+		RegistryEntry<StructureProcessorList> fisherProcessorList = processorListLookup.getOrThrow(
+			TaiaoStructureProcessorLists.FISHER_MARAE
 		);
 
 		RegistryEntry<StructurePool> terminatorsPool = poolLookup.getOrThrow(TERMINATORS);
@@ -183,9 +187,10 @@ public class MaraeVillageStructurePools {
 						), 3
 					),
 					Pair.of(
-						TaiaoStructurePools.createLegacySingleElement(
-							villageId("houses/fisher_whare_1")
-						), 2
+						TaiaoStructurePools.createProcessedLegacySingleElement(
+							villageId("houses/fisher_whare_1"),
+							fisherProcessorList
+						), 4
 					),
 					Pair.of(
 						TaiaoStructurePools.createLegacySingleElement(

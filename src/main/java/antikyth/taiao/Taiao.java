@@ -22,6 +22,7 @@ import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.entityprovider.TaiaoEntityTypeProviderTypes;
 import antikyth.taiao.world.gen.feature.TaiaoFeatures;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
+import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorTypes;
 import antikyth.taiao.world.poi.TaiaoPoiTypes;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
@@ -64,10 +65,12 @@ public class Taiao implements ModInitializer {
 		TaiaoTradeOffers.initialize();
 		TaiaoBoats.initialize();
 
-		TaiaoFeatures.initialize();
 		TaiaoEntityTypeProviderTypes.initialize();
-		TaiaoTreePlacers.initialize();
+		TaiaoStructureProcessorTypes.initialize();
 		TaiaoBlockPredicates.initialize();
+		TaiaoTreePlacers.initialize();
+
+		TaiaoFeatures.initialize();
 		TaiaoBiomes.initializeBiolith();
 		TaiaoBiomeModifications.initialize();
 	}

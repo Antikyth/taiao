@@ -33,11 +33,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 public class HiinakiBlockEntity extends BlockEntity {
-	protected static final String BAIT_KEY = "Bait";
-	protected static final String TRAPPED_ENTITY_KEY = "TrappedEntity";
+	public static final String BAIT_KEY = "Bait";
+	public static final String TRAPPED_ENTITY_KEY = "TrappedEntity";
 
-	protected static final String ENTITY_DATA_KEY = "EntityData";
-	protected static final String TICKS_IN_HIINAKI_KEY = "TicksInHiinaki";
+	public static final String ENTITY_DATA_KEY = "EntityData";
+	public static final String TICKS_IN_HIINAKI_KEY = "TicksInHiinaki";
 
 	protected ItemStack bait = ItemStack.EMPTY;
 
