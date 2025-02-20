@@ -301,7 +301,9 @@ public class MaraeVillageStructurePools {
 			PETS,
 			new StructurePool(
 				emptyPool,
-				List.of(), // TODO
+				List.of(
+					Pair.of(TaiaoStructurePools.createLegacySingleElement(villageId("pets/kaakaapoo_1")), 1)
+				),
 				StructurePool.Projection.RIGID
 			)
 		);
