@@ -17,7 +17,7 @@ public abstract class EntityTypeProvider {
 	public static final Codec<EntityTypeProvider> TYPE_CODEC = TaiaoRegistries.ENTITY_TYPE_PROVIDER_TYPE
 		.getCodec()
 		.dispatch(
-			EntityTypeProvider::getType,
+			EntityTypeProvider::getProviderType,
 			EntityTypeProvider.Type::codec
 		);
 
@@ -34,13 +34,12 @@ public abstract class EntityTypeProvider {
 	/**
 	 * {@return the type of this entity type provider}
 	 */
-	protected abstract Type<?> getType();
+	protected abstract Type<?> getProviderType();
 
 	/**
 	 * {@return a provided entity type}
 	 */
 	public abstract @Nullable EntityType<?> get(Random random);
 
-	public record Type<P extends EntityTypeProvider>(Codec<P> codec) {
-	}
+	public record Type<P extends EntityTypeProvider>(Codec<P> codec) {}
 }

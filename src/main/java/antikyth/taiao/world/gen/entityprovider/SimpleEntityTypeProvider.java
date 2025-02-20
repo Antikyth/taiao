@@ -22,7 +22,7 @@ public class SimpleEntityTypeProvider extends EntityTypeProvider {
 	}
 
 	@Override
-	protected Type<?> getType() {
+	protected Type<?> getProviderType() {
 		return TaiaoEntityTypeProviderTypes.SIMPLE;
 	}
 

@@ -15,7 +15,7 @@ public class EmptyEntityTypeProvider extends EntityTypeProvider {
 	public static final Codec<EmptyEntityTypeProvider> CODEC = Codec.unit(INSTANCE);
 
 	@Override
-	protected Type<?> getType() {
+	protected Type<?> getProviderType() {
 		return TaiaoEntityTypeProviderTypes.NONE;
 	}
 

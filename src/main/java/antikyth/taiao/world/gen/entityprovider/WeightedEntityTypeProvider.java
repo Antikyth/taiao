@@ -24,7 +24,7 @@ public class WeightedEntityTypeProvider extends EntityTypeProvider {
 	}
 
 	@Override
-	protected Type<?> getType() {
+	protected Type<?> getProviderType() {
 		return TaiaoEntityTypeProviderTypes.WEIGHTED;
 	}
 

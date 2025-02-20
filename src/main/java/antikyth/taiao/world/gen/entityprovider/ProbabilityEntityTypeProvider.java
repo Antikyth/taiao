@@ -33,7 +33,7 @@ public class ProbabilityEntityTypeProvider extends EntityTypeProvider {
 	}
 
 	@Override
-	protected Type<?> getType() {
+	protected Type<?> getProviderType() {
 		return TaiaoEntityTypeProviderTypes.PROBABILITY;
 	}
 
