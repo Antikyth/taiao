@@ -8,6 +8,7 @@
     "CatSpawnerMixin",
     "FoxEntityMixin",
     "TallPlantBlockMixin",
+    "TemporaryTypeAwareBuyForOneEmeraldFactoryMixin",
     "TradeOffersMixin",
     "WolfEntityMixin"
   ],
