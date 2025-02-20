@@ -50,11 +50,6 @@ public class TaiaoLootTables {
 				LootPool.builder()
 					.rolls(UniformLootNumberProvider.create(3f, 8f))
 					.with(
-						ItemEntry.builder(TaiaoItems.CONIFER_FRUIT)
-							.weight(5)
-							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 10f)))
-					)
-					.with(
 						ItemEntry.builder(TaiaoBlocks.HARAKEKE)
 							.weight(10)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 7f)))
