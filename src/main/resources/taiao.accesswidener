@@ -10,6 +10,9 @@ accessible field net/minecraft/entity/ai/goal/FollowParentGoal animal Lnet/minec
 accessible field net/minecraft/data/server/loottable/EntityLootTableGenerator lootTables Ljava/util/Map;
 accessible method net/minecraft/loot/context/LootContextTypes register (Ljava/lang/String;Ljava/util/function/Consumer;)Lnet/minecraft/loot/context/LootContextType;
 
+accessible method net/minecraft/loot/context/LootContext <init> (Lnet/minecraft/loot/context/LootContextParameterSet;Lnet/minecraft/util/math/random/Random;Lnet/minecraft/loot/LootDataLookup;)V
+accessible method net/minecraft/loot/LootTable generateLoot (Lnet/minecraft/loot/context/LootContext;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
+
 # Biomes
 accessible method net/minecraft/world/biome/OverworldBiomeCreator createBiome (ZFFLnet/minecraft/world/biome/SpawnSettings$Builder;Lnet/minecraft/world/biome/GenerationSettings$LookupBackedBuilder;Lnet/minecraft/sound/MusicSound;)Lnet/minecraft/world/biome/Biome;
 accessible method net/minecraft/world/biome/OverworldBiomeCreator createBiome (ZFFIILjava/lang/Integer;Ljava/lang/Integer;Lnet/minecraft/world/biome/SpawnSettings$Builder;Lnet/minecraft/world/biome/GenerationSettings$LookupBackedBuilder;Lnet/minecraft/sound/MusicSound;)Lnet/minecraft/world/biome/Biome;

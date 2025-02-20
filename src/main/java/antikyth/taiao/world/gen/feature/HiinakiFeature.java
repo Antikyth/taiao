@@ -17,7 +17,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootManager;
 import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.server.world.ServerWorld;
@@ -69,9 +71,8 @@ public class HiinakiFeature extends Feature<HiinakiFeatureConfig> {
 						case BAIT -> {
 							ServerWorld serverWorld = world.toServerWorld();
 
-							LootTable baitTable = serverWorld.getServer()
-								.getLootManager()
-								.getLootTable(config.baitLootTableId());
+							LootManager manager = serverWorld.getServer().getLootManager();
+							LootTable baitTable = manager.getLootTable(config.baitLootTableId());
 
 							LootContextParameterSet parameters = new LootContextParameterSet.Builder(serverWorld)
 								.add(LootContextParameters.ORIGIN, Vec3d.ofCenter(frontPos))
@@ -79,7 +80,14 @@ public class HiinakiFeature extends Feature<HiinakiFeatureConfig> {
 								.add(LootContextParameters.BLOCK_ENTITY, blockEntity)
 								.build(TaiaoLootContextTypes.TRAP_BAIT);
 
-							ObjectArrayList<ItemStack> baitStacks = baitTable.generateLoot(parameters);
+							// FIXME: access wideners are required here to change the random used. is it acceptable to
+							//      : do this for loot tables? necessary to avoid a crash with the random being accessed
+							//      : from multiple threads
+							ObjectArrayList<ItemStack> baitStacks = baitTable.generateLoot(new LootContext(
+								parameters,
+								random,
+								manager
+							));
 
 							for (ItemStack bait : baitStacks) {
 								if (blockEntity.hasBait()) {
