@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.render.model;
 
-import antikyth.taiao.TaiaoClient;
+import antikyth.taiao.Taiao;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
@@ -44,7 +44,7 @@ public class KaakaapooEntityModel<E extends TameableEntity> extends AnimalModel<
 		modelPartData.addChild(
 			"body",
 			ModelPartBuilder.create().uv(0, 0).cuboid(-2.5f, -7.5f, -1f, 7f, 7f, 11f),
-			ModelTransform.of(-1f, 18f, -5f, TaiaoClient.degreesToRadians(-32.5f), 0f, 0f)
+			ModelTransform.of(-1f, 18f, -5f, Taiao.degreesToRadians(-32.5f), 0f, 0f)
 		);
 		modelPartData.addChild(
 			"tail",
@@ -80,18 +80,18 @@ public class KaakaapooEntityModel<E extends TameableEntity> extends AnimalModel<
 			this.head.pivotY = this.head.getDefaultTransform().pivotY + 2f;
 			this.head.pivotZ = this.head.getDefaultTransform().pivotZ - 1f;
 
-			this.body.pitch = TaiaoClient.degreesToRadians(-20f);
+			this.body.pitch = Taiao.degreesToRadians(-20f);
 			this.body.pivotY = this.body.getDefaultTransform().pivotY + 2f;
 
-			this.tail.pitch = TaiaoClient.degreesToRadians(10f);
+			this.tail.pitch = Taiao.degreesToRadians(10f);
 
 			this.leftLeg.pivotZ = this.leftLeg.getDefaultTransform().pivotZ + 1f;
 			this.rightLeg.pivotZ = this.rightLeg.getDefaultTransform().pivotZ + 1f;
 		}
 
 		if (entity.isSleeping()) {
-			this.head.yaw += TaiaoClient.degreesToRadians(115f);
-			this.head.pitch += TaiaoClient.degreesToRadians(20f);
+			this.head.yaw += Taiao.degreesToRadians(115f);
+			this.head.pitch += Taiao.degreesToRadians(20f);
 
 			this.head.pivotY -= 3f;
 			this.head.pivotZ -= 1f;
@@ -108,8 +108,8 @@ public class KaakaapooEntityModel<E extends TameableEntity> extends AnimalModel<
 		float headPitchDegrees
 	) {
 		if (!entity.isSleeping()) {
-			this.head.pitch = TaiaoClient.degreesToRadians(headPitchDegrees);
-			this.head.yaw = TaiaoClient.degreesToRadians(headYawDegrees);
+			this.head.pitch = Taiao.degreesToRadians(headPitchDegrees);
+			this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
 
 			this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
 			this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;

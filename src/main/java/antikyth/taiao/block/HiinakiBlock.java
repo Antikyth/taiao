@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block;
 
+import antikyth.taiao.Taiao;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.entity.HiinakiDummyBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
@@ -20,6 +21,8 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -29,12 +32,15 @@ import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldEvents;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -88,6 +94,71 @@ public class HiinakiBlock extends BlockWithEntity {
 		}
 
 		return world.getBlockEntity(pos);
+	}
+
+	/**
+	 * {@return the offset towards the back of the hīnaki for rendering contents like bait, trapped entities, or particles}
+	 */
+	public static float getContentsOffset() {
+		return 0.675f;
+	}
+
+	/**
+	 * Returns the yaw in degrees relative to {@link Direction#NORTH}.
+	 * <p>
+	 * This is used for rendering contents and setting the yaw of
+	 * {@linkplain HiinakiBlockEntity#releaseEntity(boolean, boolean) released entities}.
+	 */
+	@Contract(pure = true)
+	public static float getYaw(@NotNull Direction facing) {
+		return (-facing.asRotation() + 180f) % 360f;
+	}
+
+	// Spawn bait particles when the trap is active
+	@Override
+	public void randomDisplayTick(
+		@NotNull BlockState state,
+		@NotNull World world,
+		@NotNull BlockPos pos,
+		@NotNull Random random
+	) {
+		// A 1/chanceReciprocal chance to spawn
+		int chanceReciprocal = 5;
+
+		if (random.nextInt(chanceReciprocal) == 0 && world.getBlockEntity(pos) instanceof HiinakiBlockEntity blockEntity) {
+			if (state.get(WATERLOGGED) && blockEntity.hasBait()) {
+				Direction facing = state.get(FACING);
+				Vec3d modelOffset = state.getModelOffset(world, pos);
+				Vec3d offset = new Vec3d(
+					0d,
+					0d,
+					getContentsOffset()
+				).rotateY(Taiao.degreesToRadians(getYaw(facing)));
+
+				double x = pos.getX() + 0.5d + modelOffset.x + offset.x;
+				double y = pos.getY() + 0.5d + modelOffset.y + offset.y;
+				double z = pos.getZ() + 0.5d + modelOffset.z + offset.z;
+
+				int count = random.nextInt(3) + 1;
+				double strength = 0.4d;
+
+				for (int i = 0; i < count; i++) {
+					double xVelocity = ((double) random.nextFloat() - 0.5d) * strength;
+					double yVelocity = ((double) random.nextFloat() - 0.5d) * strength;
+					double zVelocity = ((double) random.nextFloat() - 0.5d) * strength;
+
+					world.addParticle(
+						new ItemStackParticleEffect(ParticleTypes.ITEM, blockEntity.getBait()),
+						x,
+						y,
+						z,
+						xVelocity,
+						yVelocity,
+						zVelocity
+					);
+				}
+			}
+		}
 	}
 
 	@Override

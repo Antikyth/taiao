@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.entity.render;
 
+import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -46,9 +47,9 @@ public class HiinakiBlockEntityRenderer implements BlockEntityRenderer<HiinakiBl
 		// Center of front block
 		matrices.translate(0.5f, 0.4f, 0.5f);
 		// Yaw
-		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(blockEntity.getYaw()));
+		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(HiinakiBlock.getYaw(state.get(HiinakiBlock.FACING))));
 		// Shift towards the back of the hīnaki
-		matrices.translate(0f, 0f, 0.675f);
+		matrices.translate(0f, 0f, HiinakiBlock.getContentsOffset());
 
 		Entity trappedEntity = blockEntity.getRenderedEntity();
 		if (trappedEntity != null) {

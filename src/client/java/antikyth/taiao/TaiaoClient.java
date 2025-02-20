@@ -186,13 +186,6 @@ public class TaiaoClient implements ClientModInitializer {
 	}
 
 	/**
-	 * Converts from degrees to radians; useful for entity models.
-	 */
-	public static float degreesToRadians(float degrees) {
-		return degrees * (float) (Math.PI / 180d);
-	}
-
-	/**
 	 * Returns {@link MutableText} of a description of the given {@code property} and {@code value}.
 	 */
 	public static MutableText propertyText(@NotNull Property<?> property, Comparable<?> value) {

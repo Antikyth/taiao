@@ -41,6 +41,13 @@ public class Taiao implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
+	/**
+	 * Converts from degrees to radians; useful for entity models.
+	 */
+	public static float degreesToRadians(float degrees) {
+		return degrees * (float) (Math.PI / 180d);
+	}
+
 	@Override
 	public void onInitialize() {
 		if (initialized) return;

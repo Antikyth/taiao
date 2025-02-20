@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.render.model;
 
-import antikyth.taiao.TaiaoClient;
+import antikyth.taiao.Taiao;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.EntityModelPartNames;
@@ -108,8 +108,8 @@ public class PuukekoEntityModel<E extends Entity> extends BigLeggedAnimalModel<E
 		float headYawDegrees,
 		float headPitchDegrees
 	) {
-		this.head.pitch = TaiaoClient.degreesToRadians(headPitchDegrees);
-		this.head.yaw = TaiaoClient.degreesToRadians(headYawDegrees);
+		this.head.pitch = Taiao.degreesToRadians(headPitchDegrees);
+		this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
 
 		this.beak.pitch = this.head.pitch;
 		this.beak.yaw = this.head.yaw;

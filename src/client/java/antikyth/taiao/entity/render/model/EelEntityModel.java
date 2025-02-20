@@ -1,6 +1,6 @@
 package antikyth.taiao.entity.render.model;
 
-import antikyth.taiao.TaiaoClient;
+import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.EelEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
@@ -27,30 +27,30 @@ public class EelEntityModel<E extends EelEntity> extends SinglePartEntityModel<E
 			ModelPartBuilder.create().uv(0, 0).cuboid(-1f, 0f, -1f, 2f, 14f, 2f)
 				.uv(12, 0).cuboid(0f, 0f, 1f, 0f, 14f, 2f)
 				.uv(8, 0).cuboid(0f, 0f, -3f, 0f, 14f, 2f),
-			ModelTransform.of(0f, 21f, 0f, TaiaoClient.degreesToRadians(90f), 0f, 0f)
+			ModelTransform.of(0f, 21f, 0f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
 		modelPartData.addChild(
 			"body_front",
 			ModelPartBuilder.create().uv(0, 16).cuboid(-1f, -9f, -1f, 2f, 9f, 2f)
 				.uv(16, 7).cuboid(0f, -7f, 1f, 0f, 7f, 2f),
-			ModelTransform.of(0f, 21f, 0f, TaiaoClient.degreesToRadians(90f), 0f, 0f)
+			ModelTransform.of(0f, 21f, 0f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
 
 		modelPartData.addChild(
 			"pectoral_fin_left",
 			ModelPartBuilder.create().uv(12, 16).cuboid(0f, 0f, -1f, 0f, 3f, 2f),
-			ModelTransform.of(1f, 21f, -9f, TaiaoClient.degreesToRadians(90f), TaiaoClient.degreesToRadians(20f), 0f)
+			ModelTransform.of(1f, 21f, -9f, Taiao.degreesToRadians(90f), Taiao.degreesToRadians(20f), 0f)
 		);
 		modelPartData.addChild(
 			"pectoral_fin_right",
 			ModelPartBuilder.create().uv(8, 16).cuboid(0f, 0f, -1f, 0f, 3f, 2f),
-			ModelTransform.of(-1f, 21f, -9f, TaiaoClient.degreesToRadians(90f), TaiaoClient.degreesToRadians(-20f), 0f)
+			ModelTransform.of(-1f, 21f, -9f, Taiao.degreesToRadians(90f), Taiao.degreesToRadians(-20f), 0f)
 		);
 
 		modelPartData.addChild(
 			"head",
 			ModelPartBuilder.create().uv(16, 0).cuboid(-1f, -5f, -1f, 2f, 5f, 2f),
-			ModelTransform.of(0f, 21f, -9f, TaiaoClient.degreesToRadians(90f), 0f, 0f)
+			ModelTransform.of(0f, 21f, -9f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
 
 		return TexturedModelData.of(modelData, 32, 32);

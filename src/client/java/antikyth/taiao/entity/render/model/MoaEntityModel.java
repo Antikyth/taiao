@@ -4,7 +4,7 @@
 
 package antikyth.taiao.entity.render.model;
 
-import antikyth.taiao.TaiaoClient;
+import antikyth.taiao.Taiao;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
@@ -75,8 +75,8 @@ public class MoaEntityModel<E extends AnimalEntity> extends AnimalModel<E> {
 		headYawDegrees = MathHelper.clamp(headYawDegrees, -30f, 30f);
 		headPitchDegrees = MathHelper.clamp(headPitchDegrees, -25f, 45f);
 
-		this.head.yaw = TaiaoClient.degreesToRadians(headYawDegrees);
-		this.head.pitch = TaiaoClient.degreesToRadians(headPitchDegrees);
+		this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
+		this.head.pitch = Taiao.degreesToRadians(headPitchDegrees);
 
 		this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
 		this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;

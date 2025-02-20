@@ -232,7 +232,7 @@ public class HiinakiBlockEntity extends BlockEntity {
 				double y = pos.getY();
 				double z = (double) pos.getZ() + 0.5d + (forwardOffset * (double) facing.getOffsetZ());
 
-				entity.refreshPositionAndAngles(x, y, z, this.getYaw(), 0f);
+				entity.refreshPositionAndAngles(x, y, z, HiinakiBlock.getYaw(facing), 0f);
 
 				this.blockChanged(entity);
 
@@ -275,16 +275,6 @@ public class HiinakiBlockEntity extends BlockEntity {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * Returns the yaw in degrees relative to {@link Direction#NORTH}.
-	 * <p>
-	 * This is used for rendering contents and setting the yaw of
-	 * {@linkplain HiinakiBlockEntity#releaseEntity(boolean, boolean) released entities}.
-	 */
-	public float getYaw() {
-		return (-this.getCachedState().get(HiinakiBlock.FACING).asRotation() + 180f) % 360f;
 	}
 
 	/**
