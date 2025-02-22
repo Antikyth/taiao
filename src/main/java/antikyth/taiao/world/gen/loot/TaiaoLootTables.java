@@ -5,9 +5,11 @@
 package antikyth.taiao.world.gen.loot;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
+import antikyth.taiao.world.gen.loot.entry.BannerEntry;
 import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorLists;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
@@ -181,7 +183,26 @@ public class TaiaoLootTables {
 							.weight(1)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
 					)
-					// TODO: add tukutuku
+					.with(
+						BannerEntry.builder(TaiaoBanners.KAOKAO_TUKUTUKU)
+							.weight(1)
+							.quality(1)
+					)
+					.with(
+						BannerEntry.builder(TaiaoBanners.POUTAMA_TUKUTUKU_LEFT)
+							.weight(1)
+							.quality(1)
+					)
+					.with(
+						BannerEntry.builder(TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT)
+							.weight(1)
+							.quality(1)
+					)
+					.with(
+						BannerEntry.builder(TaiaoBanners.PAATIKI_TUKUTUKU)
+							.weight(1)
+							.quality(1)
+					)
 					.with(
 						ItemEntry.builder(Items.EMERALD)
 							.weight(2)

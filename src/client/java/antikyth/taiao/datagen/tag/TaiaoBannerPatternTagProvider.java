@@ -4,7 +4,7 @@
 
 package antikyth.taiao.datagen.tag;
 
-import antikyth.taiao.item.TaiaoBannerPatterns;
+import antikyth.taiao.banner.TaiaoBannerPatterns;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.entity.BannerPattern;

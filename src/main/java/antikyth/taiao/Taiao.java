@@ -4,6 +4,7 @@
 
 package antikyth.taiao;
 
+import antikyth.taiao.banner.TaiaoBannerPatterns;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.boat.TaiaoBoats;
@@ -11,7 +12,6 @@ import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.spawn.TaiaoSpawnRestrictions;
 import antikyth.taiao.entity.villager.TaiaoTradeOffers;
 import antikyth.taiao.entity.villager.TaiaoVillagerTypes;
-import antikyth.taiao.item.TaiaoBannerPatterns;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
@@ -22,6 +22,8 @@ import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.entityprovider.TaiaoEntityTypeProviderTypes;
 import antikyth.taiao.world.gen.feature.TaiaoFeatures;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
+import antikyth.taiao.world.gen.loot.TaiaoLootContextTypes;
+import antikyth.taiao.world.gen.loot.entry.TaiaoLootPoolEntryTypes;
 import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorTypes;
 import antikyth.taiao.world.poi.TaiaoPoiTypes;
 import net.fabricmc.api.ModInitializer;
@@ -57,6 +59,9 @@ public class Taiao implements ModInitializer {
 
 		TaiaoStats.initialize();
 		TaiaoSoundEvents.initialize();
+
+		TaiaoLootContextTypes.initialize();
+		TaiaoLootPoolEntryTypes.initialize();
 
 		TaiaoBlocks.initialize();
 		TaiaoPoiTypes.initialize();

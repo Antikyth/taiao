@@ -1,5 +1,9 @@
 accessWidener v2 named
 
+# Banners
+accessible field net/minecraft/block/entity/BannerPattern$Patterns entries Ljava/util/List;
+
+# Entities
 accessible method net/minecraft/entity/LivingEntity applyFoodEffects (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V
 
 # Entity goals

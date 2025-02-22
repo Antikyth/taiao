@@ -7,12 +7,14 @@ package antikyth.taiao.datagen.language;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.TaiaoBuiltinResourcePacks;
 import antikyth.taiao.TriConsumer;
+import antikyth.taiao.banner.Banner;
+import antikyth.taiao.banner.TaiaoBannerPatterns;
+import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.damage.TaiaoDamageTypes;
-import antikyth.taiao.item.TaiaoBannerPatterns;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
@@ -30,7 +32,6 @@ import net.minecraft.data.family.BlockFamily;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
@@ -218,14 +219,14 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_HURT, "Kākāpō hurts");
 
 		// Tukutuku
-		addItemStack(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_LEFT, "Poutama Tukutuku Left");
-		addItemStack(builder, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_RIGHT, "Poutama Tukutuku Right");
+		addBanner(builder, TaiaoBanners.POUTAMA_TUKUTUKU_LEFT, "Poutama Tukutuku Left");
+		addBanner(builder, TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT, "Poutama Tukutuku Right");
 
-		addItemStack(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU, "Pātiki Tukutuku");
-		addItemStack(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_TOP, "Pātiki Tukutuku Top");
-		addItemStack(builder, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_BOTTOM, "Pātiki Tukutuku Bottom");
+		addBanner(builder, TaiaoBanners.PAATIKI_TUKUTUKU, "Pātiki Tukutuku");
+		addBanner(builder, TaiaoBanners.PAATIKI_TUKUTUKU_TOP, "Pātiki Tukutuku Top");
+		addBanner(builder, TaiaoBanners.PAATIKI_TUKUTUKU_BOTTOM, "Pātiki Tukutuku Bottom");
 
-		addItemStack(builder, TaiaoBannerPatterns.KAOKAO_TUKUTUKU, "Kaokao Tukutuku");
+		addBanner(builder, TaiaoBanners.KAOKAO_TUKUTUKU, "Kaokao Tukutuku");
 
 		// Banner patterns
 		addBannerPatterns(builder, EnglishUsLangProvider::addBannerPattern);
@@ -391,13 +392,13 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		builder.add(getDyedTranslation.apply(DyeColor.YELLOW), String.format("Yellow %s", name));
 	}
 
-	public static void addItemStack(TranslationBuilder builder, @NotNull ItemStack stack, String name) {
-		Text displayName = stack.getName();
+	public static void addBanner(TranslationBuilder builder, @NotNull Banner banner, String name) {
+		Text displayName = banner.getCustomName();
 
-		if (displayName.getContent() instanceof TranslatableTextContent translatable) {
+		if (displayName != null && displayName.getContent() instanceof TranslatableTextContent translatable) {
 			builder.add(translatable.getKey(), name);
 		} else {
-			Taiao.LOGGER.warn("Tried to add translation for non-translatable item stack '{}'", displayName.getString());
+			Taiao.LOGGER.warn("Tried to add translation for non-translatable banner");
 		}
 	}
 

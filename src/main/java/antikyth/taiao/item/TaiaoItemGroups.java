@@ -5,6 +5,8 @@
 package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.banner.Banner;
+import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -23,7 +25,7 @@ import java.util.function.Supplier;
 public class TaiaoItemGroups {
 	public static final RegistryKey<ItemGroup> MAIN = registerItemGroup(
 		Taiao.id("item_group"),
-		() -> TaiaoBannerPatterns.KAOKAO_TUKUTUKU
+		TaiaoBanners.KAOKAO_TUKUTUKU::getOrCreateStack
 	);
 
 	public static void initialize() {
@@ -64,7 +66,7 @@ public class TaiaoItemGroups {
 			addWhekiiPongaBuildingBlocks(group::add);
 
 			addOtherBuildingBlocks(group::add);
-			addBanners(group::add);
+			addBanners(banner -> group.add(banner.getOrCreateStack()));
 
 			addEntityRelatingBlocks(group::add);
 
@@ -115,7 +117,7 @@ public class TaiaoItemGroups {
 		// Functional blocks
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(group -> {
 			addEntityRelatingBlocks(item -> group.addBefore(Items.SUSPICIOUS_SAND, item));
-			addBanners(stack -> group.addBefore(Items.SKELETON_SKULL, stack));
+			addBanners(banner -> group.addBefore(Items.SKELETON_SKULL, banner.getOrCreateStack()));
 		});
 	}
 
@@ -276,15 +278,15 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoBlocks.RAUPOO);
 	}
 
-	public static void addBanners(@NotNull Consumer<ItemStack> add) {
-		add.accept(TaiaoBannerPatterns.KAOKAO_TUKUTUKU);
+	public static void addBanners(@NotNull Consumer<Banner> add) {
+		add.accept(TaiaoBanners.KAOKAO_TUKUTUKU);
 
-		add.accept(TaiaoBannerPatterns.POUTAMA_TUKUTUKU_LEFT);
-		add.accept(TaiaoBannerPatterns.POUTAMA_TUKUTUKU_RIGHT);
+		add.accept(TaiaoBanners.POUTAMA_TUKUTUKU_LEFT);
+		add.accept(TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT);
 
-		add.accept(TaiaoBannerPatterns.PAATIKI_TUKUTUKU);
-		add.accept(TaiaoBannerPatterns.PAATIKI_TUKUTUKU_TOP);
-		add.accept(TaiaoBannerPatterns.PAATIKI_TUKUTUKU_BOTTOM);
+		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU);
+		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU_TOP);
+		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU_BOTTOM);
 	}
 
 	/**

@@ -5,9 +5,9 @@
 package antikyth.taiao.entity.villager;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.event.FishermanBoatTradeOfferCallback;
-import antikyth.taiao.item.TaiaoBannerPatterns;
 import antikyth.taiao.item.TaiaoItems;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -86,37 +86,37 @@ public class TaiaoTradeOffers {
 
 	protected static void addTukutukuFactories(@NotNull List<TradeOffers.Factory> factories) {
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBannerPatterns.KAOKAO_TUKUTUKU),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.KAOKAO_TUKUTUKU.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_LEFT),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.POUTAMA_TUKUTUKU_LEFT.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBannerPatterns.POUTAMA_TUKUTUKU_RIGHT),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBannerPatterns.PAATIKI_TUKUTUKU),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUKUTUKU.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_TOP),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUKUTUKU_TOP.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBannerPatterns.PAATIKI_TUKUTUKU_BOTTOM),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUKUTUKU_BOTTOM.getOrCreateStack()),
 			4,
 			12,
 			30
