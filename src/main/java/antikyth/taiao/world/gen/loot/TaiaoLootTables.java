@@ -71,6 +71,7 @@ public class TaiaoLootTables {
 					.with(
 						ItemEntry.builder(Items.EMERALD)
 							.weight(2)
+							.quality(2)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 4f)))
 					)
 					.with(
@@ -111,11 +112,13 @@ public class TaiaoLootTables {
 					.with(
 						ItemEntry.builder(TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG)
 							.weight(2)
+							.quality(1)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 					.with(
 						ItemEntry.builder(TaiaoBlocks.CHISELED_STRIPPED_RIMU_WOOD)
 							.weight(2)
+							.quality(1)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 			)
@@ -206,6 +209,7 @@ public class TaiaoLootTables {
 					.with(
 						ItemEntry.builder(Items.EMERALD)
 							.weight(2)
+							.quality(2)
 					)
 					.with(
 						ItemEntry.builder(Items.SHEARS)
@@ -261,6 +265,7 @@ public class TaiaoLootTables {
 					.with(
 						ItemEntry.builder(Items.EMERALD)
 							.weight(1)
+							.quality(2)
 					)
 			)
 	);
@@ -312,6 +317,7 @@ public class TaiaoLootTables {
 					.with(
 						ItemEntry.builder(Items.EMERALD)
 							.weight(1)
+							.quality(2)
 					)
 			)
 	);
