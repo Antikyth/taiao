@@ -7,6 +7,7 @@ package antikyth.taiao.datagen.loottable;
 import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.plant.TripleBlockPart;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
@@ -27,6 +28,8 @@ import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.ApplyBonusLootFunction;
+import net.minecraft.loot.function.CopyNbtLootFunction;
+import net.minecraft.loot.provider.nbt.ContextLootNbtProvider;
 import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
@@ -42,10 +45,7 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 
 	@Override
 	public void generate() {
-		this.addDrop(
-			TaiaoBlocks.HIINAKI,
-			block -> this.dropsWithProperty(block, HiinakiBlock.HALF, LongBlockHalf.FRONT)
-		);
+		this.addDrop(TaiaoBlocks.HIINAKI, this::hiinakiDrops);
 
 		// Kauri foliage
 		this.addDrop(TaiaoBlocks.KAURI_SAPLING);
@@ -145,6 +145,40 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 			block -> this.dropsWithProperty(block, TallPlantBlock.HALF, DoubleBlockHalf.LOWER)
 		);
 		this.addDrop(TaiaoBlocks.HARAKEKE, block -> tripleTallPlantDrops(block, Items.WHEAT_SEEDS, 0.125f));
+	}
+
+	public LootTable.Builder hiinakiDrops(Block hiinaki) {
+		return LootTable.builder()
+			.pool(
+				this.addSurvivesExplosionCondition(
+					hiinaki,
+					LootPool.builder()
+						.conditionally(
+							BlockStatePropertyLootCondition.builder(hiinaki)
+								.properties(
+									StatePredicate.Builder.create()
+										.exactMatch(HiinakiBlock.HALF, LongBlockHalf.FRONT)
+								)
+						)
+						.with(
+							ItemEntry.builder(hiinaki)
+								.conditionally(WITH_SILK_TOUCH)
+								.apply(
+									CopyNbtLootFunction.builder(ContextLootNbtProvider.BLOCK_ENTITY)
+										.withOperation(
+											HiinakiBlockEntity.BAIT_KEY,
+											"BlockEntityTag." + HiinakiBlockEntity.BAIT_KEY
+										)
+										.withOperation(
+											HiinakiBlockEntity.TRAPPED_ENTITY_KEY,
+											"BlockEntityTag." + HiinakiBlockEntity.TRAPPED_ENTITY_KEY
+										)
+								)
+								// Without silk touch
+								.alternatively(ItemEntry.builder(hiinaki))
+						)
+				)
+			);
 	}
 
 	public void addDropsForFamily(@NotNull BlockFamily family) {

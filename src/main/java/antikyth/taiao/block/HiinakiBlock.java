@@ -15,6 +15,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -369,26 +371,6 @@ public class HiinakiBlock extends BlockWithEntity {
 	}
 
 	@Override
-	public void onStateReplaced(
-		@NotNull BlockState state,
-		World world,
-		BlockPos pos,
-		@NotNull BlockState newState,
-		boolean moved
-	) {
-		if (!newState.isOf(state.getBlock())) {
-			if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
-				// Scatter bait
-				ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), blockEntity.getBait());
-				// Free trapped entity
-				blockEntity.releaseEntity(true, true);
-			}
-
-			super.onStateReplaced(state, world, pos, newState, moved);
-		}
-	}
-
-	@Override
 	public FluidState getFluidState(@NotNull BlockState state) {
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
 	}
@@ -463,6 +445,28 @@ public class HiinakiBlock extends BlockWithEntity {
 		}
 
 		super.onBreak(world, pos, state, player);
+	}
+
+	@Override
+	public void afterBreak(
+		World world,
+		PlayerEntity player,
+		BlockPos pos,
+		BlockState state,
+		@Nullable BlockEntity blockEntity,
+		ItemStack tool
+	) {
+		super.afterBreak(world, player, pos, state, blockEntity, tool);
+
+		if (!world.isClient && blockEntity instanceof HiinakiBlockEntity hiinakiBlockEntity) {
+			// Only drop contents without silk touch, as otherwise the contents will drop with the item
+			if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, tool) == 0) {
+				// Scatter bait
+				ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), hiinakiBlockEntity.getBait());
+				// Free trapped entity
+				hiinakiBlockEntity.releaseEntity(true, true);
+			}
+		}
 	}
 
 	@Override
