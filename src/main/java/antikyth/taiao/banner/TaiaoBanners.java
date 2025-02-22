@@ -14,7 +14,7 @@ public class TaiaoBanners {
 	public static final Banner POUTAMA_TUKUTUKU_LEFT = new Banner(
 		Taiao.id("poutama_tukutuku_left"),
 		Items.BLACK_BANNER,
-		true,
+		false,
 		new BannerPattern.Patterns()
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_SECONDARY, DyeColor.GRAY)
@@ -22,15 +22,16 @@ public class TaiaoBanners {
 	public static final Banner POUTAMA_TUKUTUKU_RIGHT = new Banner(
 		Taiao.id("poutama_tukutuku_right"),
 		Items.BLACK_BANNER,
-		true,
+		false,
 		new BannerPattern.Patterns()
 			.add(TaiaoBannerPatterns.POUTAMA_LEFT_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.POUTAMA_LEFT_SECONDARY, DyeColor.GRAY)
 	);
+
 	public static final Banner PAATIKI_TUKUTUKU = new Banner(
 		Taiao.id("paatiki_tukutuku"),
 		Items.BLACK_BANNER,
-		true,
+		false,
 		new BannerPattern.Patterns()
 			.add(BannerPatterns.HALF_HORIZONTAL_BOTTOM, DyeColor.YELLOW)
 			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
@@ -39,7 +40,7 @@ public class TaiaoBanners {
 	public static final Banner PAATIKI_TUKUTUKU_TOP = new Banner(
 		Taiao.id("paatiki_tukutuku_top"),
 		Items.BLACK_BANNER,
-		true,
+		false,
 		new BannerPattern.Patterns()
 			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.YELLOW)
@@ -47,15 +48,16 @@ public class TaiaoBanners {
 	public static final Banner PAATIKI_TUKUTUKU_BOTTOM = new Banner(
 		Taiao.id("paatiki_tukutuku_bottom"),
 		Items.YELLOW_BANNER,
-		true,
+		false,
 		new BannerPattern.Patterns()
 			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.BLACK)
 	);
+
 	public static final Banner KAOKAO_TUKUTUKU = new Banner(
 		Taiao.id("kaokao_tukutuku"),
 		Items.BLACK_BANNER,
-		true,
+		false,
 		new BannerPattern.Patterns()
 			.add(TaiaoBannerPatterns.KAOKAO_UP_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.KAOKAO_UP_SECONDARY, DyeColor.RED)
