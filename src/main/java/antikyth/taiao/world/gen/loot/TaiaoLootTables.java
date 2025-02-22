@@ -190,21 +190,25 @@ public class TaiaoLootTables {
 						BannerEntry.builder(TaiaoBanners.KAOKAO_TUKUTUKU)
 							.weight(1)
 							.quality(1)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 					.with(
 						BannerEntry.builder(TaiaoBanners.POUTAMA_TUKUTUKU_LEFT)
 							.weight(1)
 							.quality(1)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 					.with(
 						BannerEntry.builder(TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT)
 							.weight(1)
 							.quality(1)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 					.with(
 						BannerEntry.builder(TaiaoBanners.PAATIKI_TUKUTUKU)
 							.weight(1)
 							.quality(1)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
 					.with(
 						ItemEntry.builder(Items.EMERALD)
@@ -214,6 +218,7 @@ public class TaiaoLootTables {
 					.with(
 						ItemEntry.builder(Items.SHEARS)
 							.weight(3)
+							.quality(1)
 					)
 			)
 	);
