@@ -219,12 +219,20 @@ public class HiinakiBlock extends BlockWithEntity {
 		};
 	}
 
-	protected static @Nullable BlockEntity getBlockEntity(BlockView world, BlockPos pos, @NotNull BlockState state) {
+	protected static BlockPos getFront(@NotNull BlockState state, BlockPos pos) {
 		if (state.get(HALF) == LongBlockHalf.BACK) {
-			pos = pos.offset(LongBlockHalf.BACK.getDirectionTowardsOtherHalf(state.get(FACING)));
+			return pos.offset(LongBlockHalf.BACK.getDirectionTowardsOtherHalf(state.get(FACING)));
+		} else {
+			return pos;
 		}
+	}
 
-		return world.getBlockEntity(pos);
+	protected static @Nullable BlockEntity getBlockEntity(
+		@NotNull BlockView world,
+		BlockPos pos,
+		@NotNull BlockState state
+	) {
+		return world.getBlockEntity(getFront(state, pos));
 	}
 
 	/**
@@ -411,9 +419,15 @@ public class HiinakiBlock extends BlockWithEntity {
 	@Override
 	public void onBreak(@NotNull World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		if (!world.isClient) {
-			if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
-				if (blockEntity.hasTrappedEntity()) {
-					player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED);
+			BlockPos frontPos = getFront(state, pos);
+
+			if (world.getBlockEntity(frontPos) instanceof HiinakiBlockEntity blockEntity) {
+				ItemStack tool = player.getMainHandStack();
+
+				// Only drop contents without silk touch or in creative mode, as otherwise the contents will drop with
+				// the item
+				if (player.isCreative() || EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, tool) == 0) {
+					releaseContents(world, player, frontPos, blockEntity);
 				}
 			}
 
@@ -447,25 +461,18 @@ public class HiinakiBlock extends BlockWithEntity {
 		super.onBreak(world, pos, state, player);
 	}
 
-	@Override
-	public void afterBreak(
+	protected static void releaseContents(
 		World world,
 		PlayerEntity player,
-		BlockPos pos,
-		BlockState state,
-		@Nullable BlockEntity blockEntity,
-		ItemStack tool
+		@NotNull BlockPos pos,
+		@NotNull HiinakiBlockEntity blockEntity
 	) {
-		super.afterBreak(world, player, pos, state, blockEntity, tool);
+		// Scatter bait
+		ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), blockEntity.getBait());
 
-		if (!world.isClient && blockEntity instanceof HiinakiBlockEntity hiinakiBlockEntity) {
-			// Only drop contents without silk touch, as otherwise the contents will drop with the item
-			if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, tool) == 0) {
-				// Scatter bait
-				ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), hiinakiBlockEntity.getBait());
-				// Free trapped entity
-				hiinakiBlockEntity.releaseEntity(true, true);
-			}
+		// Free trapped entity
+		if (blockEntity.releaseEntity(true, true) != null) {
+			player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED);
 		}
 	}
 
