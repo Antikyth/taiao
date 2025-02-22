@@ -237,6 +237,22 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_PAA_HARAKEKE_CHEST, "Marae Pā Harakeke Chest");
 		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_KAAUTA_CHEST, "Marae Kāuta Chest");
 		addEmiLootChestLootTable(builder, TaiaoLootTables.VILLAGE_MARAE_FISHER_CHEST, "Marae Fisherman's Chest");
+
+		// Hīnaki descriptions
+		addDescription(builder, TaiaoBlocks.HIINAKI, "hurt1", "Interact:");
+		addDescription(builder, TaiaoBlocks.HIINAKI, "hurt2", "Attacks Trapped Animal");
+
+		addDescription(builder, TaiaoBlocks.HIINAKI, "free1", "Break:");
+		addDescription(builder, TaiaoBlocks.HIINAKI, "free2", "Frees Trapped Animal");
+
+		addDescription(builder, TaiaoBlocks.HIINAKI, "activate1", "Place in Water:");
+		addDescription(builder, TaiaoBlocks.HIINAKI, "activate2", "Attracts Prey");
+
+		addDescription(builder, TaiaoBlocks.HIINAKI, "remove_bait1", "Interact:");
+		addDescription(builder, TaiaoBlocks.HIINAKI, "remove_bait2", "Removes Bait");
+
+		addDescription(builder, TaiaoBlocks.HIINAKI, "add_bait1", "Interact with Bait:");
+		addDescription(builder, TaiaoBlocks.HIINAKI, "add_bait2", "Sets Bait");
 	}
 
 	/**
@@ -296,6 +312,15 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Eel Traps Baited");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Eel Traps Used");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Freed from Eel Traps");
+	}
+
+	public static void addDescription(
+		@NotNull TranslationBuilder builder,
+		@NotNull Block block,
+		String descriptionKey,
+		String text
+	) {
+		builder.add(block.getTranslationKey() + ".desc." + descriptionKey, text);
 	}
 
 	public static void addStat(@NotNull TranslationBuilder builder, @NotNull Identifier stat, String name) {
