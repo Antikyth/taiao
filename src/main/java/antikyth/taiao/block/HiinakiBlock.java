@@ -105,6 +105,7 @@ public class HiinakiBlock extends BlockWithEntity {
 				}
 
 				tooltip.add(ScreenTexts.EMPTY);
+
 				tooltip.add(
 					Text.translatable(this.getTranslationKey() + ".desc.hurt1")
 						.formatted(Formatting.GRAY)
@@ -115,7 +116,6 @@ public class HiinakiBlock extends BlockWithEntity {
 						.formatted(Formatting.BLUE)
 				);
 
-				tooltip.add(ScreenTexts.EMPTY);
 				tooltip.add(
 					Text.translatable(this.getTranslationKey() + ".desc.free1")
 						.formatted(Formatting.GRAY)
@@ -138,6 +138,7 @@ public class HiinakiBlock extends BlockWithEntity {
 				}
 
 				tooltip.add(ScreenTexts.EMPTY);
+
 				tooltip.add(
 					Text.translatable(this.getTranslationKey() + ".desc.activate1")
 						.formatted(Formatting.GRAY)
@@ -148,7 +149,6 @@ public class HiinakiBlock extends BlockWithEntity {
 						.formatted(Formatting.BLUE)
 				);
 
-				tooltip.add(ScreenTexts.EMPTY);
 				tooltip.add(
 					Text.translatable(this.getTranslationKey() + ".desc.remove_bait1")
 						.formatted(Formatting.GRAY)
