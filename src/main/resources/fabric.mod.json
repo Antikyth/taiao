@@ -46,7 +46,8 @@
     "java": ">=17",
     "fabric-api": "*",
     "biolith": "1.0.x",
-    "terraform-wood-api-v1": "7.x"
+    "terraform-wood-api-v1": "7.x",
+    "configurable": "*"
   },
   "suggests": {
     "emi": "*"

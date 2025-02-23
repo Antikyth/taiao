@@ -1,118 +1,122 @@
 //file:noinspection GroovyAssignabilityCheck
 
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT'
-    id 'maven-publish'
+	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'maven-publish'
 }
 
 version = project.mod_version
 group = project.maven_group
 
 base {
-    archivesName = project.archives_base_name
+	archivesName = project.archives_base_name
 }
 
 repositories {
-    maven {
-        name = "TerraformersMC"
-        url = "https://maven.terraformersmc.com/"
-    }
-    maven {
-        name = "Bawnorton"
-        url = "https://maven.bawnorton.com/releases"
-    }
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
+	maven {
+		name = "Bawnorton"
+		url = "https://maven.bawnorton.com/releases"
+	}
 }
 
 dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.minecraft_version}+${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	// To change the versions see the gradle.properties file
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.minecraft_version}+${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Fabric API
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}+${project.minecraft_version}"
+	// Fabric API
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}+${project.minecraft_version}"
 
-    // Mod Menu
-    modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
+	// Mod Menu
+	modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
 
-    // EMI
-    modCompileOnly "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}:api"
-    modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}"
+	// EMI
+	modCompileOnly "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}:api"
+	modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}"
 
-    // Biolith
-    include modImplementation("com.terraformersmc:biolith:${project.biolith_version}") {
-        // Exclude TerraBlender from the development environment (done automatically in Biolith v2+)
-        exclude group: "com.github.glitchfiend"
-    }
+	// Biolith
+	include modImplementation("com.terraformersmc:biolith:${project.biolith_version}") {
+		// Exclude TerraBlender from the development environment (done automatically in Biolith v2+)
+		exclude group: "com.github.glitchfiend"
+	}
 
-    // Terraform wood API (for boats)
-    include modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_version}")
+	// Terraform wood API (for boats)
+	include modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_version}")
 
-    // Configurable
-    modImplementation annotationProcessor("com.bawnorton.configurable:configurable-fabric-yarn:${project.configurable_version}+${project.minecraft_version}")
+	// Configurable
+	include modImplementation(
+		annotationProcessor(
+			"com.bawnorton.configurable:configurable-fabric-yarn:${project.configurable_version}+${project.minecraft_version}"
+		)
+	)
 }
 
 loom {
-    splitEnvironmentSourceSets()
+	splitEnvironmentSourceSets()
 
-    mods {
-        "taiao" {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
-    }
+	mods {
+		"taiao" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
 
-    accessWidenerPath = file("src/main/resources/taiao.accesswidener")
+	accessWidenerPath = file("src/main/resources/taiao.accesswidener")
 }
 
 fabricApi {
-    configureDataGeneration() {
-        client = true
-    }
+	configureDataGeneration() {
+		client = true
+	}
 }
 
 processResources {
-    inputs.property "version", project.version
+	inputs.property "version", project.version
 
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+	it.options.release = 17
 }
 
 java {
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
-    from("LICENSE") {
-        rename { "${it}_${project.base.archivesName.get()}" }
-    }
+	from("LICENSE") {
+		rename { "${it}_${project.base.archivesName.get()}" }
+	}
 }
 
 // configure the maven publication
 publishing {
-    publications {
-        create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name
-            from components.java
-        }
-    }
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
+			from components.java
+		}
+	}
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
-    }
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
 }
