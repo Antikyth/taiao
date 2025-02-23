@@ -5,6 +5,7 @@
 package antikyth.taiao.item;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.banner.TaiaoBannerPatternTags;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
@@ -17,9 +18,18 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoItems {
+	public static final Item KIWI_BANNER_PATTERN = register(
+		Taiao.id("kiwi_banner_pattern"),
+		new BannerPatternItem(
+			TaiaoBannerPatternTags.KIWI_PATTERN_ITEM,
+			new FabricItemSettings().maxCount(1).rarity(Rarity.UNCOMMON)
+		)
+	);
+
 	public static final Item CONIFER_FRUIT = register(
 		Taiao.id("conifer_fruit"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.CONIFER_FRUIT))

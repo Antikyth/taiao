@@ -4,6 +4,7 @@
 
 package antikyth.taiao.datagen.tag;
 
+import antikyth.taiao.banner.TaiaoBannerPatternTags;
 import antikyth.taiao.banner.TaiaoBannerPatterns;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -24,6 +25,9 @@ public class TaiaoBannerPatternTagProvider extends FabricTagProvider<BannerPatte
 
 	@Override
 	protected void configure(RegistryWrapper.WrapperLookup lookup) {
+		getOrCreateTagBuilder(TaiaoBannerPatternTags.KIWI_PATTERN_ITEM)
+			.add(TaiaoBannerPatterns.KIWI);
+
 		getOrCreateTagBuilder(BannerPatternTags.NO_ITEM_REQUIRED)
 			.add(TaiaoBannerPatterns.POUTAMA_LEFT_PRIMARY)
 			.add(TaiaoBannerPatterns.POUTAMA_LEFT_SECONDARY)

@@ -11,6 +11,15 @@ import net.minecraft.item.Items;
 import net.minecraft.util.DyeColor;
 
 public class TaiaoBanners {
+	public static final Banner KIWI_TUKUTUKU = new Banner(
+		Taiao.id("kiwi_tukutuku"),
+		Items.BLACK_BANNER,
+		false,
+		new BannerPattern.Patterns()
+			.add(TaiaoBannerPatterns.KAOKAO_UP_PRIMARY, DyeColor.RED)
+			.add(TaiaoBannerPatterns.KIWI, DyeColor.WHITE)
+	);
+
 	public static final Banner POUTAMA_TUKUTUKU_LEFT = new Banner(
 		Taiao.id("poutama_tukutuku_left"),
 		Items.BLACK_BANNER,

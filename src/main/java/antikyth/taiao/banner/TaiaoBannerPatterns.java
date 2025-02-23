@@ -14,6 +14,11 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBannerPatterns {
+	public static final RegistryKey<BannerPattern> KIWI = register(
+		Taiao.id("kiwi"),
+		Taiao.id("kw")
+	);
+
 	public static final RegistryKey<BannerPattern> POUTAMA_LEFT_PRIMARY = register(
 		Taiao.id("poutama_left_primary"),
 		Taiao.id("lpop")

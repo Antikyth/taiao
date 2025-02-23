@@ -163,6 +163,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		builder.add(TaiaoBlocks.HARAKEKE, "Harakeke");
 
 		// Items
+		addBannerPatternItem(builder, TaiaoItems.KIWI_BANNER_PATTERN, "Kiwi");
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Huarākau");
 
 		// Birds
@@ -219,6 +220,8 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_HURT, "Kākāpō hurts");
 
 		// Tukutuku
+		addBanner(builder, TaiaoBanners.KIWI_TUKUTUKU, "Kiwi Tukutuku");
+
 		addBanner(builder, TaiaoBanners.POUTAMA_TUKUTUKU_LEFT, "Poutama Tukutuku Left");
 		addBanner(builder, TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT, "Poutama Tukutuku Right");
 
@@ -270,6 +273,8 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		TranslationBuilder builder,
 		@NotNull TriConsumer<TranslationBuilder, RegistryKey<BannerPattern>, String> add
 	) {
+		add.accept(builder, TaiaoBannerPatterns.KIWI, "Kiwi");
+
 		add.accept(builder, TaiaoBannerPatterns.POUTAMA_LEFT_PRIMARY, "Poutama");
 		add.accept(builder, TaiaoBannerPatterns.POUTAMA_LEFT_SECONDARY, "Poutama Shifted");
 		add.accept(builder, TaiaoBannerPatterns.POUTAMA_RIGHT_PRIMARY, "Poutama Inverted");
@@ -315,6 +320,17 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Eel Traps Baited");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Eel Traps Used");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Freed from Eel Traps");
+	}
+
+	public static void addBannerPatternItem(
+		@NotNull TranslationBuilder builder,
+		@NotNull Item item,
+		String name
+	) {
+		String translationKey = item.getTranslationKey();
+
+		builder.add(translationKey, "Banner Pattern");
+		builder.add(translationKey + ".desc", name);
 	}
 
 	public static void addDescription(

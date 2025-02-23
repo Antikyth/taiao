@@ -86,6 +86,19 @@ public class TaiaoTradeOffers {
 
 	protected static void addTukutukuFactories(@NotNull List<TradeOffers.Factory> factories) {
 		factories.add(new TypeAwareSellItemFactory(
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, new ItemStack(TaiaoItems.KIWI_BANNER_PATTERN)),
+			6,
+			12,
+			40
+		));
+
+		factories.add(new TypeAwareSellItemFactory(
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.KIWI_TUKUTUKU.getOrCreateStack()),
+			4,
+			12,
+			30
+		));
+		factories.add(new TypeAwareSellItemFactory(
 			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.KAOKAO_TUKUTUKU.getOrCreateStack()),
 			4,
 			12,

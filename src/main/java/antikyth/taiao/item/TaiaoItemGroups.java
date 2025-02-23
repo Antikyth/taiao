@@ -66,6 +66,8 @@ public class TaiaoItemGroups {
 			addWhekiiPongaBuildingBlocks(group::add);
 
 			addOtherBuildingBlocks(group::add);
+
+			addBannerPatterns(group::add);
 			addBanners(banner -> group.add(banner.getOrCreateStack()));
 
 			addEntityRelatingBlocks(group::add);
@@ -119,6 +121,9 @@ public class TaiaoItemGroups {
 			addEntityRelatingBlocks(item -> group.addBefore(Items.SUSPICIOUS_SAND, item));
 			addBanners(banner -> group.addBefore(Items.SKELETON_SKULL, banner.getOrCreateStack()));
 		});
+		// Ingredients
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
+			.register(group -> addBannerPatterns(item -> group.addBefore(Items.ANGLER_POTTERY_SHERD, item)));
 	}
 
 	public static void addLogs(@NotNull Consumer<ItemConvertible> add) {
@@ -279,6 +284,8 @@ public class TaiaoItemGroups {
 	}
 
 	public static void addBanners(@NotNull Consumer<Banner> add) {
+		add.accept(TaiaoBanners.KIWI_TUKUTUKU);
+
 		add.accept(TaiaoBanners.KAOKAO_TUKUTUKU);
 
 		add.accept(TaiaoBanners.POUTAMA_TUKUTUKU_LEFT);
@@ -287,6 +294,10 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU);
 		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU_TOP);
 		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU_BOTTOM);
+	}
+
+	public static void addBannerPatterns(@NotNull Consumer<ItemConvertible> add) {
+		add.accept(TaiaoItems.KIWI_BANNER_PATTERN);
 	}
 
 	/**

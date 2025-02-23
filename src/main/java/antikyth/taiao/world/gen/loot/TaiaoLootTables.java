@@ -121,6 +121,11 @@ public class TaiaoLootTables {
 							.quality(1)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 2f)))
 					)
+					.with(
+						ItemEntry.builder(TaiaoItems.KIWI_BANNER_PATTERN)
+							.weight(2)
+							.quality(2)
+					)
 			)
 	);
 	public static final Identifier VILLAGE_MARAE_PAATAKA_KAI_CHEST = registerChest(
@@ -185,6 +190,16 @@ public class TaiaoLootTables {
 						ItemEntry.builder(TaiaoBlocks.THATCH_ROOF_TOP)
 							.weight(1)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(TaiaoItems.KIWI_BANNER_PATTERN)
+							.weight(3)
+							.quality(2)
+					)
+					.with(
+						BannerEntry.builder(TaiaoBanners.KIWI_TUKUTUKU)
+							.weight(1)
+							.quality(1)
 					)
 					.with(
 						BannerEntry.builder(TaiaoBanners.KAOKAO_TUKUTUKU)
