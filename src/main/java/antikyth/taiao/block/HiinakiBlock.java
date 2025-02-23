@@ -174,6 +174,16 @@ public class HiinakiBlock extends BlockWithEntity {
 				.append(Text.translatable(this.getTranslationKey() + ".desc.add_bait2"))
 				.formatted(Formatting.BLUE)
 		);
+
+		tooltip.add(
+			Text.translatable(this.getTranslationKey() + ".desc.activate_with_bait1")
+				.formatted(Formatting.GRAY)
+		);
+		tooltip.add(
+			ScreenTexts.space()
+				.append(Text.translatable(this.getTranslationKey() + ".desc.activate_with_bait2"))
+				.formatted(Formatting.BLUE)
+		);
 	}
 
 	protected static @Nullable Identifier getTrappedEntityIdForTooltip(@NotNull NbtCompound nbt) {

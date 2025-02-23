@@ -253,6 +253,9 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		addDescription(builder, TaiaoBlocks.HIINAKI, "add_bait1", "Interact with Bait:");
 		addDescription(builder, TaiaoBlocks.HIINAKI, "add_bait2", "Sets Bait");
+
+		addDescription(builder, TaiaoBlocks.HIINAKI, "activate_with_bait1", "Place in Water with Bait:");
+		addDescription(builder, TaiaoBlocks.HIINAKI, "activate_with_bait2", "Attracts Prey");
 	}
 
 	/**
