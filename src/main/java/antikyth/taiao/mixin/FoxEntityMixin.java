@@ -4,6 +4,7 @@
 
 package antikyth.taiao.mixin;
 
+import antikyth.taiao.TaiaoConfig;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
@@ -24,6 +25,8 @@ public class FoxEntityMixin {
 		at = @At("RETURN")
 	)
 	private static boolean addAttackTargets(boolean shouldHunt, @NotNull LivingEntity entity) {
+		if (!TaiaoConfig.mammalianPredatorsHuntNativeAnimals) return shouldHunt;
+
 		EntityType<?> entityType = entity.getType();
 
 		return shouldHunt

@@ -4,6 +4,7 @@
 
 package antikyth.taiao.mixin;
 
+import antikyth.taiao.TaiaoConfig;
 import antikyth.taiao.world.gen.biome.TaiaoBiomeTags;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -37,7 +38,9 @@ public class CatSpawnerMixin {
 		@Nullable EntityType<?> entityType,
 		Operation<Boolean> canSpawn
 	) {
-		return !world.getBiome(pos).isIn(TaiaoBiomeTags.INHIBITS_CAT_SPAWNING)
-			&& canSpawn.call(location, world, pos, entityType);
+		boolean inhibitSpawning = TaiaoConfig.disableCatSpawnsInNativeBiomes
+			&& world.getBiome(pos).isIn(TaiaoBiomeTags.INHIBITS_CAT_SPAWNING);
+
+		return !inhibitSpawning && canSpawn.call(location, world, pos, entityType);
 	}
 }

@@ -17,19 +17,10 @@ repositories {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
     }
-}
-
-loom {
-    splitEnvironmentSourceSets()
-
-    mods {
-        "taiao" {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
+    maven {
+        name = "Bawnorton"
+        url = "https://maven.bawnorton.com/releases"
     }
-
-    accessWidenerPath = file("src/main/resources/taiao.accesswidener")
 }
 
 dependencies {
@@ -56,6 +47,22 @@ dependencies {
 
     // Terraform wood API (for boats)
     include modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_version}")
+
+    // Configurable
+    modImplementation annotationProcessor("com.bawnorton.configurable:configurable-fabric-yarn:${project.configurable_version}+${project.minecraft_version}")
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "taiao" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+
+    accessWidenerPath = file("src/main/resources/taiao.accesswidener")
 }
 
 fabricApi {

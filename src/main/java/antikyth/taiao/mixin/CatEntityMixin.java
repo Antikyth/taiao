@@ -4,6 +4,7 @@
 
 package antikyth.taiao.mixin;
 
+import antikyth.taiao.TaiaoConfig;
 import antikyth.taiao.entity.AustralasianBitternEntity;
 import antikyth.taiao.entity.KaakaapooEntity;
 import antikyth.taiao.entity.KiwiEntity;
@@ -37,21 +38,23 @@ public abstract class CatEntityMixin extends TameableEntity {
 		at = @At("RETURN")
 	)
 	public void addUntamedAttackTargets(CallbackInfo ci) {
-		this.targetSelector.add(
-			1,
-			new UntamedActiveTargetGoal<>(this, KiwiEntity.class, false, LivingEntity::isBaby)
-		);
-		this.targetSelector.add(
-			1,
-			new UntamedActiveTargetGoal<>(this, PuukekoEntity.class, false, LivingEntity::isBaby)
-		);
-		this.targetSelector.add(
-			1,
-			new UntamedActiveTargetGoal<>(this, KaakaapooEntity.class, false, TaiaoEntityPredicates.UNTAMED)
-		);
-		this.targetSelector.add(
-			1,
-			new UntamedActiveTargetGoal<>(this, AustralasianBitternEntity.class, false, LivingEntity::isBaby)
-		);
+		if (TaiaoConfig.mammalianPredatorsHuntNativeAnimals) {
+			this.targetSelector.add(
+				1,
+				new UntamedActiveTargetGoal<>(this, KiwiEntity.class, false, LivingEntity::isBaby)
+			);
+			this.targetSelector.add(
+				1,
+				new UntamedActiveTargetGoal<>(this, PuukekoEntity.class, false, LivingEntity::isBaby)
+			);
+			this.targetSelector.add(
+				1,
+				new UntamedActiveTargetGoal<>(this, KaakaapooEntity.class, false, TaiaoEntityPredicates.UNTAMED)
+			);
+			this.targetSelector.add(
+				1,
+				new UntamedActiveTargetGoal<>(this, AustralasianBitternEntity.class, false, LivingEntity::isBaby)
+			);
+		}
 	}
 }

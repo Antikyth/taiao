@@ -4,6 +4,7 @@
 
 package antikyth.taiao.entity;
 
+import antikyth.taiao.TaiaoConfig;
 import antikyth.taiao.entity.goal.ParentRevengeGoal;
 import antikyth.taiao.entity.goal.ProtectBabiesGoal;
 import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
@@ -70,16 +71,18 @@ public class PuukekoEntity extends AnimalEntity {
 		this.goalSelector.add(7, new LookAroundGoal(this));
 
 		this.targetSelector.add(1, new ParentRevengeGoal(this));
-		this.targetSelector.add(
-			2,
-			new ProtectBabiesGoal<>(
-				this,
-				LivingEntity.class,
-				true,
-				true,
-				TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.PUUKEKO_PREDATORS).and(TaiaoEntityPredicates.UNTAMED)
-			)
-		);
+		if (TaiaoConfig.puukekoAttackPredatorsNearChicks) {
+			this.targetSelector.add(
+				2,
+				new ProtectBabiesGoal<>(
+					this,
+					LivingEntity.class,
+					true,
+					true,
+					TaiaoEntityPredicates.isIn(TaiaoEntityTypeTags.PUUKEKO_PREDATORS).and(TaiaoEntityPredicates.UNTAMED)
+				)
+			);
+		}
 	}
 
 	@Override
