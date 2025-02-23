@@ -71,7 +71,7 @@ public class PuukekoEntity extends AnimalEntity {
 		this.goalSelector.add(7, new LookAroundGoal(this));
 
 		this.targetSelector.add(1, new ParentRevengeGoal(this));
-		if (TaiaoConfig.puukekoAttackPredatorsNearChicks) {
+		if (TaiaoConfig.AnimalBehavior.puukekoAttackPredatorsNearChicks) {
 			this.targetSelector.add(
 				2,
 				new ProtectBabiesGoal<>(

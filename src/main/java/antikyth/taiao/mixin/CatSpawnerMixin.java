@@ -38,7 +38,7 @@ public class CatSpawnerMixin {
 		@Nullable EntityType<?> entityType,
 		Operation<Boolean> canSpawn
 	) {
-		boolean inhibitSpawning = TaiaoConfig.disableCatSpawnsInNativeBiomes
+		boolean inhibitSpawning = TaiaoConfig.SpawnsAndGeneration.disableCatSpawnsInNativeBiomes
 			&& world.getBiome(pos).isIn(TaiaoBiomeTags.INHIBITS_CAT_SPAWNING);
 
 		return !inhibitSpawning && canSpawn.call(location, world, pos, entityType);

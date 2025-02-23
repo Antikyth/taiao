@@ -25,7 +25,7 @@ public class FoxEntityMixin {
 		at = @At("RETURN")
 	)
 	private static boolean addAttackTargets(boolean shouldHunt, @NotNull LivingEntity entity) {
-		if (!TaiaoConfig.mammalianPredatorsHuntNativeAnimals) return shouldHunt;
+		if (!TaiaoConfig.AnimalBehavior.mammalianPredatorsHuntNativeAnimals) return shouldHunt;
 
 		EntityType<?> entityType = entity.getType();
 

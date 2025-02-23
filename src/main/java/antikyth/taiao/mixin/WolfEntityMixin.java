@@ -38,7 +38,7 @@ public abstract class WolfEntityMixin extends TameableEntity {
 		at = @At("RETURN")
 	)
 	public void addUntamedAttackTargets(CallbackInfo ci) {
-		if (TaiaoConfig.mammalianPredatorsHuntNativeAnimals) {
+		if (TaiaoConfig.AnimalBehavior.mammalianPredatorsHuntNativeAnimals) {
 			this.targetSelector.add(
 				6,
 				new UntamedActiveTargetGoal<>(this, KiwiEntity.class, false, null)

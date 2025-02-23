@@ -38,7 +38,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 		at = @At("RETURN")
 	)
 	public void addUntamedAttackTargets(CallbackInfo ci) {
-		if (TaiaoConfig.mammalianPredatorsHuntNativeAnimals) {
+		if (TaiaoConfig.AnimalBehavior.mammalianPredatorsHuntNativeAnimals) {
 			this.targetSelector.add(
 				1,
 				new UntamedActiveTargetGoal<>(this, KiwiEntity.class, false, LivingEntity::isBaby)
