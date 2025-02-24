@@ -73,9 +73,11 @@ public class Taiao implements ModInitializer {
 
 		TaiaoEntities.initialize();
 		TaiaoSpawnRestrictions.initialize();
-		TaiaoVillagerTypes.initialize();
-		TaiaoTradeOffers.initialize();
 		TaiaoBoats.initialize();
+
+		TaiaoVillagerTypes.initialize();
+		TaiaoVillagerTypes.addGatherableItems();
+		TaiaoTradeOffers.initialize();
 
 		TaiaoEntityTypeProviderTypes.initialize();
 		TaiaoStructureProcessorTypes.initialize();

@@ -5,7 +5,13 @@
 package antikyth.taiao.entity.villager;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.event.VillagerGatherableItemsCallback;
+import antikyth.taiao.mixin.VillagerEntityAccessor;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
+import com.google.common.collect.ImmutableSet;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -13,6 +19,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.village.VillagerType;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 public class TaiaoVillagerTypes {
 	/**
@@ -27,6 +36,25 @@ public class TaiaoVillagerTypes {
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registering villager types");
+
+		VillagerGatherableItemsCallback.EVENT.register(builder -> builder.add(TaiaoBlocks.HARAKEKE));
+	}
+
+	public static void addGatherableItems() {
+		Taiao.LOGGER.debug("Adding to the villager GATHERABLE_ITEMS set");
+
+		ImmutableSet.Builder<Item> builder = ImmutableSet.<Item>builder()
+			.addAll(VillagerEntityAccessor.getGatherableItems());
+
+		VillagerGatherableItemsCallback.EVENT.invoker()
+			.addGatherableItems(items -> builder.addAll(
+				Arrays.stream(items)
+					.filter(Objects::nonNull)
+					.map(ItemConvertible::asItem)
+					.iterator()
+			));
+
+		VillagerEntityAccessor.setGatherableItems(builder.build());
 	}
 
 	/**

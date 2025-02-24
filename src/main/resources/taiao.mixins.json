@@ -10,6 +10,7 @@
 		"TallPlantBlockMixin",
 		"TemporaryTypeAwareBuyForOneEmeraldFactoryMixin",
 		"TradeOffersMixin",
+		"VillagerEntityAccessor",
 		"VillagerTaskListProviderMixin",
 		"WolfEntityMixin"
 	],
