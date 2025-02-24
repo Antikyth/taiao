@@ -219,17 +219,17 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_DEATH, "Kākāpō dies");
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KAAKAAPOO_HURT, "Kākāpō hurts");
 
-		// Tukutuku
-		addBanner(builder, TaiaoBanners.KIWI_TUKUTUKU, "Kiwi Tukutuku");
+		// Tupuna tukutuku
+		addBanner(builder, TaiaoBanners.KIWI_TUPUNA_TUKUTUKU, "Kiwi Tupuna Tukutuku");
 
-		addBanner(builder, TaiaoBanners.POUTAMA_TUKUTUKU_LEFT, "Poutama Tukutuku Left");
-		addBanner(builder, TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT, "Poutama Tukutuku Right");
+		addBanner(builder, TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_LEFT, "Poutama Tupuna Tukutuku Left");
+		addBanner(builder, TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_RIGHT, "Poutama Tupuna Tukutuku Right");
 
-		addBanner(builder, TaiaoBanners.PAATIKI_TUKUTUKU, "Pātiki Tukutuku");
-		addBanner(builder, TaiaoBanners.PAATIKI_TUKUTUKU_TOP, "Pātiki Tukutuku Top");
-		addBanner(builder, TaiaoBanners.PAATIKI_TUKUTUKU_BOTTOM, "Pātiki Tukutuku Bottom");
+		addBanner(builder, TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU, "Pātiki Tupuna Tukutuku");
+		addBanner(builder, TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_TOP, "Pātiki Tupuna Tukutuku Top");
+		addBanner(builder, TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_BOTTOM, "Pātiki Tupuna Tukutuku Bottom");
 
-		addBanner(builder, TaiaoBanners.KAOKAO_TUKUTUKU, "Kaokao Tukutuku");
+		addBanner(builder, TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU, "Kaokao Tupuna Tukutuku");
 
 		// Banner patterns
 		addBannerPatterns(builder, EnglishUsLangProvider::addBannerPattern);

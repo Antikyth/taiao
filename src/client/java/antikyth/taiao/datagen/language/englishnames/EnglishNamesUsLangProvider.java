@@ -4,6 +4,7 @@
 
 package antikyth.taiao.datagen.language.englishnames;
 
+import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.datagen.language.EnglishUsLangProvider;
@@ -60,6 +61,38 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		// Biomes
 		EnglishUsLangProvider.addBiome(builder, TaiaoBiomes.NATIVE_FOREST, "New Zealand Native Forest");
 		EnglishUsLangProvider.addBiome(builder, TaiaoBiomes.KAHIKATEA_SWAMP, "New Zealand Kahikatea Swamp");
+
+		// Tukutuku panels
+		EnglishUsLangProvider.addBanner(builder, TaiaoBanners.KIWI_TUPUNA_TUKUTUKU, "Kiwi Tukutuku Panel");
+
+		EnglishUsLangProvider.addBanner(
+			builder,
+			TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_LEFT,
+			"Poutama Tukutuku Panel Left"
+		);
+		EnglishUsLangProvider.addBanner(
+			builder,
+			TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_RIGHT,
+			"Poutama Tukutuku Panel Right"
+		);
+
+		EnglishUsLangProvider.addBanner(
+			builder,
+			TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU,
+			"Pātiki Tukutuku Panel"
+		);
+		EnglishUsLangProvider.addBanner(
+			builder,
+			TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_TOP,
+			"Pātiki Tukutuku Panel Top"
+		);
+		EnglishUsLangProvider.addBanner(
+			builder,
+			TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_BOTTOM,
+			"Pātiki Tukutuku Panel Bottom"
+		);
+
+		EnglishUsLangProvider.addBanner(builder, TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU, "Kaokao Tukutuku Panel");
 
 		// Chest loot tables
 		EnglishUsLangProvider.addEmiLootChestLootTable(

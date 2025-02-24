@@ -11,7 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.DyeColor;
 
 public class TaiaoBanners {
-	public static final Banner KIWI_TUKUTUKU = new Banner(
+	public static final Banner KIWI_TUPUNA_TUKUTUKU = new Banner(
 		Taiao.id("kiwi_tukutuku"),
 		Items.BLACK_BANNER,
 		false,
@@ -20,7 +20,7 @@ public class TaiaoBanners {
 			.add(TaiaoBannerPatterns.KIWI, DyeColor.WHITE)
 	);
 
-	public static final Banner POUTAMA_TUKUTUKU_LEFT = new Banner(
+	public static final Banner POUTAMA_TUPUNA_TUKUTUKU_LEFT = new Banner(
 		Taiao.id("poutama_tukutuku_left"),
 		Items.BLACK_BANNER,
 		false,
@@ -28,7 +28,7 @@ public class TaiaoBanners {
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.POUTAMA_RIGHT_SECONDARY, DyeColor.GRAY)
 	);
-	public static final Banner POUTAMA_TUKUTUKU_RIGHT = new Banner(
+	public static final Banner POUTAMA_TUPUNA_TUKUTUKU_RIGHT = new Banner(
 		Taiao.id("poutama_tukutuku_right"),
 		Items.BLACK_BANNER,
 		false,
@@ -37,7 +37,7 @@ public class TaiaoBanners {
 			.add(TaiaoBannerPatterns.POUTAMA_LEFT_SECONDARY, DyeColor.GRAY)
 	);
 
-	public static final Banner PAATIKI_TUKUTUKU = new Banner(
+	public static final Banner PAATIKI_TUPUNA_TUKUTUKU = new Banner(
 		Taiao.id("paatiki_tukutuku"),
 		Items.BLACK_BANNER,
 		false,
@@ -46,7 +46,7 @@ public class TaiaoBanners {
 			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.YELLOW)
 	);
-	public static final Banner PAATIKI_TUKUTUKU_TOP = new Banner(
+	public static final Banner PAATIKI_TUPUNA_TUKUTUKU_TOP = new Banner(
 		Taiao.id("paatiki_tukutuku_top"),
 		Items.BLACK_BANNER,
 		false,
@@ -54,7 +54,7 @@ public class TaiaoBanners {
 			.add(TaiaoBannerPatterns.PAATIKI_PRIMARY, DyeColor.WHITE)
 			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.YELLOW)
 	);
-	public static final Banner PAATIKI_TUKUTUKU_BOTTOM = new Banner(
+	public static final Banner PAATIKI_TUPUNA_TUKUTUKU_BOTTOM = new Banner(
 		Taiao.id("paatiki_tukutuku_bottom"),
 		Items.YELLOW_BANNER,
 		false,
@@ -63,7 +63,7 @@ public class TaiaoBanners {
 			.add(TaiaoBannerPatterns.PAATIKI_SECONDARY, DyeColor.BLACK)
 	);
 
-	public static final Banner KAOKAO_TUKUTUKU = new Banner(
+	public static final Banner KAOKAO_TUPUNA_TUKUTUKU = new Banner(
 		Taiao.id("kaokao_tukutuku"),
 		Items.BLACK_BANNER,
 		false,

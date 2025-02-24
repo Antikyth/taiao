@@ -93,43 +93,43 @@ public class TaiaoTradeOffers {
 		));
 
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.KIWI_TUKUTUKU.getOrCreateStack()),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.KIWI_TUPUNA_TUKUTUKU.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.KAOKAO_TUKUTUKU.getOrCreateStack()),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.POUTAMA_TUKUTUKU_LEFT.getOrCreateStack()),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_LEFT.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT.getOrCreateStack()),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_RIGHT.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUKUTUKU.getOrCreateStack()),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUKUTUKU_TOP.getOrCreateStack()),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_TOP.getOrCreateStack()),
 			4,
 			12,
 			30
 		));
 		factories.add(new TypeAwareSellItemFactory(
-			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUKUTUKU_BOTTOM.getOrCreateStack()),
+			ImmutableMap.of(TaiaoVillagerTypes.MAAORI, TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_BOTTOM.getOrCreateStack()),
 			4,
 			12,
 			30

@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 public class TaiaoItemGroups {
 	public static final RegistryKey<ItemGroup> MAIN = registerItemGroup(
 		Taiao.id("item_group"),
-		TaiaoBanners.KAOKAO_TUKUTUKU::getOrCreateStack
+		TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU::getOrCreateStack
 	);
 
 	public static void initialize() {
@@ -284,16 +284,16 @@ public class TaiaoItemGroups {
 	}
 
 	public static void addBanners(@NotNull Consumer<Banner> add) {
-		add.accept(TaiaoBanners.KIWI_TUKUTUKU);
+		add.accept(TaiaoBanners.KIWI_TUPUNA_TUKUTUKU);
 
-		add.accept(TaiaoBanners.KAOKAO_TUKUTUKU);
+		add.accept(TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU);
 
-		add.accept(TaiaoBanners.POUTAMA_TUKUTUKU_LEFT);
-		add.accept(TaiaoBanners.POUTAMA_TUKUTUKU_RIGHT);
+		add.accept(TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_LEFT);
+		add.accept(TaiaoBanners.POUTAMA_TUPUNA_TUKUTUKU_RIGHT);
 
-		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU);
-		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU_TOP);
-		add.accept(TaiaoBanners.PAATIKI_TUKUTUKU_BOTTOM);
+		add.accept(TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU);
+		add.accept(TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_TOP);
+		add.accept(TaiaoBanners.PAATIKI_TUPUNA_TUKUTUKU_BOTTOM);
 	}
 
 	public static void addBannerPatterns(@NotNull Consumer<ItemConvertible> add) {
