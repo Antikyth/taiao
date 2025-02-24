@@ -1,10 +1,12 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 name: build
 on: [ pull_request, push ]
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -13,7 +15,6 @@ jobs:
         # Use these Java versions
         java: [
           21,    # Current Java LTS
-          17     # Minecraft minimum supported Java
         ]
     runs-on: ubuntu-22.04
     steps:
@@ -30,12 +31,7 @@ jobs:
 
       - name: Make gradle wrapper executable
         run: chmod +x ./gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Capture build artifacts
-        if: ${{ matrix.java == '21' }} # Only upload artifacts built from latest java
-        uses: actions/upload-artifact@v4
+      - name: Submit Gradle dependency graph
+        uses: gradle/actions/dependency-submission@v4
         with:
-          name: Artifacts
-          path: build/libs/
+          artifact-retention-days: 1
