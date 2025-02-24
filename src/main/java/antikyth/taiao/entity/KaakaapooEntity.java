@@ -4,9 +4,9 @@
 
 package antikyth.taiao.entity;
 
-import antikyth.taiao.entity.goal.*;
-import antikyth.taiao.entity.goal.control.SleepyEntityLookControl;
-import antikyth.taiao.entity.goal.control.SleepyEntityMoveControl;
+import antikyth.taiao.entity.ai.control.SleepyEntityLookControl;
+import antikyth.taiao.entity.ai.control.SleepyEntityMoveControl;
+import antikyth.taiao.entity.ai.goal.*;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;

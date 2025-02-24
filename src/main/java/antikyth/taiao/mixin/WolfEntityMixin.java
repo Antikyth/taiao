@@ -9,7 +9,7 @@ import antikyth.taiao.entity.AustralasianBitternEntity;
 import antikyth.taiao.entity.KaakaapooEntity;
 import antikyth.taiao.entity.KiwiEntity;
 import antikyth.taiao.entity.PuukekoEntity;
-import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
+import antikyth.taiao.entity.ai.goal.TaiaoEntityPredicates;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.UntamedActiveTargetGoal;

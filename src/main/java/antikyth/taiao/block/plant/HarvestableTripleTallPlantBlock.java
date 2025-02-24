@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -102,38 +103,47 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 		ItemStack stack = player.getStackInHand(hand);
 
 		if (state.get(HARVESTABLE) && stack.isIn(ConventionalItemTags.SHEARS)) {
-			world.setBlockState(
-				pos,
-				state.with(HARVESTABLE, false),
-				Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD
-			);
+			harvest(world, pos, state, player);
 
-			// Play shear sound
-			SoundEvent sound = this.getShearSound();
-			if (sound != null) {
-				world.playSound(
-					player,
-					player.getX(),
-					player.getY(),
-					player.getZ(),
-					sound,
-					SoundCategory.BLOCKS,
-					1f,
-					1f
-				);
-			}
-			// Drop harvested items
-			dropHarvest(world, pos);
 			// Damage shears
 			stack.damage(1, player, player_ -> player_.sendToolBreakStatus(hand));
-
-			world.emitGameEvent(player, GameEvent.SHEAR, pos);
 			if (!world.isClient()) player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
 
 			return ActionResult.success(world.isClient);
 		} else {
 			return super.onUse(state, world, pos, player, hand, hit);
 		}
+	}
+
+	public boolean harvest(@NotNull World world, BlockPos pos, @NotNull BlockState state, @Nullable Entity harvester) {
+		if (!state.get(HARVESTABLE)) return false;
+
+		world.setBlockState(
+			pos,
+			state.with(HARVESTABLE, false),
+			Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD
+		);
+
+		// Play shear sound
+		SoundEvent sound = this.getShearSound();
+		if (sound != null) {
+			world.playSound(
+				harvester instanceof PlayerEntity player ? player : null,
+				harvester == null ? pos.getX() : harvester.getX(),
+				harvester == null ? pos.getY() : harvester.getY(),
+				harvester == null ? pos.getZ() : harvester.getZ(),
+				sound,
+				SoundCategory.BLOCKS,
+				1f,
+				1f
+			);
+		}
+		// Drop harvested items
+		dropHarvest(world, pos);
+
+		world.emitGameEvent(harvester, GameEvent.SHEAR, pos);
+
+		return true;
 	}
 
 	@Override

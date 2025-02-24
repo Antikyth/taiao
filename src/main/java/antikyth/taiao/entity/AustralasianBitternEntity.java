@@ -4,8 +4,8 @@
 
 package antikyth.taiao.entity;
 
-import antikyth.taiao.entity.goal.FreezeWhenThreatenedGoal;
-import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
+import antikyth.taiao.entity.ai.goal.FreezeWhenThreatenedGoal;
+import antikyth.taiao.entity.ai.goal.TaiaoEntityPredicates;
 import antikyth.taiao.item.TaiaoItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;

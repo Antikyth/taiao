@@ -5,7 +5,7 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.entity.goal.FreezeWhenThreatenedGoal;
+import antikyth.taiao.entity.ai.goal.FreezeWhenThreatenedGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;

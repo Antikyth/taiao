@@ -6,7 +6,7 @@ package antikyth.taiao.mixin;
 
 import antikyth.taiao.TaiaoConfig;
 import antikyth.taiao.entity.TaiaoEntities;
-import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
+import antikyth.taiao.entity.ai.goal.TaiaoEntityPredicates;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

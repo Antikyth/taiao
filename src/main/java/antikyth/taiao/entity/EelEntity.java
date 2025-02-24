@@ -4,8 +4,8 @@
 
 package antikyth.taiao.entity;
 
-import antikyth.taiao.entity.goal.EnterHiinakiGoal;
-import antikyth.taiao.entity.goal.InvestigateHiinakiGoal;
+import antikyth.taiao.entity.ai.goal.EnterHiinakiGoal;
+import antikyth.taiao.entity.ai.goal.InvestigateHiinakiGoal;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.entity.EntityType;

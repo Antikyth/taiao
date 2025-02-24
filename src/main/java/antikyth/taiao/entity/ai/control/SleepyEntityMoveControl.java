@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.goal.control;
+package antikyth.taiao.entity.ai.control;
 
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.mob.MobEntity;

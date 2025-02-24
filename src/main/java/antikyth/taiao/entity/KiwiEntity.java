@@ -4,12 +4,12 @@
 
 package antikyth.taiao.entity;
 
-import antikyth.taiao.entity.goal.AvoidDaylightGoal;
-import antikyth.taiao.entity.goal.SleepGoal;
-import antikyth.taiao.entity.goal.TaiaoEntityPredicates;
-import antikyth.taiao.entity.goal.WakeAndFollowParentGoal;
-import antikyth.taiao.entity.goal.control.SleepyEntityLookControl;
-import antikyth.taiao.entity.goal.control.SleepyEntityMoveControl;
+import antikyth.taiao.entity.ai.control.SleepyEntityLookControl;
+import antikyth.taiao.entity.ai.control.SleepyEntityMoveControl;
+import antikyth.taiao.entity.ai.goal.AvoidDaylightGoal;
+import antikyth.taiao.entity.ai.goal.SleepGoal;
+import antikyth.taiao.entity.ai.goal.TaiaoEntityPredicates;
+import antikyth.taiao.entity.ai.goal.WakeAndFollowParentGoal;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
