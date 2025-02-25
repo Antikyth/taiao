@@ -6,6 +6,7 @@ package antikyth.taiao.datagen.language.englishnames;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.datagen.language.EnglishUsLangProvider;
+import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.loot.TaiaoLootTables;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import org.jetbrains.annotations.NotNull;
@@ -23,6 +24,10 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Flax Mat");
 		// Plants
 		builder.add(TaiaoBlocks.HARAKEKE, "Flax");
+
+		// Kete
+		builder.add(TaiaoItems.KETE, "Flax Basket");
+		builder.add(TaiaoItems.KETE.getTranslationKey() + ".filled", "Flax Basket of %s");
 
 		// Chest loot tables
 		EnglishUsLangProvider.addEmiLootChestLootTable(
