@@ -25,6 +25,7 @@ import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
@@ -53,6 +54,12 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 
 		// Shearing recipes
 		registry.addRecipe(triplePlantHarvestRecipe(TaiaoBlocks.HARAKEKE, EmiStack.of(TaiaoBlocks.HARAKEKE, 3)));
+
+		// Fertilizing recipes
+		registry.addRecipe(fruitLeavesFertilizeRecipe(TaiaoBlocks.KAHIKATEA_LEAVES));
+		registry.addRecipe(fruitLeavesFertilizeRecipe(TaiaoBlocks.RIMU_LEAVES));
+
+		registry.addRecipe(triplePlantFertilizeRecipe(TaiaoBlocks.HARAKEKE));
 
 		// Stripping recipes
 		for (Map.Entry<Block, Block> entry : Strippable.STRIPPED_BLOCKS.get().entrySet()) {
@@ -86,6 +93,27 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 			.build();
 	}
 
+	protected static EmiRecipe triplePlantFertilizeRecipe(Block block) {
+		return triplePlantFertilizeRecipe(block, EmiStack.of(Items.BONE_MEAL));
+	}
+
+	protected static EmiRecipe triplePlantFertilizeRecipe(Block block, EmiStack fertilizer) {
+		Identifier recipeId = Taiao.id("/world/fertilizing/" + Taiao.toPath(Registries.BLOCK.getId(block)));
+
+		BlockState unharvestedState = block.getDefaultState().with(TaiaoStateProperties.HARVESTABLE, true);
+		BlockState harvestedState = block.getDefaultState().with(TaiaoStateProperties.HARVESTABLE, false);
+
+		TallBlockStatesEmiStack unharvestedStack = tripleTallPlantStack(unharvestedState);
+		TallBlockStatesEmiStack harvestedStack = tripleTallPlantStack(harvestedState);
+
+		return EmiWorldInteractionRecipe.builder()
+			.id(recipeId)
+			.leftInput(harvestedStack)
+			.rightInput(fertilizer, false)
+			.output(unharvestedStack)
+			.build();
+	}
+
 	/**
 	 * Creates a {@linkplain EmiWorldInteractionRecipe world interaction recipe} for stripping the {@code unstripped}
 	 * block into the {@code stripped} one.
@@ -116,6 +144,29 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 			List.of(new BlockStateEmiStack(unharvestedState).showProperties(TaiaoStateProperties.FRUIT)),
 			List.of(output, new BlockStateEmiStack(harvestedState).showProperties(TaiaoStateProperties.FRUIT))
 		);
+	}
+
+	protected static @NotNull EmiRecipe fruitLeavesFertilizeRecipe(Block block) {
+		return fruitLeavesFertilizeRecipe(block, EmiStack.of(Items.BONE_MEAL));
+	}
+
+	protected static @NotNull EmiRecipe fruitLeavesFertilizeRecipe(Block block, EmiStack fertilizer) {
+		Identifier recipeId = Taiao.id("/world/fertilizing/" + Taiao.toPath(Registries.BLOCK.getId(block)));
+
+		BlockState unharvestedState = block.getDefaultState().with(TaiaoStateProperties.FRUIT, true);
+		BlockState harvestedState = block.getDefaultState().with(TaiaoStateProperties.FRUIT, false);
+
+		BlockStateEmiStack unharvestedStack = new BlockStateEmiStack(unharvestedState)
+			.showProperties(TaiaoStateProperties.FRUIT);
+		BlockStateEmiStack harvestedStack = new BlockStateEmiStack(harvestedState)
+			.showProperties(TaiaoStateProperties.FRUIT);
+
+		return EmiWorldInteractionRecipe.builder()
+			.id(recipeId)
+			.leftInput(harvestedStack)
+			.rightInput(fertilizer, false)
+			.output(unharvestedStack)
+			.build();
 	}
 
 	/**
