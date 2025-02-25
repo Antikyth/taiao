@@ -40,6 +40,15 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 		offerHiinakiRecipe(exporter, TaiaoItemTags.FERNS);
 		offerHiinakiRecipe(exporter, TaiaoItemTags.CONVENTIONAL_VINES);
 
+		// Kete
+		ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, TaiaoItems.KETE)
+			.input('#', TaiaoBlocks.HARAKEKE)
+			.pattern("# #")
+			.pattern("###")
+			.pattern("###")
+			.criterion("has_harakeke", conditionsFromItem(TaiaoBlocks.HARAKEKE))
+			.offerTo(exporter);
+
 		generateFamily(exporter, TaiaoBlocks.WoodFamily.KAURI.getBlockFamily());
 		// Kauri planks
 		offerPlanksRecipe(exporter, TaiaoBlocks.KAURI_PLANKS, TaiaoItemTags.KAURI_LOGS, 4);
