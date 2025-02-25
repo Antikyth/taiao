@@ -40,6 +40,11 @@ public class KeteItem extends Item {
 		super(settings);
 	}
 
+	@Override
+	public boolean canBeNested() {
+		return false;
+	}
+
 	/**
 	 * Whether there are any stacks contained within the kete.
 	 */
