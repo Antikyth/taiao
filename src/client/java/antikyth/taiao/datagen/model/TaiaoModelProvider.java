@@ -180,6 +180,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoBlocks.HIINAKI.asItem(), Models.GENERATED);
 		generator.register(TaiaoBlocks.HARAKEKE.asItem(), Models.GENERATED);
 
+		generator.register(TaiaoItems.KETE, Models.GENERATED);
 		generator.register(TaiaoItems.KIWI_BANNER_PATTERN, Models.GENERATED);
 
 		// Fruit

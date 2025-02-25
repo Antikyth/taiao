@@ -70,6 +70,8 @@ public class TaiaoItemGroups {
 			addBannerPatterns(group::add);
 			addBanners(banner -> group.add(banner.getOrCreateStack()));
 
+			// TODO: add to vanilla tabs too
+			group.add(TaiaoItems.KETE);
 			addEntityRelatingBlocks(group::add);
 
 			addTallGroundPlants(group::add);

@@ -46,6 +46,9 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		builder.add(TaiaoBlocks.RAUPOO, "Cattail");
 		builder.add(TaiaoBlocks.HARAKEKE, "New Zealand Flax");
 
+		// Kete
+		builder.add(TaiaoItems.KETE, "Basket");
+		builder.add(TaiaoItems.KETE.getTranslationKey() + ".filled", "Basket of %s");
 		// Items
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Conifer Fruit");
 

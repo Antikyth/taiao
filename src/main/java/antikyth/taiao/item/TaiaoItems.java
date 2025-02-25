@@ -9,6 +9,7 @@ import antikyth.taiao.banner.TaiaoBannerPatternTags;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.item.kete.KeteItem;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -22,6 +23,10 @@ import net.minecraft.util.Rarity;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoItems {
+	public static final Item KETE = register(
+		Taiao.id("kete"),
+		new KeteItem(new FabricItemSettings().maxCount(1))
+	);
 	public static final Item KIWI_BANNER_PATTERN = register(
 		Taiao.id("kiwi_banner_pattern"),
 		new BannerPatternItem(

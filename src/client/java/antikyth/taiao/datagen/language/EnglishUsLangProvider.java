@@ -162,7 +162,11 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		builder.add(TaiaoBlocks.RAUPOO, "Raupō");
 		builder.add(TaiaoBlocks.HARAKEKE, "Harakeke");
 
-		// Items
+		// Kete
+		builder.add(TaiaoItems.KETE, "Kete");
+		builder.add(TaiaoItems.KETE.getTranslationKey() + ".filled", "Kete of %s");
+		builder.add(TaiaoItems.KETE.getTranslationKey() + ".fullness", "%s/%s");
+		// Other items
 		addBannerPatternItem(builder, TaiaoItems.KIWI_BANNER_PATTERN, "Kiwi");
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Huarākau");
 
