@@ -43,8 +43,8 @@ public class TaiaoRecipeProvider extends FabricRecipeProvider {
 		// Kete
 		ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, TaiaoItems.KETE)
 			.input('#', TaiaoBlocks.HARAKEKE)
+			.pattern(" # ")
 			.pattern("# #")
-			.pattern("###")
 			.pattern("###")
 			.criterion("has_harakeke", conditionsFromItem(TaiaoBlocks.HARAKEKE))
 			.offerTo(exporter);
