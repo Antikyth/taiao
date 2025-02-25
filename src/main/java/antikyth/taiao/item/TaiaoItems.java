@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 public class TaiaoItems {
 	public static final Item KETE = register(
 		Taiao.id("kete"),
-		new KeteItem(new FabricItemSettings().maxCount(1))
+		new KeteItem(8, new FabricItemSettings().maxCount(1))
 	);
 	public static final Item KIWI_BANNER_PATTERN = register(
 		Taiao.id("kiwi_banner_pattern"),

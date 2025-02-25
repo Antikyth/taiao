@@ -9,14 +9,12 @@ import net.minecraft.client.item.TooltipData;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ClickType;
@@ -34,10 +32,19 @@ import java.util.stream.Stream;
 public class KeteItem extends Item {
 	protected static final String CONTENTS_KEY = "Contents";
 	protected static final int ITEM_BAR_COLOR = MathHelper.packRgb(0.4F, 0.4F, 1.0F);
-	protected static final int MAX_STACKS = 8;
 
-	public KeteItem(Settings settings) {
+	protected final int maxStacks;
+
+	/**
+	 * Returns a new kete item.
+	 *
+	 * @param maxStacks the maximum number of stacks of a particular item that can be stored in the
+	 *                  kete
+	 */
+	public KeteItem(int maxStacks, Settings settings) {
 		super(settings);
+
+		this.maxStacks = maxStacks;
 	}
 
 	@Override
@@ -62,28 +69,25 @@ public class KeteItem extends Item {
 	}
 
 	/**
-	 * Returns the maximum count within the kete of the current item.
-	 * <p>
-	 * Note that if the kete is empty, {@code 0} is returned, so be careful to check
-	 * {@code !}{@link KeteItem#isEmpty(ItemStack) KeteItem.isEmpty}{@code (kete)} before dividing by the result.
+	 * Returns the maximum count within the kete of the current item, or {@code -1} if empty.
 	 */
-	public static int getMaxCount(@NotNull ItemStack kete) {
+	public int getMaxCount(@NotNull ItemStack kete) {
 		NbtList contents = getContents(kete);
 
 		if (contents == null || contents.isEmpty()) {
-			return 0;
+			return -1;
 		} else {
 			ItemStack firstContentStack = ItemStack.fromNbt(contents.getCompound(0));
 
-			return MAX_STACKS * firstContentStack.getMaxCount();
+			return this.maxStacks * firstContentStack.getMaxCount();
 		}
 	}
 
 	/**
 	 * Returns {@link KeteItem#getMaxCount(ItemStack)} - {@link KeteItem#getCount(ItemStack)}.
 	 */
-	public static int getAvailableSpace(@NotNull ItemStack kete) {
-		return getMaxCount(kete) - getCount(kete);
+	public int getAvailableSpace(@NotNull ItemStack kete) {
+		return this.getMaxCount(kete) - getCount(kete);
 	}
 
 	@Override
@@ -99,7 +103,7 @@ public class KeteItem extends Item {
 		}
 	}
 
-	public static int addToKete(@NotNull ItemStack kete, @NotNull ItemStack stack) {
+	public int addToKete(@NotNull ItemStack kete, @NotNull ItemStack stack) {
 		if (!stack.isEmpty() && stack.getItem().canBeNested()) {
 			NbtList contents = getContents(kete);
 
@@ -142,7 +146,7 @@ public class KeteItem extends Item {
 					}
 
 					// If there are still items left to insert, then we add a new stack if possible.
-					if (!stack.isEmpty() && contents.size() < MAX_STACKS) {
+					if (!stack.isEmpty() && contents.size() < this.maxStacks) {
 						NbtCompound contentNbt = new NbtCompound();
 						ItemStack insertStack = stack.copyAndEmpty();
 						insertStack.writeNbt(contentNbt);
@@ -183,44 +187,52 @@ public class KeteItem extends Item {
 		ItemStack kete = context.getStack();
 		NbtList contents = getContents(kete);
 
-		if (contents == null || contents.isEmpty()) {
-			return ActionResult.PASS;
-		} else {
+		if (contents != null && !contents.isEmpty()) {
 			NbtCompound lastNbt = contents.getCompound(contents.size() - 1);
 			ItemStack lastStack = ItemStack.fromNbt(lastNbt);
 
-			// Create a context for the content stack to use
-			BlockHitResult hit = new BlockHitResult(
-				context.getHitPos(),
-				context.getSide(),
-				context.getBlockPos(),
-				context.hitsInsideBlock()
-			);
-			ItemUsageContext contentContext = new ItemUsageContext(
-				context.getWorld(),
-				context.getPlayer(),
-				context.getHand(),
-				lastStack,
-				hit
-			);
+			if (lastStack.getItem() instanceof BlockItem block) {
+				PlayerEntity player = context.getPlayer();
 
-			// Use the contents on the block
-			ActionResult result = lastStack.useOnBlock(contentContext);
+				// Create a context for the content stack to use
+				BlockHitResult hit = new BlockHitResult(
+					context.getHitPos(),
+					context.getSide(),
+					context.getBlockPos(),
+					context.hitsInsideBlock()
+				);
+				ItemPlacementContext placementContext = new ItemPlacementContext(
+					context.getWorld(),
+					player,
+					context.getHand(),
+					lastStack,
+					hit
+				);
 
-			if (lastStack.isEmpty()) {
-				// If empty, remove from kete
-				contents.remove(contents.size() - 1);
+				// Use the contents on the block
+				ActionResult result = block.place(placementContext);
 
-				if (contents.isEmpty()) {
-					kete.getOrCreateNbt().remove(CONTENTS_KEY);
+				if (result.shouldIncrementStat() && player != null) {
+					player.incrementStat(Stats.USED.getOrCreateStat(this));
 				}
-			} else {
-				// Write any changes to the contents, e.g. count decrement
-				lastStack.writeNbt(lastNbt);
-			}
 
-			return result;
+				if (lastStack.isEmpty()) {
+					// If empty, remove from kete
+					contents.remove(contents.size() - 1);
+
+					if (contents.isEmpty()) {
+						kete.getOrCreateNbt().remove(CONTENTS_KEY);
+					}
+				} else {
+					// Write any changes to the contents, e.g. count decrement
+					lastStack.writeNbt(lastNbt);
+				}
+
+				return result;
+			}
 		}
+
+		return ActionResult.PASS;
 	}
 
 	// On clicked with another stack
@@ -240,18 +252,20 @@ public class KeteItem extends Item {
 				if (removedStack != null) {
 					// TODO: play remove sound
 					cursorStackReference.set(removedStack);
+
+					return true;
 				}
 
 			} else {
-				int count = addToKete(kete, stack);
+				// TODO: play add sound
 
-				if (count > 0) {
-					// TODO: play add sound
-					stack.decrement(count);
-				}
+				addToKete(kete, stack);
+
+				// Returns true whether successful or not, as we don't want to fall through to other
+				// behavior, considering the player probably expected this to work, and did not
+				// expect any other behavior to take place.
+				return true;
 			}
-
-			return true;
 		}
 
 		return false;
@@ -274,7 +288,17 @@ public class KeteItem extends Item {
 				}
 			} else {
 				// TODO: play insert sound if > 0
-				addToKete(kete, slot.takeStackRange(stack.getCount(), getAvailableSpace(kete), player));
+
+				int availableSpace = this.getAvailableSpace(kete);
+				ItemStack taken = slot.takeStackRange(
+					stack.getCount(),
+					availableSpace < 0 ? stack.getCount() : availableSpace,
+					player
+				);
+
+				addToKete(kete, taken);
+				// Put back any remaining items
+				slot.insertStack(taken);
 			}
 
 			return true;
@@ -302,7 +326,7 @@ public class KeteItem extends Item {
 			tooltip.add(
 				Text.translatable(
 					this.getTranslationKey() + ".fullness",
-					getCount(kete), getMaxCount(kete)
+					getCount(kete), this.getMaxCount(kete)
 				).formatted(Formatting.GRAY)
 			);
 		}
@@ -332,7 +356,7 @@ public class KeteItem extends Item {
 	@Override
 	public int getItemBarStep(@NotNull ItemStack kete) {
 		int barWidth = 12;
-		return Math.min(barWidth * getCount(kete) / getMaxCount(kete), barWidth) + 1;
+		return Math.min(barWidth * getCount(kete) / this.getMaxCount(kete), barWidth) + 1;
 	}
 
 	@Override

@@ -38,14 +38,14 @@ public class AddKeteContentsLootFunction extends ConditionalLootFunction {
 
 	@Override
 	protected ItemStack process(@NotNull ItemStack kete, LootContext context) {
-		if (kete.isEmpty()) return kete;
+		if (!kete.isEmpty() && kete.getItem() instanceof KeteItem keteItem) {
+			DefaultedList<ItemStack> stacks = DefaultedList.of();
+			this.pool.addGeneratedLoot(LootTable.processStacks(context.getWorld(), stacks::add), context);
 
-		DefaultedList<ItemStack> stacks = DefaultedList.of();
-		this.pool.addGeneratedLoot(LootTable.processStacks(context.getWorld(), stacks::add), context);
-
-		for (ItemStack stack : stacks) {
-			if (!stack.isEmpty() && KeteItem.addToKete(kete, stack) <= 0) {
-				Taiao.LOGGER.warn("Tried to overfill a kete");
+			for (ItemStack stack : stacks) {
+				if (!stack.isEmpty() && keteItem.addToKete(kete, stack) <= 0) {
+					Taiao.LOGGER.warn("Tried to overfill a kete");
+				}
 			}
 		}
 
