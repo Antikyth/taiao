@@ -160,6 +160,12 @@ public class TaiaoItems {
 			0.85f,
 			TaiaoBlocks.HARAKEKE
 		);
+
+		// Items made of harakeke (not adding kete as it would destroy its contents)
+		registerComposting(
+			0.5f,
+			TaiaoBlocks.HARAKEKE_MAT
+		);
 	}
 
 	/**
