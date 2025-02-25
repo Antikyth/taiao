@@ -13,26 +13,28 @@ import net.minecraft.item.ItemStack;
 public class KeteTooltipComponent implements TooltipComponent {
 	protected static final int SLOT_SIZE = 16;
 
-	protected final KeteTooltipData data;
+	protected final ItemStack contents;
 
 	public KeteTooltipComponent(KeteTooltipData data) {
-		this.data = data;
+		this(data.contents());
+	}
+
+	public KeteTooltipComponent(ItemStack contents) {
+		this.contents = contents;
 	}
 
 	@Override
 	public int getWidth(TextRenderer textRenderer) {
-		return this.data.isEmpty() ? 0 : SLOT_SIZE;
+		return SLOT_SIZE;
 	}
 
 	@Override
 	public int getHeight() {
-		return this.data.isEmpty() ? 0 : SLOT_SIZE + 4;
+		return SLOT_SIZE + 4;
 	}
 
 	@Override
 	public void drawItems(TextRenderer textRenderer, int x, int y, DrawContext context) {
-		ItemStack contents = this.data.contents();
-
-		if (!contents.isEmpty()) context.drawItem(contents, x, y, 0);
+		context.drawItem(this.contents, x, y, 0);
 	}
 }

@@ -7,16 +7,4 @@ package antikyth.taiao.item.kete;
 import net.minecraft.client.item.TooltipData;
 import net.minecraft.item.ItemStack;
 
-public record KeteTooltipData(ItemStack contents) implements TooltipData {
-	public int getCount() {
-		return this.contents.getCount();
-	}
-
-	public int getMaxCount() {
-		return KeteItem.maxStackSize(this.contents);
-	}
-
-	public boolean isEmpty() {
-		return this.contents.isEmpty();
-	}
-}
+public record KeteTooltipData(ItemStack contents) implements TooltipData {}
