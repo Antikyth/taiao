@@ -33,9 +33,6 @@ public class KeteTooltipComponent implements TooltipComponent {
 	public void drawItems(TextRenderer textRenderer, int x, int y, DrawContext context) {
 		ItemStack contents = this.data.contents();
 
-		if (!contents.isEmpty()) {
-			context.drawItem(contents, x, y, 0);
-			context.drawItemInSlot(textRenderer, contents, x, y);
-		}
+		if (!contents.isEmpty()) context.drawItem(contents, x, y, 0);
 	}
 }
