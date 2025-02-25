@@ -70,7 +70,6 @@ public class TaiaoItemGroups {
 			addBannerPatterns(group::add);
 			addBanners(banner -> group.add(banner.getOrCreateStack()));
 
-			// TODO: add to vanilla tabs too
 			group.add(TaiaoItems.KETE);
 			addEntityRelatingBlocks(group::add);
 
@@ -117,6 +116,7 @@ public class TaiaoItemGroups {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(group -> {
 			addBoats(item -> group.addBefore(Items.RAIL, item));
 			addEntityBuckets(item -> group.addBefore(Items.LAVA_BUCKET, item));
+			group.addBefore(Items.COMPASS, TaiaoItems.KETE);
 		});
 		// Functional blocks
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(group -> {
