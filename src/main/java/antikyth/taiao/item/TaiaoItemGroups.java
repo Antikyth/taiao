@@ -33,6 +33,22 @@ public class TaiaoItemGroups {
 
 		// Add items to the item group.
 		ItemGroupEvents.modifyEntriesEvent(MAIN).register(group -> {
+			group.add(TaiaoItems.KETE);
+			addEntityRelatingBlocks(group::add);
+
+			addEntityBuckets(group::add);
+
+			addFish(group::add);
+			addFruit(group::add);
+
+			addOtherBuildingBlocks(group::add);
+
+			addBannerPatterns(group::add);
+			addBanners(banner -> group.add(banner.getOrCreateStack()));
+
+			addTallGroundPlants(group::add);
+			addWaterPlants(group::add);
+
 			group.add(TaiaoBlocks.KAURI_SAPLING);
 			group.add(TaiaoBlocks.KAURI_LEAVES);
 			addKauriBuildingBlocks(group::add);
@@ -65,21 +81,6 @@ public class TaiaoItemGroups {
 			group.add(TaiaoBlocks.WHEKII_PONGA_LEAVES);
 			addWhekiiPongaBuildingBlocks(group::add);
 
-			addOtherBuildingBlocks(group::add);
-
-			addBannerPatterns(group::add);
-			addBanners(banner -> group.add(banner.getOrCreateStack()));
-
-			group.add(TaiaoItems.KETE);
-			addEntityRelatingBlocks(group::add);
-
-			addTallGroundPlants(group::add);
-			addWaterPlants(group::add);
-
-			addFruit(group::add);
-			addFish(group::add);
-
-			addEntityBuckets(group::add);
 			addSpawnEggs(group::add);
 		});
 
