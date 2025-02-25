@@ -44,18 +44,16 @@ public class KeteItem extends Item {
 	 * Whether there are any stacks contained within the kete.
 	 */
 	public static boolean isEmpty(@NotNull ItemStack kete) {
-		return getOrCreateContents(kete).isEmpty();
+		NbtList contents = getContents(kete);
+
+		return contents == null || contents.isEmpty();
 	}
 
 	/**
 	 * Returns the total count of all stacks (all the same item) within the kete.
 	 */
 	public static int getCount(@NotNull ItemStack kete) {
-		return getOrCreateContents(kete).stream()
-			.map(NbtCompound.class::cast)
-			.map(ItemStack::fromNbt)
-			.mapToInt(ItemStack::getCount)
-			.sum();
+		return getContentStacks(kete).mapToInt(ItemStack::getCount).sum();
 	}
 
 	/**
@@ -65,9 +63,9 @@ public class KeteItem extends Item {
 	 * {@code !}{@link KeteItem#isEmpty(ItemStack) KeteItem.isEmpty}{@code (kete)} before dividing by the result.
 	 */
 	public static int getMaxCount(@NotNull ItemStack kete) {
-		NbtList contents = getOrCreateContents(kete);
+		NbtList contents = getContents(kete);
 
-		if (contents.isEmpty()) {
+		if (contents == null || contents.isEmpty()) {
 			return 0;
 		} else {
 			ItemStack firstContentStack = ItemStack.fromNbt(contents.getCompound(0));
@@ -85,9 +83,9 @@ public class KeteItem extends Item {
 
 	@Override
 	public Text getName(@NotNull ItemStack kete) {
-		NbtList contents = getOrCreateContents(kete);
+		NbtList contents = getContents(kete);
 
-		if (!contents.isEmpty()) {
+		if (contents != null && !contents.isEmpty()) {
 			ItemStack stack = ItemStack.fromNbt(contents.getCompound(0));
 
 			return Text.translatable(this.getTranslationKey() + ".filled", stack.getName());
@@ -97,11 +95,16 @@ public class KeteItem extends Item {
 	}
 
 	protected static int addToKete(@NotNull ItemStack kete, @NotNull ItemStack stack) {
-		NbtList contents = getOrCreateContents(kete);
-
 		if (!stack.isEmpty() && stack.getItem().canBeNested()) {
-			if (contents.isEmpty()) {
+			NbtList contents = getContents(kete);
+
+			if (contents == null || contents.isEmpty()) {
 				// No items already in the kete
+
+				if (contents == null) {
+					contents = new NbtList();
+					kete.getOrCreateNbt().put(CONTENTS_KEY, contents);
+				}
 
 				NbtCompound insertNbt = new NbtCompound();
 				ItemStack insertStack = stack.copyAndEmpty();
@@ -154,12 +157,17 @@ public class KeteItem extends Item {
 	 * Removes one regular-sized stack from the kete.
 	 */
 	protected static @Nullable ItemStack removeStack(@NotNull ItemStack kete) {
-		NbtList contents = getOrCreateContents(kete);
+		NbtList contents = getContents(kete);
 
-		if (contents.isEmpty()) {
+		if (contents == null || contents.isEmpty()) {
 			return null;
 		} else {
 			NbtCompound lastNbt = (NbtCompound) contents.remove(contents.size() - 1);
+
+			// Remove contents key if now empty
+			if (contents.isEmpty()) {
+				kete.getOrCreateNbt().remove(CONTENTS_KEY);
+			}
 
 			return ItemStack.fromNbt(lastNbt);
 		}
@@ -168,9 +176,9 @@ public class KeteItem extends Item {
 	@Override
 	public ActionResult useOnBlock(@NotNull ItemUsageContext context) {
 		ItemStack kete = context.getStack();
-		NbtList contents = getOrCreateContents(kete);
+		NbtList contents = getContents(kete);
 
-		if (contents.isEmpty()) {
+		if (contents == null || contents.isEmpty()) {
 			return ActionResult.PASS;
 		} else {
 			NbtCompound lastNbt = contents.getCompound(contents.size() - 1);
@@ -193,10 +201,16 @@ public class KeteItem extends Item {
 
 			// Use the contents on the block
 			ActionResult result = lastStack.useOnBlock(contentContext);
-			// Write any changes to the contents, e.g. count decrement
+
 			if (lastStack.isEmpty()) {
+				// If empty, remove from kete
 				contents.remove(contents.size() - 1);
+
+				if (contents.isEmpty()) {
+					kete.getOrCreateNbt().remove(CONTENTS_KEY);
+				}
 			} else {
+				// Write any changes to the contents, e.g. count decrement
 				lastStack.writeNbt(lastNbt);
 			}
 
@@ -279,7 +293,7 @@ public class KeteItem extends Item {
 		@NotNull List<Text> tooltip,
 		TooltipContext context
 	) {
-		if (!getOrCreateContents(kete).isEmpty()) {
+		if (!isEmpty(kete)) {
 			tooltip.add(
 				Text.translatable(
 					this.getTranslationKey() + ".fullness",
@@ -291,9 +305,9 @@ public class KeteItem extends Item {
 
 	@Override
 	public Optional<TooltipData> getTooltipData(@NotNull ItemStack kete) {
-		NbtList contents = getOrCreateContents(kete);
+		NbtList contents = getContents(kete);
 
-		if (contents.isEmpty()) {
+		if (contents == null || contents.isEmpty()) {
 			return Optional.empty();
 		} else {
 			ItemStack firstContentStack = ItemStack.fromNbt(contents.getCompound(0));
@@ -322,23 +336,20 @@ public class KeteItem extends Item {
 	}
 
 	protected static Stream<ItemStack> getContentStacks(@NotNull ItemStack kete) {
-		return getOrCreateContents(kete).stream().map(NbtCompound.class::cast).map(ItemStack::fromNbt);
+		NbtList contents = getContents(kete);
+
+		return contents == null ? Stream.of() : contents.stream().map(NbtCompound.class::cast).map(ItemStack::fromNbt);
 	}
 
-	protected static @NotNull NbtList getOrCreateContents(@NotNull ItemStack kete) {
-		return getOrCreateContents(kete.getOrCreateNbt());
+	protected static @Nullable NbtList getContents(@NotNull ItemStack kete) {
+		return getContents(kete.getOrCreateNbt());
 	}
 
-	protected static @NotNull NbtList getOrCreateContents(@NotNull NbtCompound keteNbt) {
-		NbtList contents;
-
+	protected static @Nullable NbtList getContents(@NotNull NbtCompound keteNbt) {
 		if (keteNbt.contains(CONTENTS_KEY, NbtElement.LIST_TYPE)) {
-			contents = keteNbt.getList(CONTENTS_KEY, NbtElement.COMPOUND_TYPE);
+			return keteNbt.getList(CONTENTS_KEY, NbtElement.COMPOUND_TYPE);
 		} else {
-			contents = new NbtList();
-			keteNbt.put(CONTENTS_KEY, contents);
+			return null;
 		}
-
-		return contents;
 	}
 }
