@@ -10,6 +10,7 @@ import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
 import antikyth.taiao.world.gen.loot.entry.BannerEntry;
+import antikyth.taiao.world.gen.loot.function.AddKeteContentsLootFunction;
 import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorLists;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
@@ -168,7 +169,7 @@ public class TaiaoLootTables {
 					.rolls(UniformLootNumberProvider.create(3f, 8f))
 					.with(
 						ItemEntry.builder(TaiaoBlocks.HARAKEKE)
-							.weight(16)
+							.weight(10)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 10f)))
 					)
 					.with(
@@ -177,13 +178,32 @@ public class TaiaoLootTables {
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 5f)))
 					)
 					.with(
+						// Empty kete
+						ItemEntry.builder(TaiaoItems.KETE)
+							.weight(3)
+					)
+					.with(
+						// Kete of harakeke
+						ItemEntry.builder(TaiaoItems.KETE)
+							.weight(6)
+							.quality(1)
+							.apply(AddKeteContentsLootFunction.builder(
+								LootPool.builder()
+									// Note that since there can be more than one roll, all entries
+									// must be of the same item
+									.rolls(UniformLootNumberProvider.create(1f, 5f))
+									.with(ItemEntry.builder(TaiaoBlocks.HARAKEKE))
+									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 10f)))
+							))
+					)
+					.with(
 						ItemEntry.builder(TaiaoBlocks.RAUPOO)
-							.weight(4)
+							.weight(2)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 7f)))
 					)
 					.with(
 						ItemEntry.builder(TaiaoBlocks.THATCH_ROOF)
-							.weight(2)
+							.weight(1)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
 					)
 					.with(

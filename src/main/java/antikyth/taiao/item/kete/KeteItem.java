@@ -99,7 +99,7 @@ public class KeteItem extends Item {
 		}
 	}
 
-	protected static int addToKete(@NotNull ItemStack kete, @NotNull ItemStack stack) {
+	public static int addToKete(@NotNull ItemStack kete, @NotNull ItemStack stack) {
 		if (!stack.isEmpty() && stack.getItem().canBeNested()) {
 			NbtList contents = getContents(kete);
 
@@ -161,7 +161,7 @@ public class KeteItem extends Item {
 	/**
 	 * Removes one regular-sized stack from the kete.
 	 */
-	protected static @Nullable ItemStack removeStack(@NotNull ItemStack kete) {
+	public static @Nullable ItemStack removeStack(@NotNull ItemStack kete) {
 		NbtList contents = getContents(kete);
 
 		if (contents == null || contents.isEmpty()) {
