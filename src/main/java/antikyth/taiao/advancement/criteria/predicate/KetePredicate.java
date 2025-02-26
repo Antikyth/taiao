@@ -7,17 +7,17 @@ package antikyth.taiao.advancement.criteria.predicate;
 import antikyth.taiao.item.kete.KeteItem;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.NumberRange;
+import net.minecraft.predicate.NumberRange.IntRange;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class KetePredicate {
-	protected final NumberRange.IntRange stackCountRange;
+	protected final IntRange stackCountRange;
 
 	/**
 	 * Creates a predicate checking the number of stacks contained within a kete.
 	 */
-	public KetePredicate(NumberRange.IntRange stackCountRange) {
+	public KetePredicate(IntRange stackCountRange) {
 		this.stackCountRange = stackCountRange;
 	}
 
@@ -31,6 +31,6 @@ public class KetePredicate {
 
 	@Contract("_ -> new")
 	public static @NotNull KetePredicate fromJson(@NotNull JsonObject json) {
-		return new KetePredicate(NumberRange.IntRange.fromJson(json.get("stack_count")));
+		return new KetePredicate(IntRange.fromJson(json.get("stack_count")));
 	}
 }

@@ -32,7 +32,7 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.FREEDOM,
+			TaiaoAdvancements.A_KIND_HEART,
 			"A Kind Heart",
 			"Break a hīnaki to free the animal trapped inside"
 		);

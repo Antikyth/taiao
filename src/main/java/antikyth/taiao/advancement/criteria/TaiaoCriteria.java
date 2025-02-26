@@ -8,7 +8,7 @@ import antikyth.taiao.Taiao;
 import net.minecraft.advancement.criterion.Criteria;
 
 public class TaiaoCriteria {
-	public static final KeteChangedCriterion KETE_CHANGED = Criteria.register(new KeteChangedCriterion());
+	public static final KeteStackCountCriterion KETE_CHANGED = Criteria.register(new KeteStackCountCriterion());
 	public static final BlockPlacedFromKeteCriterion BLOCK_PLACED_FROM_KETE = Criteria.register(new BlockPlacedFromKeteCriterion());
 
 	public static final EntityFreedCriterion ENTITY_FREED = Criteria.register(new EntityFreedCriterion());

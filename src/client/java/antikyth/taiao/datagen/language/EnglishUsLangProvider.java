@@ -75,7 +75,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 		addAdvancement(
 			builder,
-			TaiaoAdvancements.BIGGER_ON_INSIDE,
+			TaiaoAdvancements.BIGGER_ON_THE_INSIDE,
 			"Bigger on the Inside",
 			"Put more than one full stack's worth of items in a kete"
 		);
@@ -334,7 +334,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 		addAdvancement(
 			builder,
-			TaiaoAdvancements.FREEDOM,
+			TaiaoAdvancements.A_KIND_HEART,
 			"A Kind Heart",
 			"Break an eel trap to free the animal trapped inside"
 		);

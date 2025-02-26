@@ -7,7 +7,7 @@ package antikyth.taiao.advancement;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.advancement.criteria.BlockPlacedFromKeteCriterion;
 import antikyth.taiao.advancement.criteria.EntityFreedCriterion;
-import antikyth.taiao.advancement.criteria.KeteChangedCriterion;
+import antikyth.taiao.advancement.criteria.KeteStackCountCriterion;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
@@ -24,7 +24,11 @@ import net.minecraft.advancement.criterion.PlayerHurtEntityCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.*;
+import net.minecraft.predicate.BlockPredicate;
+import net.minecraft.predicate.DamagePredicate;
+import net.minecraft.predicate.NumberRange.IntRange;
+import net.minecraft.predicate.StatePredicate;
+import net.minecraft.predicate.TagPredicate;
 import net.minecraft.predicate.entity.DamageSourcePredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
@@ -73,11 +77,11 @@ public class TaiaoAdvancements {
 		)
 		.build();
 
-	public static final Identifier BIGGER_ON_INSIDE = builder(MAIN_TAB, "bigger_on_inside", TaiaoItems.KETE)
+	public static final Identifier BIGGER_ON_THE_INSIDE = builder(MAIN_TAB, "bigger_on_inside", TaiaoItems.KETE)
 		.parent(HARAKEKE)
 		.criterion(
 			"has_multiple_stacks_in_kete",
-			KeteChangedCriterion.Conditions.create(NumberRange.IntRange.atLeast(2))
+			KeteStackCountCriterion.Conditions.create(IntRange.atLeast(2))
 		)
 		.build();
 	public static final Identifier EFFICIENT_CONSTRUCTION = builder(MAIN_TAB, "efficient_construction", TaiaoItems.KETE)
@@ -95,7 +99,7 @@ public class TaiaoAdvancements {
 			)
 		)
 		.build();
-	public static final Identifier FREEDOM = builder(MAIN_TAB, "freedom", TaiaoItems.EEL)
+	public static final Identifier A_KIND_HEART = builder(MAIN_TAB, "freedom", TaiaoItems.EEL)
 		.criterion("entity_freed", EntityFreedCriterion.Conditions.create())
 		.build();
 

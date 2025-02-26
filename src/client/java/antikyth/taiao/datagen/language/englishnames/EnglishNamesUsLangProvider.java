@@ -33,7 +33,7 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.BIGGER_ON_INSIDE,
+			TaiaoAdvancements.BIGGER_ON_THE_INSIDE,
 			"Bigger on the Inside",
 			"Put more than one full stack's worth of items in a New Zealand flax basket"
 		);

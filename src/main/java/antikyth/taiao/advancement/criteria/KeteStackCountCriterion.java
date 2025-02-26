@@ -10,7 +10,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.NumberRange;
+import net.minecraft.predicate.NumberRange.IntRange;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.LootContextPredicate;
@@ -19,7 +19,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-public class KeteChangedCriterion extends AbstractCriterion<KeteChangedCriterion.Conditions> {
+public class KeteStackCountCriterion extends AbstractCriterion<KeteStackCountCriterion.Conditions> {
 	protected static final Identifier ID = Taiao.id("kete_changed");
 
 	@Override
@@ -50,7 +50,7 @@ public class KeteChangedCriterion extends AbstractCriterion<KeteChangedCriterion
 		}
 
 		@Contract("_ -> new")
-		public static @NotNull Conditions create(NumberRange.IntRange stackCount) {
+		public static @NotNull Conditions create(IntRange stackCount) {
 			return new Conditions(LootContextPredicate.EMPTY, new KetePredicate(stackCount));
 		}
 

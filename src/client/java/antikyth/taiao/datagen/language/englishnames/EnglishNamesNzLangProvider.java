@@ -30,7 +30,7 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.BIGGER_ON_INSIDE,
+			TaiaoAdvancements.BIGGER_ON_THE_INSIDE,
 			"Bigger on the Inside",
 			"Put more than one full stack's worth of items in a flax basket"
 		);
