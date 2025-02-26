@@ -28,13 +28,13 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 			builder,
 			TaiaoAdvancements.TRAPPER,
 			"Trapper",
-			"Hurt or kill an animal trapped in a hīnaki"
+			"Interact with a hīnaki to hurt or kill the animal trapped inside"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
 			TaiaoAdvancements.FREEDOM,
 			"A Kind Heart",
-			"Break a hīnaki to free a trapped animal"
+			"Break a hīnaki to free the animal trapped inside"
 		);
 
 		// Other blocks

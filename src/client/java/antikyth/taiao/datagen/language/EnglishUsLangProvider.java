@@ -330,13 +330,13 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			builder,
 			TaiaoAdvancements.TRAPPER,
 			"Trapper",
-			"Hurt or kill an animal trapped in an eel trap"
+			"Interact with an eel trap to hurt or kill the animal trapped inside"
 		);
 		addAdvancement(
 			builder,
 			TaiaoAdvancements.FREEDOM,
 			"A Kind Heart",
-			"Break an eel trap to free a trapped animal"
+			"Break an eel trap to free the animal trapped inside"
 		);
 
 		// Other blocks
