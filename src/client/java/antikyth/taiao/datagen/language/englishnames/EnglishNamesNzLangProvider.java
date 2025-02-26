@@ -8,7 +8,7 @@ import antikyth.taiao.advancement.TaiaoAdvancements;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.datagen.language.EnglishUsLangProvider;
 import antikyth.taiao.item.TaiaoItems;
-import antikyth.taiao.world.gen.loot.TaiaoLootTables;
+import antikyth.taiao.loot.TaiaoLootTables;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import org.jetbrains.annotations.NotNull;
 

@@ -435,15 +435,26 @@ public class HiinakiBlock extends BlockWithEntity {
 	public void onBreak(@NotNull World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		if (!world.isClient) {
 			BlockPos frontPos = getFront(state, pos);
+			ItemStack tool = player.getMainHandStack();
 
 			if (world.getBlockEntity(frontPos) instanceof HiinakiBlockEntity blockEntity) {
-				ItemStack tool = player.getMainHandStack();
-
 				// Only drop contents without silk touch or in creative mode, as otherwise the contents will drop with
 				// the item
-				if (player.isCreative() || EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, tool) == 0) {
-					releaseContents(world, player, frontPos, blockEntity);
+				boolean released = player.isCreative()
+					|| EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, tool) == 0;
+
+				if (player instanceof ServerPlayerEntity serverPlayer) {
+					TaiaoCriteria.TRAP_DESTROYED.trigger(
+						serverPlayer,
+						frontPos,
+						blockEntity.getRenderedEntity(),
+						blockEntity.getBait(),
+						tool,
+						released
+					);
 				}
+
+				if (released) releaseContents(world, player, frontPos, blockEntity);
 			}
 
 			if (player.isCreative()) {
@@ -489,10 +500,6 @@ public class HiinakiBlock extends BlockWithEntity {
 		Entity freedEntity = blockEntity.releaseEntity(true, true);
 		if (freedEntity != null) {
 			player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED);
-
-			if (player instanceof ServerPlayerEntity serverPlayer) {
-				TaiaoCriteria.ENTITY_FREED.trigger(serverPlayer, freedEntity);
-			}
 		}
 	}
 

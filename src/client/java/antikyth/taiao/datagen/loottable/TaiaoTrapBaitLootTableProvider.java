@@ -4,8 +4,8 @@
 
 package antikyth.taiao.datagen.loottable;
 
-import antikyth.taiao.world.gen.loot.TaiaoLootContextTypes;
-import antikyth.taiao.world.gen.loot.TaiaoLootTables;
+import antikyth.taiao.loot.TaiaoLootContextTypes;
+import antikyth.taiao.loot.TaiaoLootTables;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.loot.LootTable;

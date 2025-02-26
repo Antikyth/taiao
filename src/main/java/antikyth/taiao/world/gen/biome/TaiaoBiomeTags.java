@@ -13,6 +13,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 
 public class TaiaoBiomeTags {
+	public static final TagKey<Biome> AOTEAROA_BIOMES = tagKey(Taiao.id("aotearoa"));
+
 	/**
 	 * Biomes in which {@linkplain antikyth.taiao.world.gen.structure.TaiaoStructures#VILLAGE_MARAE marae} can generate.
 	 */

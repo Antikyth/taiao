@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.world.gen.loot;
+package antikyth.taiao.loot;
 
 import antikyth.taiao.Taiao;
 import net.minecraft.loot.context.LootContextParameters;
@@ -19,6 +19,12 @@ public class TaiaoLootContextTypes {
 		builder -> builder.require(LootContextParameters.ORIGIN)
 			.require(LootContextParameters.BLOCK_STATE)
 			.require(LootContextParameters.BLOCK_ENTITY)
+	);
+
+	public static final LootContextType ADVANCEMENT_OPTIONAL_ENTITY = register(
+		Taiao.id("advancement_optional_entity"),
+		builder -> builder.allow(LootContextParameters.THIS_ENTITY)
+			.require(LootContextParameters.ORIGIN)
 	);
 
 	public static void initialize() {

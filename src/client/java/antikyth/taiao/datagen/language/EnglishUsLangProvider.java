@@ -19,10 +19,10 @@ import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.loot.TaiaoLootTables;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import antikyth.taiao.stat.TaiaoStats;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
-import antikyth.taiao.world.gen.loot.TaiaoLootTables;
 import com.terraformersmc.terraform.boat.api.TerraformBoatType;
 import com.terraformersmc.terraform.boat.api.TerraformBoatTypeRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -329,7 +329,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addAdvancement(
 			builder,
 			TaiaoAdvancements.TRAPPER,
-			"Trapper",
+			"Let Them Come to Me",
 			"Interact with an eel trap to hurt or kill the animal trapped inside"
 		);
 		addAdvancement(
@@ -337,6 +337,12 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			TaiaoAdvancements.A_KIND_HEART,
 			"A Kind Heart",
 			"Break an eel trap to free the animal trapped inside"
+		);
+		addAdvancement(
+			builder,
+			TaiaoAdvancements.YOU_ARE_COMING_WITH_ME,
+			"Let's Go for a Little Trip",
+			"Break an eel trap with silk touch while an animal is inside"
 		);
 
 		// Other blocks

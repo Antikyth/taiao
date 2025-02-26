@@ -2,15 +2,15 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.world.gen.loot;
+package antikyth.taiao.loot;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.loot.entry.BannerEntry;
+import antikyth.taiao.loot.function.AddKeteContentsLootFunction;
 import antikyth.taiao.world.gen.feature.TaiaoConfiguredFeatures;
-import antikyth.taiao.world.gen.loot.entry.BannerEntry;
-import antikyth.taiao.world.gen.loot.function.AddKeteContentsLootFunction;
 import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorLists;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;

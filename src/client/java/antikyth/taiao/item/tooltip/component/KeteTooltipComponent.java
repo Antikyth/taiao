@@ -16,7 +16,7 @@ public class KeteTooltipComponent implements TooltipComponent {
 
 	protected final ItemStack contents;
 
-	public KeteTooltipComponent(KeteTooltipData data) {
+	public KeteTooltipComponent(@NotNull KeteTooltipData data) {
 		this(data.contents());
 	}
 

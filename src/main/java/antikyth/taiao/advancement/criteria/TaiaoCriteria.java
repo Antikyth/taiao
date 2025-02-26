@@ -11,7 +11,7 @@ public class TaiaoCriteria {
 	public static final KeteStackCountCriterion KETE_CHANGED = Criteria.register(new KeteStackCountCriterion());
 	public static final BlockPlacedFromKeteCriterion BLOCK_PLACED_FROM_KETE = Criteria.register(new BlockPlacedFromKeteCriterion());
 
-	public static final EntityFreedCriterion ENTITY_FREED = Criteria.register(new EntityFreedCriterion());
+	public static final TrapDestroyedCriterion TRAP_DESTROYED = Criteria.register(new TrapDestroyedCriterion());
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered advancement criteria");

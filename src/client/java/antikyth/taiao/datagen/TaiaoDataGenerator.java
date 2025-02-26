@@ -50,7 +50,6 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 
 		pack.addProvider(TaiaoModelProvider::new);
 		pack.addProvider(TaiaoRecipeProvider::new);
-		pack.addProvider(TaiaoAdvancementProvider::new);
 
 		// Loot tables
 		pack.addProvider(TaiaoBlockLootTableProvider::new);
@@ -75,6 +74,8 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TaiaoDynamicFeatureProvider::new);
 		pack.addProvider(TaiaoBiomeProvider::new);
 		pack.addProvider(TaiaoStructureProvider::new);
+
+		pack.addProvider(TaiaoAdvancementProvider::new);
 
 		// English-names language resource pack
 		FabricDataGenerator.Pack englishNamesPack = generator.createBuiltinResourcePack(

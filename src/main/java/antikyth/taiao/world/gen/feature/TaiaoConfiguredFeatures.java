@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.entity.TaiaoEntityTypeTags;
+import antikyth.taiao.loot.TaiaoLootTables;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.blockpredicate.WithinHorizontalRangeBlockPredicate;
 import antikyth.taiao.world.gen.entityprovider.EntityTypeProvider;
@@ -17,7 +18,6 @@ import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlace
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinSplittingTrunkPlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.trunk.ThinStraightTrunkPlacer;
-import antikyth.taiao.world.gen.loot.TaiaoLootTables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

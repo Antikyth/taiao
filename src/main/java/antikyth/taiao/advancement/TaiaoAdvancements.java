@@ -6,8 +6,9 @@ package antikyth.taiao.advancement;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.advancement.criteria.BlockPlacedFromKeteCriterion;
-import antikyth.taiao.advancement.criteria.EntityFreedCriterion;
 import antikyth.taiao.advancement.criteria.KeteStackCountCriterion;
+import antikyth.taiao.advancement.criteria.TrapDestroyedCriterion;
+import antikyth.taiao.advancement.criteria.predicate.BooleanPredicate;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
@@ -24,13 +25,16 @@ import net.minecraft.advancement.criterion.PlayerHurtEntityCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.condition.LocationCheckLootCondition;
 import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.DamagePredicate;
 import net.minecraft.predicate.NumberRange.IntRange;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.predicate.TagPredicate;
 import net.minecraft.predicate.entity.DamageSourcePredicate;
+import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
+import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -39,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class TaiaoAdvancements {
 	public static final Map<Identifier, Advancement> ADVANCEMENTS = new HashMap<>();
@@ -52,12 +57,13 @@ public class TaiaoAdvancements {
 			TickCriterion.Conditions.createLocation(LocationPredicate.biome(TaiaoBiomes.NATIVE_FOREST))
 		)
 		.criterion(
-			"in_native_forest",
-			TickCriterion.Conditions.createLocation(LocationPredicate.biome(TaiaoBiomes.NATIVE_FOREST))
+			"in_kahikatea_swamp",
+			TickCriterion.Conditions.createLocation(LocationPredicate.biome(TaiaoBiomes.KAHIKATEA_SWAMP))
 		)
 		.build();
 
 	public static final Identifier HARAKEKE = builder(MAIN_TAB, "harakeke", TaiaoBlocks.HARAKEKE)
+		.parent(ROOT)
 		.criterion(
 			"harakeke_harvested",
 			ItemCriterion.Conditions.createItemUsedOnBlock(
@@ -90,6 +96,7 @@ public class TaiaoAdvancements {
 		.build();
 
 	public static final Identifier TRAPPER = builder(MAIN_TAB, "trapper", TaiaoBlocks.HIINAKI)
+		.parent(ROOT)
 		.criterion(
 			"hurt_with_trap",
 			PlayerHurtEntityCriterion.Conditions.create(
@@ -100,7 +107,54 @@ public class TaiaoAdvancements {
 		)
 		.build();
 	public static final Identifier A_KIND_HEART = builder(MAIN_TAB, "freedom", TaiaoItems.EEL)
-		.criterion("entity_freed", EntityFreedCriterion.Conditions.create())
+		.parent(ROOT)
+		.criterion(
+			"entity_released",
+			TrapDestroyedCriterion.Conditions.create(
+				// Hīnaki
+				LootContextPredicate.create(
+					LocationCheckLootCondition.builder(
+						LocationPredicate.Builder.create().block(
+							BlockPredicate.Builder.create()
+								.blocks(TaiaoBlocks.HIINAKI)
+								.build()
+						)
+					).build()
+				),
+				// Has trapped entity
+				EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().build()),
+				ItemPredicate.ANY,
+				// Entity is released
+				BooleanPredicate.EXPECTS_TRUE
+			)
+		)
+		.build();
+	public static final Identifier YOU_ARE_COMING_WITH_ME = builder(
+		MAIN_TAB,
+		"you_are_coming_with_me",
+		TaiaoBlocks.HIINAKI
+	)
+		.parent(ROOT)
+		.criterion(
+			"entity_not_released",
+			TrapDestroyedCriterion.Conditions.create(
+				// Hīnaki
+				LootContextPredicate.create(
+					LocationCheckLootCondition.builder(
+						LocationPredicate.Builder.create().block(
+							BlockPredicate.Builder.create()
+								.blocks(TaiaoBlocks.HIINAKI)
+								.build()
+						)
+					).build()
+				),
+				// Has trapped entity
+				EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().build()),
+				ItemPredicate.ANY,
+				// Entity isn't released
+				BooleanPredicate.EXPECTS_FALSE
+			)
+		)
 		.build();
 
 	public static Builder rootBuilder(Identifier tabId, ItemConvertible icon) {
@@ -144,7 +198,7 @@ public class TaiaoAdvancements {
 		protected boolean announceToChat = true;
 
 		protected boolean hidden = false;
-		protected boolean hasBackground = false;
+		protected boolean hasBackground = true;
 
 		protected Map<String, AdvancementCriterion> criteria = new HashMap<>();
 		protected AdvancementFrame frame = AdvancementFrame.TASK;
@@ -155,8 +209,14 @@ public class TaiaoAdvancements {
 			this.tabId = tabId;
 			this.name = name;
 			this.icon = icon;
+		}
 
-			this.parent = this.tabId.withPath(path -> path + "/root");
+		/**
+		 * Applies {@code changes} to the builder.
+		 */
+		public Builder apply(@NotNull Consumer<Builder> changes) {
+			changes.accept(this);
+			return this;
 		}
 
 		public Builder showToast(boolean showToast) {
@@ -194,8 +254,16 @@ public class TaiaoAdvancements {
 			return this;
 		}
 
+		/**
+		 * Sets the advancement's parent.
+		 * <p>
+		 * If the parent is non-null, the advancement's background is disabled, as it is not a root
+		 * advancement.
+		 */
 		public Builder parent(Identifier parent) {
 			this.parent = parent;
+			this.hasBackground = parent == null;
+
 			return this;
 		}
 

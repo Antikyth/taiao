@@ -45,6 +45,10 @@ public class TaiaoBiomeTagProvider extends FabricTagProvider<Biome> {
 		getOrCreateTagBuilder(ConventionalBiomeTags.CLIMATE_WET).add(TaiaoBiomes.KAHIKATEA_SWAMP);
 
 		// Te Taiao o Aotearoa tags
+		getOrCreateTagBuilder(TaiaoBiomeTags.AOTEAROA_BIOMES)
+			.add(TaiaoBiomes.NATIVE_FOREST)
+			.add(TaiaoBiomes.KAHIKATEA_SWAMP);
+
 		getOrCreateTagBuilder(TaiaoBiomeTags.VILLAGE_MARAE_HAS_STRUCTURE)
 			.add(TaiaoBiomes.NATIVE_FOREST);
 		getOrCreateTagBuilder(TaiaoBiomeTags.HIINAKI_RIVER_HAS_FEATURE)
@@ -52,8 +56,7 @@ public class TaiaoBiomeTagProvider extends FabricTagProvider<Biome> {
 			.add(TaiaoBiomes.NATIVE_FOREST);
 
 		getOrCreateTagBuilder(TaiaoBiomeTags.INHIBITS_CAT_SPAWNING)
-			.add(TaiaoBiomes.NATIVE_FOREST)
-			.add(TaiaoBiomes.KAHIKATEA_SWAMP);
+			.addTag(TaiaoBiomeTags.AOTEAROA_BIOMES);
 		getOrCreateTagBuilder(TaiaoBiomeTags.SPAWNS_RIVER_EELS)
 			.addOptionalTag(ConventionalBiomeTags.RIVER)
 			.add(TaiaoBiomes.NATIVE_FOREST);
