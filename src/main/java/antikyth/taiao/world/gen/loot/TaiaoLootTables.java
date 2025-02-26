@@ -137,7 +137,21 @@ public class TaiaoLootTables {
 					.rolls(UniformLootNumberProvider.create(3f, 8f))
 					.with(
 						ItemEntry.builder(TaiaoItems.CONIFER_FRUIT)
-							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(4f, 14f)))
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3f, 10f)))
+					)
+					// Kete of conifer fruit
+					.with(
+						ItemEntry.builder(TaiaoItems.KETE)
+							.apply(AddKeteContentsLootFunction.builder(
+								LootPool.builder()
+									.with(
+										ItemEntry.builder(TaiaoItems.CONIFER_FRUIT)
+											.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
+												4f,
+												14f
+											)))
+									)
+							))
 					)
 					.with(
 						ItemEntry.builder(Items.POTATO)
@@ -191,7 +205,7 @@ public class TaiaoLootTables {
 								LootPool.builder()
 									// Note that since there can be more than one roll, all entries
 									// must be of the same item
-									.rolls(UniformLootNumberProvider.create(1f, 5f))
+									.rolls(UniformLootNumberProvider.create(1f, 2f))
 									.with(ItemEntry.builder(TaiaoBlocks.HARAKEKE))
 									.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 10f)))
 							))
@@ -330,33 +344,78 @@ public class TaiaoLootTables {
 							.weight(1)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
 					)
+					// Kete of eels
+					.with(
+						ItemEntry.builder(TaiaoItems.KETE)
+							.weight(3)
+							.apply(AddKeteContentsLootFunction.builder(
+								LootPool.builder()
+									.with(
+										ItemEntry.builder(TaiaoItems.EEL)
+											.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
+												2f,
+												5f
+											)))
+									)
+							))
+					)
+					// Kete of cod
+					.with(
+						ItemEntry.builder(TaiaoItems.KETE)
+							.weight(2)
+							.apply(AddKeteContentsLootFunction.builder(
+								LootPool.builder()
+									.with(
+										ItemEntry.builder(Items.COD)
+											.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
+												2f,
+												5f
+											)))
+									)
+							))
+					)
+					// Kete of salmon
+					.with(
+						ItemEntry.builder(TaiaoItems.KETE)
+							.weight(1)
+							.apply(AddKeteContentsLootFunction.builder(
+								LootPool.builder()
+									.with(
+										ItemEntry.builder(Items.SALMON)
+											.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
+												2f,
+												5f
+											)))
+									)
+							))
+					)
 					.with(
 						ItemEntry.builder(TaiaoBlocks.HIINAKI)
-							.weight(3)
+							.weight(6)
 					)
 					.with(
 						ItemEntry.builder(Items.BARREL)
-							.weight(1)
-							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
-					)
-					.with(
-						ItemEntry.builder(Items.WATER_BUCKET)
-							.weight(1)
-							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
-					)
-					.with(
-						ItemEntry.builder(Items.CHARCOAL)
 							.weight(2)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
 					)
 					.with(
+						ItemEntry.builder(Items.WATER_BUCKET)
+							.weight(2)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
+						ItemEntry.builder(Items.CHARCOAL)
+							.weight(4)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
+					)
+					.with(
 						ItemEntry.builder(TaiaoBlocks.RAUPOO)
-							.weight(1)
+							.weight(2)
 							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1f, 3f)))
 					)
 					.with(
 						ItemEntry.builder(Items.EMERALD)
-							.weight(1)
+							.weight(2)
 							.quality(2)
 					)
 			)
