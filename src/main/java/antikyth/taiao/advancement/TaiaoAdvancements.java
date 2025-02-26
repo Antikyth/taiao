@@ -8,7 +8,6 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.advancement.criteria.BlockPlacedFromKeteCriterion;
 import antikyth.taiao.advancement.criteria.EntityFreedCriterion;
 import antikyth.taiao.advancement.criteria.KeteChangedCriterion;
-import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
@@ -42,7 +41,7 @@ public class TaiaoAdvancements {
 
 	public static final Identifier MAIN_TAB = Taiao.id("main");
 
-	public static final Identifier ROOT = rootBuilder(MAIN_TAB, TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU.getOrCreateStack())
+	public static final Identifier ROOT = rootBuilder(MAIN_TAB, Taiao.MOD_ICON.get())
 		.criteriaMerger(CriterionMerger.OR)
 		.criterion(
 			"in_native_forest",

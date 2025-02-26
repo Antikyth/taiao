@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 public class TaiaoItemGroups {
 	public static final RegistryKey<ItemGroup> MAIN = registerItemGroup(
 		Taiao.id("item_group"),
-		TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU::getOrCreateStack
+		Taiao.MOD_ICON
 	);
 
 	public static void initialize() {

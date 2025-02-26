@@ -6,6 +6,7 @@ package antikyth.taiao;
 
 import antikyth.taiao.advancement.criteria.TaiaoCriteria;
 import antikyth.taiao.banner.TaiaoBannerPatterns;
+import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.boat.TaiaoBoats;
@@ -29,16 +30,24 @@ import antikyth.taiao.world.gen.loot.function.TaiaoLootFunctionTypes;
 import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorTypes;
 import antikyth.taiao.world.poi.TaiaoPoiTypes;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Supplier;
 
 public class Taiao implements ModInitializer {
 	public static final String MOD_ID = "taiao";
 
 	public static final String MOD_NAME = "Te Taiao o Aotearoa";
 	public static final String MOD_NAME_SHORT = "Taiao";
+
+	/**
+	 * The item stack used as the mod's icon for its item group and advancement tab.
+	 */
+	public static final Supplier<ItemStack> MOD_ICON = TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU::getOrCreateStack;
 
 	boolean initialized = false;
 
