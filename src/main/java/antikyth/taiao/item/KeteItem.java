@@ -2,9 +2,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.item.kete;
+package antikyth.taiao.item;
 
 import antikyth.taiao.advancement.criteria.TaiaoCriteria;
+import antikyth.taiao.item.tooltip.data.KeteTooltipData;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.item.TooltipData;
 import net.minecraft.entity.ItemEntity;

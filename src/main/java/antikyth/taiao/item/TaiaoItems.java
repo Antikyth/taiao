@@ -9,7 +9,6 @@ import antikyth.taiao.banner.TaiaoBannerPatternTags;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
-import antikyth.taiao.item.kete.KeteItem;
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;

@@ -5,7 +5,7 @@
 package antikyth.taiao.advancement.criteria;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.item.kete.KeteItem;
+import antikyth.taiao.item.KeteItem;
 import com.google.gson.JsonObject;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;

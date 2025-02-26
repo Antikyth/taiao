@@ -5,7 +5,7 @@
 package antikyth.taiao.world.gen.loot.function;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.item.kete.KeteItem;
+import antikyth.taiao.item.KeteItem;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;

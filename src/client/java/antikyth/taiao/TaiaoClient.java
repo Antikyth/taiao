@@ -8,7 +8,7 @@ import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.render.TaiaoBlockEntityRenderers;
 import antikyth.taiao.entity.render.TaiaoEntityModels;
 import antikyth.taiao.item.TaiaoItems;
-import antikyth.taiao.item.tooltip.TaiaoTooltipComponents;
+import antikyth.taiao.item.tooltip.component.TaiaoTooltipComponents;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;

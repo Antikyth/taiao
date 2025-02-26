@@ -2,10 +2,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.item.tooltip;
+package antikyth.taiao.item.tooltip.component;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.item.kete.KeteTooltipData;
+import antikyth.taiao.item.tooltip.data.KeteTooltipData;
 import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.client.item.TooltipData;
