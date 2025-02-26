@@ -5,7 +5,7 @@
 package antikyth.taiao.advancement.criteria;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.advancement.criteria.predicate.KetePredicate;
+import antikyth.taiao.item.kete.KeteItem;
 import com.google.gson.JsonObject;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
@@ -28,41 +28,43 @@ public class KeteStackCountCriterion extends AbstractCriterion<KeteStackCountCri
 	}
 
 	public void trigger(ServerPlayerEntity player, ItemStack stack) {
-		this.trigger(player, conditions -> conditions.matches(stack));
+		this.trigger(player, conditions -> conditions.test(stack));
 	}
 
 	@Override
 	protected Conditions conditionsFromJson(
-		JsonObject json,
+		@NotNull JsonObject json,
 		LootContextPredicate player,
 		AdvancementEntityPredicateDeserializer deserializer
 	) {
-		return new Conditions(player, KetePredicate.fromJson(json));
+		return new Conditions(player, IntRange.fromJson(json.get("stack_count")));
 	}
 
 	public static class Conditions extends AbstractCriterionConditions {
-		private final KetePredicate predicate;
+		private final IntRange stackCountRange;
 
-		public Conditions(LootContextPredicate player, KetePredicate predicate) {
+		public Conditions(LootContextPredicate player, IntRange stackCountRange) {
 			super(ID, player);
 
-			this.predicate = predicate;
+			this.stackCountRange = stackCountRange;
 		}
 
 		@Contract("_ -> new")
 		public static @NotNull Conditions create(IntRange stackCount) {
-			return new Conditions(LootContextPredicate.EMPTY, new KetePredicate(stackCount));
+			return new Conditions(LootContextPredicate.EMPTY, stackCount);
 		}
 
-		public boolean matches(@NotNull ItemStack stack) {
-			return !stack.isEmpty() && this.predicate.test(stack);
+		public boolean test(@NotNull ItemStack stack) {
+			return !stack.isEmpty()
+				&& stack.getItem() instanceof KeteItem
+				&& this.stackCountRange.test(KeteItem.getStackCount(stack));
 		}
 
 		@Override
 		public JsonObject toJson(AdvancementEntityPredicateSerializer serializer) {
 			JsonObject json = super.toJson(serializer);
 
-			this.predicate.writeJson(json);
+			json.add("stack_count", this.stackCountRange.toJson());
 
 			return json;
 		}
