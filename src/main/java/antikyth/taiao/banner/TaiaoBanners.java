@@ -16,7 +16,8 @@ public class TaiaoBanners {
 		Items.BLACK_BANNER,
 		false,
 		new BannerPattern.Patterns()
-			.add(TaiaoBannerPatterns.KAOKAO_UP_PRIMARY, DyeColor.RED)
+			.add(BannerPatterns.STRIPE_LEFT, DyeColor.RED)
+			.add(BannerPatterns.STRIPE_RIGHT, DyeColor.YELLOW)
 			.add(TaiaoBannerPatterns.KIWI, DyeColor.WHITE)
 	);
 
