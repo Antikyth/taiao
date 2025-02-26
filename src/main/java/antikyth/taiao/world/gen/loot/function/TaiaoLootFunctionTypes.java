@@ -19,7 +19,7 @@ public class TaiaoLootFunctionTypes {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering loot function types");
+		Taiao.LOGGER.debug("Registered loot function types");
 	}
 
 	public static LootFunctionType register(Identifier id, JsonSerializer<? extends LootFunction> serializer) {

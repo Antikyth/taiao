@@ -52,7 +52,7 @@ public class TaiaoBoats {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering Terraform boat types");
+		Taiao.LOGGER.debug("Registered Terraform boat types");
 	}
 
 	public static RegistryKey<TerraformBoatType> register(Identifier id, TerraformBoatType boatType) {

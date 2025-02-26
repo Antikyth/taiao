@@ -91,6 +91,6 @@ public class TaiaoEntities {
 	}
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering entities");
+		Taiao.LOGGER.debug("Registered entities");
 	}
 }

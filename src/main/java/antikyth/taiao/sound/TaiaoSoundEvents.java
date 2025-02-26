@@ -52,6 +52,6 @@ public class TaiaoSoundEvents {
 	}
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering sound events");
+		Taiao.LOGGER.debug("Registered sound events");
 	}
 }

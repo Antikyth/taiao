@@ -429,7 +429,7 @@ public class TaiaoBlocks {
 	).copyFlammable(Blocks.HAY_BLOCK).register(true);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering blocks");
+		Taiao.LOGGER.debug("Registered blocks");
 
 		registerFlammableTagCopy(TaiaoBlockTags.KAURI_LOGS, Blocks.ACACIA_LOG);
 		registerFlammableTagCopy(TaiaoBlockTags.KAHIKATEA_LOGS, Blocks.SPRUCE_LOG);

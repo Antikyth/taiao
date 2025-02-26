@@ -16,7 +16,7 @@ public class TaiaoLootPoolEntryTypes {
 	public static final LootPoolEntryType BANNER = register(Taiao.id("banner"), new BannerEntry.Serializer());
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering loot pool entry types");
+		Taiao.LOGGER.debug("Registered loot pool entry types");
 	}
 
 	public static LootPoolEntryType register(Identifier id, JsonSerializer<? extends LootPoolEntry> serializer) {

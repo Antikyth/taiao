@@ -26,7 +26,7 @@ public class TaiaoFeatures {
 	public static final Feature<HiinakiFeatureConfig> HIINAKI = register(Taiao.id("hiinaki"), new HiinakiFeature());
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering features");
+		Taiao.LOGGER.debug("Registered features");
 	}
 
 	public static <FC extends FeatureConfig, F extends Feature<FC>> F register(Identifier id, F feature) {

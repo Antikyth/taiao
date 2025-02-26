@@ -63,7 +63,7 @@ public class TaiaoBannerPatterns {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering banner patterns");
+		Taiao.LOGGER.debug("Registered banner patterns");
 	}
 
 	public static RegistryKey<BannerPattern> register(Identifier id, @NotNull Identifier nbtId) {

@@ -30,7 +30,7 @@ public class TaiaoBlockEntities {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering block entity types");
+		Taiao.LOGGER.debug("Registered block entity types");
 	}
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(

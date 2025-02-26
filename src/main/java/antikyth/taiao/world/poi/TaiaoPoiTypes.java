@@ -32,7 +32,7 @@ public class TaiaoPoiTypes {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering POI types");
+		Taiao.LOGGER.debug("Registered POI types");
 	}
 
 	public static RegistryKey<PointOfInterestType> register(

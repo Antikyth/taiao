@@ -26,7 +26,7 @@ public class TaiaoStats {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering custom stats");
+		Taiao.LOGGER.debug("Registered custom stats");
 	}
 
 	public static Identifier register(Identifier id, StatFormatter formatter) {

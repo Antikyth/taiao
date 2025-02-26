@@ -34,7 +34,7 @@ public class TaiaoEntityTypeProviderTypes {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering entity type provider types");
+		Taiao.LOGGER.debug("Registered entity type provider types");
 	}
 
 	public static <P extends EntityTypeProvider> EntityTypeProvider.Type<P> register(Identifier id, Codec<P> codec) {

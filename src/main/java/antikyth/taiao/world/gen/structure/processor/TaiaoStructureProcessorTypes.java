@@ -19,7 +19,7 @@ public class TaiaoStructureProcessorTypes {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering structure processor types");
+		Taiao.LOGGER.debug("Registered structure processor types");
 	}
 
 	public static <P extends StructureProcessor> StructureProcessorType<P> register(Identifier id, Codec<P> codec) {

@@ -22,7 +22,7 @@ public class TaiaoLootContextTypes {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering loot context types");
+		Taiao.LOGGER.debug("Registered loot context types");
 	}
 
 	public static LootContextType register(@NotNull Identifier id, Consumer<LootContextType.Builder> type) {

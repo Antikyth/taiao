@@ -35,7 +35,7 @@ public class TaiaoVillagerTypes {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering villager types");
+		Taiao.LOGGER.debug("Registered villager types");
 
 		VillagerGatherableItemsCallback.EVENT.register(builder -> builder.add(TaiaoBlocks.HARAKEKE));
 	}

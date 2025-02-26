@@ -18,102 +18,102 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 public class TaiaoBlockPredicates {
-    public static final BlockPredicateType<WithinHorizontalRangeBlockPredicate> WITHIN_HORIZONTAL_RANGE = register(
-            Taiao.id("within_horizontal_range"),
-            WithinHorizontalRangeBlockPredicate.CODEC
-    );
+	public static final BlockPredicateType<WithinHorizontalRangeBlockPredicate> WITHIN_HORIZONTAL_RANGE = register(
+		Taiao.id("within_horizontal_range"),
+		WithinHorizontalRangeBlockPredicate.CODEC
+	);
 
 
-    /**
-     * Whether any blocks match the given {@code predicate} within horizontal range.
-     *
-     * @param predicate             the predicate to check blocks within range against
-     * @param shape                 the shape of the area to check within
-     * @param ignoreCenter          whether to ignore the center of the area to check around
-     * @param maxDistanceFromCenter the maximum horizontal distance to check for matches
-     */
-    public static @NotNull BlockPredicate withinHorizontalRange(
-            BlockPredicate predicate,
-            WithinHorizontalRangeBlockPredicate.Shape shape,
-            boolean ignoreCenter,
-            int maxDistanceFromCenter
-    ) {
-        return withinHorizontalRange(predicate, Vec3i.ZERO, shape, ignoreCenter, false, maxDistanceFromCenter);
-    }
+	/**
+	 * Whether any blocks match the given {@code predicate} within horizontal range.
+	 *
+	 * @param predicate             the predicate to check blocks within range against
+	 * @param shape                 the shape of the area to check within
+	 * @param ignoreCenter          whether to ignore the center of the area to check around
+	 * @param maxDistanceFromCenter the maximum horizontal distance to check for matches
+	 */
+	public static @NotNull BlockPredicate withinHorizontalRange(
+		BlockPredicate predicate,
+		WithinHorizontalRangeBlockPredicate.Shape shape,
+		boolean ignoreCenter,
+		int maxDistanceFromCenter
+	) {
+		return withinHorizontalRange(predicate, Vec3i.ZERO, shape, ignoreCenter, false, maxDistanceFromCenter);
+	}
 
-    /**
-     * Whether any blocks match the given {@code predicate} within horizontal range.
-     *
-     * @param predicate             the predicate to check blocks within range against
-     * @param offset                the offset to center the area to check within around
-     * @param shape                 the shape of the area to check within
-     * @param ignoreCenter          whether to ignore the center of the area to check within
-     * @param ignoreOrigin          whether to ignore the origin position
-     * @param maxDistanceFromCenter the maximum horizontal distance to check for matches
-     */
-    public static @NotNull BlockPredicate withinHorizontalRange(
-            BlockPredicate predicate,
-            Vec3i offset,
-            WithinHorizontalRangeBlockPredicate.Shape shape,
-            boolean ignoreCenter,
-            boolean ignoreOrigin,
-            int maxDistanceFromCenter
-    ) {
-        return new WithinHorizontalRangeBlockPredicate(
-                predicate,
-                offset,
-                shape,
-                ignoreCenter,
-                ignoreOrigin,
-                maxDistanceFromCenter
-        );
-    }
+	/**
+	 * Whether any blocks match the given {@code predicate} within horizontal range.
+	 *
+	 * @param predicate             the predicate to check blocks within range against
+	 * @param offset                the offset to center the area to check within around
+	 * @param shape                 the shape of the area to check within
+	 * @param ignoreCenter          whether to ignore the center of the area to check within
+	 * @param ignoreOrigin          whether to ignore the origin position
+	 * @param maxDistanceFromCenter the maximum horizontal distance to check for matches
+	 */
+	public static @NotNull BlockPredicate withinHorizontalRange(
+		BlockPredicate predicate,
+		Vec3i offset,
+		WithinHorizontalRangeBlockPredicate.Shape shape,
+		boolean ignoreCenter,
+		boolean ignoreOrigin,
+		int maxDistanceFromCenter
+	) {
+		return new WithinHorizontalRangeBlockPredicate(
+			predicate,
+			offset,
+			shape,
+			ignoreCenter,
+			ignoreOrigin,
+			maxDistanceFromCenter
+		);
+	}
 
-    @Contract(" -> new")
-    public static @NotNull BlockPredicate air() {
-        return air(Vec3i.ZERO);
-    }
+	@Contract(" -> new")
+	public static @NotNull BlockPredicate air() {
+		return air(Vec3i.ZERO);
+	}
 
-    @Contract("_ -> new")
-    public static @NotNull BlockPredicate air(@NotNull Direction direction) {
-        return air(direction, 1);
-    }
+	@Contract("_ -> new")
+	public static @NotNull BlockPredicate air(@NotNull Direction direction) {
+		return air(direction, 1);
+	}
 
-    @Contract("_, _ -> new")
-    public static @NotNull BlockPredicate air(@NotNull Direction direction, int distance) {
-        return air(direction.getVector().multiply(distance));
-    }
+	@Contract("_, _ -> new")
+	public static @NotNull BlockPredicate air(@NotNull Direction direction, int distance) {
+		return air(direction.getVector().multiply(distance));
+	}
 
-    @Contract("_ -> new")
-    public static @NotNull BlockPredicate air(Vec3i offset) {
-        return BlockPredicate.matchingBlocks(offset, Blocks.AIR);
-    }
+	@Contract("_ -> new")
+	public static @NotNull BlockPredicate air(Vec3i offset) {
+		return BlockPredicate.matchingBlocks(offset, Blocks.AIR);
+	}
 
-    @Contract(" -> new")
-    public static @NotNull BlockPredicate water() {
-        return water(Vec3i.ZERO);
-    }
+	@Contract(" -> new")
+	public static @NotNull BlockPredicate water() {
+		return water(Vec3i.ZERO);
+	}
 
-    @Contract("_ -> new")
-    public static @NotNull BlockPredicate water(@NotNull Direction direction) {
-        return water(direction, 1);
-    }
+	@Contract("_ -> new")
+	public static @NotNull BlockPredicate water(@NotNull Direction direction) {
+		return water(direction, 1);
+	}
 
-    @Contract("_, _ -> new")
-    public static @NotNull BlockPredicate water(@NotNull Direction direction, int distance) {
-        return water(direction.getVector().multiply(distance));
-    }
+	@Contract("_, _ -> new")
+	public static @NotNull BlockPredicate water(@NotNull Direction direction, int distance) {
+		return water(direction.getVector().multiply(distance));
+	}
 
-    @Contract("_ -> new")
-    public static @NotNull BlockPredicate water(Vec3i offset) {
-        return BlockPredicate.matchingBlocks(offset, Blocks.WATER);
-    }
+	@Contract("_ -> new")
+	public static @NotNull BlockPredicate water(Vec3i offset) {
+		return BlockPredicate.matchingBlocks(offset, Blocks.WATER);
+	}
 
-    public static void initialize() {
-        Taiao.LOGGER.debug("Registering block predicates");
-    }
+	public static void initialize() {
+		Taiao.LOGGER.debug("Registered block predicates");
+	}
 
-    public static <P extends BlockPredicate> BlockPredicateType<P> register(Identifier id, Codec<P> codec) {
-        return Registry.register(Registries.BLOCK_PREDICATE_TYPE, id, () -> codec);
-    }
+	public static <P extends BlockPredicate> BlockPredicateType<P> register(Identifier id, Codec<P> codec) {
+		return Registry.register(Registries.BLOCK_PREDICATE_TYPE, id, () -> codec);
+	}
 }

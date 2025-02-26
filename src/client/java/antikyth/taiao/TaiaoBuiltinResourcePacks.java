@@ -21,7 +21,7 @@ public class TaiaoBuiltinResourcePacks {
 	);
 
 	public static void initialize() {
-		Taiao.LOGGER.debug("Registering built-in resource packs");
+		Taiao.LOGGER.debug("Registered built-in resource packs");
 	}
 
 	/**
