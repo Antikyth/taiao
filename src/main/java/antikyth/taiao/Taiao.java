@@ -4,6 +4,7 @@
 
 package antikyth.taiao;
 
+import antikyth.taiao.advancement.criteria.TaiaoCriteria;
 import antikyth.taiao.banner.TaiaoBannerPatterns;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
@@ -57,6 +58,8 @@ public class Taiao implements ModInitializer {
 		else initialized = true;
 
 		LOGGER.info("Initializing {}", MOD_NAME);
+
+		TaiaoCriteria.initialize();
 
 		TaiaoStats.initialize();
 		TaiaoSoundEvents.initialize();

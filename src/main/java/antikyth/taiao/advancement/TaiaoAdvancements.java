@@ -5,27 +5,32 @@
 package antikyth.taiao.advancement;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.advancement.criteria.BlockPlacedFromKeteCriterion;
+import antikyth.taiao.advancement.criteria.EntityFreedCriterion;
+import antikyth.taiao.advancement.criteria.KeteChangedCriterion;
 import antikyth.taiao.banner.TaiaoBanners;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.TaiaoStateProperties;
+import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
 import antikyth.taiao.item.TaiaoItems;
-import antikyth.taiao.item.kete.KeteItem;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.CriterionMerger;
 import net.minecraft.advancement.criterion.CriterionConditions;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
+import net.minecraft.advancement.criterion.ItemCriterion;
+import net.minecraft.advancement.criterion.PlayerHurtEntityCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.predicate.*;
+import net.minecraft.predicate.entity.DamageSourcePredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,23 +42,7 @@ public class TaiaoAdvancements {
 
 	public static final Identifier MAIN_TAB = Taiao.id("main");
 
-	private static final NbtCompound KETE_AT_LEAST_ONE_STACK;
-
-	static {
-		NbtCompound nbt = new NbtCompound();
-		NbtList contents = new NbtList();
-		contents.add(new NbtCompound());
-		contents.add(new NbtCompound());
-
-		nbt.put(KeteItem.CONTENTS_KEY, contents);
-
-		KETE_AT_LEAST_ONE_STACK = nbt;
-	}
-
-	public static final Identifier ROOT = rootBuilder(
-		MAIN_TAB,
-		TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU.getOrCreateStack()
-	)
+	public static final Identifier ROOT = rootBuilder(MAIN_TAB, TaiaoBanners.KAOKAO_TUPUNA_TUKUTUKU.getOrCreateStack())
 		.criteriaMerger(CriterionMerger.OR)
 		.criterion(
 			"in_native_forest",
@@ -65,53 +54,50 @@ public class TaiaoAdvancements {
 		)
 		.build();
 
-	public static final Identifier HARAKEKE = builder(
-		MAIN_TAB,
-		"harakeke",
-		TaiaoBlocks.HARAKEKE,
-		true,
-		true
-	)
-		.criterion("unlock_right_away", TickCriterion.Conditions.createTick())
-		.build();
-
-	public static final Identifier BIGGER_ON_INSIDE = builder(
-		MAIN_TAB,
-		"bigger_on_inside",
-		TaiaoItems.KETE,
-		true,
-		true
-	)
-		.parent(HARAKEKE)
+	public static final Identifier HARAKEKE = builder(MAIN_TAB, "harakeke", TaiaoBlocks.HARAKEKE)
 		.criterion(
-			"has_full_stack_in_kete",
-			InventoryChangedCriterion.Conditions.items(
-				ItemPredicate.Builder.create()
-					.items(TaiaoItems.KETE)
-					.nbt(KETE_AT_LEAST_ONE_STACK)
-					.build()
+			"harakeke_harvested",
+			ItemCriterion.Conditions.createItemUsedOnBlock(
+				LocationPredicate.Builder.create()
+					.block(
+						BlockPredicate.Builder.create()
+							.blocks(TaiaoBlocks.HARAKEKE)
+							.state(
+								StatePredicate.Builder.create()
+									.exactMatch(TaiaoStateProperties.HARVESTABLE, true)
+									.build()
+							)
+							.build()
+					),
+				ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS)
 			)
 		)
 		.build();
-	public static final Identifier EFFICIENT = builder(
-		MAIN_TAB,
-		"efficient",
-		TaiaoItems.KETE,
-		true,
-		true
-	)
+
+	public static final Identifier BIGGER_ON_INSIDE = builder(MAIN_TAB, "bigger_on_inside", TaiaoItems.KETE)
 		.parent(HARAKEKE)
-		.criterion("unlock_right_away", TickCriterion.Conditions.createTick())
+		.criterion(
+			"has_multiple_stacks_in_kete",
+			KeteChangedCriterion.Conditions.create(NumberRange.IntRange.atLeast(2))
+		)
+		.build();
+	public static final Identifier EFFICIENT_CONSTRUCTION = builder(MAIN_TAB, "efficient_construction", TaiaoItems.KETE)
+		.parent(HARAKEKE)
+		.criterion("block_placed_from_kete", BlockPlacedFromKeteCriterion.Conditions.create())
 		.build();
 
-	public static final Identifier FREEDOM = builder(
-		MAIN_TAB,
-		"freedom",
-		TaiaoItems.EEL,
-		true,
-		true
-	)
-		.criterion("unlock_right_away", TickCriterion.Conditions.createTick())
+	public static final Identifier TRAPPER = builder(MAIN_TAB, "trapper", TaiaoBlocks.HIINAKI)
+		.criterion(
+			"hurt_with_trap",
+			PlayerHurtEntityCriterion.Conditions.create(
+				DamagePredicate.Builder.create().type(
+					DamageSourcePredicate.Builder.create().tag(TagPredicate.expected(TaiaoDamageTypeTags.TRAPS))
+				)
+			)
+		)
+		.build();
+	public static final Identifier FREEDOM = builder(MAIN_TAB, "freedom", TaiaoItems.EEL)
+		.criterion("entity_freed", EntityFreedCriterion.Conditions.create())
 		.build();
 
 	public static Builder rootBuilder(Identifier tabId, ItemConvertible icon) {
@@ -119,29 +105,23 @@ public class TaiaoAdvancements {
 	}
 
 	public static Builder rootBuilder(Identifier tabId, ItemStack icon) {
-		return builder(tabId, "root", icon, false, false).hasBackground(true).parent(null);
+		return builder(tabId, "root", icon).showToast(false).announceToChat(false).hasBackground(true).parent(null);
 	}
 
-	@Contract("_, _, _, _, _ -> new")
 	public static @NotNull Builder builder(
 		Identifier tabId,
 		String name,
-		ItemConvertible icon,
-		boolean showToast,
-		boolean announceToChat
+		ItemConvertible icon
 	) {
-		return builder(tabId, name, new ItemStack(icon), showToast, announceToChat);
+		return builder(tabId, name, new ItemStack(icon));
 	}
 
-	@Contract("_, _, _, _, _ -> new")
 	public static @NotNull Builder builder(
 		Identifier tabId,
 		String name,
-		ItemStack icon,
-		boolean showToast,
-		boolean announceToChat
+		ItemStack icon
 	) {
-		return new Builder(tabId, name, icon, showToast, announceToChat);
+		return new Builder(tabId, name, icon);
 	}
 
 	public static String titleTranslationKey(@NotNull Identifier advancement) {
@@ -157,8 +137,8 @@ public class TaiaoAdvancements {
 		protected final String name;
 		protected final ItemStack icon;
 
-		protected final boolean showToast;
-		protected final boolean announceToChat;
+		protected boolean showToast = true;
+		protected boolean announceToChat = true;
 
 		protected boolean hidden = false;
 		protected boolean hasBackground = false;
@@ -168,15 +148,22 @@ public class TaiaoAdvancements {
 		protected @Nullable CriterionMerger merger;
 		protected @Nullable Identifier parent;
 
-		Builder(Identifier tabId, String name, ItemStack icon, boolean showToast, boolean announceToChat) {
+		Builder(Identifier tabId, String name, ItemStack icon) {
 			this.tabId = tabId;
 			this.name = name;
 			this.icon = icon;
 
-			this.showToast = showToast;
-			this.announceToChat = announceToChat;
-
 			this.parent = this.tabId.withPath(path -> path + "/root");
+		}
+
+		public Builder showToast(boolean showToast) {
+			this.showToast = showToast;
+			return this;
+		}
+
+		public Builder announceToChat(boolean announceToChat) {
+			this.announceToChat = announceToChat;
+			return this;
 		}
 
 		public Builder criterion(String name, CriterionConditions conditions) {

@@ -26,9 +26,15 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		// Advancements
 		EnglishUsLangProvider.addAdvancement(
 			builder,
+			TaiaoAdvancements.TRAPPER,
+			"Trapper",
+			"Hurt or kill an animal trapped in a hīnaki"
+		);
+		EnglishUsLangProvider.addAdvancement(
+			builder,
 			TaiaoAdvancements.FREEDOM,
-			"Freedom",
-			"Free a trapped animal from a hīnaki"
+			"A Kind Heart",
+			"Break a hīnaki to free a trapped animal"
 		);
 
 		// Other blocks

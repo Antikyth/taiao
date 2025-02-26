@@ -81,7 +81,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 		addAdvancement(
 			builder,
-			TaiaoAdvancements.EFFICIENT,
+			TaiaoAdvancements.EFFICIENT_CONSTRUCTION,
 			"Efficient Construction",
 			"Place a block directly from a kete"
 		);
@@ -328,9 +328,15 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		// Advancements
 		addAdvancement(
 			builder,
+			TaiaoAdvancements.TRAPPER,
+			"Trapper",
+			"Hurt or kill an animal trapped in an eel trap"
+		);
+		addAdvancement(
+			builder,
 			TaiaoAdvancements.FREEDOM,
-			"Freedom",
-			"Free a trapped animal from an eel trap"
+			"A Kind Heart",
+			"Break an eel trap to free a trapped animal"
 		);
 
 		// Other blocks

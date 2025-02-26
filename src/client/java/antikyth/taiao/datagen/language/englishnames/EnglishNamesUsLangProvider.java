@@ -39,7 +39,7 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.EFFICIENT,
+			TaiaoAdvancements.EFFICIENT_CONSTRUCTION,
 			"Efficient Construction",
 			"Place a block directly from a New Zealand flax basket"
 		);

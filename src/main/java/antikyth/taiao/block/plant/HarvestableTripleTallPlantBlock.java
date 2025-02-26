@@ -6,12 +6,14 @@ package antikyth.taiao.block.plant;
 
 import antikyth.taiao.block.TaiaoStateProperties;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -103,6 +105,10 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 		ItemStack stack = player.getStackInHand(hand);
 
 		if (state.get(HARVESTABLE) && stack.isIn(ConventionalItemTags.SHEARS)) {
+			if (player instanceof ServerPlayerEntity serverPlayer) {
+				Criteria.ITEM_USED_ON_BLOCK.trigger(serverPlayer, pos, stack);
+			}
+
 			harvest(world, pos, state, player);
 
 			// Damage shears
@@ -141,7 +147,7 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 		// Drop harvested items
 		dropHarvest(world, pos);
 
-		world.emitGameEvent(harvester, GameEvent.SHEAR, pos);
+		world.emitGameEvent(harvester, GameEvent.BLOCK_CHANGE, pos);
 
 		return true;
 	}

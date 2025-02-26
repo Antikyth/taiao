@@ -58,10 +58,14 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TaiaoChestLootTableProvider::new);
 		pack.addProvider(TaiaoTrapBaitLootTableProvider::new);
 
+		// Damage types
+		pack.addProvider(TaiaoDamageTypeProvider::new);
+
 		// Tags
 		TaiaoBlockTagProvider blockTagProvider = pack.addProvider(TaiaoBlockTagProvider::new);
 		pack.addProvider((output, lookup) -> new TaiaoItemTagProvider(output, lookup, blockTagProvider));
 		pack.addProvider(TaiaoEntityTagProvider::new);
+		pack.addProvider(TaiaoDamageTypeTagProvider::new);
 		pack.addProvider(TaiaoBiomeTagProvider::new);
 		pack.addProvider(TaiaoStructureTagProvider::new);
 		pack.addProvider(TaiaoBannerPatternTagProvider::new);
@@ -71,9 +75,6 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(TaiaoDynamicFeatureProvider::new);
 		pack.addProvider(TaiaoBiomeProvider::new);
 		pack.addProvider(TaiaoStructureProvider::new);
-
-		// Damage types
-		pack.addProvider(TaiaoDamageTypeProvider::new);
 
 		// English-names language resource pack
 		FabricDataGenerator.Pack englishNamesPack = generator.createBuiltinResourcePack(

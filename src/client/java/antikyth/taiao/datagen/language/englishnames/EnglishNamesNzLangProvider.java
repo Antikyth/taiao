@@ -36,7 +36,7 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.EFFICIENT,
+			TaiaoAdvancements.EFFICIENT_CONSTRUCTION,
 			"Efficient Construction",
 			"Place a block directly from a flax basket"
 		);

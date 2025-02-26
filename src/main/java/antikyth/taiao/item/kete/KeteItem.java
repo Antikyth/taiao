@@ -4,6 +4,7 @@
 
 package antikyth.taiao.item.kete;
 
+import antikyth.taiao.advancement.criteria.TaiaoCriteria;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.item.TooltipData;
 import net.minecraft.entity.ItemEntity;
@@ -15,6 +16,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -211,6 +213,10 @@ public class KeteItem extends Item {
 
 				if (result.shouldIncrementStat() && player != null) {
 					player.incrementStat(Stats.USED.getOrCreateStat(this));
+
+					if (player instanceof ServerPlayerEntity serverPlayer) {
+						TaiaoCriteria.BLOCK_PLACED_FROM_KETE.trigger(serverPlayer, hit.getBlockPos(), kete);
+					}
 				}
 
 				if (lastStack.isEmpty()) {
@@ -392,6 +398,13 @@ public class KeteItem extends Item {
 		} else {
 			return ItemStack.EMPTY;
 		}
+	}
+
+	/**
+	 * Returns the number of non-empty stacks in the kete.
+	 */
+	public static int getStackCount(@NotNull ItemStack kete) {
+		return (int) getContentStacks(kete).filter(stack -> !stack.isEmpty()).count();
 	}
 
 	protected static Stream<ItemStack> getContentStacks(@NotNull ItemStack kete) {

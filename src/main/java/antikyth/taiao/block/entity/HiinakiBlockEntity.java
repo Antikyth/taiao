@@ -255,7 +255,7 @@ public class HiinakiBlockEntity extends BlockEntity {
 	 * @param force    whether to kill the entity even if the entrance is blocked
 	 * @return whether there was a trapped entity to hurt
 	 */
-	public boolean tryKillTrappedEntity(boolean force, float damage, @Nullable LivingEntity attacker) {
+	public Entity tryKillTrappedEntity(boolean force, float damage, @Nullable LivingEntity attacker) {
 		Entity entity = this.releaseEntity(force, false);
 
 		if (entity != null) {
@@ -270,11 +270,9 @@ public class HiinakiBlockEntity extends BlockEntity {
 			}
 
 			if (entity.isAlive() && this.world != null) this.world.spawnEntity(entity);
-
-			return true;
-		} else {
-			return false;
 		}
+
+		return entity;
 	}
 
 	/**

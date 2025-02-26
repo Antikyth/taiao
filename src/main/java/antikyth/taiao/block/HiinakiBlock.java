@@ -5,6 +5,7 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.advancement.criteria.TaiaoCriteria;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.entity.HiinakiDummyBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
@@ -17,6 +18,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,6 +33,7 @@ import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.screen.ScreenTexts;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
@@ -323,10 +326,12 @@ public class HiinakiBlock extends BlockWithEntity {
 			ItemStack stack = player.getStackInHand(hand);
 
 			if (blockEntity.hasTrappedEntity()) {
-				if (!world.isClient && blockEntity.tryKillTrappedEntity(false, 5f, player)) {
-					player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED);
+				if (!world.isClient) {
+					if (blockEntity.tryKillTrappedEntity(false, 5f, player) != null) {
+						player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED);
 
-					return ActionResult.success(true);
+						return ActionResult.success(true);
+					}
 				}
 
 				return ActionResult.success(false);
@@ -481,8 +486,13 @@ public class HiinakiBlock extends BlockWithEntity {
 		ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), blockEntity.getBait());
 
 		// Free trapped entity
-		if (blockEntity.releaseEntity(true, true) != null) {
+		Entity freedEntity = blockEntity.releaseEntity(true, true);
+		if (freedEntity != null) {
 			player.incrementStat(TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED);
+
+			if (player instanceof ServerPlayerEntity serverPlayer) {
+				TaiaoCriteria.ENTITY_FREED.trigger(serverPlayer, freedEntity);
+			}
 		}
 	}
 
