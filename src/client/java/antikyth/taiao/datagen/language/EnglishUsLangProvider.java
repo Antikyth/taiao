@@ -7,6 +7,7 @@ package antikyth.taiao.datagen.language;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.TaiaoBuiltinResourcePacks;
 import antikyth.taiao.TriConsumer;
+import antikyth.taiao.advancement.TaiaoAdvancements;
 import antikyth.taiao.banner.Banner;
 import antikyth.taiao.banner.TaiaoBannerPatterns;
 import antikyth.taiao.banner.TaiaoBanners;
@@ -58,6 +59,26 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		// Item groups
 		builder.add(TaiaoItemGroups.MAIN, Taiao.MOD_NAME);
+
+		// Advancements
+		addAdvancement(
+			builder,
+			TaiaoAdvancements.ROOT,
+			Taiao.MOD_NAME,
+			"The beautiful environment of Aotearoa New Zealand"
+		);
+		addAdvancement(
+			builder,
+			TaiaoAdvancements.HARAKEKE,
+			"Whakatika",
+			"Harvest harakeke with shears"
+		);
+		addAdvancement(
+			builder,
+			TaiaoAdvancements.BIGGER_ON_INSIDE,
+			"Bigger on the Inside!",
+			"Put more than one full stack's worth of items in a kete"
+		);
 
 		// Kauri
 		addTreeBlocks(
@@ -298,6 +319,14 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 	}
 
 	public static void addEelTranslations(@NotNull TranslationBuilder builder) {
+		// Advancements
+		addAdvancement(
+			builder,
+			TaiaoAdvancements.FREEDOM,
+			"Freedom",
+			"Free a trapped animal from an eel trap"
+		);
+
 		// Other blocks
 		builder.add(TaiaoBlocks.HIINAKI, "Eel Trap");
 
@@ -385,6 +414,16 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		builder.add(translationKey, text);
 		if (itemText != null) builder.add(translationKey + ".item", itemText);
 		if (playerText != null) builder.add(translationKey + ".player", playerText);
+	}
+
+	public static void addAdvancement(
+		@NotNull TranslationBuilder builder,
+		Identifier id,
+		String title,
+		String description
+	) {
+		builder.add(TaiaoAdvancements.titleTranslationKey(id), title);
+		builder.add(TaiaoAdvancements.descriptionTranslationKey(id), description);
 	}
 
 	public static void addBuiltinResourcePack(

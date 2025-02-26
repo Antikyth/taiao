@@ -4,6 +4,7 @@
 
 package antikyth.taiao.datagen.language.englishnames;
 
+import antikyth.taiao.advancement.TaiaoAdvancements;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.datagen.language.EnglishUsLangProvider;
 import antikyth.taiao.item.TaiaoItems;
@@ -19,6 +20,20 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 	@Override
 	public void generateTranslations(@NotNull TranslationBuilder builder) {
 		super.generateTranslations(builder);
+
+		// Advancements
+		EnglishUsLangProvider.addAdvancement(
+			builder,
+			TaiaoAdvancements.BIGGER_ON_INSIDE,
+			"Bigger on the Inside!",
+			"Put more than one full stack's worth of items in a flax basket"
+		);
+		EnglishUsLangProvider.addAdvancement(
+			builder,
+			TaiaoAdvancements.HARAKEKE,
+			"Whakatika",
+			"Harvest flax with shears"
+		);
 
 		// Other blocks
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Flax Mat");

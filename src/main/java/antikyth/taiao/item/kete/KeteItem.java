@@ -31,7 +31,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class KeteItem extends Item {
-	protected static final String CONTENTS_KEY = "Contents";
+	public static final String CONTENTS_KEY = "Contents";
 	protected static final int ITEM_BAR_COLOR = MathHelper.packRgb(0.4F, 0.4F, 1.0F);
 
 	protected final int maxStacks;

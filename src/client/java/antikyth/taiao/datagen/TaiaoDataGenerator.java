@@ -50,6 +50,7 @@ public class TaiaoDataGenerator implements DataGeneratorEntrypoint {
 
 		pack.addProvider(TaiaoModelProvider::new);
 		pack.addProvider(TaiaoRecipeProvider::new);
+		pack.addProvider(TaiaoAdvancementProvider::new);
 
 		// Loot tables
 		pack.addProvider(TaiaoBlockLootTableProvider::new);

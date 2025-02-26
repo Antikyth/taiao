@@ -4,6 +4,7 @@
 
 package antikyth.taiao.datagen.language;
 
+import antikyth.taiao.advancement.TaiaoAdvancements;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.damage.TaiaoDamageTypes;
@@ -21,6 +22,14 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 	@Override
 	public void generateTranslations(TranslationBuilder builder) {
 		super.generateTranslations(builder);
+
+		// Advancements
+		EnglishUsLangProvider.addAdvancement(
+			builder,
+			TaiaoAdvancements.FREEDOM,
+			"Freedom",
+			"Free a trapped animal from a hīnaki"
+		);
 
 		// Other blocks
 		builder.add(TaiaoBlocks.HIINAKI, "Hīnaki");
