@@ -9,6 +9,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class KeteTooltipComponent implements TooltipComponent {
 	protected static final int SLOT_SIZE = 16;
@@ -34,7 +35,9 @@ public class KeteTooltipComponent implements TooltipComponent {
 	}
 
 	@Override
-	public void drawItems(TextRenderer textRenderer, int x, int y, DrawContext context) {
+	public void drawItems(TextRenderer textRenderer, int x, int y, @NotNull DrawContext context) {
 		context.drawItem(this.contents, x, y, 0);
+		// Draw overlays like durability, but without the count
+		context.drawItemInSlot(textRenderer, this.contents, x, y, "");
 	}
 }
