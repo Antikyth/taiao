@@ -74,6 +74,7 @@ public class TaiaoAdvancements {
 	)
 		.criterion("unlock_right_away", TickCriterion.Conditions.createTick())
 		.build();
+
 	public static final Identifier BIGGER_ON_INSIDE = builder(
 		MAIN_TAB,
 		"bigger_on_inside",
@@ -91,6 +92,16 @@ public class TaiaoAdvancements {
 					.build()
 			)
 		)
+		.build();
+	public static final Identifier EFFICIENT = builder(
+		MAIN_TAB,
+		"efficient",
+		TaiaoItems.KETE,
+		true,
+		true
+	)
+		.parent(HARAKEKE)
+		.criterion("unlock_right_away", TickCriterion.Conditions.createTick())
 		.build();
 
 	public static final Identifier FREEDOM = builder(

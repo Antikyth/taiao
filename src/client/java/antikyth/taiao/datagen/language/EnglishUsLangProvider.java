@@ -76,8 +76,14 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addAdvancement(
 			builder,
 			TaiaoAdvancements.BIGGER_ON_INSIDE,
-			"Bigger on the Inside!",
+			"Bigger on the Inside",
 			"Put more than one full stack's worth of items in a kete"
+		);
+		addAdvancement(
+			builder,
+			TaiaoAdvancements.EFFICIENT,
+			"Efficient Construction",
+			"Place a block directly from a kete"
 		);
 
 		// Kauri

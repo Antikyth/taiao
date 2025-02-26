@@ -27,15 +27,21 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		// Advancements
 		EnglishUsLangProvider.addAdvancement(
 			builder,
+			TaiaoAdvancements.HARAKEKE,
+			"Whakatika",
+			"Harvest New Zealand flax with shears"
+		);
+		EnglishUsLangProvider.addAdvancement(
+			builder,
 			TaiaoAdvancements.BIGGER_ON_INSIDE,
-			"Bigger on the Inside!",
+			"Bigger on the Inside",
 			"Put more than one full stack's worth of items in a New Zealand flax basket"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.HARAKEKE,
-			"Whakatika",
-			"Harvest New Zealand flax with shears"
+			TaiaoAdvancements.EFFICIENT,
+			"Efficient Construction",
+			"Place a block directly from a New Zealand flax basket"
 		);
 
 		// Tī kōuka/cabbage tree
