@@ -13,6 +13,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -72,14 +73,12 @@ public class KeteItem extends Item {
 	 * Returns the maximum count within the kete of the current item, or {@code -1} if empty.
 	 */
 	public int getMaxCount(@NotNull ItemStack kete) {
-		NbtList contents = getContents(kete);
+		ItemStack stack = getFirstStack(kete);
 
-		if (contents == null || contents.isEmpty()) {
-			return -1;
+		if (!stack.isEmpty()) {
+			return this.maxStacks * stack.getMaxCount();
 		} else {
-			ItemStack firstContentStack = ItemStack.fromNbt(contents.getCompound(0));
-
-			return this.maxStacks * firstContentStack.getMaxCount();
+			return -1;
 		}
 	}
 
@@ -92,11 +91,9 @@ public class KeteItem extends Item {
 
 	@Override
 	public Text getName(@NotNull ItemStack kete) {
-		NbtList contents = getContents(kete);
+		ItemStack stack = getFirstStack(kete);
 
-		if (contents != null && !contents.isEmpty()) {
-			ItemStack stack = ItemStack.fromNbt(contents.getCompound(0));
-
+		if (!stack.isEmpty()) {
 			return Text.translatable(this.getTranslationKey() + ".filled", stack.getName());
 		} else {
 			return super.getName(kete);
@@ -123,7 +120,7 @@ public class KeteItem extends Item {
 
 				return insertStack.getCount();
 			} else {
-				ItemStack firstContentStack = ItemStack.fromNbt(contents.getCompound(0));
+				ItemStack firstContentStack = getFirstStack(contents);
 
 				if (ItemStack.canCombine(firstContentStack, stack)) {
 					// Stack is of the same item as the existing ones
@@ -322,29 +319,44 @@ public class KeteItem extends Item {
 		@NotNull List<Text> tooltip,
 		TooltipContext context
 	) {
-		if (!isEmpty(kete)) {
+		ItemStack stack = getFirstStack(kete);
+
+		if (!stack.isEmpty()) {
 			tooltip.add(
 				Text.translatable(
 					this.getTranslationKey() + ".fullness",
 					getCount(kete), this.getMaxCount(kete)
 				).formatted(Formatting.GRAY)
 			);
+
+			if (stack.getItem() instanceof BlockItem) {
+				tooltip.add(ScreenTexts.EMPTY);
+
+				tooltip.add(
+					Text.translatable(this.getTranslationKey() + ".desc.place1")
+						.formatted(Formatting.GRAY)
+				);
+				tooltip.add(
+					ScreenTexts.space()
+						.append(Text.translatable(this.getTranslationKey() + ".desc.place2", stack.getName()))
+						.formatted(Formatting.BLUE)
+				);
+			}
 		}
 	}
 
 	@Override
 	public Optional<TooltipData> getTooltipData(@NotNull ItemStack kete) {
-		NbtList contents = getContents(kete);
+		ItemStack stack = getFirstStack(kete);
 
-		if (contents == null || contents.isEmpty()) {
-			return Optional.empty();
-		} else {
-			ItemStack firstContentStack = ItemStack.fromNbt(contents.getCompound(0));
+		if (!stack.isEmpty()) {
 			// We don't want to give the impression that this can be used for getting the count
 			// within the kete, as there are more than one stack.
-			firstContentStack.setCount(1);
+			stack.setCount(1);
 
-			return Optional.of(new KeteTooltipData(firstContentStack));
+			return Optional.of(new KeteTooltipData(stack));
+		} else {
+			return Optional.empty();
 		}
 	}
 
@@ -364,6 +376,24 @@ public class KeteItem extends Item {
 		return ITEM_BAR_COLOR;
 	}
 
+	/**
+	 * Gets the first stack within the kete, or {@link ItemStack#EMPTY} if there is none.
+	 */
+	protected static ItemStack getFirstStack(@NotNull ItemStack kete) {
+		return getFirstStack(getContents(kete));
+	}
+
+	/**
+	 * Gets the first stack within the kete, or {@link ItemStack#EMPTY} if there is none.
+	 */
+	protected static ItemStack getFirstStack(@Nullable NbtList contents) {
+		if (contents != null && !contents.isEmpty()) {
+			return ItemStack.fromNbt(contents.getCompound(0));
+		} else {
+			return ItemStack.EMPTY;
+		}
+	}
+
 	protected static Stream<ItemStack> getContentStacks(@NotNull ItemStack kete) {
 		NbtList contents = getContents(kete);
 
@@ -371,11 +401,11 @@ public class KeteItem extends Item {
 	}
 
 	protected static @Nullable NbtList getContents(@NotNull ItemStack kete) {
-		return getContents(kete.getOrCreateNbt());
+		return getContents(kete.getNbt());
 	}
 
-	protected static @Nullable NbtList getContents(@NotNull NbtCompound keteNbt) {
-		if (keteNbt.contains(CONTENTS_KEY, NbtElement.LIST_TYPE)) {
+	protected static @Nullable NbtList getContents(@Nullable NbtCompound keteNbt) {
+		if (keteNbt != null && keteNbt.contains(CONTENTS_KEY, NbtElement.LIST_TYPE)) {
 			return keteNbt.getList(CONTENTS_KEY, NbtElement.COMPOUND_TYPE);
 		} else {
 			return null;

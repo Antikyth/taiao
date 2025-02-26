@@ -32,6 +32,7 @@ import net.minecraft.data.family.BlockFamily;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
@@ -166,6 +167,9 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		builder.add(TaiaoItems.KETE, "Kete");
 		builder.add(TaiaoItems.KETE.getTranslationKey() + ".filled", "Kete of %s");
 		builder.add(TaiaoItems.KETE.getTranslationKey() + ".fullness", "%s/%s");
+
+		addDescription(builder, TaiaoItems.KETE, "place1", "Use on Block:");
+		addDescription(builder, TaiaoItems.KETE, "place2", "Places %s");
 		// Other items
 		addBannerPatternItem(builder, TaiaoItems.KIWI_BANNER_PATTERN, "Kiwi");
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Huarākau");
@@ -339,11 +343,11 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 	public static void addDescription(
 		@NotNull TranslationBuilder builder,
-		@NotNull Block block,
+		@NotNull ItemConvertible item,
 		String descriptionKey,
 		String text
 	) {
-		builder.add(block.getTranslationKey() + ".desc." + descriptionKey, text);
+		builder.add(item.asItem().getTranslationKey() + ".desc." + descriptionKey, text);
 	}
 
 	public static void addStat(@NotNull TranslationBuilder builder, @NotNull Identifier stat, String name) {
