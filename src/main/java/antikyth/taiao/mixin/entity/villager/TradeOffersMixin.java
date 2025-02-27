@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.mixin;
+package antikyth.taiao.mixin.entity.villager;
 
 import antikyth.taiao.event.FishermanBoatTradeOfferCallback;
 import com.google.common.collect.ImmutableMap;

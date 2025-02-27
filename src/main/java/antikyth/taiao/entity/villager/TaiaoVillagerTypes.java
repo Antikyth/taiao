@@ -7,7 +7,7 @@ package antikyth.taiao.entity.villager;
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.event.VillagerGatherableItemsCallback;
-import antikyth.taiao.mixin.VillagerEntityAccessor;
+import antikyth.taiao.mixin.entity.villager.VillagerEntityAccessor;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.item.Item;

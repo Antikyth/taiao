@@ -4,17 +4,18 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"AxeItemMixin",
-		"CatEntityMixin",
-		"CatSpawnerMixin",
-		"FoxEntityMixin",
 		"InventoryChangedCriterionMixin",
-		"ServerPlayerEntityMixin",
 		"TallPlantBlockMixin",
-		"TemporaryTypeAwareBuyForOneEmeraldFactoryMixin",
-		"TradeOffersMixin",
-		"VillagerEntityAccessor",
-		"VillagerTaskListProviderMixin",
-		"WolfEntityMixin"
+		"entity.CatEntityMixin",
+		"entity.CatSpawnerMixin",
+		"entity.FoxEntityMixin",
+		"entity.ServerPlayerEntityMixin",
+		"entity.WolfEntityMixin",
+		"entity.villager.SecondaryPointsOfInterestSensorMixin",
+		"entity.villager.TemporaryTypeAwareBuyForOneEmeraldFactoryMixin",
+		"entity.villager.TradeOffersMixin",
+		"entity.villager.VillagerEntityAccessor",
+		"entity.villager.VillagerTaskListProviderMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
