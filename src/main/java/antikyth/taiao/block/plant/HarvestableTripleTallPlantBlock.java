@@ -73,7 +73,12 @@ public class HarvestableTripleTallPlantBlock extends TripleTallPlantBlock implem
 
 	@Override
 	public void randomTick(@NotNull BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (hasRandomTicks(state) && random.nextInt(5) == 0 && receivingEnoughLight(world, pos)) {
+		// A 1/chanceReciprocal chance to grow
+		// This is 3x less likely than berry bushes' chance to grow, as they have 3x more growth
+		// stages to cover
+		int chanceReciprocal = 15;
+
+		if (hasRandomTicks(state) && random.nextInt(chanceReciprocal) == 0 && receivingEnoughLight(world, pos)) {
 			BlockState lowerState = state.with(HARVESTABLE, true);
 
 			world.setBlockState(pos, lowerState, Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
