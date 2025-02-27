@@ -114,7 +114,7 @@ public class TaiaoAdvancements {
 		)
 		.build();
 	public static final Identifier A_KIND_HEART = builder(MAIN_TAB, "kind_heart", TaiaoItems.EEL)
-		.parent(ROOT)
+		.parent(SIT_BACK_AND_RELAX)
 		.criterion(
 			"entity_released",
 			TrapDestroyedCriterion.Conditions.create(
@@ -136,12 +136,8 @@ public class TaiaoAdvancements {
 			)
 		)
 		.build();
-	public static final Identifier A_LITTLE_TRIP = builder(
-		MAIN_TAB,
-		"a_little_trip",
-		TaiaoBlocks.HIINAKI
-	)
-		.parent(ROOT)
+	public static final Identifier A_LITTLE_TRIP = builder(MAIN_TAB, "a_little_trip", TaiaoBlocks.HIINAKI)
+		.parent(SIT_BACK_AND_RELAX)
 		.criterion(
 			"entity_not_released",
 			TrapDestroyedCriterion.Conditions.create(
