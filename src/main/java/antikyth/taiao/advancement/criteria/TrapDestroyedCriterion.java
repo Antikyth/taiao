@@ -10,15 +10,19 @@ import antikyth.taiao.loot.predicate.BooleanPredicate;
 import com.google.gson.JsonObject;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.condition.LocationCheckLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
 import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
+import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.predicate.entity.LootContextPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -116,6 +120,25 @@ public class TrapDestroyedCriterion extends AbstractCriterion<TrapDestroyedCrite
 			this.entity = entity;
 			this.bait = bait;
 			this.released = released;
+		}
+
+		public static @NotNull Conditions create(
+			Block block,
+			LootContextPredicate entity,
+			ItemPredicate bait,
+			BooleanPredicate released
+		) {
+			return create(
+				LootContextPredicate.create(
+					LocationCheckLootCondition.builder(
+						LocationPredicate.Builder.create()
+							.block(BlockPredicate.Builder.create().blocks(block).build())
+					).build()
+				),
+				entity,
+				bait,
+				released
+			);
 		}
 
 		@Contract("_, _, _, _ -> new")

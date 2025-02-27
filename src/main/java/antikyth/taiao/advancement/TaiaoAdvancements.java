@@ -52,7 +52,7 @@ public class TaiaoAdvancements {
 
 	public static final Identifier MAIN_TAB = Taiao.id("main");
 
-	public static final Identifier ROOT = rootBuilder(MAIN_TAB, Taiao.MOD_ICON.get())
+	public static final Identifier ROOT = builder(MAIN_TAB, "root", Taiao.MOD_ICON.get())
 		.criteriaMerger(CriterionMerger.OR)
 		.criterion(
 			"in_native_forest",
@@ -137,16 +137,7 @@ public class TaiaoAdvancements {
 		.criterion(
 			"entity_released",
 			TrapDestroyedCriterion.Conditions.create(
-				// Hīnaki
-				LootContextPredicate.create(
-					LocationCheckLootCondition.builder(
-						LocationPredicate.Builder.create().block(
-							BlockPredicate.Builder.create()
-								.blocks(TaiaoBlocks.HIINAKI)
-								.build()
-						)
-					).build()
-				),
+				TaiaoBlocks.HIINAKI,
 				// Has trapped entity
 				EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().build()),
 				ItemPredicate.ANY,
@@ -160,16 +151,7 @@ public class TaiaoAdvancements {
 		.criterion(
 			"entity_not_released",
 			TrapDestroyedCriterion.Conditions.create(
-				// Hīnaki
-				LootContextPredicate.create(
-					LocationCheckLootCondition.builder(
-						LocationPredicate.Builder.create().block(
-							BlockPredicate.Builder.create()
-								.blocks(TaiaoBlocks.HIINAKI)
-								.build()
-						)
-					).build()
-				),
+				TaiaoBlocks.HIINAKI,
 				// Has trapped entity
 				EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().build()),
 				ItemPredicate.ANY,
@@ -178,14 +160,6 @@ public class TaiaoAdvancements {
 			)
 		)
 		.build();
-
-	public static Builder rootBuilder(Identifier tabId, ItemConvertible icon) {
-		return rootBuilder(tabId, new ItemStack(icon));
-	}
-
-	public static Builder rootBuilder(Identifier tabId, ItemStack icon) {
-		return builder(tabId, "root", icon).showToast(false).announceToChat(false).hasBackground(true).parent(null);
-	}
 
 	public static @NotNull Builder builder(
 		Identifier tabId,
@@ -216,11 +190,10 @@ public class TaiaoAdvancements {
 		protected final String name;
 		protected final ItemStack icon;
 
-		protected boolean showToast = true;
-		protected boolean announceToChat = true;
+		protected @Nullable Boolean showToast = true;
+		protected @Nullable Boolean announceToChat = true;
 
 		protected boolean hidden = false;
-		protected boolean hasBackground = true;
 
 		protected Map<String, AdvancementCriterion> criteria = new HashMap<>();
 		protected AdvancementFrame frame = AdvancementFrame.TASK;
@@ -266,11 +239,6 @@ public class TaiaoAdvancements {
 			return this;
 		}
 
-		public Builder hasBackground(boolean hasBackground) {
-			this.hasBackground = hasBackground;
-			return this;
-		}
-
 		public Builder criteriaMerger(CriterionMerger merger) {
 			this.merger = merger;
 			return this;
@@ -284,25 +252,25 @@ public class TaiaoAdvancements {
 		 */
 		public Builder parent(Identifier parent) {
 			this.parent = parent;
-			this.hasBackground = parent == null;
-
 			return this;
 		}
 
 		public Identifier build() {
 			Identifier id = this.tabId.withPath(path -> path + "/" + this.name);
 
+			boolean root = this.parent == null;
+
 			Advancement.Builder builder = Advancement.Builder.create()
 				.display(
 					this.icon,
 					Text.translatable(titleTranslationKey(id)),
 					Text.translatable(descriptionTranslationKey(id)),
-					this.hasBackground
+					root
 						? this.tabId.withPath(path -> "textures/gui/advancements/backgrounds/" + path + ".png")
 						: null,
 					this.frame,
-					this.showToast,
-					this.announceToChat,
+					this.showToast == null ? !root : this.showToast,
+					this.announceToChat == null ? !root : this.announceToChat,
 					this.hidden
 				);
 
