@@ -93,6 +93,7 @@ public class Taiao implements ModInitializer {
 
 		TaiaoVillagerTypes.initialize();
 		TaiaoVillagerTypes.addGatherableItems();
+		TaiaoVillagerTypes.addCompostableItems();
 		TaiaoTradeOffers.initialize();
 
 		TaiaoEntityTypeProviderTypes.initialize();

@@ -7,18 +7,19 @@ package antikyth.taiao.event;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.village.VillagerProfession;
 
-public interface VillagerGatherableItemsCallback {
-	Event<VillagerGatherableItemsCallback> EVENT = EventFactory.createArrayBacked(
-		VillagerGatherableItemsCallback.class,
-		listeners -> builder -> {
-			for (VillagerGatherableItemsCallback listener : listeners) {
-				listener.addGatherableItems(builder);
+public interface VillagerProfessionGatherableItemsCallback {
+	Event<VillagerProfessionGatherableItemsCallback> EVENT = EventFactory.createArrayBacked(
+		VillagerProfessionGatherableItemsCallback.class,
+		listeners -> (profession, builder) -> {
+			for (VillagerProfessionGatherableItemsCallback listener : listeners) {
+				listener.addGatherableItems(profession, builder);
 			}
 		}
 	);
 
-	void addGatherableItems(ItemSetBuilder builder);
+	void addGatherableItems(VillagerProfession profession, ItemSetBuilder builder);
 
 	@FunctionalInterface
 	interface ItemSetBuilder {

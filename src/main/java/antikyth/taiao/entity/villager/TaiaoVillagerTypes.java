@@ -6,9 +6,13 @@ package antikyth.taiao.entity.villager;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.event.VillagerGatherableItemsCallback;
+import antikyth.taiao.event.FarmerCompostablesCallback;
+import antikyth.taiao.event.VillagerProfessionGatherableItemsCallback;
+import antikyth.taiao.event.VillagerUniversalGatherableItemsCallback;
+import antikyth.taiao.mixin.entity.villager.FarmerWorkTaskAccessor;
 import antikyth.taiao.mixin.entity.villager.VillagerEntityAccessor;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -16,6 +20,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.VillagerProfession;
 import net.minecraft.village.VillagerType;
 import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +42,14 @@ public class TaiaoVillagerTypes {
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered villager types");
 
-		VillagerGatherableItemsCallback.EVENT.register(builder -> builder.add(TaiaoBlocks.HARAKEKE));
+		VillagerUniversalGatherableItemsCallback.EVENT.register(builder -> builder.add(TaiaoBlocks.HARAKEKE));
+		VillagerProfessionGatherableItemsCallback.EVENT.register((profession, builder) -> {
+			if (profession == VillagerProfession.SHEPHERD) {
+				builder.add(TaiaoBlocks.HARAKEKE);
+			}
+		});
+
+		FarmerCompostablesCallback.EVENT.register(builder -> builder.add(TaiaoBlocks.HARAKEKE));
 	}
 
 	public static void addGatherableItems() {
@@ -46,7 +58,7 @@ public class TaiaoVillagerTypes {
 		ImmutableSet.Builder<Item> builder = ImmutableSet.<Item>builder()
 			.addAll(VillagerEntityAccessor.getGatherableItems());
 
-		VillagerGatherableItemsCallback.EVENT.invoker()
+		VillagerUniversalGatherableItemsCallback.EVENT.invoker()
 			.addGatherableItems(items -> builder.addAll(
 				Arrays.stream(items)
 					.filter(Objects::nonNull)
@@ -55,6 +67,23 @@ public class TaiaoVillagerTypes {
 			));
 
 		VillagerEntityAccessor.setGatherableItems(builder.build());
+	}
+
+	public static void addCompostableItems() {
+		Taiao.LOGGER.debug("Adding to the farmer COMPOSTABLES list");
+
+		ImmutableList.Builder<Item> builder = ImmutableList.<Item>builder()
+			.addAll(FarmerWorkTaskAccessor.getCompostableItems());
+
+		FarmerCompostablesCallback.EVENT.invoker()
+			.addCompostableItems(items -> builder.addAll(
+				Arrays.stream(items)
+					.filter(Objects::nonNull)
+					.map(ItemConvertible::asItem)
+					.iterator()
+			));
+
+		FarmerWorkTaskAccessor.setCompostableItems(builder.build());
 	}
 
 	/**
