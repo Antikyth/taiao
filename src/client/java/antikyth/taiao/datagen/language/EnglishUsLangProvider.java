@@ -67,6 +67,14 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			Taiao.MOD_NAME,
 			"The beautiful environment of Aotearoa New Zealand"
 		);
+
+		addAdvancement(
+			builder,
+			TaiaoAdvancements.BOOM_BOOM,
+			"Boom Boom",
+			"Tame a kākāpō"
+		);
+
 		addAdvancement(
 			builder,
 			TaiaoAdvancements.HARAKEKE,
@@ -328,7 +336,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		// Advancements
 		addAdvancement(
 			builder,
-			TaiaoAdvancements.TRAPPER,
+			TaiaoAdvancements.SIT_BACK_AND_RELAX,
 			"Sit Back and Relax",
 			"Wait for an eel trap to trap an animal, then interact with the trap to hurt or kill it"
 		);
@@ -340,7 +348,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 		addAdvancement(
 			builder,
-			TaiaoAdvancements.YOU_ARE_COMING_WITH_ME,
+			TaiaoAdvancements.A_LITTLE_TRIP,
 			"A Little Trip, You and Me",
 			"Break an eel trap with silk touch while an animal is inside"
 		);

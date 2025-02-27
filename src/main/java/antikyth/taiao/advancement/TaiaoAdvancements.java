@@ -11,6 +11,7 @@ import antikyth.taiao.advancement.criteria.TrapDestroyedCriterion;
 import antikyth.taiao.advancement.criteria.predicate.BooleanPredicate;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.TaiaoStateProperties;
+import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
@@ -19,10 +20,7 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.CriterionMerger;
-import net.minecraft.advancement.criterion.CriterionConditions;
-import net.minecraft.advancement.criterion.ItemCriterion;
-import net.minecraft.advancement.criterion.PlayerHurtEntityCriterion;
-import net.minecraft.advancement.criterion.TickCriterion;
+import net.minecraft.advancement.criterion.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LocationCheckLootCondition;
@@ -62,6 +60,16 @@ public class TaiaoAdvancements {
 		)
 		.build();
 
+	public static final Identifier BOOM_BOOM = builder(MAIN_TAB, "boom_boom", TaiaoItems.CONIFER_FRUIT)
+		.parent(ROOT)
+		.criterion(
+			"tame_kaakaapoo",
+			TameAnimalCriterion.Conditions.create(
+				EntityPredicate.Builder.create().type(TaiaoEntities.KAAKAAPOO).build()
+			)
+		)
+		.build();
+
 	public static final Identifier HARAKEKE = builder(MAIN_TAB, "harakeke", TaiaoBlocks.HARAKEKE)
 		.parent(ROOT)
 		.criterion(
@@ -82,7 +90,6 @@ public class TaiaoAdvancements {
 			)
 		)
 		.build();
-
 	public static final Identifier BIGGER_ON_THE_INSIDE = builder(MAIN_TAB, "bigger_on_inside", TaiaoItems.KETE)
 		.parent(HARAKEKE)
 		.criterion(
@@ -95,7 +102,7 @@ public class TaiaoAdvancements {
 		.criterion("block_placed_from_kete", BlockPlacedFromKeteCriterion.Conditions.create())
 		.build();
 
-	public static final Identifier TRAPPER = builder(MAIN_TAB, "trapper", TaiaoBlocks.HIINAKI)
+	public static final Identifier SIT_BACK_AND_RELAX = builder(MAIN_TAB, "sit_back_and_relax", TaiaoBlocks.HIINAKI)
 		.parent(ROOT)
 		.criterion(
 			"hurt_with_trap",
@@ -106,7 +113,7 @@ public class TaiaoAdvancements {
 			)
 		)
 		.build();
-	public static final Identifier A_KIND_HEART = builder(MAIN_TAB, "freedom", TaiaoItems.EEL)
+	public static final Identifier A_KIND_HEART = builder(MAIN_TAB, "kind_heart", TaiaoItems.EEL)
 		.parent(ROOT)
 		.criterion(
 			"entity_released",
@@ -129,9 +136,9 @@ public class TaiaoAdvancements {
 			)
 		)
 		.build();
-	public static final Identifier YOU_ARE_COMING_WITH_ME = builder(
+	public static final Identifier A_LITTLE_TRIP = builder(
 		MAIN_TAB,
-		"you_are_coming_with_me",
+		"a_little_trip",
 		TaiaoBlocks.HIINAKI
 	)
 		.parent(ROOT)

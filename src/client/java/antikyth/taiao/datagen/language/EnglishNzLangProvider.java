@@ -26,7 +26,7 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		// Advancements
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.TRAPPER,
+			TaiaoAdvancements.SIT_BACK_AND_RELAX,
 			null,
 			"Wait for a hīnaki to trap an animal, then interact with the hīnaki to hurt or kill it"
 		);
@@ -38,7 +38,7 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
-			TaiaoAdvancements.YOU_ARE_COMING_WITH_ME,
+			TaiaoAdvancements.A_LITTLE_TRIP,
 			null,
 			"Break a hīnaki with silk touch while an animal is inside"
 		);
