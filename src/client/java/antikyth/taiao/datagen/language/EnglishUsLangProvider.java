@@ -329,8 +329,8 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addAdvancement(
 			builder,
 			TaiaoAdvancements.TRAPPER,
-			"Let Them Come to Me",
-			"Interact with an eel trap to hurt or kill the animal trapped inside"
+			"Sit Back and Relax",
+			"Wait for an eel trap to trap an animal, then interact with the trap to hurt or kill it"
 		);
 		addAdvancement(
 			builder,
@@ -341,7 +341,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addAdvancement(
 			builder,
 			TaiaoAdvancements.YOU_ARE_COMING_WITH_ME,
-			"Let's Go for a Little Trip",
+			"A Little Trip, You and Me",
 			"Break an eel trap with silk touch while an animal is inside"
 		);
 
@@ -437,11 +437,11 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 	public static void addAdvancement(
 		@NotNull TranslationBuilder builder,
 		Identifier id,
-		String title,
-		String description
+		@Nullable String title,
+		@Nullable String description
 	) {
-		builder.add(TaiaoAdvancements.titleTranslationKey(id), title);
-		builder.add(TaiaoAdvancements.descriptionTranslationKey(id), description);
+		if (title != null) builder.add(TaiaoAdvancements.titleTranslationKey(id), title);
+		if (description != null) builder.add(TaiaoAdvancements.descriptionTranslationKey(id), description);
 	}
 
 	public static void addBuiltinResourcePack(

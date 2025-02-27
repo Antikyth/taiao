@@ -25,19 +25,19 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 		EnglishUsLangProvider.addAdvancement(
 			builder,
 			TaiaoAdvancements.HARAKEKE,
-			"Whakatika",
+			null,
 			"Harvest flax with shears"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
 			TaiaoAdvancements.BIGGER_ON_THE_INSIDE,
-			"Bigger on the Inside",
+			null,
 			"Put more than one full stack's worth of items in a flax basket"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
 			TaiaoAdvancements.EFFICIENT_CONSTRUCTION,
-			"Efficient Construction",
+			null,
 			"Place a block directly from a flax basket"
 		);
 

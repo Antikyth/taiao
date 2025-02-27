@@ -27,19 +27,19 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		EnglishUsLangProvider.addAdvancement(
 			builder,
 			TaiaoAdvancements.TRAPPER,
-			"Let Them Come to Me",
-			"Interact with a hīnaki to hurt or kill the animal trapped inside"
+			null,
+			"Wait for a hīnaki to trap an animal, then interact with the hīnaki to hurt or kill it"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
 			TaiaoAdvancements.A_KIND_HEART,
-			"A Kind Heart",
+			null,
 			"Break a hīnaki to free the animal trapped inside"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,
 			TaiaoAdvancements.YOU_ARE_COMING_WITH_ME,
-			"Let's Go for a Little Trip",
+			null,
 			"Break a hīnaki with silk touch while an animal is inside"
 		);
 
