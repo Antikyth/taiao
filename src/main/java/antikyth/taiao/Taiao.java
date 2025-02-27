@@ -17,6 +17,7 @@ import antikyth.taiao.entity.villager.TaiaoVillagerTypes;
 import antikyth.taiao.item.TaiaoItemGroups;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.loot.TaiaoLootContextTypes;
+import antikyth.taiao.loot.condition.TaiaoLootConditionTypes;
 import antikyth.taiao.loot.entry.TaiaoLootPoolEntryTypes;
 import antikyth.taiao.loot.function.TaiaoLootFunctionTypes;
 import antikyth.taiao.sound.TaiaoSoundEvents;
@@ -74,6 +75,7 @@ public class Taiao implements ModInitializer {
 		TaiaoSoundEvents.initialize();
 
 		TaiaoLootContextTypes.initialize();
+		TaiaoLootConditionTypes.initialize();
 		TaiaoLootPoolEntryTypes.initialize();
 		TaiaoLootFunctionTypes.initialize();
 

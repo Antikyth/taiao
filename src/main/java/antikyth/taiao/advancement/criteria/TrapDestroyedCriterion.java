@@ -5,8 +5,8 @@
 package antikyth.taiao.advancement.criteria;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.advancement.criteria.predicate.BooleanPredicate;
 import antikyth.taiao.loot.TaiaoLootContextTypes;
+import antikyth.taiao.loot.predicate.BooleanPredicate;
 import com.google.gson.JsonObject;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;

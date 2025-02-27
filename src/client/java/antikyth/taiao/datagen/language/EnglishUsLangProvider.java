@@ -79,7 +79,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			builder,
 			TaiaoAdvancements.HARAKEKE,
 			"Whakatika",
-			"Harvest harakeke with shears"
+			"Harvest harakeke with shears without any harmful status effects active"
 		);
 		addAdvancement(
 			builder,

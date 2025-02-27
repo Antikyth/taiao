@@ -8,12 +8,15 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.advancement.criteria.BlockPlacedFromKeteCriterion;
 import antikyth.taiao.advancement.criteria.KeteStackCountCriterion;
 import antikyth.taiao.advancement.criteria.TrapDestroyedCriterion;
-import antikyth.taiao.advancement.criteria.predicate.BooleanPredicate;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.TaiaoStateProperties;
+import antikyth.taiao.effect.TaiaoStatusEffectTags;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.loot.condition.HasStatusEffectTagLootCondition;
+import antikyth.taiao.loot.predicate.BooleanPredicate;
+import antikyth.taiao.loot.predicate.EffectTagPredicate;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.advancement.Advancement;
@@ -24,6 +27,7 @@ import net.minecraft.advancement.criterion.*;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LocationCheckLootCondition;
+import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.DamagePredicate;
 import net.minecraft.predicate.NumberRange.IntRange;
@@ -74,19 +78,34 @@ public class TaiaoAdvancements {
 		.parent(ROOT)
 		.criterion(
 			"harakeke_harvested",
-			ItemCriterion.Conditions.createItemUsedOnBlock(
-				LocationPredicate.Builder.create()
-					.block(
-						BlockPredicate.Builder.create()
-							.blocks(TaiaoBlocks.HARAKEKE)
-							.state(
-								StatePredicate.Builder.create()
-									.exactMatch(TaiaoStateProperties.HARVESTABLE, true)
+			new ItemCriterion.Conditions(
+				Criteria.ITEM_USED_ON_BLOCK.getId(),
+				// No harmful effects
+				LootContextPredicate.create(
+					HasStatusEffectTagLootCondition.create(EffectTagPredicate.of(TaiaoStatusEffectTags.TAPU))
+						.invert()
+						.build()
+				),
+				LootContextPredicate.create(
+					// Harvestable harakeke
+					LocationCheckLootCondition.builder(
+						LocationPredicate.Builder.create()
+							.block(
+								BlockPredicate.Builder.create()
+									.blocks(TaiaoBlocks.HARAKEKE)
+									.state(
+										StatePredicate.Builder.create()
+											.exactMatch(TaiaoStateProperties.HARVESTABLE, true)
+											.build()
+									)
 									.build()
 							)
-							.build()
-					),
-				ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS)
+					).build(),
+					// Shears
+					MatchToolLootCondition.builder(
+						ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS)
+					).build()
+				)
 			)
 		)
 		.build();
