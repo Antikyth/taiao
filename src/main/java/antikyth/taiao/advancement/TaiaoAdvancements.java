@@ -190,8 +190,8 @@ public class TaiaoAdvancements {
 		protected final String name;
 		protected final ItemStack icon;
 
-		protected @Nullable Boolean showToast = true;
-		protected @Nullable Boolean announceToChat = true;
+		protected @Nullable Boolean showToast = null;
+		protected @Nullable Boolean announceToChat = null;
 
 		protected boolean hidden = false;
 
