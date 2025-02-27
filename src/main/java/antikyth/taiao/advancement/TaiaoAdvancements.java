@@ -6,6 +6,7 @@ package antikyth.taiao.advancement;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.advancement.criteria.BlockPlacedFromKeteCriterion;
+import antikyth.taiao.advancement.criteria.ItemCraftedCriterion;
 import antikyth.taiao.advancement.criteria.KeteStackCountCriterion;
 import antikyth.taiao.advancement.criteria.TrapDestroyedCriterion;
 import antikyth.taiao.block.TaiaoBlocks;
@@ -13,6 +14,7 @@ import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.effect.TaiaoStatusEffectTags;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
+import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.loot.condition.HasStatusEffectTagLootCondition;
 import antikyth.taiao.loot.predicate.BooleanPredicate;
@@ -71,6 +73,18 @@ public class TaiaoAdvancements {
 			TameAnimalCriterion.Conditions.create(
 				EntityPredicate.Builder.create().type(TaiaoEntities.KAAKAAPOO).build()
 			)
+		)
+		.build();
+
+	public static final Identifier TOHUNGA_WHAKAIRO = builder(
+		MAIN_TAB,
+		"tohunga_whakairo",
+		TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG
+	)
+		.parent(ROOT)
+		.criterion(
+			"craft_carved_item",
+			ItemCraftedCriterion.Conditions.create(ItemPredicate.Builder.create().tag(TaiaoItemTags.CARVINGS).build())
 		)
 		.build();
 

@@ -8,6 +8,7 @@
 		"CatSpawnerMixin",
 		"FoxEntityMixin",
 		"InventoryChangedCriterionMixin",
+		"ServerPlayerEntityMixin",
 		"TallPlantBlockMixin",
 		"TemporaryTypeAwareBuyForOneEmeraldFactoryMixin",
 		"TradeOffersMixin",

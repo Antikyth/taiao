@@ -69,6 +69,9 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.addOptionalTag(ItemTags.FISHES)
 			.add(Items.FROGSPAWN);
 
+		getOrCreateTagBuilder(TaiaoItemTags.CARVINGS)
+			.add(TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG.asItem())
+			.add(TaiaoBlocks.CHISELED_STRIPPED_RIMU_WOOD.asItem());
 		getOrCreateTagBuilder(TaiaoItemTags.FERNS)
 			.add(Items.FERN)
 			.add(Items.LARGE_FERN)

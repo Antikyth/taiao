@@ -27,6 +27,13 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		// Advancements
 		EnglishUsLangProvider.addAdvancement(
 			builder,
+			TaiaoAdvancements.TOHUNGA_WHAKAIRO,
+			"Master Carver",
+			null
+		);
+
+		EnglishUsLangProvider.addAdvancement(
+			builder,
 			TaiaoAdvancements.HARAKEKE,
 			null,
 			"Harvest New Zealand flax with shears without any harmful status effects active"

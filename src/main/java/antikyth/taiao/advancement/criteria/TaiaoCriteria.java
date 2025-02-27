@@ -12,6 +12,7 @@ public class TaiaoCriteria {
 	public static final BlockPlacedFromKeteCriterion BLOCK_PLACED_FROM_KETE = Criteria.register(new BlockPlacedFromKeteCriterion());
 
 	public static final TrapDestroyedCriterion TRAP_DESTROYED = Criteria.register(new TrapDestroyedCriterion());
+	public static final ItemCraftedCriterion ITEM_CRAFTED = Criteria.register(new ItemCraftedCriterion());
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered advancement criteria");

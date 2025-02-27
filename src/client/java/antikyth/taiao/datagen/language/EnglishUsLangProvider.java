@@ -77,6 +77,13 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		addAdvancement(
 			builder,
+			TaiaoAdvancements.TOHUNGA_WHAKAIRO,
+			"Tohunga Whakairo",
+			"Craft a carved wooden block"
+		);
+
+		addAdvancement(
+			builder,
 			TaiaoAdvancements.HARAKEKE,
 			"Whakatika",
 			"Harvest harakeke with shears without any harmful status effects active"
@@ -235,6 +242,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addBiome(builder, TaiaoBiomes.KAHIKATEA_SWAMP, "Aotearoa Kahikatea Swamp");
 
 		// Item tags
+		addItemTag(builder, TaiaoItemTags.CARVINGS, "Carvings");
 		addItemTag(builder, TaiaoItemTags.FERNS, "Ferns");
 
 		// Block tags

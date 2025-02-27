@@ -31,6 +31,11 @@ public final class TaiaoItemTags {
 	public static final TagKey<Item> WHEKII_PONGA_LOGS = createTagKey(TaiaoBlockTags.WHEKII_PONGA_LOGS);
 
 	/**
+	 * Blocks and items with carvings.
+	 */
+	public static final TagKey<Item> CARVINGS = createTagKey(Taiao.id("carvings"));
+
+	/**
 	 * Ferns and fern tree leaves; used for crafting.
 	 */
 	public static final TagKey<Item> FERNS = createTagKey(Taiao.id("ferns"));
