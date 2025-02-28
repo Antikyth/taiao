@@ -4,6 +4,8 @@
 
 package antikyth.taiao.entity;
 
+import antikyth.taiao.sound.TaiaoSoundEvents;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -12,6 +14,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class WeetaaEntity extends PathAwareEntity {
@@ -37,5 +40,10 @@ public class WeetaaEntity extends PathAwareEntity {
 		return MobEntity.createMobAttributes()
 			.add(EntityAttributes.GENERIC_MAX_HEALTH, 8.0)
 			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(TaiaoSoundEvents.ENTITY_WEETAA_STEP, 0.15f, 1f);
 	}
 }

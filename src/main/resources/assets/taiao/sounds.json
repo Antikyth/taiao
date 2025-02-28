@@ -1,222 +1,232 @@
 {
-  "block.harakeke.break": {
-    "sounds": [
-      "minecraft:block/hanging_roots/break1",
-      "minecraft:block/hanging_roots/break2",
-      "minecraft:block/hanging_roots/break3",
-      "minecraft:block/hanging_roots/break4"
-    ],
-    "subtitle": "subtitles.block.generic.break"
-  },
-  "block.harakeke.fall": {
-    "sounds": [
-      "minecraft:block/hanging_roots/step1",
-      "minecraft:block/hanging_roots/step2",
-      "minecraft:block/hanging_roots/step3",
-      "minecraft:block/hanging_roots/step4",
-      "minecraft:block/hanging_roots/step5",
-      "minecraft:block/hanging_roots/step6"
-    ]
-  },
-  "block.harakeke.hit": {
-    "sounds": [
-      "minecraft:block/hanging_roots/step1",
-      "minecraft:block/hanging_roots/step2",
-      "minecraft:block/hanging_roots/step3",
-      "minecraft:block/hanging_roots/step4",
-      "minecraft:block/hanging_roots/step5",
-      "minecraft:block/hanging_roots/step6"
-    ],
-    "subtitle": "subtitles.block.generic.hit"
-  },
-  "block.harakeke.place": {
-    "sounds": [
-      "minecraft:block/hanging_roots/break1",
-      "minecraft:block/hanging_roots/break2",
-      "minecraft:block/hanging_roots/break3",
-      "minecraft:block/hanging_roots/break4"
-    ],
-    "subtitle": "subtitles.block.generic.place"
-  },
-  "block.harakeke.step": {
-    "sounds": [
-      "minecraft:block/hanging_roots/step1",
-      "minecraft:block/hanging_roots/step2",
-      "minecraft:block/hanging_roots/step3",
-      "minecraft:block/hanging_roots/step4",
-      "minecraft:block/hanging_roots/step5",
-      "minecraft:block/hanging_roots/step6"
-    ],
-    "subtitle": "subtitles.block.generic.footsteps"
-  },
-  "block.harakeke.shear": {
-    "sounds": [
-      "minecraft:mob/sheep/shear"
-    ],
-    "subtitle": "subtitles.item.shears.shear"
-  },
+	"block.harakeke.break": {
+		"sounds": [
+			"minecraft:block/hanging_roots/break1",
+			"minecraft:block/hanging_roots/break2",
+			"minecraft:block/hanging_roots/break3",
+			"minecraft:block/hanging_roots/break4"
+		],
+		"subtitle": "subtitles.block.generic.break"
+	},
+	"block.harakeke.fall": {
+		"sounds": [
+			"minecraft:block/hanging_roots/step1",
+			"minecraft:block/hanging_roots/step2",
+			"minecraft:block/hanging_roots/step3",
+			"minecraft:block/hanging_roots/step4",
+			"minecraft:block/hanging_roots/step5",
+			"minecraft:block/hanging_roots/step6"
+		]
+	},
+	"block.harakeke.hit": {
+		"sounds": [
+			"minecraft:block/hanging_roots/step1",
+			"minecraft:block/hanging_roots/step2",
+			"minecraft:block/hanging_roots/step3",
+			"minecraft:block/hanging_roots/step4",
+			"minecraft:block/hanging_roots/step5",
+			"minecraft:block/hanging_roots/step6"
+		],
+		"subtitle": "subtitles.block.generic.hit"
+	},
+	"block.harakeke.place": {
+		"sounds": [
+			"minecraft:block/hanging_roots/break1",
+			"minecraft:block/hanging_roots/break2",
+			"minecraft:block/hanging_roots/break3",
+			"minecraft:block/hanging_roots/break4"
+		],
+		"subtitle": "subtitles.block.generic.place"
+	},
+	"block.harakeke.step": {
+		"sounds": [
+			"minecraft:block/hanging_roots/step1",
+			"minecraft:block/hanging_roots/step2",
+			"minecraft:block/hanging_roots/step3",
+			"minecraft:block/hanging_roots/step4",
+			"minecraft:block/hanging_roots/step5",
+			"minecraft:block/hanging_roots/step6"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"block.harakeke.shear": {
+		"sounds": [
+			"minecraft:mob/sheep/shear"
+		],
+		"subtitle": "subtitles.item.shears.shear"
+	},
 
-  "entity.kiwi.ambient": {
-    "sounds": [
-      "taiao:mob/kiwi/song0",
-      "taiao:mob/kiwi/song1",
-      "taiao:mob/kiwi/song2",
-      "taiao:mob/kiwi/song3",
-      "taiao:mob/kiwi/song4",
-      "taiao:mob/kiwi/song5",
-      "taiao:mob/kiwi/song6",
-      "taiao:mob/kiwi/song7",
-      "taiao:mob/kiwi/song8",
-      "taiao:mob/kiwi/song9",
-      "taiao:mob/kiwi/song10",
-      "taiao:mob/kiwi/song11"
-    ],
-    "subtitle": "subtitles.taiao.entity.kiwi.ambient"
-  },
-  "entity.kiwi.death": {
-    "sounds": [
-      "taiao:mob/kiwi/song0",
-      "taiao:mob/kiwi/song1",
-      "taiao:mob/kiwi/song2",
-      "taiao:mob/kiwi/song3",
-      "taiao:mob/kiwi/song4",
-      "taiao:mob/kiwi/song5",
-      "taiao:mob/kiwi/song6",
-      "taiao:mob/kiwi/song7",
-      "taiao:mob/kiwi/song8",
-      "taiao:mob/kiwi/song9",
-      "taiao:mob/kiwi/song10",
-      "taiao:mob/kiwi/song11"
-    ],
-    "subtitle": "subtitles.taiao.entity.kiwi.death"
-  },
-  "entity.kiwi.hurt": {
-    "sounds": [
-      "taiao:mob/kiwi/song0",
-      "taiao:mob/kiwi/song1",
-      "taiao:mob/kiwi/song2",
-      "taiao:mob/kiwi/song3",
-      "taiao:mob/kiwi/song4",
-      "taiao:mob/kiwi/song5",
-      "taiao:mob/kiwi/song6",
-      "taiao:mob/kiwi/song7",
-      "taiao:mob/kiwi/song8",
-      "taiao:mob/kiwi/song9",
-      "taiao:mob/kiwi/song10",
-      "taiao:mob/kiwi/song11"
-    ],
-    "subtitle": "subtitles.taiao.entity.kiwi.hurt"
-  },
+	"entity.kiwi.ambient": {
+		"sounds": [
+			"taiao:mob/kiwi/song0",
+			"taiao:mob/kiwi/song1",
+			"taiao:mob/kiwi/song2",
+			"taiao:mob/kiwi/song3",
+			"taiao:mob/kiwi/song4",
+			"taiao:mob/kiwi/song5",
+			"taiao:mob/kiwi/song6",
+			"taiao:mob/kiwi/song7",
+			"taiao:mob/kiwi/song8",
+			"taiao:mob/kiwi/song9",
+			"taiao:mob/kiwi/song10",
+			"taiao:mob/kiwi/song11"
+		],
+		"subtitle": "subtitles.taiao.entity.kiwi.ambient"
+	},
+	"entity.kiwi.death": {
+		"sounds": [
+			"taiao:mob/kiwi/song0",
+			"taiao:mob/kiwi/song1",
+			"taiao:mob/kiwi/song2",
+			"taiao:mob/kiwi/song3",
+			"taiao:mob/kiwi/song4",
+			"taiao:mob/kiwi/song5",
+			"taiao:mob/kiwi/song6",
+			"taiao:mob/kiwi/song7",
+			"taiao:mob/kiwi/song8",
+			"taiao:mob/kiwi/song9",
+			"taiao:mob/kiwi/song10",
+			"taiao:mob/kiwi/song11"
+		],
+		"subtitle": "subtitles.taiao.entity.kiwi.death"
+	},
+	"entity.kiwi.hurt": {
+		"sounds": [
+			"taiao:mob/kiwi/song0",
+			"taiao:mob/kiwi/song1",
+			"taiao:mob/kiwi/song2",
+			"taiao:mob/kiwi/song3",
+			"taiao:mob/kiwi/song4",
+			"taiao:mob/kiwi/song5",
+			"taiao:mob/kiwi/song6",
+			"taiao:mob/kiwi/song7",
+			"taiao:mob/kiwi/song8",
+			"taiao:mob/kiwi/song9",
+			"taiao:mob/kiwi/song10",
+			"taiao:mob/kiwi/song11"
+		],
+		"subtitle": "subtitles.taiao.entity.kiwi.hurt"
+	},
 
-  "entity.puukeko.baby.ambient": {
-    "sounds": [
-      "taiao:mob/puukeko/baby/screech0",
-      "taiao:mob/puukeko/baby/screech1"
-    ],
-    "subtitle": "subtitles.taiao.entity.puukeko.baby.ambient"
-  },
-  "entity.puukeko.baby.death": {
-    "sounds": [
-      "taiao:mob/puukeko/baby/screech0",
-      "taiao:mob/puukeko/baby/screech1"
-    ],
-    "subtitle": "subtitles.taiao.entity.puukeko.baby.death"
-  },
-  "entity.puukeko.baby.hurt": {
-    "sounds": [
-      "taiao:mob/puukeko/baby/screech0",
-      "taiao:mob/puukeko/baby/screech1"
-    ],
-    "subtitle": "subtitles.taiao.entity.puukeko.baby.hurt"
-  },
+	"entity.puukeko.baby.ambient": {
+		"sounds": [
+			"taiao:mob/puukeko/baby/screech0",
+			"taiao:mob/puukeko/baby/screech1"
+		],
+		"subtitle": "subtitles.taiao.entity.puukeko.baby.ambient"
+	},
+	"entity.puukeko.baby.death": {
+		"sounds": [
+			"taiao:mob/puukeko/baby/screech0",
+			"taiao:mob/puukeko/baby/screech1"
+		],
+		"subtitle": "subtitles.taiao.entity.puukeko.baby.death"
+	},
+	"entity.puukeko.baby.hurt": {
+		"sounds": [
+			"taiao:mob/puukeko/baby/screech0",
+			"taiao:mob/puukeko/baby/screech1"
+		],
+		"subtitle": "subtitles.taiao.entity.puukeko.baby.hurt"
+	},
 
-  "entity.puukeko.adult.ambient": {
-    "sounds": [
-      "taiao:mob/puukeko/adult/screech0",
-      "taiao:mob/puukeko/adult/screech1",
-      "taiao:mob/puukeko/adult/screech2",
-      "taiao:mob/puukeko/adult/screech3"
-    ],
-    "subtitle": "subtitles.taiao.entity.puukeko.adult.ambient"
-  },
-  "entity.puukeko.adult.death": {
-    "sounds": [
-      "taiao:mob/puukeko/adult/screech0",
-      "taiao:mob/puukeko/adult/screech1",
-      "taiao:mob/puukeko/adult/screech2",
-      "taiao:mob/puukeko/adult/screech3"
-    ],
-    "subtitle": "subtitles.taiao.entity.puukeko.adult.death"
-  },
-  "entity.puukeko.adult.hurt": {
-    "sounds": [
-      "taiao:mob/puukeko/adult/screech0",
-      "taiao:mob/puukeko/adult/screech1",
-      "taiao:mob/puukeko/adult/screech2",
-      "taiao:mob/puukeko/adult/screech3"
-    ],
-    "subtitle": "subtitles.taiao.entity.puukeko.adult.hurt"
-  },
+	"entity.puukeko.adult.ambient": {
+		"sounds": [
+			"taiao:mob/puukeko/adult/screech0",
+			"taiao:mob/puukeko/adult/screech1",
+			"taiao:mob/puukeko/adult/screech2",
+			"taiao:mob/puukeko/adult/screech3"
+		],
+		"subtitle": "subtitles.taiao.entity.puukeko.adult.ambient"
+	},
+	"entity.puukeko.adult.death": {
+		"sounds": [
+			"taiao:mob/puukeko/adult/screech0",
+			"taiao:mob/puukeko/adult/screech1",
+			"taiao:mob/puukeko/adult/screech2",
+			"taiao:mob/puukeko/adult/screech3"
+		],
+		"subtitle": "subtitles.taiao.entity.puukeko.adult.death"
+	},
+	"entity.puukeko.adult.hurt": {
+		"sounds": [
+			"taiao:mob/puukeko/adult/screech0",
+			"taiao:mob/puukeko/adult/screech1",
+			"taiao:mob/puukeko/adult/screech2",
+			"taiao:mob/puukeko/adult/screech3"
+		],
+		"subtitle": "subtitles.taiao.entity.puukeko.adult.hurt"
+	},
 
-  "entity.kaakaapoo.ambient": {
-    "sounds": [
-      "taiao:mob/kaakaapoo/boom0",
-      "taiao:mob/kaakaapoo/boom1"
-    ],
-    "subtitle": "subtitles.taiao.entity.kaakaapoo.ambient"
-  },
-  "entity.kaakaapoo.death": {
-    "sounds": [
-      "taiao:mob/kaakaapoo/ching0",
-      "taiao:mob/kaakaapoo/ching1"
-    ],
-    "subtitle": "subtitles.taiao.entity.kaakaapoo.death"
-  },
-  "entity.kaakaapoo.hurt": {
-    "sounds": [
-      "taiao:mob/kaakaapoo/ching0",
-      "taiao:mob/kaakaapoo/ching1"
-    ],
-    "subtitle": "subtitles.taiao.entity.kaakaapoo.hurt"
-  },
+	"entity.kaakaapoo.ambient": {
+		"sounds": [
+			"taiao:mob/kaakaapoo/boom0",
+			"taiao:mob/kaakaapoo/boom1"
+		],
+		"subtitle": "subtitles.taiao.entity.kaakaapoo.ambient"
+	},
+	"entity.kaakaapoo.death": {
+		"sounds": [
+			"taiao:mob/kaakaapoo/ching0",
+			"taiao:mob/kaakaapoo/ching1"
+		],
+		"subtitle": "subtitles.taiao.entity.kaakaapoo.death"
+	},
+	"entity.kaakaapoo.hurt": {
+		"sounds": [
+			"taiao:mob/kaakaapoo/ching0",
+			"taiao:mob/kaakaapoo/ching1"
+		],
+		"subtitle": "subtitles.taiao.entity.kaakaapoo.hurt"
+	},
 
-  "entity.eel.death": {
-    "sounds": [
-      "entity/fish/hurt1",
-      "entity/fish/hurt2",
-      "entity/fish/hurt3",
-      "entity/fish/hurt4"
-    ],
-    "subtitle": "subtitles.taiao.entity.eel.death"
-  },
-  "entity.eel.flop": {
-    "sounds": [
-      {
-        "name": "entity/fish/flop1",
-        "volume": 0.3
-      },
-      {
-        "name": "entity/fish/flop2",
-        "volume": 0.3
-      },
-      {
-        "name": "entity/fish/flop3",
-        "volume": 0.3
-      },
-      {
-        "name": "entity/fish/flop4",
-        "volume": 0.3
-      }
-    ],
-    "subtitle": "subtitles.taiao.entity.eel.flop"
-  },
-  "entity.eel.hurt": {
-    "sounds": [
-      "entity/fish/hurt1",
-      "entity/fish/hurt2",
-      "entity/fish/hurt3",
-      "entity/fish/hurt4"
-    ],
-    "subtitle": "subtitles.taiao.entity.eel.hurt"
-  }
+	"entity.eel.death": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.taiao.entity.eel.death"
+	},
+	"entity.eel.flop": {
+		"sounds": [
+			{
+				"name": "entity/fish/flop1",
+				"volume": 0.3
+			},
+			{
+				"name": "entity/fish/flop2",
+				"volume": 0.3
+			},
+			{
+				"name": "entity/fish/flop3",
+				"volume": 0.3
+			},
+			{
+				"name": "entity/fish/flop4",
+				"volume": 0.3
+			}
+		],
+		"subtitle": "subtitles.taiao.entity.eel.flop"
+	},
+	"entity.eel.hurt": {
+		"sounds": [
+			"entity/fish/hurt1",
+			"entity/fish/hurt2",
+			"entity/fish/hurt3",
+			"entity/fish/hurt4"
+		],
+		"subtitle": "subtitles.taiao.entity.eel.hurt"
+	},
+
+	"entity.weetaa.step": {
+		"sounds": [
+			"mob/spider/step1",
+			"mob/spider/step2",
+			"mob/spider/step3",
+			"mob/spider/step4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	}
 }
