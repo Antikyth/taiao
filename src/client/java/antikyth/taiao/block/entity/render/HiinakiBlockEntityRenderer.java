@@ -45,7 +45,7 @@ public class HiinakiBlockEntityRenderer implements BlockEntityRenderer<HiinakiBl
 		matrices.push();
 
 		// Center of front block
-		matrices.translate(0.5f, 0.4f, 0.5f);
+		matrices.translate(0.5f, 0.5f, 0.5f);
 		// Yaw
 		matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(HiinakiBlock.getYaw(state.get(HiinakiBlock.FACING))));
 		// Shift towards the back of the hīnaki
