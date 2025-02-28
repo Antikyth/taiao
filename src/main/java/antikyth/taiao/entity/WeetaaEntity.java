@@ -46,4 +46,16 @@ public class WeetaaEntity extends PathAwareEntity {
 	protected void playStepSound(BlockPos pos, BlockState state) {
 		this.playSound(TaiaoSoundEvents.ENTITY_WEETAA_STEP, 0.15f, 1f);
 	}
+
+	public static boolean isValidSpawn(
+		EntityType<WeetaaEntity> entityType,
+		@NotNull WorldAccess world,
+		SpawnReason reason,
+		@NotNull BlockPos pos,
+		Random random
+	) {
+		BlockState below = world.getBlockState(pos.down());
+
+		return below.isIn(TaiaoBlockTags.WEETAA_SPAWNABLE_ON);
+	}
 }

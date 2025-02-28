@@ -6,6 +6,7 @@ package antikyth.taiao.entity.spawn;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.TaiaoEntities;
+import antikyth.taiao.entity.WeetaaEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.SpawnRestriction.Location;
@@ -24,6 +25,7 @@ public class TaiaoSpawnRestrictions {
 		register(TaiaoEntities.MOA, Location.ON_GROUND, false, AnimalEntity::isValidNaturalSpawn);
 		register(TaiaoEntities.KAAKAAPOO, Location.ON_GROUND, true, AnimalEntity::isValidNaturalSpawn);
 		register(TaiaoEntities.AUSTRALASIAN_BITTERN, Location.ON_GROUND, false, AnimalEntity::isValidNaturalSpawn);
+		register(TaiaoEntities.WEETAA, Location.ON_GROUND, true, WeetaaEntity::isValidSpawn);
 
 		register(TaiaoEntities.EEL, Location.IN_WATER, false, WaterCreatureEntity::canSpawn);
 	}
