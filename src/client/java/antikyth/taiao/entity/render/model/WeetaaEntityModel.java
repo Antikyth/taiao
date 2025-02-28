@@ -4,9 +4,11 @@
 
 package antikyth.taiao.entity.render.model;
 
+import antikyth.taiao.Taiao;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 // Made with Blockbench 4.12.2
@@ -16,14 +18,14 @@ public class WeetaaEntityModel<E extends Entity> extends SinglePartEntityModel<E
 	private final ModelPart neck;
 	private final ModelPart head;
 	private final ModelPart antennae;
-	private final ModelPart rear_left_leg;
+	private final ModelPart rearLeftLeg;
 	private final ModelPart rear_left_leg_lower;
-	private final ModelPart rear_right_leg;
+	private final ModelPart rearRightLeg;
 	private final ModelPart rear_right_leg_lower;
-	private final ModelPart middle_left_leg;
-	private final ModelPart middle_right_leg;
-	private final ModelPart front_left_leg;
-	private final ModelPart front_right_leg;
+	private final ModelPart middleLeftLeg;
+	private final ModelPart middleRightLeg;
+	private final ModelPart frontLeftLeg;
+	private final ModelPart frontRightLeg;
 
 	public WeetaaEntityModel(ModelPart root) {
 		this.root = root;
@@ -31,14 +33,14 @@ public class WeetaaEntityModel<E extends Entity> extends SinglePartEntityModel<E
 		this.neck = root.getChild("neck");
 		this.head = root.getChild("head");
 		this.antennae = this.head.getChild("antennae");
-		this.rear_left_leg = root.getChild("rear_left_leg");
-		this.rear_left_leg_lower = this.rear_left_leg.getChild("rear_left_leg_lower");
-		this.rear_right_leg = root.getChild("rear_right_leg");
-		this.rear_right_leg_lower = this.rear_right_leg.getChild("rear_right_leg_lower");
-		this.middle_left_leg = root.getChild("middle_left_leg");
-		this.middle_right_leg = root.getChild("middle_right_leg");
-		this.front_left_leg = root.getChild("front_left_leg");
-		this.front_right_leg = root.getChild("front_right_leg");
+		this.rearLeftLeg = root.getChild("rear_left_leg");
+		this.rear_left_leg_lower = this.rearLeftLeg.getChild("rear_left_leg_lower");
+		this.rearRightLeg = root.getChild("rear_right_leg");
+		this.rear_right_leg_lower = this.rearRightLeg.getChild("rear_right_leg_lower");
+		this.middleLeftLeg = root.getChild("middle_left_leg");
+		this.middleRightLeg = root.getChild("middle_right_leg");
+		this.frontLeftLeg = root.getChild("front_left_leg");
+		this.frontRightLeg = root.getChild("front_right_leg");
 	}
 
 	public static @NotNull TexturedModelData getTexturedModelData() {
@@ -166,14 +168,44 @@ public class WeetaaEntityModel<E extends Entity> extends SinglePartEntityModel<E
 	}
 
 	@Override
+	public void animateModel(E entity, float limbAngle, float limbDistance, float tickDelta) {
+		this.head.resetTransform();
+
+		this.frontLeftLeg.resetTransform();
+		this.middleLeftLeg.resetTransform();
+		this.rearLeftLeg.resetTransform();
+
+		this.frontRightLeg.resetTransform();
+		this.middleRightLeg.resetTransform();
+		this.rearRightLeg.resetTransform();
+	}
+
+	@Override
 	public void setAngles(
 		E entity,
 		float limbSwing,
 		float limbSwingAmount,
 		float ageInTicks,
-		float netHeadYaw,
-		float headPitch
+		float headYawDegrees,
+		float headPitchDegrees
 	) {
+		headYawDegrees = MathHelper.clamp(headYawDegrees, -30f, 30f);
+		headPitchDegrees = MathHelper.clamp(headPitchDegrees, -22.5f, 45f);
+
+		this.head.pitch += Taiao.degreesToRadians(headPitchDegrees);
+		this.head.yaw += Taiao.degreesToRadians(headYawDegrees);
+
+		float limbAngle1 = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount * 0.5f;
+		float limbAngle2 = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount * 0.5f;
+
+		this.frontLeftLeg.yaw += limbAngle1;
+		this.middleLeftLeg.yaw += limbAngle2;
+
+		this.frontRightLeg.yaw += limbAngle1;
+		this.middleRightLeg.yaw += limbAngle2;
+
+		this.rearLeftLeg.pitch += limbAngle1 * 0.5f;
+		this.rearRightLeg.pitch += limbAngle2 * 0.5f;
 	}
 
 	@Override
