@@ -89,7 +89,7 @@ public class TaiaoItems {
 	);
 	public static final Item WEETAA_SPAWN_EGG = register(
 		Taiao.id("weetaa_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.WEETAA, 0x251e2c, 0x9f99b7, new FabricItemSettings())
+		new SpawnEggItem(TaiaoEntities.WEETAA, 0x613617, 0x111111, new FabricItemSettings())
 	);
 
 	public static final Item KAURI_BOAT = TerraformBoatItemHelper.registerBoatItem(
