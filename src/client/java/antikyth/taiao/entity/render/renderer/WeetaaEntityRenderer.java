@@ -20,7 +20,7 @@ public class WeetaaEntityRenderer extends
 		super(
 			context,
 			new WeetaaEntityModel<>(context.getPart(TaiaoEntityModels.WEETAA)),
-			0.6f
+			0.7f
 		);
 	}
 

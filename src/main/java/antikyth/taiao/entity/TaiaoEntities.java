@@ -93,7 +93,7 @@ public class TaiaoEntities {
 		FabricEntityTypeBuilder.createLiving()
 			.entityFactory(WeetaaEntity::new)
 			.spawnGroup(SpawnGroup.CREATURE)
-			.dimensions(EntityDimensions.changing(0.9f, 0.65f))
+			.dimensions(EntityDimensions.changing(1.2f, 0.65f))
 			.defaultAttributes(WeetaaEntity::createAttributes)
 			.build()
 	);
