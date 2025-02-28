@@ -39,7 +39,7 @@ public class TaiaoItemGroups {
 			addEntityBuckets(group::add);
 
 			addFish(group::add);
-			addAnimalItems(group::add);
+			group.add(TaiaoItems.WEETAA);
 			addFruit(group::add);
 
 			addOtherBuildingBlocks(group::add);
@@ -90,7 +90,6 @@ public class TaiaoItemGroups {
 		// Food
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(group -> {
 			addFruit(item -> group.addBefore(Items.CARROT, item));
-			addAnimalItems(item -> group.addBefore(Items.COD, item));
 			addFish(item -> group.addBefore(Items.BREAD, item));
 		});
 		// Building blocks
@@ -127,8 +126,10 @@ public class TaiaoItemGroups {
 			addBanners(banner -> group.addBefore(Items.SKELETON_SKULL, banner.getOrCreateStack()));
 		});
 		// Ingredients
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS)
-			.register(group -> addBannerPatterns(item -> group.addBefore(Items.ANGLER_POTTERY_SHERD, item)));
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(group -> {
+			group.addBefore(Items.FLOWER_BANNER_PATTERN, TaiaoItems.WEETAA);
+			addBannerPatterns(item -> group.addBefore(Items.ANGLER_POTTERY_SHERD, item));
+		});
 	}
 
 	public static void addLogs(@NotNull Consumer<ItemConvertible> add) {
@@ -273,10 +274,6 @@ public class TaiaoItemGroups {
 
 	public static void addFruit(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoItems.CONIFER_FRUIT);
-	}
-
-	public static void addAnimalItems(@NotNull Consumer<ItemConvertible> add) {
-		add.accept(TaiaoItems.WEETAA);
 	}
 
 	public static void addFish(@NotNull Consumer<ItemConvertible> add) {
