@@ -87,7 +87,8 @@ public class TaiaoStructureProcessorLists {
 		Taiao.id("fisher_marae"),
 		new HiinakiBaitStructureProcessor(
 			DataPool.<ItemStack>builder()
-				.add(ItemStack.EMPTY, 2)
+				.add(ItemStack.EMPTY, 4)
+				.add(new ItemStack(TaiaoItems.WEETAA), 3)
 				.add(new ItemStack(TaiaoItems.EEL), 1)
 				.add(new ItemStack(Items.CHICKEN), 1)
 				.add(new ItemStack(Items.FROGSPAWN), 1)

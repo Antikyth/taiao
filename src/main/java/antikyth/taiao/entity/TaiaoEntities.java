@@ -85,6 +85,18 @@ public class TaiaoEntities {
 			.trackRangeChunks(4)
 			.build()
 	);
+	/**
+	 * A wētā.
+	 */
+	public static final EntityType<WeetaaEntity> WEETAA = register(
+		Taiao.id("weetaa"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(WeetaaEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(0.9f, 0.65f))
+			.defaultAttributes(WeetaaEntity::createAttributes)
+			.build()
+	);
 
 	public static <T extends Entity> EntityType<T> register(Identifier id, EntityType<T> entityType) {
 		return Registry.register(Registries.ENTITY_TYPE, id, entityType);

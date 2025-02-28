@@ -185,9 +185,12 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		// Fruit
 		generator.register(TaiaoItems.CONIFER_FRUIT, Models.GENERATED);
-		// Fishes
+		// Animal items
 		generator.register(TaiaoItems.EEL, Models.GENERATED);
 		generator.register(TaiaoItems.COOKED_EEL, Models.GENERATED);
+		generator.register(TaiaoItems.WEETAA, Models.GENERATED);
+
+		// Fish buckets
 		generator.register(TaiaoItems.EEL_BUCKET, Models.GENERATED);
 
 		// Boats
@@ -207,6 +210,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.KAAKAAPOO_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 		generator.register(TaiaoItems.EEL_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
+		generator.register(TaiaoItems.WEETAA_SPAWN_EGG, TaiaoModels.SPAWN_EGG);
 	}
 
 	public static void registerNorthDefaultHorizontalFacing(@NotNull BlockStateModelGenerator generator, Block block) {

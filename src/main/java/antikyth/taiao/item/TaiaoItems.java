@@ -38,6 +38,7 @@ public class TaiaoItems {
 		Taiao.id("conifer_fruit"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.CONIFER_FRUIT))
 	);
+
 	public static final Item EEL = register(
 		Taiao.id("eel"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.EEL))
@@ -45,6 +46,10 @@ public class TaiaoItems {
 	public static final Item COOKED_EEL = register(
 		Taiao.id("cooked_eel"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.COOKED_EEL))
+	);
+	public static final Item WEETAA = register(
+		Taiao.id("weetaa"),
+		new Item(new FabricItemSettings())
 	);
 
 	public static final Item EEL_BUCKET = register(
@@ -55,6 +60,36 @@ public class TaiaoItems {
 			SoundEvents.ITEM_BUCKET_EMPTY_FISH,
 			new FabricItemSettings().maxCount(1)
 		)
+	);
+
+	public static final Item KIWI_SPAWN_EGG = register(
+		Taiao.id("kiwi_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.KIWI, 0x482d19, 0xf5bb98, new FabricItemSettings())
+	);
+	public static final Item PUUKEKO_SPAWN_EGG = register(
+		Taiao.id("puukeko_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x073673, 0xaf2e2e, new FabricItemSettings())
+	);
+	public static final Item MOA_SPAWN_EGG = register(
+		Taiao.id("moa_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.MOA, 0x2c180c, 0x55361c, new FabricItemSettings())
+	);
+	public static final Item KAAKAAPOO_SPAWN_EGG = register(
+		Taiao.id("kaakaapoo_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.KAAKAAPOO, 0x7a9539, 0xd4ae68, new FabricItemSettings())
+	);
+	public static final Item AUSTRALASIAN_BITTERN_SPAWN_EGG = register(
+		Taiao.id("australasian_bittern_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.AUSTRALASIAN_BITTERN, 0x3b3016, 0xcbb166, new FabricItemSettings())
+	);
+
+	public static final Item EEL_SPAWN_EGG = register(
+		Taiao.id("eel_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.EEL, 0x251e2c, 0x9f99b7, new FabricItemSettings())
+	);
+	public static final Item WEETAA_SPAWN_EGG = register(
+		Taiao.id("weetaa_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.WEETAA, 0x251e2c, 0x9f99b7, new FabricItemSettings())
 	);
 
 	public static final Item KAURI_BOAT = TerraformBoatItemHelper.registerBoatItem(
@@ -96,31 +131,6 @@ public class TaiaoItems {
 		Taiao.id("mamaku_chest_raft"),
 		TaiaoBoats.MAMAKU,
 		true
-	);
-
-	public static final Item KIWI_SPAWN_EGG = register(
-		Taiao.id("kiwi_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.KIWI, 0x482d19, 0xf5bb98, new FabricItemSettings())
-	);
-	public static final Item PUUKEKO_SPAWN_EGG = register(
-		Taiao.id("puukeko_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x073673, 0xaf2e2e, new FabricItemSettings())
-	);
-	public static final Item MOA_SPAWN_EGG = register(
-		Taiao.id("moa_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.MOA, 0x2c180c, 0x55361c, new FabricItemSettings())
-	);
-	public static final Item KAAKAAPOO_SPAWN_EGG = register(
-		Taiao.id("kaakaapoo_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.KAAKAAPOO, 0x7a9539, 0xd4ae68, new FabricItemSettings())
-	);
-	public static final Item AUSTRALASIAN_BITTERN_SPAWN_EGG = register(
-		Taiao.id("australasian_bittern_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.AUSTRALASIAN_BITTERN, 0x3b3016, 0xcbb166, new FabricItemSettings())
-	);
-	public static final Item EEL_SPAWN_EGG = register(
-		Taiao.id("eel_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.EEL, 0x251e2c, 0x9f99b7, new FabricItemSettings())
 	);
 
 	public static void initialize() {
