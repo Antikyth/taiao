@@ -39,7 +39,7 @@ public class TaiaoLootTables {
 		LootTable.builder()
 			.pool(
 				LootPool.builder()
-					.with(ItemEntry.builder(TaiaoItems.WEETAA).weight(3))
+					.with(ItemEntry.builder(TaiaoItems.WEETAA).weight(2))
 					.with(ItemEntry.builder(TaiaoItems.EEL))
 					.with(ItemEntry.builder(Items.CHICKEN))
 					.with(ItemEntry.builder(Items.FROGSPAWN))

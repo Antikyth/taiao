@@ -95,6 +95,10 @@ public class TaiaoEntityLootTableProvider extends FabricEntityLootTableProvider 
 		);
 
 		this.register(
+			TaiaoEntities.WEETAA,
+			LootTable.builder().pool(LootPool.builder().with(ItemEntry.builder(TaiaoItems.WEETAA)))
+		);
+		this.register(
 			TaiaoEntities.EEL,
 			LootTable.builder()
 				.pool(
