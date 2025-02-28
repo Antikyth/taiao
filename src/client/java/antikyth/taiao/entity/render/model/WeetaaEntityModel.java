@@ -195,8 +195,8 @@ public class WeetaaEntityModel<E extends Entity> extends SinglePartEntityModel<E
 		this.head.pitch += Taiao.degreesToRadians(headPitchDegrees);
 		this.head.yaw += Taiao.degreesToRadians(headYawDegrees);
 
-		float limbAngle1 = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount * 0.5f;
-		float limbAngle2 = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount * 0.5f;
+		float limbAngle1 = MathHelper.cos(limbSwing * 0.6662f * 2f) * 1.4f * limbSwingAmount * 0.5f;
+		float limbAngle2 = MathHelper.cos(limbSwing * 0.6662f * 2f + (float) Math.PI) * 1.4f * limbSwingAmount * 0.5f;
 
 		this.frontLeftLeg.yaw += limbAngle1;
 		this.middleLeftLeg.yaw += limbAngle2;
