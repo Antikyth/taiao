@@ -193,8 +193,8 @@ public class WeetaaEntityModel<E extends Entity> extends SinglePartEntityModel<E
 		this.frontRightLeg.yaw += limbAngle1;
 		this.middleRightLeg.yaw += limbAngle2;
 
-		this.rearLeftLeg.pitch += limbAngle1 * 0.5f;
-		this.rearRightLeg.pitch += limbAngle2 * 0.5f;
+		this.rearLeftLeg.pitch += limbAngle1 * 0.75f;
+		this.rearRightLeg.pitch += limbAngle2 * 0.75f;
 	}
 
 	@Override
