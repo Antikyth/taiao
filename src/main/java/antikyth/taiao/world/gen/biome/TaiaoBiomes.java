@@ -92,7 +92,7 @@ public class TaiaoBiomes {
 		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KAAKAAPOO, 10, 1, 2));
 		// Monster spawn group, like ocelots use, so it doesn't take space away from other animal
 		// spawns.
-		spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnEntry(TaiaoEntities.WEETAA, 2, 1, 2));
+		spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnEntry(TaiaoEntities.WEETAA, 20, 1, 2));
 
 		return OverworldBiomeCreator.createBiome(
 			true,

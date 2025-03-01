@@ -86,8 +86,12 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		getOrCreateTagBuilder(TaiaoBlockTags.HYDRATES_HARAKEKE)
 			.add(Blocks.FROSTED_ICE);
 
-		getOrCreateTagBuilder(TaiaoBlockTags.WEETAA_SPAWNABLE_ON)
+		getOrCreateTagBuilder(TaiaoBlockTags.AOTEAROA_ANIMALS_SPAWNABLE_ON)
 			.addOptionalTag(BlockTags.ANIMALS_SPAWNABLE_ON)
+			.add(Blocks.PODZOL)
+			.add(Blocks.COARSE_DIRT);
+		getOrCreateTagBuilder(TaiaoBlockTags.WEETAA_SPAWNABLE_ON)
+			.addTag(TaiaoBlockTags.AOTEAROA_ANIMALS_SPAWNABLE_ON)
 			.addTag(BlockTags.LEAVES)
 			.addOptionalTag(BlockTags.LOGS);
 

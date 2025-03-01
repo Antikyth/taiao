@@ -12,6 +12,9 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public final class TaiaoBlockTags {
+	public static final TagKey<Block> AOTEAROA_ANIMALS_SPAWNABLE_ON = createTagKey(
+		Taiao.id("aotearoa_animals_spawnable_on")
+	);
 	public static final TagKey<Block> WEETAA_SPAWNABLE_ON = createTagKey(Taiao.id("weetaa_spawnable_on"));
 
 	public static final TagKey<Block> THIN_LOGS = createTagKey(Taiao.id("thin_logs"));
