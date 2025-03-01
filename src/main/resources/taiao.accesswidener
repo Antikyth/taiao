@@ -1,10 +1,10 @@
 accessWidener v2 named
 
 # Banners
-accessible field net/minecraft/block/entity/BannerPattern$Patterns entries Ljava/util/List;
+#accessible field net/minecraft/block/entity/BannerPattern$Patterns entries Ljava/util/List;
 
 # Entities
-accessible method net/minecraft/entity/LivingEntity applyFoodEffects (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V
+#accessible method net/minecraft/entity/LivingEntity applyFoodEffects (Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V
 
 # Entity goals
 accessible field net/minecraft/entity/ai/goal/SwimGoal mob Lnet/minecraft/entity/mob/MobEntity;
@@ -14,7 +14,7 @@ accessible field net/minecraft/entity/ai/goal/FollowParentGoal animal Lnet/minec
 accessible field net/minecraft/data/server/loottable/EntityLootTableGenerator lootTables Ljava/util/Map;
 accessible method net/minecraft/loot/context/LootContextTypes register (Ljava/lang/String;Ljava/util/function/Consumer;)Lnet/minecraft/loot/context/LootContextType;
 
-accessible method net/minecraft/loot/context/LootContext <init> (Lnet/minecraft/loot/context/LootContextParameterSet;Lnet/minecraft/util/math/random/Random;Lnet/minecraft/loot/LootDataLookup;)V
+#accessible method net/minecraft/loot/context/LootContext <init> (Lnet/minecraft/loot/context/LootContextParameterSet;Lnet/minecraft/util/math/random/Random;Lnet/minecraft/loot/LootDataLookup;)V
 accessible method net/minecraft/loot/LootTable generateLoot (Lnet/minecraft/loot/context/LootContext;)Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
 
 # Biomes
@@ -26,8 +26,8 @@ accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures c
 
 # Structures
 accessible field net/minecraft/structure/pool/StructurePoolElement EMPTY_PROCESSORS Lnet/minecraft/registry/entry/RegistryEntry;
-accessible method net/minecraft/structure/pool/LegacySinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/structure/pool/StructurePool$Projection;)V
+#accessible method net/minecraft/structure/pool/LegacySinglePoolElement <init> (Lcom/mojang/datafixers/util/Either;Lnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/structure/pool/StructurePool$Projection;)V
 
-accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;
-accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;
-accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Ljava/util/Map;Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;
+#accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;
+#accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;
+#accessible method net/minecraft/world/gen/structure/Structures createConfig (Lnet/minecraft/registry/entry/RegistryEntryList;Ljava/util/Map;Lnet/minecraft/world/gen/GenerationStep$Feature;Lnet/minecraft/world/gen/StructureTerrainAdaptation;)Lnet/minecraft/world/gen/structure/Structure$Config;

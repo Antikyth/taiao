@@ -1,55 +1,55 @@
 {
-  "schemaVersion": 1,
-  "id": "taiao",
-  "version": "${version}",
-  "name": "Te Taiao o Aotearoa",
-  "description": "Adds biomes containing flora and fauna native to Aotearoa New Zealand.",
-  "authors": [
-    "Antikyth"
-  ],
-  "contributors": [
-    "Glassworks"
-  ],
-  "contact": {
-    "homepage": "https://modrinth.com/mod/taiao",
-    "sources": "https://github.com/Antikyth/taiao",
-    "issues": "https://github.com/Antikyth/taiao/issues"
-  },
-  "license": "MPL-2.0",
-  "icon": "assets/taiao/icon.png",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "antikyth.taiao.Taiao"
-    ],
-    "client": [
-      "antikyth.taiao.TaiaoClient"
-    ],
-    "fabric-datagen": [
-      "antikyth.taiao.datagen.TaiaoDataGenerator"
-    ],
-    "emi": [
-      "antikyth.taiao.emi.TaiaoEmiPlugin"
-    ]
-  },
-  "mixins": [
-    "taiao.mixins.json",
-    {
-      "config": "taiao.client.mixins.json",
-      "environment": "client"
-    }
-  ],
-  "accessWidener": "taiao.accesswidener",
-  "depends": {
-    "fabricloader": ">=0.16.10",
-    "minecraft": "~1.20.1",
-    "java": ">=17",
-    "fabric-api": "*",
-    "biolith": "1.0.x",
-    "terraform-wood-api-v1": "7.x",
-    "configurable": "*"
-  },
-  "suggests": {
-    "emi": "*"
-  }
+	"schemaVersion": 1,
+	"id": "taiao",
+	"version": "${version}",
+	"name": "Te Taiao o Aotearoa",
+	"description": "Adds biomes containing flora and fauna native to Aotearoa New Zealand.",
+	"authors": [
+		"Antikyth"
+	],
+	"contributors": [
+		"Glassworks"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/taiao",
+		"sources": "https://github.com/Antikyth/taiao",
+		"issues": "https://github.com/Antikyth/taiao/issues"
+	},
+	"license": "MPL-2.0",
+	"icon": "assets/taiao/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"antikyth.taiao.Taiao"
+		],
+		"client": [
+			"antikyth.taiao.TaiaoClient"
+		],
+		"fabric-datagen": [
+			"antikyth.taiao.datagen.TaiaoDataGenerator"
+		],
+		"emi": [
+			"antikyth.taiao.emi.TaiaoEmiPlugin"
+		]
+	},
+	"mixins": [
+		"taiao.mixins.json",
+		{
+			"config": "taiao.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"accessWidener": "taiao.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"biolith": "3.0.x",
+		"terraform-wood-api-v1": "11.x",
+		"configurable": "*"
+	},
+	"suggests": {
+		"emi": "*"
+	}
 }
