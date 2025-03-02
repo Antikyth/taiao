@@ -83,6 +83,13 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		// Animals
 		EnglishUsLangProvider.addAnimal(
 			builder,
+			TaiaoEntities.HAASTS_EAGLE,
+			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
+			null,
+			"Haast's Eagle"
+		);
+		EnglishUsLangProvider.addAnimal(
+			builder,
 			TaiaoEntities.AUSTRALASIAN_BITTERN,
 			TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG,
 			TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD,

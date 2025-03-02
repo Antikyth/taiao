@@ -260,6 +260,7 @@ public class TaiaoItemGroups {
 	public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoItems.KIWI_SPAWN_EGG);
 		add.accept(TaiaoItems.PUUKEKO_SPAWN_EGG);
+		add.accept(TaiaoItems.HAASTS_EAGLE_SPAWN_EGG);
 		add.accept(TaiaoItems.MOA_SPAWN_EGG);
 		add.accept(TaiaoItems.KAAKAAPOO_SPAWN_EGG);
 		add.accept(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG);

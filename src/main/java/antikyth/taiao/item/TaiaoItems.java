@@ -70,6 +70,10 @@ public class TaiaoItems {
 		Taiao.id("puukeko_spawn_egg"),
 		new SpawnEggItem(TaiaoEntities.PUUKEKO, 0x073673, 0xaf2e2e, new FabricItemSettings())
 	);
+	public static final Item HAASTS_EAGLE_SPAWN_EGG = register(
+		Taiao.id("haasts_eagle_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.HAASTS_EAGLE, 0x2c180c, 0x55361c, new FabricItemSettings())
+	);
 	public static final Item MOA_SPAWN_EGG = register(
 		Taiao.id("moa_spawn_egg"),
 		new SpawnEggItem(TaiaoEntities.MOA, 0x2c180c, 0x55361c, new FabricItemSettings())

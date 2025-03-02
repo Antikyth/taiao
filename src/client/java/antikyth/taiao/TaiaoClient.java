@@ -61,6 +61,7 @@ public class TaiaoClient implements ClientModInitializer {
 		registerSpawnEggColors(
 			TaiaoItems.KIWI_SPAWN_EGG,
 			TaiaoItems.PUUKEKO_SPAWN_EGG,
+			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
 			TaiaoItems.MOA_SPAWN_EGG,
 			TaiaoItems.KAAKAAPOO_SPAWN_EGG,
 			TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG,

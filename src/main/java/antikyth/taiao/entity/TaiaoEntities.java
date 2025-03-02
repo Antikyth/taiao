@@ -38,6 +38,15 @@ public class TaiaoEntities {
 			.trackRangeChunks(10)
 			.build()
 	);
+	public static final EntityType<HaastsEagleEntity> HAASTS_EAGLE = register(
+		Taiao.id("haasts_eagle"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(HaastsEagleEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(1.25f, 2.25f))
+			.defaultAttributes(HaastsEagleEntity::createAttributes)
+			.build()
+	);
 	public static final EntityType<MoaEntity> MOA = register(
 		Taiao.id("moa"),
 		FabricEntityTypeBuilder.createLiving()

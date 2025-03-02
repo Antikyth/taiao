@@ -25,6 +25,10 @@ public class TaiaoEntityModels {
 		TaiaoEntities.PUUKEKO,
 		PuukekoEntityModel::getTexturedModelData
 	);
+	public static final EntityModelLayer HAASTS_EAGLE = registerModelLayer(
+		TaiaoEntities.HAASTS_EAGLE,
+		HaastsEagleEntityModel::getTexturedModelData
+	);
 	public static final EntityModelLayer MOA = registerModelLayer(
 		TaiaoEntities.MOA,
 		MoaEntityModel::getTexturedModelData
@@ -57,6 +61,7 @@ public class TaiaoEntityModels {
 
 		EntityRendererRegistry.register(TaiaoEntities.KIWI, KiwiEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.PUUKEKO, PuukekoEntityRenderer::new);
+		EntityRendererRegistry.register(TaiaoEntities.HAASTS_EAGLE, HaastsEagleEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.MOA, MoaEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.KAAKAAPOO, KaakaapooEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.AUSTRALASIAN_BITTERN, AustralasianBitternEntityRenderer::new);
