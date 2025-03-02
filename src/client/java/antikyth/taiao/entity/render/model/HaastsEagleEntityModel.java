@@ -4,6 +4,7 @@
 
 package antikyth.taiao.entity.render.model;
 
+import antikyth.taiao.Taiao;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.entity.Entity;
@@ -40,78 +41,104 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 	}
 
 	public static @NotNull TexturedModelData getTexturedModelData() {
-		ModelData modelData = new ModelData();
-		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData body = modelPartData.addChild(
+		ModelData data = new ModelData();
+		ModelPartData root = data.getRoot();
+
+		root.addChild(
 			"body",
-			ModelPartBuilder.create().uv(0, 0).cuboid(-3.5F, -10.0F, 1.0F, 7.0F, 20.0F, 7.0F, new Dilation(0.0F)),
-			ModelTransform.of(0.0F, 19.0F, 0.0F, 1.5708F, 0.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(48, 19)
+				.cuboid(-3.5F, -10f, 1f, 7f, 20f, 7f),
+			ModelTransform.of(0f, 19f, 0f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
-
-		ModelPartData head = modelPartData.addChild(
+		root.addChild(
 			"head",
-			ModelPartBuilder.create().uv(28, 32).cuboid(-2.5F, -6.0F, -3.0F, 5.0F, 6.0F, 6.0F, new Dilation(0.0F))
-				.uv(50, 10).cuboid(-1.0F, -9.0F, -3.0F, 2.0F, 3.0F, 4.0F, new Dilation(0.0F)),
-			ModelTransform.of(0.0F, 13.0F, -10.0F, 1.5708F, 0.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(51, 7)
+				.cuboid(-2.5F, -6f, -3f, 5f, 6f, 6f)
+				// Beak
+				.uv(56, 0)
+				.cuboid(-1f, -9f, -3f, 2f, 3f, 4f),
+			ModelTransform.of(0f, 13f, -10f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
 
-		ModelPartData tail = modelPartData.addChild(
+		root.addChild(
 			"tail",
-			ModelPartBuilder.create().uv(0, 27).cuboid(-7.0F, 0.0F, 0.0F, 14.0F, 14.0F, 0.0F, new Dilation(0.0F))
-				.uv(40, 44).cuboid(-3.0F, 0.0F, -3.0F, 6.0F, 6.0F, 3.0F, new Dilation(0.0F)),
-			ModelTransform.of(0.0F, 12.0F, 10.0F, 1.5708F, 0.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(48, 46)
+				.cuboid(-7f, 0f, 0f, 14f, 14f, 0f)
+				// Base of the tail
+				.uv(30, 51)
+				.cuboid(-3f, 0f, -3f, 6f, 6f, 3f),
+			ModelTransform.of(0f, 12f, 10f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
 
-		ModelPartData left_wing = modelPartData.addChild(
+		ModelPartData leftWing = root.addChild(
 			"left_wing",
-			ModelPartBuilder.create().uv(28, 16).cuboid(0.0F, 0.0F, -2.0F, 9.0F, 14.0F, 2.0F, new Dilation(0.0F)),
-			ModelTransform.of(3.5F, 12.0F, -8.0F, 1.5708F, 0.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(26, 26)
+				.cuboid(0f, 0f, -2f, 9f, 14f, 2f),
+			ModelTransform.of(3.5F, 12f, -8f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
-
-		ModelPartData left_wing_lower = left_wing.addChild(
+		ModelPartData leftWingLower = leftWing.addChild(
 			"left_wing_lower",
-			ModelPartBuilder.create().uv(20, 44).cuboid(0.0F, 0.0F, -1.0F, 9.0F, 12.0F, 1.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(9.0F, 2.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(6, 29)
+				.cuboid(0f, 0f, -1f, 9f, 12f, 1f),
+			ModelTransform.pivot(9f, 2f, 0f)
 		);
-
-		ModelPartData left_wing_end = left_wing_lower.addChild(
+		leftWingLower.addChild(
 			"left_wing_end",
-			ModelPartBuilder.create().uv(40, 53).cuboid(0.0F, 0.0F, 0.0F, 3.0F, 8.0F, 0.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(9.0F, 3.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(0, 34)
+				.cuboid(0f, 0f, 0f, 3f, 8f, 0f),
+			ModelTransform.pivot(9f, 3f, 0f)
 		);
 
-		ModelPartData right_wing = modelPartData.addChild(
+		ModelPartData rightWing = root.addChild(
 			"right_wing",
-			ModelPartBuilder.create().uv(28, 0).cuboid(-9.0F, 0.0F, -2.0F, 9.0F, 14.0F, 2.0F, new Dilation(0.0F)),
-			ModelTransform.of(-3.5F, 12.0F, -8.0F, 1.5708F, 0.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(76, 26)
+				.cuboid(-9f, 0f, -2f, 9f, 14f, 2f),
+			ModelTransform.of(-3.5F, 12f, -8f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
-
-		ModelPartData right_wing_lower = right_wing.addChild(
+		ModelPartData rightWingLower = rightWing.addChild(
 			"right_wing_lower",
-			ModelPartBuilder.create().uv(0, 41).cuboid(-9.0F, 0.0F, -1.0F, 9.0F, 12.0F, 1.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(-9.0F, 2.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(98, 29)
+				.cuboid(-9f, 0f, -1f, 9f, 12f, 1f),
+			ModelTransform.pivot(-9f, 2f, 0f)
 		);
-
-		ModelPartData right_wing_end = right_wing_lower.addChild(
+		rightWingLower.addChild(
 			"right_wing_end",
-			ModelPartBuilder.create().uv(50, 35).cuboid(-3.0F, 0.0F, 0.0F, 3.0F, 8.0F, 0.0F, new Dilation(0.0F)),
-			ModelTransform.pivot(-9.0F, 3.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(118, 34)
+				.cuboid(-3f, 0f, 0f, 3f, 8f, 0f),
+			ModelTransform.pivot(-9f, 3f, 0f)
 		);
 
-		ModelPartData left_leg = modelPartData.addChild(
+		root.addChild(
 			"left_leg",
-			ModelPartBuilder.create().uv(50, 17).cuboid(-1.0F, 0.0F, -1.0F, 2.0F, 7.0F, 2.0F, new Dilation(0.0F))
-				.uv(50, 0).cuboid(-2.0F, 7.0F, -4.0F, 4.0F, 0.0F, 5.0F, new Dilation(0.0F)),
-			ModelTransform.of(2.0F, 17.0F, 3.0F, -0.3927F, 0.0F, 0.0F)
+			ModelPartBuilder.create()
+				.uv(0, 0)
+				.cuboid(-1f, 0f, -1f, 2f, 7f, 2f)
+				// Foot
+				.uv(-5, 9)
+				.cuboid(-2f, 7f, -4f, 4f, 0f, 5f),
+			ModelTransform.of(2f, 17f, 3f, Taiao.degreesToRadians(-22.5f), 0f, 0f)
+		);
+		root.addChild(
+			"right_leg",
+			ModelPartBuilder.create()
+				.uv(10, 0)
+				.cuboid(-1f, 0f, -1f, 2f, 7f, 2f)
+				// Foot
+				.uv(5, 9)
+				.cuboid(-2f, 7f, -4f, 4f, 0f, 5f),
+			ModelTransform.of(-2f, 17f, 3f, Taiao.degreesToRadians(-22.5f), 0f, 0f)
 		);
 
-		ModelPartData right_leg = modelPartData.addChild(
-			"right_leg",
-			ModelPartBuilder.create().uv(50, 26).cuboid(-1.0F, 0.0F, -1.0F, 2.0F, 7.0F, 2.0F, new Dilation(0.0F))
-				.uv(50, 5).cuboid(-2.0F, 7.0F, -4.0F, 4.0F, 0.0F, 5.0F, new Dilation(0.0F)),
-			ModelTransform.of(-2.0F, 17.0F, 3.0F, -0.3927F, 0.0F, 0.0F)
-		);
-		return TexturedModelData.of(modelData, 128, 128);
+		return TexturedModelData.of(data, 128, 64);
 	}
 
 	@Override
@@ -127,7 +154,7 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 
 	@Override
 	protected Iterable<ModelPart> getBodyParts() {
-		return List.of(this.body, this.leftLeg, this.rightLeg, this.leftWing, this.rightWing);
+		return List.of(this.body, this.tail, this.leftLeg, this.rightLeg, this.leftWing, this.rightWing);
 	}
 
 	@Override

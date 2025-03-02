@@ -43,7 +43,7 @@ public class TaiaoEntities {
 		FabricEntityTypeBuilder.createLiving()
 			.entityFactory(HaastsEagleEntity::new)
 			.spawnGroup(SpawnGroup.CREATURE)
-			.dimensions(EntityDimensions.changing(1.25f, 2.25f))
+			.dimensions(EntityDimensions.changing(1.6f, 1f))
 			.defaultAttributes(HaastsEagleEntity::createAttributes)
 			.build()
 	);
