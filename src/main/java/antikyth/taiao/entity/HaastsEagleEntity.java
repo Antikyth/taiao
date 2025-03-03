@@ -24,7 +24,7 @@ public class HaastsEagleEntity extends AnimalEntity {
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.GENERIC_MAX_HEALTH, 10.0)
+			.add(EntityAttributes.GENERIC_MAX_HEALTH, 14.0)
 			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
 	}
 
