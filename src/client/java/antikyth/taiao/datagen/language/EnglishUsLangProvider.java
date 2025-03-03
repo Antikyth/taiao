@@ -219,7 +219,13 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		// Birds
 		addAnimal(builder, TaiaoEntities.KIWI, TaiaoItems.KIWI_SPAWN_EGG, TaiaoItemTags.KIWI_FOOD, "Kiwi");
 		addAnimal(builder, TaiaoEntities.PUUKEKO, TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoItemTags.PUUKEKO_FOOD, "Pūkeko");
-		addAnimal(builder, TaiaoEntities.HAASTS_EAGLE, TaiaoItems.HAASTS_EAGLE_SPAWN_EGG, null, "Hokioi");
+		addAnimal(
+			builder,
+			TaiaoEntities.HAASTS_EAGLE,
+			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
+			TaiaoItemTags.HAASTS_EAGLE_FOOD,
+			"Hokioi"
+		);
 		addAnimal(builder, TaiaoEntities.MOA, TaiaoItems.MOA_SPAWN_EGG, TaiaoItemTags.MOA_FOOD, "Moa");
 		addAnimal(
 			builder,

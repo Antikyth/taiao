@@ -6,13 +6,12 @@ package antikyth.taiao.entity;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.ai.brain.HaastsEagleBrain;
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.brain.Brain;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
-import net.minecraft.entity.ai.brain.sensor.Sensor;
-import net.minecraft.entity.ai.brain.sensor.SensorType;
+import net.minecraft.entity.ai.control.FlightMoveControl;
+import net.minecraft.entity.ai.pathing.BirdNavigation;
+import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
@@ -32,14 +31,13 @@ import org.jetbrains.annotations.Nullable;
  * See {@link HaastsEagleBrain} for the brain.
  */
 public class HaastsEagleEntity extends AnimalEntity {
-	protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of();
-	protected static final ImmutableList<? extends SensorType<? extends Sensor<? super HaastsEagleEntity>>> SENSORS = ImmutableList.of();
-
 	protected HaastsEagleEntity(
 		EntityType<? extends AnimalEntity> entityType,
 		World world
 	) {
 		super(entityType, world);
+
+		this.moveControl = new FlightMoveControl(this, 10, false);
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
@@ -66,8 +64,18 @@ public class HaastsEagleEntity extends AnimalEntity {
 	}
 
 	@Override
+	protected EntityNavigation createNavigation(World world) {
+		BirdNavigation navigation = new BirdNavigation(this, world);
+		navigation.setCanPathThroughDoors(false);
+		navigation.setCanEnterOpenDoors(false);
+		navigation.setCanSwim(true);
+
+		return navigation;
+	}
+
+	@Override
 	protected Brain.Profile<HaastsEagleEntity> createBrainProfile() {
-		return Brain.createProfile(MEMORY_MODULES, SENSORS);
+		return Brain.createProfile(HaastsEagleBrain.MEMORY_MODULES, HaastsEagleBrain.SENSORS);
 	}
 
 	@Override

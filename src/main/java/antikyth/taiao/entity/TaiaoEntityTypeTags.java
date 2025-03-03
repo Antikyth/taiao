@@ -59,6 +59,9 @@ public final class TaiaoEntityTypeTags {
 	 */
 	public static final TagKey<EntityType<?>> AUSTRALASIAN_BITTERN_PREY = tagKey(Taiao.id("prey/of/australasian_bittern"));
 
+	public static final TagKey<EntityType<?>> HAASTS_EAGLE_BABY_PREY = tagKey(Taiao.id("prey/of/haasts_eagle/babies"));
+	public static final TagKey<EntityType<?>> HAASTS_EAGLE_GENERAL_PREY = tagKey(Taiao.id("prey/of/haasts_eagle/general"));
+
 	public static TagKey<EntityType<?>> tagKey(Identifier id) {
 		return TagKey.of(RegistryKeys.ENTITY_TYPE, id);
 	}

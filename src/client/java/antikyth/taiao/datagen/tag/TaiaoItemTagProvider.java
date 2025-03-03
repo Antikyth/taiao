@@ -57,6 +57,9 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TaiaoItems.CONIFER_FRUIT);
 		getOrCreateTagBuilder(TaiaoItemTags.PUUKEKO_FOOD)
 			.addOptionalTag(TaiaoItemTags.CONVENTIONAL_SEEDS);
+		getOrCreateTagBuilder(TaiaoItemTags.HAASTS_EAGLE_FOOD)
+			.add(Items.CHICKEN)
+			.add(Items.COOKED_CHICKEN);
 		getOrCreateTagBuilder(TaiaoItemTags.MOA_FOOD)
 			.addTag(ItemTags.LEAVES)
 			.addTag(ItemTags.SAPLINGS)

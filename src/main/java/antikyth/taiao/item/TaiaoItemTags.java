@@ -52,6 +52,7 @@ public final class TaiaoItemTags {
 	 * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#PUUKEKO pūkeko}.
 	 */
 	public static final TagKey<Item> PUUKEKO_FOOD = createTagKey(Taiao.id("puukeko_food"));
+	public static final TagKey<Item> HAASTS_EAGLE_FOOD = createTagKey(Taiao.id("haasts_eagle_food"));
 	/**
 	 * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#MOA moa}.
 	 */
