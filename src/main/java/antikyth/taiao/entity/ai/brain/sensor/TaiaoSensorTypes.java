@@ -5,25 +5,26 @@
 package antikyth.taiao.entity.ai.brain.sensor;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.entity.HaastsEagleEntity;
 import antikyth.taiao.item.TaiaoItemTags;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
-import net.minecraft.entity.ai.brain.sensor.TemptationsSensor;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.tslat.smartbrainlib.api.core.sensor.vanilla.ItemTemptingSensor;
 
 import java.util.function.Supplier;
 
 public class TaiaoSensorTypes {
-	public static final SensorType<TemptationsSensor> HAASTS_EAGLE_TEMPTATIONS = register(
+	public static final SensorType<ItemTemptingSensor<HaastsEagleEntity>> HAASTS_EAGLE_TEMPTATIONS = register(
 		Taiao.id("haasts_eagle_temptations"),
-		() -> new TemptationsSensor(Ingredient.fromTag(TaiaoItemTags.HAASTS_EAGLE_FOOD))
+		() -> new ItemTemptingSensor<HaastsEagleEntity>()
+			.temptedWith((eagle, stack) -> stack.isIn(TaiaoItemTags.HAASTS_EAGLE_FOOD))
 	);
-	public static final SensorType<HaastsEagleAttackablesSensor> HAASTS_EAGLE_PREY = register(
+	public static final SensorType<HaastsEagleNearestAttackableSensor> HAASTS_EAGLE_PREY = register(
 		Taiao.id("haasts_eagle_attackables"),
-		HaastsEagleAttackablesSensor::new
+		HaastsEagleNearestAttackableSensor::new
 	);
 
 	public static void initialize() {

@@ -21,6 +21,10 @@ repositories {
 		name = "Bawnorton"
 		url = "https://maven.bawnorton.com/releases"
 	}
+	maven {
+		name = "SmartBrainLib"
+		url = "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
+	}
 }
 
 dependencies {
@@ -34,7 +38,6 @@ dependencies {
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${project.mod_menu_version}"
-
 	// EMI
 	modCompileOnly "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}:api"
 	modLocalRuntime "dev.emi:emi-fabric:${project.emi_version}+${project.minecraft_version}"
@@ -44,9 +47,13 @@ dependencies {
 		// Exclude TerraBlender from the development environment (done automatically in Biolith v2+)
 		exclude group: "com.github.glitchfiend"
 	}
-
 	// Terraform wood API (for boats)
 	include modImplementation("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_version}")
+
+	// Smart Brain Lib
+	modImplementation(
+		"net.tslat.smartbrainlib:SmartBrainLib-fabric-${project.minecraft_version}:${project.smart_brain_lib_version}"
+	)
 
 	// Configurable
 	include modImplementation(

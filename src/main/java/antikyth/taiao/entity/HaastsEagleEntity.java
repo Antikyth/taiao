@@ -4,9 +4,7 @@
 
 package antikyth.taiao.entity;
 
-import antikyth.taiao.Taiao;
-import antikyth.taiao.entity.ai.brain.HaastsEagleBrain;
-import com.mojang.serialization.Dynamic;
+import antikyth.taiao.entity.ai.brain.sensor.TaiaoSensorTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -17,20 +15,33 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.server.network.DebugInfoSender;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.profiler.Profiler;
 import net.minecraft.world.World;
+import net.tslat.smartbrainlib.api.SmartBrainOwner;
+import net.tslat.smartbrainlib.api.core.BrainActivityGroup;
+import net.tslat.smartbrainlib.api.core.SmartBrainProvider;
+import net.tslat.smartbrainlib.api.core.behaviour.FirstApplicableBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomWalkTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetPlayerLookTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRandomLookTarget;
+import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
+import net.tslat.smartbrainlib.api.core.sensor.vanilla.HurtBySensor;
+import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyAdultSensor;
+import net.tslat.smartbrainlib.api.core.sensor.vanilla.NearbyLivingEntitySensor;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * A hokioi, also known as Haast's eagle, a large bird of prey with a wingspan of up to three
  * meters.
- * <p>
- * See {@link HaastsEagleBrain} for the brain.
  */
-public class HaastsEagleEntity extends AnimalEntity {
+public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<HaastsEagleEntity> {
 	protected HaastsEagleEntity(
 		EntityType<? extends AnimalEntity> entityType,
 		World world
@@ -74,39 +85,46 @@ public class HaastsEagleEntity extends AnimalEntity {
 	}
 
 	@Override
-	protected Brain.Profile<HaastsEagleEntity> createBrainProfile() {
-		return Brain.createProfile(HaastsEagleBrain.MEMORY_MODULES, HaastsEagleBrain.SENSORS);
+	public List<? extends ExtendedSensor<? extends HaastsEagleEntity>> getSensors() {
+		return List.of(
+			new NearbyLivingEntitySensor<>(),
+			new NearbyAdultSensor<>(),
+			new HurtBySensor<>(),
+			TaiaoSensorTypes.HAASTS_EAGLE_PREY.create(),
+			TaiaoSensorTypes.HAASTS_EAGLE_TEMPTATIONS.create()
+		);
 	}
 
 	@Override
-	protected Brain<?> deserializeBrain(Dynamic<?> dynamic) {
-		return HaastsEagleBrain.create(this.createBrainProfile().deserialize(dynamic));
+	public BrainActivityGroup<? extends HaastsEagleEntity> getCoreTasks() {
+		return BrainActivityGroup.coreTasks(
+			new LookAtTarget<>(),
+			new MoveToWalkTarget<>()
+		);
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
-	public Brain<HaastsEagleEntity> getBrain() {
-		// We know that the brain is for a Haast's eagle: it is safe to cast to it.
-		return (Brain<HaastsEagleEntity>) super.getBrain();
+	@Override
+	public BrainActivityGroup<? extends HaastsEagleEntity> getIdleTasks() {
+		return BrainActivityGroup.idleTasks(
+			new FirstApplicableBehaviour<HaastsEagleEntity>(
+				new SetPlayerLookTarget<>(),
+				new SetRandomLookTarget<>()
+			),
+			new OneRandomBehaviour<HaastsEagleEntity>(
+				new SetRandomWalkTarget<>(),
+				new Idle<>().runFor(eagle -> eagle.getRandom().nextBetween(30, 60))
+			)
+		);
 	}
 
 	@Override
-	protected void sendAiDebugData() {
-		super.sendAiDebugData();
-		DebugInfoSender.sendBrainDebugData(this);
+	protected Brain.Profile<HaastsEagleEntity> createBrainProfile() {
+		return new SmartBrainProvider<>(this);
 	}
 
 	@Override
 	protected void mobTick() {
-		ServerWorld world = (ServerWorld) this.getWorld();
-		Profiler profiler = world.getProfiler();
-
-		profiler.push(Taiao.id("haasts_eagle_brain").toString());
-		this.getBrain().tick(world, this);
-		profiler.pop();
-
-		profiler.push(Taiao.id("haasts_eagle_activity_update").toString());
-		HaastsEagleBrain.updateActivities(this);
-		profiler.pop();
+		this.tickBrain(this);
 	}
 }
