@@ -16,6 +16,7 @@ import antikyth.taiao.block.plant.TallReedsBlock;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.sound.TaiaoBlockSoundGroups;
 import antikyth.taiao.world.gen.feature.tree.sapling.*;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -49,7 +50,7 @@ public class TaiaoBlocks {
 				.notSolid()
 				.breakInstantly()
 		)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block HAASTS_EAGLE_NEST = new Builder(
 		Taiao.id("haasts_eagle_nest"),
 		new HaastsEagleNestBlock(
@@ -58,341 +59,341 @@ public class TaiaoBlocks {
 				.sounds(BlockSoundGroup.GRASS)
 				.strength(0.5f)
 		)
-	).register(true);
+	).register(new FabricItemSettings().maxCount(16));
 
 	// Kauri foliage
 	public static final Block KAURI_SAPLING = new Builder(
 		Taiao.id("kauri_sapling"),
 		new SaplingBlock(new KauriSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.DARK_OAK_SAPLING))
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block POTTED_KAURI_SAPLING = new Builder(
 		Taiao.id("potted_kauri_sapling"),
 		Blocks.createFlowerPotBlock(KAURI_SAPLING)
-	).register(false);
+	).registerWithoutItem();
 	public static final Block KAURI_LEAVES = new Builder(
 		Taiao.id("kauri_leaves"),
 		Blocks.createLeavesBlock(BlockSoundGroup.GRASS)
-	).copyFlammable(Blocks.DARK_OAK_LEAVES).register(true);
+	).copyFlammable(Blocks.DARK_OAK_LEAVES).register(new FabricItemSettings());
 
 	// Kauri wood
 	public static final Block STRIPPED_KAURI_LOG = new Builder(
 		Taiao.id("stripped_kauri_log"),
 		Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAURI_LOG = new Builder(
 		Taiao.id("kauri_log"),
 		Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.STONE_GRAY)
-	).strippable(STRIPPED_KAURI_LOG).register(true);
+	).strippable(STRIPPED_KAURI_LOG).register(new FabricItemSettings());
 	public static final Block STRIPPED_KAURI_WOOD = new Builder(
 		Taiao.id("stripped_kauri_wood"),
 		Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAURI_WOOD = new Builder(
 		Taiao.id("kauri_wood"),
 		Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
-	).strippable(STRIPPED_KAURI_WOOD).register(true);
+	).strippable(STRIPPED_KAURI_WOOD).register(new FabricItemSettings());
 
 	// Kauri wood family
 	public static final Block KAURI_PLANKS = new Builder(
 		Taiao.id("kauri_planks"),
 		createPlanks(MapColor.OFF_WHITE)
-	).copyFlammable(Blocks.OAK_PLANKS).register(true);
+	).copyFlammable(Blocks.OAK_PLANKS).register(new FabricItemSettings());
 	public static final Block KAURI_PRESSURE_PLATE = new Builder(
 		Taiao.id("kauri_pressure_plate"),
 		createWoodenPressurePlate(KAURI_PLANKS, WoodFamily.KAURI.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAURI_BUTTON = new Builder(
 		Taiao.id("kauri_button"),
 		Blocks.createWoodenButtonBlock(WoodFamily.KAURI.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAURI_STAIRS = new Builder(
 		Taiao.id("kauri_stairs"),
 		new StairsBlock(KAURI_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(KAURI_PLANKS))
-	).copyFlammable(KAURI_PLANKS).register(true);
+	).copyFlammable(KAURI_PLANKS).register(new FabricItemSettings());
 	public static final Block KAURI_SLAB = new Builder(
 		Taiao.id("kauri_slab"),
 		new SlabBlock(FabricBlockSettings.copyOf(KAURI_PLANKS))
-	).copyFlammable(KAURI_PLANKS).register(true);
+	).copyFlammable(KAURI_PLANKS).register(new FabricItemSettings());
 	public static final Block KAURI_FENCE_GATE = new Builder(
 		Taiao.id("kauri_fence_gate"),
 		new FenceGateBlock(FabricBlockSettings.copyOf(KAURI_PLANKS), WoodFamily.KAURI.getWoodType())
-	).copyFlammable(KAURI_PLANKS).register(true);
+	).copyFlammable(KAURI_PLANKS).register(new FabricItemSettings());
 	public static final Block KAURI_FENCE = new Builder(
 		Taiao.id("kauri_fence"),
 		new FenceBlock(FabricBlockSettings.copyOf(KAURI_PLANKS))
-	).copyFlammable(KAURI_PLANKS).register(true);
+	).copyFlammable(KAURI_PLANKS).register(new FabricItemSettings());
 
 	// Kahikatea foliage
 	public static final Block KAHIKATEA_SAPLING = new Builder(
 		Taiao.id("kahikatea_sapling"),
 		new SaplingBlock(new KahikateaSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.SPRUCE_SAPLING))
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block POTTED_KAHIKATEA_SAPLING = new Builder(
 		Taiao.id("potted_kahikatea_sapling"),
 		Blocks.createFlowerPotBlock(KAHIKATEA_SAPLING)
-	).register(false);
+	).registerWithoutItem();
 	public static final Block KAHIKATEA_LEAVES = new Builder(
 		Taiao.id("kahikatea_leaves"),
 		new FruitLeavesBlock(
 			TaiaoItems.CONIFER_FRUIT,
 			createFruitLeavesSettings(MapColor.DARK_GREEN, MapColor.RED, BlockSoundGroup.GRASS)
 		)
-	).copyFlammable(Blocks.SPRUCE_LEAVES).register(true);
+	).copyFlammable(Blocks.SPRUCE_LEAVES).register(new FabricItemSettings());
 
 	// Kahikatea wood
 	public static final Block STRIPPED_KAHIKATEA_LOG = new Builder(
 		Taiao.id("stripped_kahikatea_log"),
 		Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_LOG = new Builder(
 		Taiao.id("kahikatea_log"),
 		Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.STONE_GRAY)
-	).strippable(STRIPPED_KAHIKATEA_LOG).register(true);
+	).strippable(STRIPPED_KAHIKATEA_LOG).register(new FabricItemSettings());
 	public static final Block STRIPPED_KAHIKATEA_WOOD = new Builder(
 		Taiao.id("stripped_kahikatea_wood"),
 		Blocks.createLogBlock(MapColor.OFF_WHITE, MapColor.OFF_WHITE)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_WOOD = new Builder(
 		Taiao.id("kahikatea_wood"),
 		Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
-	).strippable(STRIPPED_KAHIKATEA_WOOD).register(true);
+	).strippable(STRIPPED_KAHIKATEA_WOOD).register(new FabricItemSettings());
 
 	// Kahikatea wood family
 	public static final Block KAHIKATEA_PLANKS = new Builder(
 		Taiao.id("kahikatea_planks"),
 		createPlanks(MapColor.OFF_WHITE)
-	).copyFlammable(Blocks.OAK_PLANKS).register(true);
+	).copyFlammable(Blocks.OAK_PLANKS).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_PRESSURE_PLATE = new Builder(
 		Taiao.id("kahikatea_pressure_plate"),
 		createWoodenPressurePlate(KAHIKATEA_PLANKS, WoodFamily.KAHIKATEA.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_BUTTON = new Builder(
 		Taiao.id("kahikatea_button"),
 		Blocks.createWoodenButtonBlock(WoodFamily.KAHIKATEA.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_STAIRS = new Builder(
 		Taiao.id("kahikatea_stairs"),
 		new StairsBlock(KAHIKATEA_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(KAHIKATEA_PLANKS))
-	).copyFlammable(KAHIKATEA_PLANKS).register(true);
+	).copyFlammable(KAHIKATEA_PLANKS).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_SLAB = new Builder(
 		Taiao.id("kahikatea_slab"),
 		new SlabBlock(FabricBlockSettings.copyOf(KAHIKATEA_PLANKS))
-	).copyFlammable(KAHIKATEA_PLANKS).register(true);
+	).copyFlammable(KAHIKATEA_PLANKS).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_FENCE_GATE = new Builder(
 		Taiao.id("kahikatea_fence_gate"),
 		new FenceGateBlock(FabricBlockSettings.copyOf(KAHIKATEA_PLANKS), WoodFamily.KAHIKATEA.getWoodType())
-	).copyFlammable(KAHIKATEA_PLANKS).register(true);
+	).copyFlammable(KAHIKATEA_PLANKS).register(new FabricItemSettings());
 	public static final Block KAHIKATEA_FENCE = new Builder(
 		Taiao.id("kahikatea_fence"),
 		new FenceBlock(FabricBlockSettings.copyOf(KAHIKATEA_PLANKS))
-	).copyFlammable(KAHIKATEA_PLANKS).register(true);
+	).copyFlammable(KAHIKATEA_PLANKS).register(new FabricItemSettings());
 
 	// Rimu foliage
 	public static final Block RIMU_SAPLING = new Builder(
 		Taiao.id("rimu_sapling"),
 		new SaplingBlock(new RimuSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.SPRUCE_SAPLING))
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block POTTED_RIMU_SAPLING = new Builder(
 		Taiao.id("potted_rimu_sapling"),
 		Blocks.createFlowerPotBlock(RIMU_SAPLING)
-	).register(false);
+	).registerWithoutItem();
 	public static final Block RIMU_LEAVES = new Builder(
 		Taiao.id("rimu_leaves"),
 		new FruitLeavesBlock(
 			TaiaoItems.CONIFER_FRUIT,
 			createFruitLeavesSettings(MapColor.DARK_GREEN, MapColor.RED, BlockSoundGroup.GRASS)
 		)
-	).copyFlammable(Blocks.SPRUCE_LEAVES).register(true);
+	).copyFlammable(Blocks.SPRUCE_LEAVES).register(new FabricItemSettings());
 
 	// Rimu wood
 	public static final Block STRIPPED_RIMU_LOG = new Builder(
 		Taiao.id("stripped_rimu_log"),
 		Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block RIMU_LOG = new Builder(
 		Taiao.id("rimu_log"),
 		Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.STONE_GRAY)
-	).strippable(STRIPPED_RIMU_LOG).register(true);
+	).strippable(STRIPPED_RIMU_LOG).register(new FabricItemSettings());
 	public static final Block STRIPPED_RIMU_WOOD = new Builder(
 		Taiao.id("stripped_rimu_wood"),
 		Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block RIMU_WOOD = new Builder(
 		Taiao.id("rimu_wood"),
 		Blocks.createLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
-	).strippable(STRIPPED_RIMU_WOOD).register(true);
+	).strippable(STRIPPED_RIMU_WOOD).register(new FabricItemSettings());
 
 	public static final Block CHISELED_STRIPPED_RIMU_LOG = new Builder(
 		Taiao.id("chiseled_stripped_rimu_log"),
 		Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block CHISELED_STRIPPED_RIMU_WOOD = new Builder(
 		Taiao.id("chiseled_stripped_rimu_wood"),
 		Blocks.createLogBlock(MapColor.BRIGHT_RED, MapColor.BRIGHT_RED)
-	).register(true);
+	).register(new FabricItemSettings());
 
 	// Rimu wood family
 	public static final Block RIMU_PLANKS = new Builder(
 		Taiao.id("rimu_planks"),
 		createPlanks(MapColor.BRIGHT_RED)
-	).copyFlammable(Blocks.OAK_PLANKS).register(true);
+	).copyFlammable(Blocks.OAK_PLANKS).register(new FabricItemSettings());
 	public static final Block RIMU_PRESSURE_PLATE = new Builder(
 		Taiao.id("rimu_pressure_plate"),
 		createWoodenPressurePlate(RIMU_PLANKS, WoodFamily.RIMU.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block RIMU_BUTTON = new Builder(
 		Taiao.id("rimu_button"),
 		Blocks.createWoodenButtonBlock(WoodFamily.RIMU.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block RIMU_STAIRS = new Builder(
 		Taiao.id("rimu_stairs"),
 		new StairsBlock(RIMU_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(RIMU_PLANKS))
-	).copyFlammable(KAHIKATEA_PLANKS).register(true);
+	).copyFlammable(KAHIKATEA_PLANKS).register(new FabricItemSettings());
 	public static final Block RIMU_SLAB = new Builder(
 		Taiao.id("rimu_slab"),
 		new SlabBlock(FabricBlockSettings.copyOf(RIMU_PLANKS))
-	).copyFlammable(RIMU_PLANKS).register(true);
+	).copyFlammable(RIMU_PLANKS).register(new FabricItemSettings());
 	public static final Block RIMU_FENCE_GATE = new Builder(
 		Taiao.id("rimu_fence_gate"),
 		new FenceGateBlock(FabricBlockSettings.copyOf(RIMU_PLANKS), WoodFamily.RIMU.getWoodType())
-	).copyFlammable(RIMU_PLANKS).register(true);
+	).copyFlammable(RIMU_PLANKS).register(new FabricItemSettings());
 	public static final Block RIMU_FENCE = new Builder(
 		Taiao.id("rimu_fence"),
 		new FenceBlock(FabricBlockSettings.copyOf(RIMU_PLANKS))
-	).copyFlammable(RIMU_PLANKS).register(true);
+	).copyFlammable(RIMU_PLANKS).register(new FabricItemSettings());
 	public static final Block RIMU_DOOR = new Builder(
 		Taiao.id("rimu_door"),
 		new DoorBlock(
 			FabricBlockSettings.copyOf(Blocks.JUNGLE_DOOR).mapColor(RIMU_PLANKS.getDefaultMapColor()),
 			BlockSetType.OAK
 		)
-	).copyFlammable(RIMU_PLANKS).register(true);
+	).copyFlammable(RIMU_PLANKS).register(new FabricItemSettings());
 
 	// Tī kōuka foliage
 	public static final Block CABBAGE_TREE_SAPLING = new Builder(
 		Taiao.id("cabbage_tree_sapling"),
 		new SaplingBlock(new CabbageTreeSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING))
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block POTTED_CABBAGE_TREE_SAPLING = new Builder(
 		Taiao.id("potted_cabbage_tree_sapling"),
 		Blocks.createFlowerPotBlock(CABBAGE_TREE_SAPLING)
-	).register(false);
+	).registerWithoutItem();
 	public static final Block CABBAGE_TREE_LEAVES = new Builder(
 		Taiao.id("cabbage_tree_leaves"),
 		new SlowMovementLeavesBlock(createLeavesSettings(MapColor.LIME, BlockSoundGroup.GRASS).noCollision())
-	).copyFlammable(Blocks.OAK_LEAVES).register(true);
+	).copyFlammable(Blocks.OAK_LEAVES).register(new FabricItemSettings());
 
 	// Tī kōuka wood
 	public static final Block STRIPPED_CABBAGE_TREE_LOG = new Builder(
 		Taiao.id("stripped_cabbage_tree_log"),
 		createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block CABBAGE_TREE_LOG = new Builder(
 		Taiao.id("cabbage_tree_log"),
 		createThinLogBlock(MapColor.OAK_TAN, MapColor.STONE_GRAY)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block STRIPPED_CABBAGE_TREE_WOOD = new Builder(
 		Taiao.id("stripped_cabbage_tree_wood"),
 		createThinLogBlock(MapColor.OAK_TAN, MapColor.OAK_TAN)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block CABBAGE_TREE_WOOD = new Builder(
 		Taiao.id("cabbage_tree_wood"),
 		createThinLogBlock(MapColor.STONE_GRAY, MapColor.STONE_GRAY)
-	).register(true);
+	).register(new FabricItemSettings());
 
 	// Mamaku foliage
 	public static final Block MAMAKU_SAPLING = new Builder(
 		Taiao.id("mamaku_sapling"),
 		new SaplingBlock(new MamakuSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING))
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block POTTED_MAMAKU_SAPLING = new Builder(
 		Taiao.id("potted_mamaku_sapling"),
 		Blocks.createFlowerPotBlock(MAMAKU_SAPLING)
-	).register(false);
+	).registerWithoutItem();
 	public static final Block MAMAKU_LEAVES = new Builder(
 		Taiao.id("mamaku_leaves"),
 		new DirectionalLeavesBlock(createLeavesSettings(MapColor.DARK_GREEN, BlockSoundGroup.GRASS))
-	).copyFlammable(Blocks.OAK_LEAVES).register(true);
+	).copyFlammable(Blocks.OAK_LEAVES).register(new FabricItemSettings());
 
 	// Mamaku wood
 	public static final Block STRIPPED_MAMAKU_LOG = new Builder(
 		Taiao.id("stripped_mamaku_log"),
 		createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block STRIPPED_MAMAKU_WOOD = new Builder(
 		Taiao.id("stripped_mamaku_wood"),
 		createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block MAMAKU_LOG = new Builder(
 		Taiao.id("mamaku_log"),
 		createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block MAMAKU_WOOD = new Builder(
 		Taiao.id("mamaku_wood"),
 		createThinLogBlock(MapColor.SPRUCE_BROWN, MapColor.SPRUCE_BROWN)
-	).register(true);
+	).register(new FabricItemSettings());
 
 	// Mamaku wood family
 	public static final Block MAMAKU_PLANKS = new Builder(
 		Taiao.id("mamaku_planks"),
 		createPlanks(MapColor.SPRUCE_BROWN)
-	).copyFlammable(Blocks.DARK_OAK_PLANKS).register(true);
+	).copyFlammable(Blocks.DARK_OAK_PLANKS).register(new FabricItemSettings());
 	public static final Block MAMAKU_PRESSURE_PLATE = new Builder(
 		Taiao.id("mamaku_pressure_plate"),
 		createWoodenPressurePlate(MAMAKU_PLANKS, WoodFamily.MAMAKU.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block MAMAKU_BUTTON = new Builder(
 		Taiao.id("mamaku_button"),
 		Blocks.createWoodenButtonBlock(WoodFamily.MAMAKU.getBlockSetType())
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block MAMAKU_STAIRS = new Builder(
 		Taiao.id("mamaku_stairs"),
 		new StairsBlock(MAMAKU_PLANKS.getDefaultState(), FabricBlockSettings.copyOf(MAMAKU_PLANKS))
-	).copyFlammable(MAMAKU_PLANKS).register(true);
+	).copyFlammable(MAMAKU_PLANKS).register(new FabricItemSettings());
 	public static final Block MAMAKU_SLAB = new Builder(
 		Taiao.id("mamaku_slab"),
 		new SlabBlock(FabricBlockSettings.copyOf(MAMAKU_PLANKS))
-	).copyFlammable(MAMAKU_PLANKS).register(true);
+	).copyFlammable(MAMAKU_PLANKS).register(new FabricItemSettings());
 	public static final Block MAMAKU_FENCE_GATE = new Builder(
 		Taiao.id("mamaku_fence_gate"),
 		new FenceGateBlock(FabricBlockSettings.copyOf(MAMAKU_PLANKS), WoodFamily.MAMAKU.getWoodType())
-	).copyFlammable(MAMAKU_PLANKS).register(true);
+	).copyFlammable(MAMAKU_PLANKS).register(new FabricItemSettings());
 	public static final Block MAMAKU_FENCE = new Builder(
 		Taiao.id("mamaku_fence"),
 		new FenceBlock(FabricBlockSettings.copyOf(MAMAKU_PLANKS))
-	).copyFlammable(MAMAKU_PLANKS).register(true);
+	).copyFlammable(MAMAKU_PLANKS).register(new FabricItemSettings());
 
 	// Whekī ponga foliage
 	public static final Block WHEKII_PONGA_SAPLING = new Builder(
 		Taiao.id("whekii_ponga_sapling"),
 		new SaplingBlock(new WhekiiPongaSaplingGenerator(), FabricBlockSettings.copyOf(Blocks.OAK_SAPLING))
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block POTTED_WHEKII_PONGA_SAPLING = new Builder(
 		Taiao.id("potted_whekii_ponga_sapling"),
 		Blocks.createFlowerPotBlock(WHEKII_PONGA_SAPLING)
-	).register(false);
+	).registerWithoutItem();
 	public static final Block WHEKII_PONGA_LEAVES = new Builder(
 		Taiao.id("whekii_ponga_leaves"),
 		new DirectionalLeavesBlock(createLeavesSettings(MapColor.DARK_GREEN, BlockSoundGroup.GRASS))
-	).copyFlammable(Blocks.OAK_LEAVES).register(true);
+	).copyFlammable(Blocks.OAK_LEAVES).register(new FabricItemSettings());
 
 	// Whekī ponga wood
 	public static final Block STRIPPED_WHEKII_PONGA_LOG = new Builder(
 		Taiao.id("stripped_whekii_ponga_log"),
 		Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block STRIPPED_WHEKII_PONGA_WOOD = new Builder(
 		Taiao.id("stripped_whekii_ponga_wood"),
 		Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block WHEKII_PONGA_LOG = new Builder(
 		Taiao.id("whekii_ponga_log"),
 		Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
-	).strippable(STRIPPED_WHEKII_PONGA_LOG).register(true);
+	).strippable(STRIPPED_WHEKII_PONGA_LOG).register(new FabricItemSettings());
 	public static final Block WHEKII_PONGA_WOOD = new Builder(
 		Taiao.id("whekii_ponga_wood"),
 		Blocks.createLogBlock(MapColor.ORANGE, MapColor.ORANGE)
-	).strippable(STRIPPED_WHEKII_PONGA_WOOD).register(true);
+	).strippable(STRIPPED_WHEKII_PONGA_WOOD).register(new FabricItemSettings());
 
 	/**
 	 * Raupō, also known as cattails or bulrushes.
@@ -407,15 +408,15 @@ public class TaiaoBlocks {
 						: MapColor.DARK_GREEN
 				)
 		)
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block GIANT_CANE_RUSH = new Builder(
 		Taiao.id("giant_cane_rush"),
 		new GiantCaneRushBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN))
-	).register(true);
+	).register(new FabricItemSettings());
 	public static final Block HARAKEKE = new Builder(
 		Taiao.id("harakeke"),
 		new HarakekeBlock(FabricBlockSettings.copyOf(Blocks.LARGE_FERN).sounds(TaiaoBlockSoundGroups.HARAKEKE))
-	).register(true);
+	).register(new FabricItemSettings());
 
 	public static final Block HARAKEKE_MAT = new Builder(
 		Taiao.id("harakeke_mat"),
@@ -426,16 +427,16 @@ public class TaiaoBlocks {
 				.sounds(TaiaoBlockSoundGroups.HARAKEKE)
 				.burnable()
 		)
-	).copyFlammable(Blocks.WHITE_CARPET).register(true);
+	).copyFlammable(Blocks.WHITE_CARPET).register(new FabricItemSettings());
 
 	public static final Block THATCH_ROOF = new Builder(
 		Taiao.id("thatch_roof"),
 		new ThatchRoofBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK))
-	).copyFlammable(Blocks.HAY_BLOCK).register(true);
+	).copyFlammable(Blocks.HAY_BLOCK).register(new FabricItemSettings());
 	public static final Block THATCH_ROOF_TOP = new Builder(
 		Taiao.id("thatch_roof_top"),
 		new ThatchRoofTopBlock(FabricBlockSettings.copyOf(Blocks.HAY_BLOCK))
-	).copyFlammable(Blocks.HAY_BLOCK).register(true);
+	).copyFlammable(Blocks.HAY_BLOCK).register(new FabricItemSettings());
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered blocks");
@@ -708,17 +709,24 @@ public class TaiaoBlocks {
 
 		/**
 		 * Registers this block, completing the builder.
-		 *
-		 * @param registerItem Whether to register a {@link BlockItem} for this block.
 		 */
-		public Block register(boolean registerItem) {
-			if (registerItem) {
-				BlockItem item = new BlockItem(this.block, new Item.Settings());
+		public Block registerWithoutItem() {
+			return Registry.register(Registries.BLOCK, this.id, this.block);
+		}
+
+		/**
+		 * Registers this block, completing the builder.
+		 *
+		 * @param settings
+		 */
+		public Block register(Item.Settings settings) {
+			if (settings != null) {
+				BlockItem item = new BlockItem(this.block, settings);
 
 				Registry.register(Registries.ITEM, this.id, item);
 			}
 
-			return Registry.register(Registries.BLOCK, this.id, this.block);
+			return this.registerWithoutItem();
 		}
 	}
 }
