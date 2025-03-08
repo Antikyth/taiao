@@ -6,9 +6,9 @@ package antikyth.taiao.world.gen.structure.processor;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.HiinakiBlock;
-import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
+import antikyth.taiao.block.state.LongBlockHalf;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;

@@ -5,9 +5,11 @@
 package antikyth.taiao.world.poi;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.block.HiinakiBlock;
-import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
+import antikyth.taiao.block.state.LongBlockHalf;
 import com.google.common.collect.ImmutableSet;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.block.Block;
@@ -29,6 +31,13 @@ public class TaiaoPoiTypes {
 		1,
 		state -> state.get(HiinakiBlock.HALF) == LongBlockHalf.FRONT && state.get(HiinakiBlock.WATERLOGGED),
 		TaiaoBlocks.HIINAKI
+	);
+	public static final RegistryKey<PointOfInterestType> HAASTS_EAGLE_NESTS = register(
+		Taiao.id("haasts_eagle_nests"),
+		1,
+		1,
+		state -> state.get(HaastsEagleNestBlock.PART) == HorizontalDoubleSquareBlockPart.NORTH_WEST,
+		TaiaoBlocks.HAASTS_EAGLE_NEST
 	);
 
 	public static void initialize() {

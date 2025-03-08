@@ -5,6 +5,7 @@
 package antikyth.taiao.block.plant;
 
 import antikyth.taiao.block.TaiaoBlockTags;
+import antikyth.taiao.block.state.TripleBlockPart;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;

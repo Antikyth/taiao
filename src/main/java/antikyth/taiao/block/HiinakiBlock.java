@@ -9,6 +9,8 @@ import antikyth.taiao.advancement.criteria.TaiaoCriteria;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.entity.HiinakiDummyBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
+import antikyth.taiao.block.state.LongBlockHalf;
+import antikyth.taiao.block.state.TaiaoStateProperties;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.stat.TaiaoStats;
 import net.minecraft.block.*;

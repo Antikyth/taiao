@@ -43,11 +43,20 @@ public class TaiaoBlocks {
 		Taiao.id("hiinaki"),
 		new HiinakiBlock(
 			FabricBlockSettings.create()
-				.mapColor(MapColor.WATER_BLUE)
+				.mapColor(state -> state.get(HiinakiBlock.WATERLOGGED) ? MapColor.WATER_BLUE : MapColor.DIRT_BROWN)
 				.sounds(TaiaoBlockSoundGroups.HARAKEKE)
 				.nonOpaque()
 				.notSolid()
 				.breakInstantly()
+		)
+	).register(true);
+	public static final Block HAASTS_EAGLE_NEST = new Builder(
+		Taiao.id("haasts_eagle_nest"),
+		new HaastsEagleNestBlock(
+			FabricBlockSettings.create()
+				.mapColor(MapColor.DIRT_BROWN)
+				.sounds(BlockSoundGroup.GRASS)
+				.strength(0.5f)
 		)
 	).register(true);
 

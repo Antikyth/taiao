@@ -10,7 +10,7 @@ import antikyth.taiao.advancement.criteria.ItemCraftedCriterion;
 import antikyth.taiao.advancement.criteria.KeteStackCountCriterion;
 import antikyth.taiao.advancement.criteria.TrapDestroyedCriterion;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.block.TaiaoStateProperties;
+import antikyth.taiao.block.state.TaiaoStateProperties;
 import antikyth.taiao.effect.TaiaoStatusEffectTags;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;

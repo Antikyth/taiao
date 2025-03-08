@@ -7,7 +7,7 @@ package antikyth.taiao.entity.ai.brain.task;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.plant.HarakekeBlock;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
-import antikyth.taiao.block.plant.TripleBlockPart;
+import antikyth.taiao.block.state.TripleBlockPart;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;

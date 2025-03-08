@@ -197,6 +197,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 
 		// Other blocks
+		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Hokioi Nest");
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Harakeke Mat");
 		builder.add(TaiaoBlocks.THATCH_ROOF, "Raupō Thatched Roof");
 		builder.add(TaiaoBlocks.THATCH_ROOF_TOP, "Raupō Thatched Roof Top");

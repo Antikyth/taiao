@@ -67,6 +67,7 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		);
 
 		// Other blocks
+		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Haast's Eagle Nest");
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "New Zealand Flax Mat");
 		builder.add(TaiaoBlocks.THATCH_ROOF, "Cattail Thatched Roof");
 		builder.add(TaiaoBlocks.THATCH_ROOF_TOP, "Cattail Thatched Roof Top");

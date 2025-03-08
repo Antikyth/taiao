@@ -5,14 +5,15 @@
 package antikyth.taiao.datagen.model;
 
 import antikyth.taiao.Taiao;
-import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.log.ThinLogBlock;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
-import antikyth.taiao.block.plant.TripleBlockPart;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
+import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
+import antikyth.taiao.block.state.LongBlockHalf;
+import antikyth.taiao.block.state.TaiaoStateProperties;
+import antikyth.taiao.block.state.TripleBlockPart;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -170,6 +171,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED, false);
 
 		registerHiinaki(generator, TaiaoBlocks.HIINAKI, Taiao.id("hiinaki_front"), Taiao.id("hiinaki_back"));
+		registerHorizontalDoubleSquareBlock(generator, TaiaoBlocks.HAASTS_EAGLE_NEST);
 
 		registerNorthDefaultHorizontalFacing(generator, TaiaoBlocks.THATCH_ROOF);
 		registerNorthDefaultHorizontalFacing(generator, TaiaoBlocks.THATCH_ROOF_TOP);
@@ -178,6 +180,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerator generator) {
 		generator.register(TaiaoBlocks.HIINAKI.asItem(), Models.GENERATED);
+		generator.register(TaiaoBlocks.HAASTS_EAGLE_NEST.asItem(), Models.GENERATED);
 		generator.register(TaiaoBlocks.HARAKEKE.asItem(), Models.GENERATED);
 
 		generator.register(TaiaoItems.KETE, Models.GENERATED);
@@ -245,6 +248,33 @@ public class TaiaoModelProvider extends FabricModelProvider {
 						.register(
 							LongBlockHalf.BACK,
 							BlockStateVariant.create().put(VariantSettings.MODEL, backModel)
+						)
+				)
+		);
+	}
+
+	public static void registerHorizontalDoubleSquareBlock(@NotNull BlockStateModelGenerator generator, Block block) {
+		Identifier model = ModelIds.getBlockModelId(block);
+
+		generator.blockStateCollector.accept(
+			VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, model))
+				.coordinate(
+					BlockStateVariantMap.create(TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART)
+						.register(
+							HorizontalDoubleSquareBlockPart.NORTH_WEST,
+							BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R0)
+						)
+						.register(
+							HorizontalDoubleSquareBlockPart.NORTH_EAST,
+							BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90)
+						)
+						.register(
+							HorizontalDoubleSquareBlockPart.SOUTH_EAST,
+							BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180)
+						)
+						.register(
+							HorizontalDoubleSquareBlockPart.SOUTH_WEST,
+							BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270)
 						)
 				)
 		);

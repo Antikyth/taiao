@@ -6,9 +6,9 @@ package antikyth.taiao.world.gen.feature;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.HiinakiBlock;
-import antikyth.taiao.block.LongBlockHalf;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
+import antikyth.taiao.block.state.LongBlockHalf;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.loot.TaiaoLootContextTypes;
 import antikyth.taiao.world.gen.feature.config.HiinakiFeatureConfig;

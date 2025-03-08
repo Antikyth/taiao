@@ -2,9 +2,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.block;
+package antikyth.taiao.block.state;
 
-import antikyth.taiao.block.plant.TripleBlockPart;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 
@@ -17,4 +16,11 @@ public class TaiaoStateProperties {
 		TripleBlockPart.class
 	);
 	public static final EnumProperty<LongBlockHalf> LONG_BLOCK_HALF = EnumProperty.of("half", LongBlockHalf.class);
+	/**
+	 * The part of a non-rotatable (no particular facing direction) 2x2 horizontal block.
+	 */
+	public static final EnumProperty<HorizontalDoubleSquareBlockPart> HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART = EnumProperty.of(
+		"part",
+		HorizontalDoubleSquareBlockPart.class
+	);
 }

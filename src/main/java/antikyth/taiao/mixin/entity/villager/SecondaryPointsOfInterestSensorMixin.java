@@ -6,7 +6,7 @@ package antikyth.taiao.mixin.entity.villager;
 
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.plant.HarakekeBlock;
-import antikyth.taiao.block.plant.TripleBlockPart;
+import antikyth.taiao.block.state.TripleBlockPart;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;

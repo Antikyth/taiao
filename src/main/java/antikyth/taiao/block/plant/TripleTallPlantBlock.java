@@ -5,7 +5,8 @@
 package antikyth.taiao.block.plant;
 
 import antikyth.taiao.block.CustomPlacementBlock;
-import antikyth.taiao.block.TaiaoStateProperties;
+import antikyth.taiao.block.state.TaiaoStateProperties;
+import antikyth.taiao.block.state.TripleBlockPart;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
@@ -190,8 +191,6 @@ public class TripleTallPlantBlock extends PlantBlock implements CustomPlacementB
 		super.onBreak(world, pos, state, player);
 	}
 
-	// TODO: does this need to handle upper/middle parts too?
-	//     : why does the vanilla double tall plant only handle the lower part?
 	protected static void onBreakInCreative(World world, BlockPos pos, @NotNull BlockState state, PlayerEntity player) {
 		TripleBlockPart part = state.get(TRIPLE_BLOCK_PART);
 		BlockPos lowerPos;

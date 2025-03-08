@@ -5,7 +5,7 @@
 package antikyth.taiao.block.entity;
 
 import antikyth.taiao.block.HiinakiBlock;
-import antikyth.taiao.block.LongBlockHalf;
+import antikyth.taiao.block.state.LongBlockHalf;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;

@@ -53,8 +53,9 @@ public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<H
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return MobEntity.createMobAttributes()
-			.add(EntityAttributes.GENERIC_MAX_HEALTH, 14.0)
-			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25);
+			.add(EntityAttributes.GENERIC_MAX_HEALTH, 14d)
+			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25d)
+			.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.8d);
 	}
 
 	@Override

@@ -6,11 +6,11 @@ package antikyth.taiao.emi;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.block.TaiaoStateProperties;
 import antikyth.taiao.block.log.Strippable;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
-import antikyth.taiao.block.plant.TripleBlockPart;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
+import antikyth.taiao.block.state.TaiaoStateProperties;
+import antikyth.taiao.block.state.TripleBlockPart;
 import antikyth.taiao.emi.recipe.SingleInputWorldInteractionRecipe;
 import antikyth.taiao.emi.stack.BlockStateEmiStack;
 import antikyth.taiao.emi.stack.TallBlockStatesEmiStack;

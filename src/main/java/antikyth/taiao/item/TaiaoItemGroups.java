@@ -255,6 +255,7 @@ public class TaiaoItemGroups {
 
 	public static void addEntityRelatingBlocks(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoBlocks.HIINAKI);
+		add.accept(TaiaoBlocks.HAASTS_EAGLE_NEST);
 	}
 
 	public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {

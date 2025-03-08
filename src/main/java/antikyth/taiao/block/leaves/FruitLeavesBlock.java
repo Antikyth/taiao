@@ -4,7 +4,7 @@
 
 package antikyth.taiao.block.leaves;
 
-import antikyth.taiao.block.TaiaoStateProperties;
+import antikyth.taiao.block.state.TaiaoStateProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;

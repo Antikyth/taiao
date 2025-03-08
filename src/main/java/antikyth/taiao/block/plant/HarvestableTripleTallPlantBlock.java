@@ -4,7 +4,8 @@
 
 package antikyth.taiao.block.plant;
 
-import antikyth.taiao.block.TaiaoStateProperties;
+import antikyth.taiao.block.state.TaiaoStateProperties;
+import antikyth.taiao.block.state.TripleBlockPart;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;

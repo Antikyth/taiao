@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.plant;
 
+import antikyth.taiao.block.state.TripleBlockPart;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.util.math.BlockPos;
