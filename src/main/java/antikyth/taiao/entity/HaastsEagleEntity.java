@@ -26,7 +26,7 @@ import net.tslat.smartbrainlib.api.core.behaviour.OneRandomBehaviour;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.look.LookAtTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.misc.Idle;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.move.MoveToWalkTarget;
-import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomWalkTarget;
+import net.tslat.smartbrainlib.api.core.behaviour.custom.path.SetRandomFlyingTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetPlayerLookTarget;
 import net.tslat.smartbrainlib.api.core.behaviour.custom.target.SetRandomLookTarget;
 import net.tslat.smartbrainlib.api.core.sensor.ExtendedSensor;
@@ -113,7 +113,7 @@ public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<H
 				new SetRandomLookTarget<>()
 			),
 			new OneRandomBehaviour<HaastsEagleEntity>(
-				new SetRandomWalkTarget<>(),
+				new SetRandomFlyingTarget<>(),
 				new Idle<>().runFor(eagle -> eagle.getRandom().nextBetween(30, 60))
 			)
 		);
