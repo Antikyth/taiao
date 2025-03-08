@@ -13,6 +13,7 @@ import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.blockpredicate.WithinHorizontalRangeBlockPredicate;
 import antikyth.taiao.world.gen.entityprovider.EntityTypeProvider;
 import antikyth.taiao.world.gen.feature.config.HiinakiFeatureConfig;
+import antikyth.taiao.world.gen.feature.tree.decorator.HaastsEagleNestTreeDecorator;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernBushFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.FernTreeFoliagePlacer;
 import antikyth.taiao.world.gen.feature.tree.placer.foliage.SphericalFoliagePlacer;
@@ -73,13 +74,14 @@ public class TaiaoConfiguredFeatures {
 		Taiao.id("kauri_tree"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.TREE,
-			new TreeFeatureConfig.Builder(
-				BlockStateProvider.of(TaiaoBlocks.KAURI_LOG),
-				new DarkOakTrunkPlacer(10, 7, 7),
-				BlockStateProvider.of(TaiaoBlocks.KAURI_LEAVES),
-				new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
-				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-			).ignoreVines().build()
+			kauriTree().build()
+		)
+	);
+	public static final RegistryKey<ConfiguredFeature<?, ?>> KAURI_TREE_NEST = register(
+		Taiao.id("kauri_tree_with_nest"),
+		lookup -> new ConfiguredFeature<>(
+			Feature.TREE,
+			kauriTree().decorators(List.of(new HaastsEagleNestTreeDecorator(0.1f))).build()
 		)
 	);
 
@@ -123,19 +125,17 @@ public class TaiaoConfiguredFeatures {
 		Taiao.id("mega_rimu_tree"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.TREE,
-			new TreeFeatureConfig.Builder(
-				BlockStateProvider.of(TaiaoBlocks.RIMU_LOG),
-				new GiantTrunkPlacer(20, 8, 8),
-				fruitLeavesProvider(TaiaoBlocks.RIMU_LEAVES, 8, 1),
-				new MegaPineFoliagePlacer(
-					ConstantIntProvider.create(0),
-					ConstantIntProvider.create(0),
-					UniformIntProvider.create(8, 14)
-				),
-				new TwoLayersFeatureSize(1, 1, 2)
-			).build()
+			rimuTree().build()
 		)
 	);
+	public static final RegistryKey<ConfiguredFeature<?, ?>> RIMU_TREE_NEST = register(
+		Taiao.id("mega_rimu_tree_with_nest"),
+		lookup -> new ConfiguredFeature<>(
+			Feature.TREE,
+			rimuTree().decorators(List.of(new HaastsEagleNestTreeDecorator(0.1f))).build()
+		)
+	);
+
 	public static final RegistryKey<ConfiguredFeature<?, ?>> CABBAGE_TREE = register(
 		Taiao.id("cabbage_tree"),
 		lookup -> new ConfiguredFeature<>(
@@ -192,7 +192,7 @@ public class TaiaoConfiguredFeatures {
 		)
 	);
 
-	public static RegistryKey<ConfiguredFeature<?, ?>> FERN_BUSH = register(
+	public static final RegistryKey<ConfiguredFeature<?, ?>> FERN_BUSH = register(
 		Taiao.id("fern_bush"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.TREE,
@@ -209,6 +209,13 @@ public class TaiaoConfiguredFeatures {
 			).build()
 		)
 	);
+	public static final RegistryKey<ConfiguredFeature<?, ?>> OAK_TREE_NEST = register(
+		Taiao.id("oak_tree_with_nest"),
+		lookup -> new ConfiguredFeature<>(
+			Feature.TREE,
+			TreeConfiguredFeatures.oak().decorators(List.of(new HaastsEagleNestTreeDecorator(0.02f))).build()
+		)
+	);
 
 	// Tree selectors
 	public static final RegistryKey<ConfiguredFeature<?, ?>> NATIVE_FOREST_TREES = register(
@@ -218,11 +225,11 @@ public class TaiaoConfiguredFeatures {
 			new RandomFeatureConfig(
 				List.of(
 					new RandomFeatureEntry(
-						lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_CHECKED),
+						lookup.getOrThrow(TaiaoPlacedFeatures.KAURI_TREE_NEST),
 						0.005f
 					),
 					new RandomFeatureEntry(
-						lookup.getOrThrow(TaiaoPlacedFeatures.RIMU_TREE_CHECKED),
+						lookup.getOrThrow(TaiaoPlacedFeatures.RIMU_TREE_NEST),
 						0.0075f
 					),
 					new RandomFeatureEntry(
@@ -242,7 +249,7 @@ public class TaiaoConfiguredFeatures {
 						0.2f
 					)
 				),
-				lookup.getOrThrow(TreePlacedFeatures.OAK_CHECKED)
+				lookup.getOrThrow(TaiaoPlacedFeatures.OAK_TREE_NEST)
 			)
 		)
 	);
@@ -302,6 +309,30 @@ public class TaiaoConfiguredFeatures {
 			createTripleTallPlantRandomPatchFeatureConfig(96, TaiaoBlocks.HARAKEKE)
 		)
 	);
+
+	public static TreeFeatureConfig.Builder kauriTree() {
+		return new TreeFeatureConfig.Builder(
+			BlockStateProvider.of(TaiaoBlocks.KAURI_LOG),
+			new DarkOakTrunkPlacer(10, 7, 7),
+			BlockStateProvider.of(TaiaoBlocks.KAURI_LEAVES),
+			new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
+			new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+		).ignoreVines();
+	}
+
+	public static TreeFeatureConfig.Builder rimuTree() {
+		return new TreeFeatureConfig.Builder(
+			BlockStateProvider.of(TaiaoBlocks.RIMU_LOG),
+			new GiantTrunkPlacer(20, 8, 8),
+			fruitLeavesProvider(TaiaoBlocks.RIMU_LEAVES, 8, 1),
+			new MegaPineFoliagePlacer(
+				ConstantIntProvider.create(0),
+				ConstantIntProvider.create(0),
+				UniformIntProvider.create(8, 14)
+			),
+			new TwoLayersFeatureSize(1, 1, 2)
+		);
+	}
 
 	public static void bootstrap(@NotNull Registerable<ConfiguredFeature<?, ?>> registerable) {
 		Taiao.LOGGER.debug("Registering configured features");

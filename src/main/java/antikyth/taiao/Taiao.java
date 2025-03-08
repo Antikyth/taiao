@@ -28,6 +28,7 @@ import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import antikyth.taiao.world.gen.blockpredicate.TaiaoBlockPredicates;
 import antikyth.taiao.world.gen.entityprovider.TaiaoEntityTypeProviderTypes;
 import antikyth.taiao.world.gen.feature.TaiaoFeatures;
+import antikyth.taiao.world.gen.feature.tree.decorator.TaiaoTreeDecorators;
 import antikyth.taiao.world.gen.feature.tree.placer.TaiaoTreePlacers;
 import antikyth.taiao.world.gen.structure.processor.TaiaoStructureProcessorTypes;
 import antikyth.taiao.world.poi.TaiaoPoiTypes;
@@ -102,7 +103,9 @@ public class Taiao implements ModInitializer {
 		TaiaoEntityTypeProviderTypes.initialize();
 		TaiaoStructureProcessorTypes.initialize();
 		TaiaoBlockPredicates.initialize();
+
 		TaiaoTreePlacers.initialize();
+		TaiaoTreeDecorators.initialize();
 
 		TaiaoFeatures.initialize();
 		TaiaoBiomes.initializeBiolith();

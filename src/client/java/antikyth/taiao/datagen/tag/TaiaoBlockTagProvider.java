@@ -76,6 +76,9 @@ public class TaiaoBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 			.addTag(TaiaoBlockTags.THIN_LOGS)
 			.addTag(BlockTags.LEAVES);
 
+		getOrCreateTagBuilder(TaiaoBlockTags.SUPPORTS_HAASTS_EAGLE_NESTS)
+			.addTag(BlockTags.LEAVES);
+
 		getOrCreateTagBuilder(TaiaoBlockTags.REEDS_PLANTABLE_ON)
 			.addOptionalTag(BlockTags.DIRT);
 		getOrCreateTagBuilder(TaiaoBlockTags.HYDRATES_REEDS)

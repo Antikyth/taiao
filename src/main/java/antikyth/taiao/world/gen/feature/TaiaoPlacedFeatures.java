@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -42,6 +43,22 @@ public class TaiaoPlacedFeatures {
 	);
 
 	// Trees
+	public static final RegistryKey<PlacedFeature> KAURI_TREE_NEST = register(
+		TaiaoConfiguredFeatures.KAURI_TREE_NEST.getValue(),
+		TaiaoConfiguredFeatures.KAURI_TREE_NEST,
+		PlacedFeatures.wouldSurvive(TaiaoBlocks.KAURI_SAPLING)
+	);
+	public static final RegistryKey<PlacedFeature> RIMU_TREE_NEST = register(
+		TaiaoConfiguredFeatures.RIMU_TREE_NEST.getValue(),
+		TaiaoConfiguredFeatures.RIMU_TREE_NEST,
+		PlacedFeatures.wouldSurvive(TaiaoBlocks.RIMU_SAPLING)
+	);
+	public static final RegistryKey<PlacedFeature> OAK_TREE_NEST = register(
+		TaiaoConfiguredFeatures.OAK_TREE_NEST.getValue(),
+		TaiaoConfiguredFeatures.OAK_TREE_NEST,
+		PlacedFeatures.wouldSurvive(Blocks.OAK_SAPLING)
+	);
+
 	public static final RegistryKey<PlacedFeature> KAURI_TREE_CHECKED = register(
 		Taiao.id("kauri_tree_checked"),
 		TaiaoConfiguredFeatures.KAURI_TREE,

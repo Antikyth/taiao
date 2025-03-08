@@ -50,6 +50,12 @@ public final class TaiaoBlockTags {
 	 * {@linkplain net.minecraft.registry.tag.FluidTags#WATER water}.
 	 */
 	public static final TagKey<Block> HYDRATES_REEDS = createTagKey(Taiao.id("hydrates_reeds"));
+	/**
+	 * Blocks that can support generated {@link TaiaoBlocks#HAASTS_EAGLE_NEST}s on top.
+	 */
+	public static final TagKey<Block> SUPPORTS_HAASTS_EAGLE_NESTS = createTagKey(
+		Taiao.id("haasts_eagle_nest_supported_by")
+	);
 
 	public static final TagKey<Block> HARAKEKE_PLANTABLE_ON = createTagKey(Taiao.id("harakeke_plantable_on"));
 	public static final TagKey<Block> HYDRATES_HARAKEKE = createTagKey(Taiao.id("hydrates_harakeke"));

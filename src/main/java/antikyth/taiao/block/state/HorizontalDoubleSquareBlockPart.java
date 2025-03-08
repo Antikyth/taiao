@@ -11,6 +11,7 @@ import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,9 +46,31 @@ public enum HorizontalDoubleSquareBlockPart implements StringIdentifiable {
 		return this.name;
 	}
 
+	public static HorizontalDoubleSquareBlockPart getRandom(@NotNull Random random) {
+		return values()[random.nextInt(values().length)];
+	}
+
 	@Contract(value = "_ -> new", pure = true)
 	public @NotNull BlockPos offsetTo(@NotNull HorizontalDoubleSquareBlockPart part) {
 		return new BlockPos(part.dx - this.dx, 0, part.dz - this.dz);
+	}
+
+	/**
+	 * Returns a stream of diagonal parts, relative to this part.
+	 * <p>
+	 * This can be used to ensure there is diagonal support underneath the block.
+	 */
+	public @NotNull Stream<Stream<Pair<BlockPos, HorizontalDoubleSquareBlockPart>>> diagonals() {
+		return Stream.of(
+			Stream.of(
+				new Pair<>(this.offsetTo(NORTH_WEST), NORTH_WEST),
+				new Pair<>(this.offsetTo(SOUTH_EAST), SOUTH_EAST)
+			),
+			Stream.of(
+				new Pair<>(this.offsetTo(NORTH_EAST), NORTH_EAST),
+				new Pair<>(this.offsetTo(SOUTH_WEST), SOUTH_WEST)
+			)
+		);
 	}
 
 	/**
@@ -69,7 +92,7 @@ public enum HorizontalDoubleSquareBlockPart implements StringIdentifiable {
 	@SuppressWarnings("DuplicateBranchesInSwitch")
 	public static HorizontalDoubleSquareBlockPart placement(@NotNull Direction facing) {
 		return switch (facing) {
-			case UP, DOWN -> NORTH_EAST;
+			case UP, DOWN -> NORTH_WEST;
 
 			case NORTH -> SOUTH_WEST;
 			case WEST -> SOUTH_EAST;
@@ -79,14 +102,20 @@ public enum HorizontalDoubleSquareBlockPart implements StringIdentifiable {
 	}
 
 	/**
+	 * Returns a stream of positions to the associated parts, relative to this part, including this
+	 * part.
+	 */
+	public Stream<Pair<BlockPos, HorizontalDoubleSquareBlockPart>> allPlacements() {
+		return Arrays.stream(values()).map(part -> new Pair<>(this.offsetTo(part), part));
+	}
+
+	/**
 	 * Returns a stream of other positions and associated parts relative to this part.
 	 * <p>
 	 * This can be used to place other parts of a block.
 	 */
 	public Stream<Pair<BlockPos, HorizontalDoubleSquareBlockPart>> otherPlacements() {
-		return Arrays.stream(values())
-			.filter(part -> part != this)
-			.map(part -> new Pair<>(this.offsetTo(part), part));
+		return allPlacements().filter(pair -> pair.getRight() != this);
 	}
 
 	public HorizontalDoubleSquareBlockPart rotate(@NotNull BlockRotation rotation) {

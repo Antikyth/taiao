@@ -23,6 +23,7 @@ accessible method net/minecraft/world/biome/OverworldBiomeCreator createBiome (Z
 
 # Configured features
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;
+accessible method net/minecraft/world/gen/feature/TreeConfiguredFeatures oak ()Lnet/minecraft/world/gen/feature/TreeFeatureConfig$Builder;
 
 # Structures
 accessible field net/minecraft/structure/pool/StructurePoolElement EMPTY_PROCESSORS Lnet/minecraft/registry/entry/RegistryEntry;
