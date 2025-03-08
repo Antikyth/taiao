@@ -50,7 +50,7 @@ public class TaiaoBlocks {
 				.notSolid()
 				.breakInstantly()
 		)
-	).register(new FabricItemSettings());
+	).register(new FabricItemSettings().maxCount(16));
 	public static final Block HAASTS_EAGLE_NEST = new Builder(
 		Taiao.id("haasts_eagle_nest"),
 		new HaastsEagleNestBlock(
