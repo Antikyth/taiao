@@ -9,9 +9,7 @@ import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
-import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.LongBlockHalf;
-import antikyth.taiao.block.state.TaiaoStateProperties;
 import antikyth.taiao.block.state.TripleBlockPart;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -48,13 +46,7 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 	@Override
 	public void generate() {
 		this.addDrop(TaiaoBlocks.HIINAKI, this::hiinakiDrops);
-		this.addDrop(TaiaoBlocks.HAASTS_EAGLE_NEST,
-			block -> this.dropsWithProperty(
-				block,
-				TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART,
-				HorizontalDoubleSquareBlockPart.NORTH_WEST
-			)
-		);
+		this.addDrop(TaiaoBlocks.HAASTS_EAGLE_NEST, this::nestDrops);
 
 		// Kauri foliage
 		this.addDrop(TaiaoBlocks.KAURI_SAPLING);
@@ -186,6 +178,18 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 								// Without silk touch
 								.alternatively(ItemEntry.builder(hiinaki))
 						)
+				)
+			);
+	}
+
+	public LootTable.Builder nestDrops(Block nest) {
+		return LootTable.builder()
+			.pool(
+				this.addSurvivesExplosionCondition(
+					nest,
+					LootPool.builder()
+						.conditionally(WITH_SILK_TOUCH_OR_SHEARS)
+						.with(ItemEntry.builder(nest))
 				)
 			);
 	}

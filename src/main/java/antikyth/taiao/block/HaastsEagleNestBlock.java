@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -141,31 +142,47 @@ public class HaastsEagleNestBlock extends Block {
 
 	@Override
 	public void onBreak(@NotNull World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		if (!world.isClient && player.isCreative()) {
-			HorizontalDoubleSquareBlockPart part = state.get(PART);
+		if (!world.isClient) {
+			if (player.isCreative()) {
+				HorizontalDoubleSquareBlockPart part = state.get(PART);
 
-			// Break the north-west part without drops.
-			if (part != HorizontalDoubleSquareBlockPart.NORTH_WEST) {
-				BlockPos northWestPos = pos.add(part.offsetTo(HorizontalDoubleSquareBlockPart.NORTH_WEST));
-				BlockState northWestState = world.getBlockState(northWestPos);
+				// Break the north-west part without drops.
+				if (part != HorizontalDoubleSquareBlockPart.NORTH_WEST) {
+					BlockPos northWestPos = pos.add(part.offsetTo(HorizontalDoubleSquareBlockPart.NORTH_WEST));
+					BlockState northWestState = world.getBlockState(northWestPos);
 
-				if (northWestState.isOf(this) && northWestState.get(PART) == HorizontalDoubleSquareBlockPart.NORTH_WEST) {
-					world.setBlockState(
-						northWestPos,
-						Blocks.AIR.getDefaultState(),
-						Block.NOTIFY_ALL | Block.SKIP_DROPS
-					);
-					world.syncWorldEvent(
-						player,
-						WorldEvents.BLOCK_BROKEN,
-						northWestPos,
-						Block.getRawIdFromState(northWestState)
-					);
+					if (northWestState.isOf(this) && northWestState.get(PART) == HorizontalDoubleSquareBlockPart.NORTH_WEST) {
+						world.setBlockState(
+							northWestPos,
+							Blocks.AIR.getDefaultState(),
+							Block.NOTIFY_ALL | Block.SKIP_DROPS
+						);
+						world.syncWorldEvent(
+							player,
+							WorldEvents.BLOCK_BROKEN,
+							northWestPos,
+							Block.getRawIdFromState(northWestState)
+						);
+					}
 				}
+			} else {
+				dropStacks(state, world, pos, null, player, player.getMainHandStack());
 			}
 		}
 
 		super.onBreak(world, pos, state, player);
+	}
+
+	@Override
+	public void afterBreak(
+		World world,
+		PlayerEntity player,
+		BlockPos pos,
+		BlockState state,
+		@Nullable BlockEntity blockEntity,
+		ItemStack tool
+	) {
+		super.afterBreak(world, player, pos, Blocks.AIR.getDefaultState(), blockEntity, tool);
 	}
 
 	@Override
