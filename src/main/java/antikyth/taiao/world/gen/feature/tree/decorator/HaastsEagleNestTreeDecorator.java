@@ -51,6 +51,7 @@ public class HaastsEagleNestTreeDecorator extends TreeDecorator {
 			for (BlockPos leaves : Util.copyShuffled(generator.getLeavesPositions(), random)) {
 				origin.set(leaves, Direction.UP.getVector());
 
+				// TODO: ensure the two spaces above the nest are clear too
 				// Whether all nest positions are replaceable.
 				boolean replaceable = root.allPlacements()
 					.map(Pair::getLeft)

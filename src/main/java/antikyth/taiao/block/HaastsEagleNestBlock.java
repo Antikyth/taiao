@@ -6,6 +6,7 @@ package antikyth.taiao.block;
 
 import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
+import antikyth.taiao.block.state.NestBlockContents;
 import antikyth.taiao.block.state.TaiaoStateProperties;
 import antikyth.taiao.item.TaiaoItems;
 import net.minecraft.block.*;
@@ -28,12 +29,14 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldEvents;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
 public class HaastsEagleNestBlock extends BlockWithEntity {
 	public static final EnumProperty<HorizontalDoubleSquareBlockPart> PART = TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART;
+	public static final EnumProperty<NestBlockContents> CONTENTS = TaiaoStateProperties.NEST_BLOCK_CONTENTS;
 
 	protected static final VoxelShape NORTH_WEST_SHAPE = VoxelShapes.combineAndSimplify(
 		createCuboidShape(2f, 0f, 2f, 16f, 8f, 16f),
@@ -56,10 +59,21 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		BooleanBiFunction.ONLY_FIRST // subtraction
 	);
 
+	// the egg happens to be centered, so it can be used for each part
+	protected static final VoxelShape EGG_SHAPE = createCuboidShape(6d, 2d, 6d, 10d, 7d, 10d);
+	protected static final VoxelShape NORTH_WEST_EGG_SHAPE = VoxelShapes.union(NORTH_WEST_SHAPE, EGG_SHAPE);
+	protected static final VoxelShape NORTH_EAST_EGG_SHAPE = VoxelShapes.union(NORTH_EAST_SHAPE, EGG_SHAPE);
+	protected static final VoxelShape SOUTH_WEST_EGG_SHAPE = VoxelShapes.union(SOUTH_WEST_SHAPE, EGG_SHAPE);
+	protected static final VoxelShape SOUTH_EAST_EGG_SHAPE = VoxelShapes.union(SOUTH_EAST_SHAPE, EGG_SHAPE);
+
 	public HaastsEagleNestBlock(Settings settings) {
 		super(settings);
 
-		this.setDefaultState(this.getDefaultState().with(PART, HorizontalDoubleSquareBlockPart.NORTH_WEST));
+		this.setDefaultState(
+			this.getDefaultState()
+				.with(PART, HorizontalDoubleSquareBlockPart.NORTH_WEST)
+				.with(CONTENTS, NestBlockContents.NONE)
+		);
 	}
 
 	@Override
@@ -84,7 +98,6 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		if (world.getBlockEntity(pos) instanceof HaastsEagleNestBlockEntity blockEntity) {
 			ItemStack stack = player.getStackInHand(hand);
 
-
 			if (blockEntity.hasEgg()) {
 				// Remove egg
 				if (!world.isClient) {
@@ -93,6 +106,9 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 					if (!player.getInventory().insertStack(egg)) {
 						player.dropItem(egg, false);
 					}
+
+					// Update contents state
+					world.setBlockState(pos, state.with(CONTENTS, getContents(blockEntity)), Block.NOTIFY_ALL);
 
 					return ActionResult.success(true);
 				}
@@ -104,6 +120,9 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 					ItemStack egg = player.getAbilities().creativeMode ? stack.copy() : stack;
 
 					if (blockEntity.addEgg(player, egg)) {
+						// Update contents state
+						world.setBlockState(pos, state.with(CONTENTS, getContents(blockEntity)), Block.NOTIFY_ALL);
+
 						return ActionResult.success(true);
 					}
 				}
@@ -117,13 +136,42 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		return ActionResult.PASS;
 	}
 
+	/**
+	 * Returns the appropriate {@link NestBlockContents} based on the block entity's state.
+	 */
+	protected static NestBlockContents getContents(@NotNull HaastsEagleNestBlockEntity blockEntity) {
+		if (blockEntity.hasChick()) {
+			return NestBlockContents.CHICK;
+		} else if (blockEntity.hasEgg()) {
+			return NestBlockContents.EGG;
+		} else {
+			return NestBlockContents.NONE;
+		}
+	}
+
 	@Override
 	public VoxelShape getOutlineShape(@NotNull BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return switch (state.get(PART)) {
-			case NORTH_EAST -> NORTH_EAST_SHAPE;
-			case NORTH_WEST -> NORTH_WEST_SHAPE;
-			case SOUTH_EAST -> SOUTH_EAST_SHAPE;
-			case SOUTH_WEST -> SOUTH_WEST_SHAPE;
+		return getShape(state.get(PART), state.get(CONTENTS) == NestBlockContents.EGG);
+	}
+
+	// Give the egg no collision, so the adult eagle can still sit in the nest snugly
+	@Override
+	public VoxelShape getCollisionShape(
+		@NotNull BlockState state,
+		BlockView world,
+		BlockPos pos,
+		ShapeContext context
+	) {
+		return getShape(state.get(PART), false);
+	}
+
+	@Contract(pure = true)
+	protected static VoxelShape getShape(@NotNull HorizontalDoubleSquareBlockPart part, boolean egg) {
+		return switch (part) {
+			case NORTH_WEST -> egg ? NORTH_WEST_EGG_SHAPE : NORTH_WEST_SHAPE;
+			case NORTH_EAST -> egg ? NORTH_EAST_EGG_SHAPE : NORTH_EAST_SHAPE;
+			case SOUTH_EAST -> egg ? SOUTH_EAST_EGG_SHAPE : SOUTH_EAST_SHAPE;
+			case SOUTH_WEST -> egg ? SOUTH_WEST_EGG_SHAPE : SOUTH_WEST_SHAPE;
 		};
 	}
 
@@ -131,7 +179,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		super.appendProperties(builder);
 
-		builder.add(PART);
+		builder.add(PART, CONTENTS);
 	}
 
 	@Override

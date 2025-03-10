@@ -10,10 +10,7 @@ import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.log.ThinLogBlock;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
-import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
-import antikyth.taiao.block.state.LongBlockHalf;
-import antikyth.taiao.block.state.TaiaoStateProperties;
-import antikyth.taiao.block.state.TripleBlockPart;
+import antikyth.taiao.block.state.*;
 import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
@@ -171,7 +168,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		registerHarvestableTriplePlantBlock(generator, TaiaoBlocks.HARAKEKE, TintType.NOT_TINTED, false);
 
 		registerHiinaki(generator, TaiaoBlocks.HIINAKI, Taiao.id("hiinaki_front"), Taiao.id("hiinaki_back"));
-		registerHorizontalDoubleSquareBlock(generator, TaiaoBlocks.HAASTS_EAGLE_NEST);
+		registerHaastsEagleNest(generator, TaiaoBlocks.HAASTS_EAGLE_NEST);
 
 		registerNorthDefaultHorizontalFacing(generator, TaiaoBlocks.THATCH_ROOF);
 		registerNorthDefaultHorizontalFacing(generator, TaiaoBlocks.THATCH_ROOF_TOP);
@@ -254,11 +251,19 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		);
 	}
 
-	public static void registerHorizontalDoubleSquareBlock(@NotNull BlockStateModelGenerator generator, Block block) {
+	public static void registerHaastsEagleNest(@NotNull BlockStateModelGenerator generator, Block block) {
 		Identifier model = ModelIds.getBlockModelId(block);
+		Identifier eggModel = ModelIds.getBlockSubModelId(block, "_egg");
 
 		generator.blockStateCollector.accept(
-			VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, model))
+			VariantsBlockStateSupplier.create(block)
+				.coordinate(
+					BlockStateVariantMap.create(TaiaoStateProperties.NEST_BLOCK_CONTENTS)
+						.register(contents -> BlockStateVariant.create().put(
+							VariantSettings.MODEL,
+							contents == NestBlockContents.EGG ? eggModel : model
+						))
+				)
 				.coordinate(
 					BlockStateVariantMap.create(TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART)
 						.register(

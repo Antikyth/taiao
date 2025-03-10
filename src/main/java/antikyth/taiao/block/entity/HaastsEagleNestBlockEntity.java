@@ -18,6 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class HaastsEagleNestBlockEntity extends BlockEntity {
+	public static final String EGG_KEY = "Egg";
+	public static final String CHICK_KEY = "Chick";
+
 	protected ItemStack egg = ItemStack.EMPTY;
 	protected @Nullable Chick chick;
 
@@ -76,6 +79,24 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 
 			this.world.updateListeners(this.pos, this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
 		}
+	}
+
+	@Override
+	public void readNbt(NbtCompound nbt) {
+		super.readNbt(nbt);
+
+		this.egg = ItemStack.fromNbt(nbt.getCompound(EGG_KEY));
+	}
+
+	@Override
+	protected void writeNbt(NbtCompound nbt) {
+		super.writeNbt(nbt);
+
+		// Egg
+		NbtCompound eggNbt = new NbtCompound();
+		this.egg.writeNbt(eggNbt);
+
+		nbt.put(EGG_KEY, eggNbt);
 	}
 
 	protected static class Chick {
