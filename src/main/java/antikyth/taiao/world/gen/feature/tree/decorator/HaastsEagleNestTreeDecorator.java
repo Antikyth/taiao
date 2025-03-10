@@ -7,8 +7,13 @@ package antikyth.taiao.world.gen.feature.tree.decorator;
 import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
+import antikyth.taiao.block.state.NestBlockContents;
+import antikyth.taiao.item.TaiaoItems;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -20,15 +25,23 @@ import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 import org.jetbrains.annotations.NotNull;
 
 public class HaastsEagleNestTreeDecorator extends TreeDecorator {
-	public static final Codec<HaastsEagleNestTreeDecorator> CODEC = Codec.floatRange(0f, 1f)
-		.fieldOf("probability")
-		.xmap(HaastsEagleNestTreeDecorator::new, decorator -> decorator.probability)
-		.codec();
+	public static final Codec<HaastsEagleNestTreeDecorator> CODEC = RecordCodecBuilder.create(
+		instance -> instance.group(
+			Codec.floatRange(0f, 1f)
+				.fieldOf("probability")
+				.forGetter(decorator -> decorator.probability),
+			Codec.floatRange(0f, 1f)
+				.fieldOf("egg_probability_per_corner")
+				.forGetter(decorator -> decorator.eggProbability)
+		).apply(instance, HaastsEagleNestTreeDecorator::new)
+	);
 
 	private final float probability;
+	private final float eggProbability;
 
-	public HaastsEagleNestTreeDecorator(float probability) {
+	public HaastsEagleNestTreeDecorator(float probability, float eggProbability) {
 		this.probability = probability;
+		this.eggProbability = eggProbability;
 	}
 
 	@Override
@@ -76,10 +89,25 @@ public class HaastsEagleNestTreeDecorator extends TreeDecorator {
 					HorizontalDoubleSquareBlockPart part = placement.getRight();
 					mutable.set(origin, offset);
 
+					boolean egg = random.nextFloat() < this.eggProbability;
+					NestBlockContents contents = egg ? NestBlockContents.EGG : NestBlockContents.NONE;
+
 					generator.replace(
 						mutable,
-						TaiaoBlocks.HAASTS_EAGLE_NEST.getDefaultState().with(HaastsEagleNestBlock.PART, part)
+						TaiaoBlocks.HAASTS_EAGLE_NEST.getDefaultState()
+							.with(HaastsEagleNestBlock.PART, part)
+							.with(HaastsEagleNestBlock.CONTENTS, contents)
 					);
+
+					if (egg) {
+						generator.getWorld()
+							.getBlockEntity(mutable, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
+							.ifPresent(blockEntity -> blockEntity.addEgg(
+								null,
+								new ItemStack(TaiaoItems.HAASTS_EAGLE_EGG),
+								random
+							));
+					}
 				});
 
 				break;
