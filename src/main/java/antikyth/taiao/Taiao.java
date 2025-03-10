@@ -134,4 +134,39 @@ public class Taiao implements ModInitializer {
 	public static @NotNull String toPath(@NotNull Identifier id) {
 		return id.toString().replace(':', '/');
 	}
+
+	public static @NotNull String formatTickDuration(int ticks) {
+		int seconds = ticks / 20;
+
+		if (seconds == 0) return "0s";
+
+		int minutes = seconds / 60;
+		int hours = minutes / 60;
+
+		int extraSeconds = seconds % 60;
+		int extraMinutes = minutes % 60;
+
+		StringBuilder builder = new StringBuilder();
+
+		if (hours != 0) {
+			builder.append(hours);
+			builder.append('h');
+		}
+
+		if (extraMinutes != 0) {
+			builder.append(' ');
+
+			builder.append(extraMinutes);
+			builder.append('m');
+		}
+
+		if (extraSeconds != 0) {
+			builder.append(' ');
+
+			builder.append(extraSeconds);
+			builder.append('s');
+		}
+
+		return builder.toString().trim();
+	}
 }

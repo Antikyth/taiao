@@ -5,12 +5,15 @@
 package antikyth.taiao.block;
 
 import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
+import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.NestBlockContents;
 import antikyth.taiao.block.state.TaiaoStateProperties;
 import antikyth.taiao.item.TaiaoItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -119,7 +122,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 				if (!world.isClient) {
 					ItemStack egg = player.getAbilities().creativeMode ? stack.copy() : stack;
 
-					if (blockEntity.addEgg(player, egg)) {
+					if (blockEntity.addEgg(player, egg, player.getRandom())) {
 						// Update contents state
 						world.setBlockState(pos, state.with(CONTENTS, getContents(blockEntity)), Block.NOTIFY_ALL);
 
@@ -304,5 +307,16 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 			: pos.add(part.offsetTo(HorizontalDoubleSquareBlockPart.NORTH_WEST));
 
 		return MathHelper.hashCode(pos);
+	}
+
+	@Override
+	public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+		@NotNull World world,
+		BlockState state,
+		BlockEntityType<T> type
+	) {
+		return world.isClient
+			? null
+			: checkType(type, TaiaoBlockEntities.HAASTS_EAGLE_NEST, HaastsEagleNestBlockEntity::tick);
 	}
 }

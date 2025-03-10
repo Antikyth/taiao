@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.entity;
 
+import antikyth.taiao.item.HaastsEagleEggItem;
 import antikyth.taiao.item.TaiaoItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,6 +14,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,10 +48,14 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 	 * <p>
 	 * The stack is added if it is a {@link TaiaoItems#HAASTS_EAGLE_EGG} and there is no egg already
 	 * in the nest.
+	 * <p>
+	 * If the {@code egg} does not already have a hatching time, {@code random} is used to choose
+	 * it.
 	 */
-	public boolean addEgg(@Nullable Entity user, ItemStack egg) {
+	public boolean addEgg(@Nullable Entity user, ItemStack egg, Random random) {
 		if (this.egg.isEmpty() && !egg.isEmpty() && egg.isOf(TaiaoItems.HAASTS_EAGLE_EGG)) {
 			this.egg = egg.split(1);
+			this.initializeEgg(random);
 
 			this.blockChanged(user);
 
@@ -58,6 +65,10 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 		return false;
 	}
 
+	protected void initializeEgg(@NotNull Random random) {
+		HaastsEagleEggItem.getOrInitializeHatchingTime(this.egg, 10000 + random.nextInt(4000));
+	}
+
 	public ItemStack removeEgg(@Nullable Entity user) {
 		ItemStack egg = this.egg;
 		this.egg = ItemStack.EMPTY;
@@ -65,6 +76,16 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 		if (!egg.isEmpty()) this.blockChanged(user);
 
 		return egg;
+	}
+
+	public static void tick(
+		World ignoredWorld,
+		BlockPos ignoredPos,
+		BlockState ignoredState,
+		@NotNull HaastsEagleNestBlockEntity blockEntity
+	) {
+		// Age the egg
+		HaastsEagleEggItem.decrementHatchingTime(blockEntity.egg, 1);
 	}
 
 	protected void blockChanged(@Nullable Entity user) {
