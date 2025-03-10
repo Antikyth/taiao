@@ -213,7 +213,7 @@ public class TaiaoConfiguredFeatures {
 		Taiao.id("oak_tree_with_nest"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.TREE,
-			TreeConfiguredFeatures.oak().decorators(List.of(new HaastsEagleNestTreeDecorator(0.02f, 0.4f))).build()
+			TreeConfiguredFeatures.oak().decorators(List.of(new HaastsEagleNestTreeDecorator(0.01f, 0.4f))).build()
 		)
 	);
 
