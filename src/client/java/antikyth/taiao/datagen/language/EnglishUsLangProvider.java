@@ -227,6 +227,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			TaiaoItemTags.HAASTS_EAGLE_FOOD,
 			"Hokioi"
 		);
+		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Hokioi Egg");
 		addAnimal(builder, TaiaoEntities.MOA, TaiaoItems.MOA_SPAWN_EGG, TaiaoItemTags.MOA_FOOD, "Moa");
 		addAnimal(
 			builder,

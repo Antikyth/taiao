@@ -40,6 +40,7 @@ public class TaiaoItemGroups {
 
 			addFish(group::add);
 			group.add(TaiaoItems.WEETAA);
+			group.add(TaiaoItems.HAASTS_EAGLE_EGG);
 			addFruit(group::add);
 
 			addOtherBuildingBlocks(group::add);
@@ -128,6 +129,7 @@ public class TaiaoItemGroups {
 		// Ingredients
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(group -> {
 			group.addBefore(Items.FLOWER_BANNER_PATTERN, TaiaoItems.WEETAA);
+			group.addBefore(Items.LEATHER, TaiaoItems.HAASTS_EAGLE_EGG);
 			addBannerPatterns(item -> group.addBefore(Items.ANGLER_POTTERY_SHERD, item));
 		});
 	}

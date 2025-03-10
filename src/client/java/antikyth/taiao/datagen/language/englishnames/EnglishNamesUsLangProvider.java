@@ -89,6 +89,7 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 			TaiaoItemTags.HAASTS_EAGLE_FOOD,
 			"Haast's Eagle"
 		);
+		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Haast's Eagle Egg");
 		EnglishUsLangProvider.addAnimal(
 			builder,
 			TaiaoEntities.AUSTRALASIAN_BITTERN,

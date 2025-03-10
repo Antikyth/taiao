@@ -47,8 +47,13 @@ public class TaiaoItems {
 		Taiao.id("cooked_eel"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.COOKED_EEL))
 	);
+
 	public static final Item WEETAA = register(
 		Taiao.id("weetaa"),
+		new Item(new FabricItemSettings())
+	);
+	public static final Item HAASTS_EAGLE_EGG = register(
+		Taiao.id("haasts_eagle_egg"),
 		new Item(new FabricItemSettings())
 	);
 
