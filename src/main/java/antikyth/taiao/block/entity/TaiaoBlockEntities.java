@@ -29,6 +29,14 @@ public class TaiaoBlockEntities {
 		)
 	);
 
+	public static final BlockEntityType<HaastsEagleNestBlockEntity> HAASTS_EAGLE_NEST = register(
+		Taiao.id("haasts_eagle_nest"),
+		BlockEntityType.Builder.create(
+			HaastsEagleNestBlockEntity::new,
+			TaiaoBlocks.HAASTS_EAGLE_NEST
+		)
+	);
+
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered block entity types");
 	}

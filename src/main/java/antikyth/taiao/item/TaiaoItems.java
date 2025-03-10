@@ -54,7 +54,8 @@ public class TaiaoItems {
 	);
 	public static final Item HAASTS_EAGLE_EGG = register(
 		Taiao.id("haasts_eagle_egg"),
-		new Item(new FabricItemSettings())
+		// max stack count must be 1 because the egg holds its hatching time
+		new HaastsEagleEggItem(new FabricItemSettings().maxCount(1))
 	);
 
 	public static final Item EEL_BUCKET = register(

@@ -4,12 +4,11 @@
 
 package antikyth.taiao.block;
 
+import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.TaiaoStateProperties;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
+import antikyth.taiao.item.TaiaoItems;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,10 +16,9 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.BlockMirror;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Pair;
+import net.minecraft.util.*;
 import net.minecraft.util.function.BooleanBiFunction;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -34,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class HaastsEagleNestBlock extends Block {
+public class HaastsEagleNestBlock extends BlockWithEntity {
 	public static final EnumProperty<HorizontalDoubleSquareBlockPart> PART = TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART;
 
 	protected static final VoxelShape NORTH_WEST_SHAPE = VoxelShapes.combineAndSimplify(
@@ -62,6 +60,61 @@ public class HaastsEagleNestBlock extends Block {
 		super(settings);
 
 		this.setDefaultState(this.getDefaultState().with(PART, HorizontalDoubleSquareBlockPart.NORTH_WEST));
+	}
+
+	@Override
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+		return new HaastsEagleNestBlockEntity(pos, state);
+	}
+
+	@Override
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.MODEL;
+	}
+
+	@Override
+	public ActionResult onUse(
+		BlockState state,
+		@NotNull World world,
+		BlockPos pos,
+		PlayerEntity player,
+		Hand hand,
+		BlockHitResult hit
+	) {
+		if (world.getBlockEntity(pos) instanceof HaastsEagleNestBlockEntity blockEntity) {
+			ItemStack stack = player.getStackInHand(hand);
+
+
+			if (blockEntity.hasEgg()) {
+				// Remove egg
+				if (!world.isClient) {
+					ItemStack egg = blockEntity.removeEgg(player);
+
+					if (!player.getInventory().insertStack(egg)) {
+						player.dropItem(egg, false);
+					}
+
+					return ActionResult.success(true);
+				}
+
+				return ActionResult.success(false);
+			} else if (stack.isOf(TaiaoItems.HAASTS_EAGLE_EGG)) {
+				// Add egg
+				if (!world.isClient) {
+					ItemStack egg = player.getAbilities().creativeMode ? stack.copy() : stack;
+
+					if (blockEntity.addEgg(player, egg)) {
+						return ActionResult.success(true);
+					}
+				}
+
+				return ActionResult.success(false);
+			}
+
+			// TODO: add feeding for chicks
+		}
+
+		return ActionResult.PASS;
 	}
 
 	@Override
