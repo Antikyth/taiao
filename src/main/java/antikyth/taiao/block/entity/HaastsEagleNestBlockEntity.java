@@ -28,8 +28,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Function;
-
 public class HaastsEagleNestBlockEntity extends BlockEntity {
 	public static final String EGG_KEY = "Egg";
 	public static final String CHICK_KEY = "Chick";
@@ -253,7 +251,15 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 
 		public Entity getOrCreateRenderedEntity(World world) {
 			if (this.renderedEntity == null) {
-				this.renderedEntity = EntityType.loadEntityWithPassengers(this.nbt, world, Function.identity());
+				this.renderedEntity = EntityType.loadEntityWithPassengers(
+					this.nbt,
+					world,
+					entity -> {
+						entity.setOnGround(true);
+
+						return entity;
+					}
+				);
 			}
 
 			return this.renderedEntity;

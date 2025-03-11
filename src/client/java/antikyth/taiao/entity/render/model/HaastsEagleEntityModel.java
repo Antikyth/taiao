@@ -8,6 +8,7 @@ import antikyth.taiao.Taiao;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 	private final ModelPart rightLeg;
 
 	public HaastsEagleEntityModel(@NotNull ModelPart root) {
+		super(true, 11.5f, 3.4f);
+
 		this.body = root.getChild("body");
 		this.head = root.getChild("head");
 		this.tail = root.getChild("tail");
@@ -142,14 +145,53 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 	}
 
 	@Override
+	public void animateModel(@NotNull E entity, float limbAngle, float limbDistance, float tickDelta) {
+		this.head.resetTransform();
+		this.body.resetTransform();
+
+		this.leftWing.resetTransform();
+		this.rightWing.resetTransform();
+
+		if (entity.isOnGround()) {
+			// Standing
+
+			this.leftWingLower.hidden = true;
+			this.leftWingEnd.hidden = true;
+
+			this.rightWingLower.hidden = true;
+			this.rightWingEnd.hidden = true;
+
+			this.leftWing.pivotX += 2f;
+			this.rightWing.pivotX -= 2f;
+
+			this.leftWing.roll += Taiao.degreesToRadians(80f);
+			this.rightWing.roll -= Taiao.degreesToRadians(80f);
+
+			this.body.pitch -= Taiao.degreesToRadians(50f);
+		} else {
+			// Flying
+
+			this.leftWingLower.hidden = false;
+			this.leftWingEnd.hidden = false;
+
+			this.rightWingLower.hidden = false;
+			this.rightWingEnd.hidden = false;
+		}
+	}
+
+	@Override
 	public void setAngles(
 		E entity,
 		float limbSwing,
 		float limbSwingAmount,
 		float ageInTicks,
-		float netHeadYaw,
-		float headPitch
+		float headYawDegrees,
+		float headPitchDegrees
 	) {
+		headYawDegrees = MathHelper.clamp(headYawDegrees, -45f, 45f);
+
+		this.head.yaw += Taiao.degreesToRadians(headYawDegrees);
+		this.head.pitch += Taiao.degreesToRadians(headPitchDegrees);
 	}
 
 	@Override
