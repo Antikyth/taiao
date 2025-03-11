@@ -124,6 +124,8 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 	 * @return whether the egg was successfully hatched
 	 */
 	protected static boolean hatchEgg(@NotNull HaastsEagleNestBlockEntity blockEntity, Random random) {
+		// TODO: play sound
+
 		if (!blockEntity.hasChick() && blockEntity.hasEgg()) {
 			blockEntity.egg.decrement(1);
 			blockEntity.chick = createChick(random);

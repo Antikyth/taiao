@@ -4,6 +4,7 @@
 
 package antikyth.taiao.entity.ai.brain.sensor;
 
+import antikyth.taiao.TaiaoConfig;
 import antikyth.taiao.entity.HaastsEagleEntity;
 import antikyth.taiao.entity.TaiaoEntityTypeTags;
 import net.minecraft.entity.EntityType;
@@ -61,8 +62,13 @@ public class HaastsEagleNearestAttackableSensor extends EntityFilteringSensor<Li
 	protected static boolean isPrey(@NotNull LivingEntity target) {
 		EntityType<?> type = target.getType();
 
-		return type.isIn(TaiaoEntityTypeTags.HAASTS_EAGLE_GENERAL_PREY)
-			|| (target.isBaby() && type.isIn(TaiaoEntityTypeTags.HAASTS_EAGLE_BABY_PREY));
+		boolean notExempted = !target.isBaby() || TaiaoConfig.AnimalBehavior.haastsEaglesHuntBabyAnimals;
+
+		return notExempted
+			&& (
+			type.isIn(TaiaoEntityTypeTags.HAASTS_EAGLE_GENERAL_PREY)
+				|| (target.isBaby() && type.isIn(TaiaoEntityTypeTags.HAASTS_EAGLE_BABY_PREY))
+		);
 	}
 
 	@Override

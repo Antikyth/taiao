@@ -38,5 +38,10 @@ public class TaiaoConfig {
 		 */
 		@Configurable
 		public static boolean puukekoAttackPredatorsNearChicks = true;
+		/**
+		 * Whether baby animals should count as targets for hokioi/Haast's eagles.
+		 */
+		@Configurable
+		public static boolean haastsEaglesHuntBabyAnimals = true;
 	}
 }
