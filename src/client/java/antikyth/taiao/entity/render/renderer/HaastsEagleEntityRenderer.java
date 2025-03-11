@@ -8,9 +8,13 @@ import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.HaastsEagleEntity;
 import antikyth.taiao.entity.render.TaiaoEntityModels;
 import antikyth.taiao.entity.render.model.HaastsEagleEntityModel;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public class HaastsEagleEntityRenderer extends MobEntityRenderer<HaastsEagleEntity, HaastsEagleEntityModel<HaastsEagleEntity>> {
 	private static final Identifier TEXTURE = Taiao.id("textures/entity/haasts_eagle.png");
@@ -22,5 +26,19 @@ public class HaastsEagleEntityRenderer extends MobEntityRenderer<HaastsEagleEnti
 	@Override
 	public Identifier getTexture(HaastsEagleEntity entity) {
 		return TEXTURE;
+	}
+
+	@Override
+	public void render(
+		@NotNull HaastsEagleEntity eagle,
+		float yaw,
+		float tickDelta,
+		MatrixStack matrices,
+		VertexConsumerProvider vertexConsumers,
+		int light
+	) {
+		this.shadowRadius = eagle.isInPose(EntityPose.STANDING) ? 0.6f : 1f;
+
+		super.render(eagle, yaw, tickDelta, matrices, vertexConsumers, light);
 	}
 }

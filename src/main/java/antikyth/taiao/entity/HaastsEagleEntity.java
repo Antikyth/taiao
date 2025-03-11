@@ -5,6 +5,8 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.entity.ai.brain.sensor.TaiaoSensorTypes;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -42,6 +44,9 @@ import java.util.List;
  * meters.
  */
 public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<HaastsEagleEntity> {
+	protected static final EntityDimensions FLYING_DIMENSIONS = EntityDimensions.changing(1.6f, 1f);
+	protected static final EntityDimensions STANDING_DIMENSIONS = EntityDimensions.changing(0.9f, 1.25f);
+
 	protected HaastsEagleEntity(
 		EntityType<? extends AnimalEntity> entityType,
 		World world
@@ -56,6 +61,26 @@ public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<H
 			.add(EntityAttributes.GENERIC_MAX_HEALTH, 14d)
 			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25d)
 			.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.8d);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+
+		this.updatePose();
+	}
+
+	protected void updatePose() {
+		EntityPose pose = this.isOnGround() ? EntityPose.STANDING : EntityPose.FALL_FLYING;
+
+		if (this.wouldPoseNotCollide(pose)) {
+			this.setPose(pose);
+		}
+	}
+
+	@Override
+	public EntityDimensions getDimensions(EntityPose pose) {
+		return (pose == EntityPose.STANDING ? STANDING_DIMENSIONS : FLYING_DIMENSIONS).scaled(this.getScaleFactor());
 	}
 
 	@Override

@@ -47,8 +47,12 @@ public class HaastsEagleNestBlockEntityRenderer implements BlockEntityRenderer<H
 
 			// Center of the block
 			matrices.translate(0.5f, 2f / 16f, 0.5f);
-			// Yaw
+			// Rotation
 			matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(yaw));
+			// Shift forward
+			matrices.translate(0f, 0f, 0.2f);
+			// Scale
+			matrices.scale(0.65f, 0.65f, 0.65f);
 
 			this.entityRenderDispatcher.render(chick, 0d, 0d, 0d, 0f, 0f, matrices, vertexConsumers, light);
 

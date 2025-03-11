@@ -7,38 +7,49 @@ package antikyth.taiao.entity.render.model;
 import antikyth.taiao.Taiao;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 // Made with Blockbench 4.12.2
-public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
+public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<E> {
+	private final ModelPart root;
+
 	private final ModelPart body;
 	private final ModelPart head;
 	private final ModelPart tail;
+
 	private final ModelPart leftWing;
 	private final ModelPart leftWingLower;
 	private final ModelPart leftWingEnd;
+
 	private final ModelPart rightWing;
 	private final ModelPart rightWingLower;
 	private final ModelPart rightWingEnd;
+
 	private final ModelPart leftLeg;
 	private final ModelPart rightLeg;
 
 	public HaastsEagleEntityModel(@NotNull ModelPart root) {
 		super(true, 11.5f, 3.4f);
 
+		this.root = root;
+
 		this.body = root.getChild("body");
 		this.head = root.getChild("head");
-		this.tail = root.getChild("tail");
-		this.leftWing = root.getChild("left_wing");
+		this.tail = body.getChild("tail");
+
+		this.leftWing = body.getChild("left_wing");
 		this.leftWingLower = this.leftWing.getChild("left_wing_lower");
 		this.leftWingEnd = this.leftWingLower.getChild("left_wing_end");
-		this.rightWing = root.getChild("right_wing");
+
+		this.rightWing = body.getChild("right_wing");
 		this.rightWingLower = this.rightWing.getChild("right_wing_lower");
 		this.rightWingEnd = this.rightWingLower.getChild("right_wing_end");
+
 		this.leftLeg = root.getChild("left_leg");
 		this.rightLeg = root.getChild("right_leg");
 	}
@@ -47,25 +58,24 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 		ModelData data = new ModelData();
 		ModelPartData root = data.getRoot();
 
-		root.addChild(
+		ModelPartData body = root.addChild(
 			"body",
 			ModelPartBuilder.create()
 				.uv(48, 19)
-				.cuboid(-3.5F, -10f, 1f, 7f, 20f, 7f),
+				.cuboid(-3.5f, -10f, 1f, 7f, 20f, 7f),
 			ModelTransform.of(0f, 19f, 0f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
 		root.addChild(
 			"head",
 			ModelPartBuilder.create()
 				.uv(51, 7)
-				.cuboid(-2.5F, -6f, -3f, 5f, 6f, 6f)
+				.cuboid(-2.5f, -6f, -3f, 5f, 6f, 6f)
 				// Beak
 				.uv(56, 0)
 				.cuboid(-1f, -9f, -3f, 2f, 3f, 4f),
 			ModelTransform.of(0f, 13f, -10f, Taiao.degreesToRadians(90f), 0f, 0f)
 		);
-
-		root.addChild(
+		body.addChild(
 			"tail",
 			ModelPartBuilder.create()
 				.uv(48, 46)
@@ -73,15 +83,15 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 				// Base of the tail
 				.uv(30, 51)
 				.cuboid(-3f, 0f, -3f, 6f, 6f, 3f),
-			ModelTransform.of(0f, 12f, 10f, Taiao.degreesToRadians(90f), 0f, 0f)
+			ModelTransform.pivot(0f, 10f, 7f)
 		);
 
-		ModelPartData leftWing = root.addChild(
+		ModelPartData leftWing = body.addChild(
 			"left_wing",
 			ModelPartBuilder.create()
 				.uv(26, 26)
 				.cuboid(0f, 0f, -2f, 9f, 14f, 2f),
-			ModelTransform.of(3.5F, 12f, -8f, Taiao.degreesToRadians(90f), 0f, 0f)
+			ModelTransform.pivot(3.5f, -8f, 7f)
 		);
 		ModelPartData leftWingLower = leftWing.addChild(
 			"left_wing_lower",
@@ -98,12 +108,12 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 			ModelTransform.pivot(9f, 3f, 0f)
 		);
 
-		ModelPartData rightWing = root.addChild(
+		ModelPartData rightWing = body.addChild(
 			"right_wing",
 			ModelPartBuilder.create()
 				.uv(76, 26)
 				.cuboid(-9f, 0f, -2f, 9f, 14f, 2f),
-			ModelTransform.of(-3.5F, 12f, -8f, Taiao.degreesToRadians(90f), 0f, 0f)
+			ModelTransform.pivot(-3.5f, -8f, 7f)
 		);
 		ModelPartData rightWingLower = rightWing.addChild(
 			"right_wing_lower",
@@ -146,14 +156,27 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 
 	@Override
 	public void animateModel(@NotNull E entity, float limbAngle, float limbDistance, float tickDelta) {
+		this.root.resetTransform();
+
 		this.head.resetTransform();
 		this.body.resetTransform();
 
 		this.leftWing.resetTransform();
 		this.rightWing.resetTransform();
 
-		if (entity.isOnGround()) {
+		this.leftLeg.resetTransform();
+		this.rightLeg.resetTransform();
+
+		this.tail.resetTransform();
+
+		if (entity.isInPose(EntityPose.STANDING)) {
 			// Standing
+
+			this.body.pivotZ -= 3f;
+			this.head.pivotZ -= 3f;
+
+			this.leftLeg.pivotZ -= 4f;
+			this.rightLeg.pivotZ -= 4f;
 
 			this.leftWingLower.hidden = true;
 			this.leftWingEnd.hidden = true;
@@ -164,10 +187,25 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 			this.leftWing.pivotX += 2f;
 			this.rightWing.pivotX -= 2f;
 
-			this.leftWing.roll += Taiao.degreesToRadians(80f);
-			this.rightWing.roll -= Taiao.degreesToRadians(80f);
+			this.leftWing.yaw += Taiao.degreesToRadians(80f);
+			this.rightWing.yaw -= Taiao.degreesToRadians(80f);
 
-			this.body.pitch -= Taiao.degreesToRadians(50f);
+			this.leftLeg.pitch = 0f;
+			this.rightLeg.pitch = 0f;
+
+			this.body.pitch -= Taiao.degreesToRadians(40f);
+			this.body.pivotY -= 2f;
+
+			this.tail.pitch += Taiao.degreesToRadians(25f);
+
+			if (entity.isBaby()) {
+				this.head.pivotY -= 5f;
+				this.head.pivotZ += 5f;
+			} else {
+				this.head.pivotY -= 7f;
+				this.head.pivotZ += 6f;
+			}
+
 		} else {
 			// Flying
 
@@ -196,7 +234,7 @@ public class HaastsEagleEntityModel<E extends Entity> extends AnimalModel<E> {
 
 	@Override
 	protected Iterable<ModelPart> getBodyParts() {
-		return List.of(this.body, this.tail, this.leftLeg, this.rightLeg, this.leftWing, this.rightWing);
+		return List.of(this.body, this.leftLeg, this.rightLeg);
 	}
 
 	@Override
