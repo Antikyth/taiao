@@ -13,5 +13,9 @@ public class TaiaoBlockEntityRenderers {
 		Taiao.LOGGER.debug("Registering block entity renderers");
 
 		BlockEntityRendererFactories.register(TaiaoBlockEntities.HIINAKI, HiinakiBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(
+			TaiaoBlockEntities.HAASTS_EAGLE_NEST,
+			HaastsEagleNestBlockEntityRenderer::new
+		);
 	}
 }
