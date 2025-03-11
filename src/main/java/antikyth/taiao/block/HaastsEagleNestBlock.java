@@ -142,7 +142,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 	/**
 	 * Returns the appropriate {@link NestBlockContents} based on the block entity's state.
 	 */
-	protected static NestBlockContents getContents(@NotNull HaastsEagleNestBlockEntity blockEntity) {
+	public static NestBlockContents getContents(@NotNull HaastsEagleNestBlockEntity blockEntity) {
 		if (blockEntity.hasChick()) {
 			return NestBlockContents.CHICK;
 		} else if (blockEntity.hasEgg()) {

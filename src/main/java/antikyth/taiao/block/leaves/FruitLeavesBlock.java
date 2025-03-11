@@ -55,8 +55,10 @@ public class FruitLeavesBlock extends LeavesBlock implements Fertilizable {
 				MathHelper.nextBetween(world.random, 0.8f, 1.2f)
 			);
 
-			world.setBlockState(pos, state.with(FRUIT, false), FruitLeavesBlock.NOTIFY_LISTENERS);
-			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(picker, state));
+			BlockState newState = state.with(FRUIT, false);
+
+			world.setBlockState(pos, newState, FruitLeavesBlock.NOTIFY_LISTENERS);
+			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(picker, newState));
 
 			return ActionResult.success(world.isClient);
 		}

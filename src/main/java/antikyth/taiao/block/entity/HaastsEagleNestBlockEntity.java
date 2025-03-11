@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.entity;
 
+import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.HaastsEagleEggItem;
 import antikyth.taiao.item.TaiaoItems;
@@ -92,15 +93,15 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 
 	public static void tick(
 		World world,
-		BlockPos ignoredPos,
-		BlockState ignoredState,
+		BlockPos pos,
+		BlockState state,
 		@NotNull HaastsEagleNestBlockEntity blockEntity
 	) {
 		if (blockEntity.chick != null) {
 			if (blockEntity.chick.isReadyForRelease()) {
-				// TODO: update contents
+				// TODO: release chick
 
-				blockEntity.blockChanged(null);
+				blockEntity.contentsChanged(world, pos, state, null);
 			} else {
 				blockEntity.chick.tick();
 			}
@@ -108,9 +109,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 
 		if (HaastsEagleEggItem.isReadyToHatch(blockEntity.egg)) {
 			if (hatchEgg(blockEntity, world.random)) {
-				// TODO: update contents
-
-				blockEntity.blockChanged(null);
+				blockEntity.contentsChanged(world, pos, state, null);
 			}
 		} else {
 			// Age the egg
@@ -164,6 +163,20 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 
 			this.world.updateListeners(this.pos, this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
 		}
+	}
+
+	protected void contentsChanged(
+		@NotNull World world,
+		BlockPos pos,
+		@NotNull BlockState state,
+		@Nullable Entity user
+	) {
+		this.markDirty();
+
+		BlockState newState = state.with(HaastsEagleNestBlock.CONTENTS, HaastsEagleNestBlock.getContents(this));
+
+		world.setBlockState(pos, newState, Block.NOTIFY_ALL);
+		world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(user, newState));
 	}
 
 	@Override
