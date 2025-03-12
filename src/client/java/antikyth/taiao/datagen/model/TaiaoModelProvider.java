@@ -263,21 +263,21 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.blockStateCollector.accept(
 			VariantsBlockStateSupplier.create(block)
 				.coordinate(
-					BlockStateVariantMap.create(TaiaoStateProperties.EGG_CONDITION)
+					BlockStateVariantMap.create(TaiaoStateProperties.EGG_STAGE)
 						.register(
-							EggCondition.NONE,
+							HaastsEagleEggStage.NONE,
 							BlockStateVariant.create().put(VariantSettings.MODEL, model)
 						)
 						.register(
-							EggCondition.INTACT,
+							HaastsEagleEggStage.INTACT,
 							BlockStateVariant.create().put(VariantSettings.MODEL, eggModel)
 						)
 						.register(
-							EggCondition.PARTIALLY_CRACKED,
+							HaastsEagleEggStage.PARTIALLY_CRACKED,
 							BlockStateVariant.create().put(VariantSettings.MODEL, partiallyCrackedEggModel)
 						)
 						.register(
-							EggCondition.CRACKED,
+							HaastsEagleEggStage.CRACKED,
 							BlockStateVariant.create().put(VariantSettings.MODEL, crackedEggModel)
 						)
 				)

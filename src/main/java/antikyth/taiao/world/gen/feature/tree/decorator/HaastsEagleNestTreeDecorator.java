@@ -7,8 +7,7 @@ package antikyth.taiao.world.gen.feature.tree.decorator;
 import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.block.TaiaoBlockTags;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.block.entity.TaiaoBlockEntities;
-import antikyth.taiao.block.state.EggCondition;
+import antikyth.taiao.block.state.HaastsEagleEggStage;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -29,28 +28,28 @@ public class HaastsEagleNestTreeDecorator extends TreeDecorator {
 			Codec.floatRange(0f, 1f)
 				.fieldOf("probability")
 				.forGetter(decorator -> decorator.probability),
-			DataPool.createCodec(EggCondition.CODEC)
-				.fieldOf("egg_condition")
-				.forGetter(decorator -> decorator.eggConditionPool)
+			DataPool.createCodec(HaastsEagleEggStage.CODEC)
+				.fieldOf("egg")
+				.forGetter(decorator -> decorator.eggStagePool)
 		).apply(instance, HaastsEagleNestTreeDecorator::new)
 	);
 
 	private final float probability;
-	private final DataPool<EggCondition> eggConditionPool;
+	private final DataPool<HaastsEagleEggStage> eggStagePool;
 
-	public HaastsEagleNestTreeDecorator(float probability, DataPool<EggCondition> eggConditionPool) {
+	public HaastsEagleNestTreeDecorator(float probability, DataPool<HaastsEagleEggStage> eggStagePool) {
 		this.probability = probability;
-		this.eggConditionPool = eggConditionPool;
+		this.eggStagePool = eggStagePool;
 	}
 
 	public HaastsEagleNestTreeDecorator(float probability) {
 		this(
 			probability,
-			DataPool.<EggCondition>builder()
-				.add(EggCondition.INTACT, 3)
-				.add(EggCondition.PARTIALLY_CRACKED, 2)
-				.add(EggCondition.CRACKED, 1)
-				.add(EggCondition.NONE, 9)
+			DataPool.<HaastsEagleEggStage>builder()
+				.add(HaastsEagleEggStage.INTACT, 3)
+				.add(HaastsEagleEggStage.PARTIALLY_CRACKED, 2)
+				.add(HaastsEagleEggStage.CRACKED, 1)
+				.add(HaastsEagleEggStage.NONE, 9)
 				.build()
 		);
 	}
@@ -100,18 +99,15 @@ public class HaastsEagleNestTreeDecorator extends TreeDecorator {
 					HorizontalDoubleSquareBlockPart part = placement.getRight();
 					mutable.set(origin, offset);
 
-					EggCondition condition = this.eggConditionPool.getDataOrEmpty(random).orElse(EggCondition.NONE);
+					HaastsEagleEggStage stage = this.eggStagePool.getDataOrEmpty(random)
+						.orElse(HaastsEagleEggStage.NONE);
 
 					generator.replace(
 						mutable,
 						TaiaoBlocks.HAASTS_EAGLE_NEST.getDefaultState()
 							.with(HaastsEagleNestBlock.PART, part)
-							.with(HaastsEagleNestBlock.EGG_CONDITION, condition)
+							.with(HaastsEagleNestBlock.EGG_STAGE, stage)
 					);
-
-					generator.getWorld()
-						.getBlockEntity(mutable, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
-						.ifPresent(blockEntity -> blockEntity.addEgg(condition.getHaastsEagleEgg()));
 				});
 
 				break;

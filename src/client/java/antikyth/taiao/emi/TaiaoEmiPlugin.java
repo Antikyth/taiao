@@ -6,10 +6,10 @@ package antikyth.taiao.emi;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
 import antikyth.taiao.block.log.Strippable;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
+import antikyth.taiao.block.state.HaastsEagleEggStage;
 import antikyth.taiao.block.state.TaiaoStateProperties;
 import antikyth.taiao.block.state.TripleBlockPart;
 import antikyth.taiao.emi.recipe.SingleInputWorldInteractionRecipe;
@@ -64,7 +64,7 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 		registry.addRecipe(triplePlantFertilizeRecipe(TaiaoBlocks.HARAKEKE));
 
 		// Incubation recipes
-		for (Map.Entry<ItemConvertible, ItemConvertible> entry : HaastsEagleNestBlockEntity.INCUBATIONS.entrySet()) {
+		for (Map.Entry<ItemConvertible, ItemConvertible> entry : HaastsEagleEggStage.INCUBATIONS.entrySet()) {
 			registry.addRecipe(incubationRecipe(entry.getKey(), entry.getValue(), TaiaoBlocks.HAASTS_EAGLE_NEST));
 		}
 
