@@ -89,8 +89,8 @@ public class HaastsEagleNestTreeDecorator extends TreeDecorator {
 					HorizontalDoubleSquareBlockPart part = placement.getRight();
 					mutable.set(origin, offset);
 
-					boolean egg = random.nextFloat() < this.eggProbability;
-					NestBlockContents contents = egg ? NestBlockContents.EGG : NestBlockContents.NONE;
+					boolean hasEgg = random.nextFloat() < this.eggProbability;
+					NestBlockContents contents = hasEgg ? NestBlockContents.EGG : NestBlockContents.NONE;
 
 					generator.replace(
 						mutable,
@@ -99,14 +99,11 @@ public class HaastsEagleNestTreeDecorator extends TreeDecorator {
 							.with(HaastsEagleNestBlock.CONTENTS, contents)
 					);
 
-					if (egg) {
+					if (hasEgg) {
+						// TODO: randomly choose amount of cracking
 						generator.getWorld()
 							.getBlockEntity(mutable, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
-							.ifPresent(blockEntity -> blockEntity.addEgg(
-								null,
-								new ItemStack(TaiaoItems.HAASTS_EAGLE_EGG),
-								random
-							));
+							.ifPresent(blockEntity -> blockEntity.addEgg(new ItemStack(TaiaoItems.HAASTS_EAGLE_EGG)));
 					}
 				});
 

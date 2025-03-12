@@ -40,7 +40,7 @@ public class TaiaoItemGroups {
 
 			addFish(group::add);
 			group.add(TaiaoItems.WEETAA);
-			group.add(TaiaoItems.HAASTS_EAGLE_EGG);
+			addHaastsEagleEggs(group::add);
 			addFruit(group::add);
 
 			addOtherBuildingBlocks(group::add);
@@ -129,7 +129,7 @@ public class TaiaoItemGroups {
 		// Ingredients
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(group -> {
 			group.addBefore(Items.FLOWER_BANNER_PATTERN, TaiaoItems.WEETAA);
-			group.addBefore(Items.LEATHER, TaiaoItems.HAASTS_EAGLE_EGG);
+			addHaastsEagleEggs(item -> group.addBefore(Items.LEATHER, item));
 			addBannerPatterns(item -> group.addBefore(Items.ANGLER_POTTERY_SHERD, item));
 		});
 	}
@@ -274,6 +274,12 @@ public class TaiaoItemGroups {
 
 	public static void addEntityBuckets(@NotNull Consumer<ItemConvertible> add) {
 		add.accept(TaiaoItems.EEL_BUCKET);
+	}
+
+	public static void addHaastsEagleEggs(@NotNull Consumer<ItemConvertible> add) {
+		add.accept(TaiaoItems.HAASTS_EAGLE_EGG);
+		add.accept(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG);
+		add.accept(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG);
 	}
 
 	public static void addFruit(@NotNull Consumer<ItemConvertible> add) {

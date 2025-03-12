@@ -38,6 +38,9 @@ public class TaiaoSoundEvents {
 
 	public static final SoundEvent ENTITY_WEETAA_STEP = register(Taiao.id("entity.weetaa.step"));
 
+	public static final SoundEvent ENTITY_HAASTS_EAGLE_EGG_CRACK = register(Taiao.id("entity.haasts_eagle.egg_crack"));
+	public static final SoundEvent ENTITY_HAASTS_EAGLE_EGG_HATCH = register(Taiao.id("entity.haasts_eagle.egg_hatch"));
+
 	public static final SoundEvent BLOCK_HARAKEKE_BREAK = register(Taiao.id("block.harakeke.break"));
 	public static final SoundEvent BLOCK_HARAKEKE_STEP = register(Taiao.id("block.harakeke.step"));
 	public static final SoundEvent BLOCK_HARAKEKE_PLACE = register(Taiao.id("block.harakeke.place"));

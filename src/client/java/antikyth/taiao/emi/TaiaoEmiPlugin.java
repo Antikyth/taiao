@@ -6,6 +6,7 @@ package antikyth.taiao.emi;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
+import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
 import antikyth.taiao.block.log.Strippable;
 import antikyth.taiao.block.plant.HarvestableTripleTallPlantBlock;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
@@ -24,6 +25,7 @@ import dev.emi.emi.api.stack.EmiStack;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
@@ -60,6 +62,11 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 		registry.addRecipe(fruitLeavesFertilizeRecipe(TaiaoBlocks.RIMU_LEAVES));
 
 		registry.addRecipe(triplePlantFertilizeRecipe(TaiaoBlocks.HARAKEKE));
+
+		// Incubation recipes
+		for (Map.Entry<ItemConvertible, ItemConvertible> entry : HaastsEagleNestBlockEntity.INCUBATIONS.entrySet()) {
+			registry.addRecipe(incubationRecipe(entry.getKey(), entry.getValue(), TaiaoBlocks.HAASTS_EAGLE_NEST));
+		}
 
 		// Stripping recipes
 		for (Map.Entry<Block, Block> entry : Strippable.STRIPPED_BLOCKS.get().entrySet()) {
@@ -111,6 +118,21 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 			.leftInput(harvestedStack)
 			.rightInput(fertilizer, false)
 			.output(unharvestedStack)
+			.build();
+	}
+
+	protected static EmiRecipe incubationRecipe(
+		ItemConvertible input,
+		@NotNull ItemConvertible output,
+		ItemConvertible incubator
+	) {
+		Identifier recipeId = Taiao.id("/world/incubation/" + Taiao.toPath(Registries.ITEM.getId(output.asItem())));
+
+		return EmiWorldInteractionRecipe.builder()
+			.id(recipeId)
+			.leftInput(EmiStack.of(input))
+			.rightInput(EmiStack.of(incubator), true)
+			.output(EmiStack.of(output))
 			.build();
 	}
 

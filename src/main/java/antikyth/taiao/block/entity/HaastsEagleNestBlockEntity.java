@@ -6,14 +6,16 @@ package antikyth.taiao.block.entity;
 
 import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.entity.TaiaoEntities;
-import antikyth.taiao.item.HaastsEagleEggItem;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.sound.TaiaoSoundEvents;
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -21,6 +23,7 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
@@ -29,12 +32,35 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+
 public class HaastsEagleNestBlockEntity extends BlockEntity {
 	public static final String EGG_KEY = "Egg";
 	public static final String CHICK_KEY = "Chick";
 
 	protected ItemStack egg = ItemStack.EMPTY;
 	protected @Nullable Chick chick;
+
+	/**
+	 * A map of egg stages to the next incubation stage.
+	 * <p>
+	 * If an egg does not have a next incubation stage, then its next stage will be hatching.
+	 * <p>
+	 * This is used to find the {@link HaastsEagleNestBlockEntity#EGGS EGGS} allowed in the nest.
+	 */
+	public static final Map<ItemConvertible, ItemConvertible> INCUBATIONS = Map.of(
+		TaiaoItems.HAASTS_EAGLE_EGG, TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG,
+		TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, TaiaoItems.CRACKED_HAASTS_EAGLE_EGG
+	);
+	/**
+	 * The eggs allowed in the nest.
+	 */
+	public static final Set<ItemConvertible> EGGS = ImmutableSet.<ItemConvertible>builder()
+		.addAll(INCUBATIONS.keySet())
+		.addAll(INCUBATIONS.values())
+		.build();
 
 	public HaastsEagleNestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -57,20 +83,18 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 	}
 
 	/**
-	 * Adds a {@link TaiaoItems#HAASTS_EAGLE_EGG} to the nest.
+	 * Adds an {@code egg} to the nest.
 	 * <p>
-	 * The stack is added if it is a {@link TaiaoItems#HAASTS_EAGLE_EGG} and there is no egg already
-	 * in the nest.
+	 * The stack is added if it is within {@link HaastsEagleNestBlockEntity#EGGS EGGS} and there is
+	 * no egg already in the nest.
 	 * <p>
-	 * If the {@code egg} does not already have a hatching time, {@code random} is used to choose
-	 * it.
+	 * The nest's {@link HaastsEagleNestBlock#CONTENTS} should be updated after calling this.
 	 */
-	public boolean addEgg(@Nullable Entity user, ItemStack egg, Random random) {
-		if (this.egg.isEmpty() && !egg.isEmpty() && egg.isOf(TaiaoItems.HAASTS_EAGLE_EGG)) {
+	public boolean addEgg(ItemStack egg) {
+		if (this.egg.isEmpty() && !egg.isEmpty() && EGGS.contains(egg.getItem())) {
 			this.egg = egg.split(1);
-			this.initializeEgg(random);
 
-			this.blockChanged(user);
+			this.markDirty();
 
 			return true;
 		}
@@ -78,62 +102,103 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 		return false;
 	}
 
-	protected void initializeEgg(@NotNull Random random) {
-		HaastsEagleEggItem.getOrInitializeHatchingTime(this.egg, 10000 + random.nextInt(4000));
-	}
-
-	public ItemStack removeEgg(@Nullable Entity user) {
+	/**
+	 * Removes an egg from the nest.
+	 * <p>
+	 * The nest's {@link HaastsEagleNestBlock#CONTENTS} should be updated after calling this.
+	 *
+	 * @return the egg that was removed; may be empty if there was no egg in the nest
+	 */
+	public ItemStack removeEgg() {
 		ItemStack egg = this.egg;
 		this.egg = ItemStack.EMPTY;
 
-		if (!egg.isEmpty()) this.blockChanged(user);
+		if (!egg.isEmpty()) {
+			this.markDirty();
+		}
 
 		return egg;
 	}
 
-	public static void tick(
+	/**
+	 * Incubates the egg inside.
+	 * <p>
+	 * If the egg has a following
+	 * {@linkplain HaastsEagleNestBlockEntity#INCUBATIONS incubation stage}, the egg changes to that
+	 * stage. Otherwise, if there is no chick already in the nest, the egg hatches into a chick.
+	 *
+	 * @param random used to choose the amount of time a hatched chick stays in the nest
+	 */
+	public void incubate(World world, BlockPos pos, BlockState state, Random random) {
+		if (this.hasEgg()) {
+			ItemConvertible nextStage = INCUBATIONS.get(this.egg.getItem());
+
+			if (nextStage != null) {
+				// Incubation
+				world.playSound(
+					null,
+					pos,
+					TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK,
+					SoundCategory.BLOCKS,
+					0.7f,
+					0.9f + random.nextFloat() * 0.2f
+				);
+
+				ItemStack oldEgg = this.egg;
+				this.egg = new ItemStack(nextStage, oldEgg.getCount());
+				this.egg.setNbt(oldEgg.getNbt());
+
+				this.markDirty();
+			} else if (!this.hasChick()) {
+				// Hatching
+				world.playSound(
+					null,
+					pos,
+					TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH,
+					SoundCategory.BLOCKS,
+					0.7f,
+					0.9f + random.nextFloat() * 0.2f
+				);
+
+				this.egg.decrement(1);
+				this.chick = createChick(random);
+
+				this.contentsChanged(world, pos, state, null);
+			}
+		}
+	}
+
+	/**
+	 * The ticker, called each tick on the server.
+	 */
+	public static void serverTick(
 		World world,
 		BlockPos pos,
 		BlockState state,
 		@NotNull HaastsEagleNestBlockEntity blockEntity
 	) {
 		if (blockEntity.chick != null) {
-			if (blockEntity.chick.isReadyForRelease()) {
-				// TODO: release chick
-
-				blockEntity.contentsChanged(world, pos, state, null);
-			} else {
+			if (!blockEntity.chick.isReadyForRelease()) {
+				// Age the chick
 				blockEntity.chick.tick();
+			} else {
+				// Chick is old enough to be released
+				blockEntity.releaseChick(world, pos, state);
 			}
-		}
-
-		if (HaastsEagleEggItem.isReadyToHatch(blockEntity.egg)) {
-			if (hatchEgg(blockEntity, world.random)) {
-				blockEntity.contentsChanged(world, pos, state, null);
-			}
-		} else {
-			// Age the egg
-			HaastsEagleEggItem.decrementHatchingTime(blockEntity.egg, 1);
 		}
 	}
 
-	/**
-	 * Hatches the egg into a chick.
-	 *
-	 * @param random used to choose the amount of time the chick will stay in the nest
-	 * @return whether the egg was successfully hatched
-	 */
-	protected static boolean hatchEgg(@NotNull HaastsEagleNestBlockEntity blockEntity, Random random) {
-		// TODO: play sound
+	protected void releaseChick(World world, BlockPos pos, BlockState state) {
+		if (this.chick != null) {
+			// TODO: check if there is enough room to release
 
-		if (!blockEntity.hasChick() && blockEntity.hasEgg()) {
-			blockEntity.egg.decrement(1);
-			blockEntity.chick = createChick(random);
+			Entity entity = this.chick.createReleasedEntity(world);
+			this.chick = null;
 
-			return true;
+			// TODO: set position, angle, and spawn in world
+
+			this.contentsChanged(world, pos, state, entity);
 		}
-
-		return false;
 	}
 
 	/**
@@ -150,21 +215,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 		// Baby
 		entityNbt.putInt("Age", -24000);
 
-		return new Chick(entityNbt, 0, 10000 + random.nextInt(4000));
-	}
-
-	protected void blockChanged(@Nullable Entity user) {
-		this.markDirty();
-
-		if (this.world != null) {
-			this.world.emitGameEvent(
-				GameEvent.BLOCK_CHANGE,
-				this.getPos(),
-				GameEvent.Emitter.of(user, this.getCachedState())
-			);
-
-			this.world.updateListeners(this.pos, this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
-		}
+		return new Chick(entityNbt, 10000 + random.nextInt(4000), 0);
 	}
 
 	protected void contentsChanged(
@@ -262,6 +313,10 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 
 		void tick() {
 			this.ticksInNest--;
+		}
+
+		public Entity createReleasedEntity(World world) {
+			return EntityType.loadEntityWithPassengers(this.nbt, world, Function.identity());
 		}
 
 		public Entity getOrCreateRenderedEntity(World world) {

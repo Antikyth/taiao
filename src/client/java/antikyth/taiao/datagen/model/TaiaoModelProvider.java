@@ -189,7 +189,10 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		generator.register(TaiaoItems.EEL, Models.GENERATED);
 		generator.register(TaiaoItems.COOKED_EEL, Models.GENERATED);
 		generator.register(TaiaoItems.WEETAA, Models.GENERATED);
+
 		generator.register(TaiaoItems.HAASTS_EAGLE_EGG, Models.GENERATED);
+		generator.register(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, Models.GENERATED);
+		generator.register(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, Models.GENERATED);
 
 		// Fish buckets
 		generator.register(TaiaoItems.EEL_BUCKET, Models.GENERATED);

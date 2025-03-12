@@ -9,7 +9,6 @@ import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.NestBlockContents;
 import antikyth.taiao.block.state.TaiaoStateProperties;
-import antikyth.taiao.item.TaiaoItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -18,6 +17,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.*;
@@ -26,12 +26,14 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldEvents;
+import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -104,27 +106,33 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 			if (blockEntity.hasEgg()) {
 				// Remove egg
 				if (!world.isClient) {
-					ItemStack egg = blockEntity.removeEgg(player);
+					ItemStack egg = blockEntity.removeEgg();
 
 					if (!player.getInventory().insertStack(egg)) {
 						player.dropItem(egg, false);
 					}
 
 					// Update contents state
-					world.setBlockState(pos, state.with(CONTENTS, getContents(blockEntity)), Block.NOTIFY_ALL);
+					BlockState newState = state.with(CONTENTS, getContents(blockEntity));
+
+					world.setBlockState(pos, newState, Block.NOTIFY_ALL);
+					world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, newState));
 
 					return ActionResult.success(true);
 				}
 
 				return ActionResult.success(false);
-			} else if (stack.isOf(TaiaoItems.HAASTS_EAGLE_EGG)) {
+			} else if (HaastsEagleNestBlockEntity.EGGS.contains(stack.getItem())) {
 				// Add egg
 				if (!world.isClient) {
 					ItemStack egg = player.getAbilities().creativeMode ? stack.copy() : stack;
 
-					if (blockEntity.addEgg(player, egg, player.getRandom())) {
+					if (blockEntity.addEgg(egg)) {
 						// Update contents state
-						world.setBlockState(pos, state.with(CONTENTS, getContents(blockEntity)), Block.NOTIFY_ALL);
+						BlockState newState = state.with(CONTENTS, getContents(blockEntity));
+
+						world.setBlockState(pos, newState, Block.NOTIFY_ALL);
+						world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, newState));
 
 						return ActionResult.success(true);
 					}
@@ -137,6 +145,23 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		}
 
 		return ActionResult.PASS;
+	}
+
+	@Override
+	public boolean hasRandomTicks(@NotNull BlockState state) {
+		return state.get(CONTENTS) == NestBlockContents.EGG;
+	}
+
+	@Override
+	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, @NotNull Random random) {
+		// 1/chanceReciprocal chance to incubate
+		int chanceReciprocal = 25;
+
+		if (random.nextInt(chanceReciprocal) == 0) {
+			world.getBlockEntity(pos, TaiaoBlockEntities.HAASTS_EAGLE_NEST).ifPresent(blockEntity -> {
+				blockEntity.incubate(world, pos, state, random);
+			});
+		}
 	}
 
 	/**
@@ -317,6 +342,6 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 	) {
 		return world.isClient
 			? null
-			: checkType(type, TaiaoBlockEntities.HAASTS_EAGLE_NEST, HaastsEagleNestBlockEntity::tick);
+			: checkType(type, TaiaoBlockEntities.HAASTS_EAGLE_NEST, HaastsEagleNestBlockEntity::serverTick);
 	}
 }

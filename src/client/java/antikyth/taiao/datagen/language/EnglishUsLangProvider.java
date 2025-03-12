@@ -215,8 +215,10 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addDescription(builder, TaiaoItems.KETE, "place2", "Places %s");
 		// Haast's eagle egg
 		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Hokioi Egg");
-		builder.add(TaiaoItems.HAASTS_EAGLE_EGG.getTranslationKey() + ".ready", "Ready to hatch");
-		builder.add(TaiaoItems.HAASTS_EAGLE_EGG.getTranslationKey() + ".time", "Incubate for %s to hatch");
+		builder.add(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, "Partially Cracked Hokioi Egg");
+		builder.add(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, "Cracked Hokioi Egg");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK, "Hokioi egg cracks");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH, "Hokioi egg hatches");
 		// Other items
 		addBannerPatternItem(builder, TaiaoItems.KIWI_BANNER_PATTERN, "Kiwi");
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Huarākau");

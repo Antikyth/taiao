@@ -47,15 +47,22 @@ public class TaiaoItems {
 		Taiao.id("cooked_eel"),
 		new Item(new FabricItemSettings().food(TaiaoFoodComponents.COOKED_EEL))
 	);
-
 	public static final Item WEETAA = register(
 		Taiao.id("weetaa"),
 		new Item(new FabricItemSettings())
 	);
+
 	public static final Item HAASTS_EAGLE_EGG = register(
 		Taiao.id("haasts_eagle_egg"),
-		// max stack count must be 1 because the egg holds its hatching time
-		new HaastsEagleEggItem(new FabricItemSettings().maxCount(1))
+		new Item(new FabricItemSettings().maxCount(16))
+	);
+	public static final Item PARTIALLY_CRACKED_HAASTS_EAGLE_EGG = register(
+		Taiao.id("partially_cracked_haasts_eagle_egg"),
+		new Item(new FabricItemSettings().maxCount(16))
+	);
+	public static final Item CRACKED_HAASTS_EAGLE_EGG = register(
+		Taiao.id("cracked_haasts_eagle_egg"),
+		new Item(new FabricItemSettings().maxCount(16))
 	);
 
 	public static final Item EEL_BUCKET = register(
