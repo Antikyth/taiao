@@ -44,6 +44,12 @@ public enum HaastsEagleEggStage implements StringIdentifiable {
 		.filter(stage -> stage.egg != null)
 		.collect(Collectors.toMap(stage -> stage.egg, Function.identity()));
 	/**
+	 * A map of stages to the associated egg.
+	 */
+	public static final Map<HaastsEagleEggStage, ItemConvertible> STAGE_TO_EGG = Arrays.stream(values())
+		.filter(stage -> stage.egg != null)
+		.collect(Collectors.toMap(Function.identity(), stage -> stage.egg));
+	/**
 	 * A map of egg stages' eggs to the following egg stage's egg.
 	 * <p>
 	 * If either the stage itself or the following stage (in the case of the final stage) is

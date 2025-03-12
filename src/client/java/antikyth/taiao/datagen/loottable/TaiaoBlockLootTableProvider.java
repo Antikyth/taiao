@@ -4,11 +4,14 @@
 
 package antikyth.taiao.datagen.loottable;
 
+import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
+import antikyth.taiao.block.state.HaastsEagleEggStage;
+import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.LongBlockHalf;
 import antikyth.taiao.block.state.TripleBlockPart;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -183,15 +186,66 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 	}
 
 	public LootTable.Builder nestDrops(Block nest) {
-		return LootTable.builder()
+		LootTable.Builder table = LootTable.builder()
 			.pool(
 				this.addSurvivesExplosionCondition(
 					nest,
+					// TODO: silk touch drops
 					LootPool.builder()
-						.conditionally(WITH_SILK_TOUCH_OR_SHEARS)
-						.with(ItemEntry.builder(nest))
+						.conditionally(WITH_SILK_TOUCH)
+						.with(
+							ItemEntry.builder(nest)
+								.conditionally(
+									BlockStatePropertyLootCondition.builder(nest)
+										.properties(
+											StatePredicate.Builder.create()
+												.exactMatch(
+													HaastsEagleNestBlock.PART,
+													HorizontalDoubleSquareBlockPart.NORTH_WEST
+												)
+										)
+								)
+						)
 				)
 			);
+		// Non-silk-touch pool
+		LootPool.Builder pool = LootPool.builder()
+			.conditionally(WITHOUT_SILK_TOUCH)
+			.with(
+				ItemEntry.builder(nest)
+					.conditionally(WITH_SHEARS)
+					.conditionally(
+						BlockStatePropertyLootCondition.builder(nest)
+							.properties(
+								StatePredicate.Builder.create()
+									.exactMatch(
+										HaastsEagleNestBlock.PART,
+										HorizontalDoubleSquareBlockPart.NORTH_WEST
+									)
+							)
+					)
+			);
+
+		// Add drops for each egg stage
+		for (Map.Entry<HaastsEagleEggStage, ItemConvertible> entry : HaastsEagleEggStage.STAGE_TO_EGG.entrySet()) {
+			HaastsEagleEggStage stage = entry.getKey();
+			ItemConvertible egg = entry.getValue();
+
+			pool.with(
+				ItemEntry.builder(egg)
+					.conditionally(
+						BlockStatePropertyLootCondition.builder(nest)
+							.properties(
+								StatePredicate.Builder.create()
+									.exactMatch(HaastsEagleNestBlock.EGG_STAGE, stage)
+							)
+					)
+			);
+		}
+
+		table.pool(this.addSurvivesExplosionCondition(nest, pool));
+
+		return table;
 	}
 
 	public void addDropsForFamily(@NotNull BlockFamily family) {

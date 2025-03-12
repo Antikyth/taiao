@@ -294,32 +294,48 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 
 	@Override
 	public void onBreak(@NotNull World world, BlockPos pos, BlockState state, PlayerEntity player) {
+		// FIXME: ???? sometimes breaking the northwest corner works, sometimes it doesn't and
+		//      : drops an extra egg instead, even with if the eggs are all in the same positions as
+		//      : when it did work
+
 		if (!world.isClient) {
-			if (player.isCreative()) {
-				HorizontalDoubleSquareBlockPart part = state.get(PART);
+			HorizontalDoubleSquareBlockPart part = state.get(PART);
 
-				// Break the north-west part without drops.
-				if (part != HorizontalDoubleSquareBlockPart.NORTH_WEST) {
-					BlockPos northWestPos = pos.add(part.offsetTo(HorizontalDoubleSquareBlockPart.NORTH_WEST));
-					BlockState northWestState = world.getBlockState(northWestPos);
-
-					if (northWestState.isOf(this) && northWestState.get(PART) == HorizontalDoubleSquareBlockPart.NORTH_WEST) {
-						world.setBlockState(
-							northWestPos,
-							Blocks.AIR.getDefaultState(),
-							Block.NOTIFY_ALL | Block.SKIP_DROPS
-						);
-						world.syncWorldEvent(
-							player,
-							WorldEvents.BLOCK_BROKEN,
-							northWestPos,
-							Block.getRawIdFromState(northWestState)
-						);
-					}
-				}
-			} else {
+			// Drops for the block broken are done here instead of in `afterBreak`, unsure why, but
+			// it is required when the other parts are broken in this method (vanilla
+			// `TallPlantBlock`s do the same), otherwise the drops don't work quite right.
+			if (!player.isCreative()) {
 				dropStacks(state, world, pos, null, player, player.getMainHandStack());
 			}
+
+			// Break the other parts without drops
+			BlockPos.Mutable mutable = new BlockPos.Mutable();
+			part.otherPlacements().forEach(placement -> {
+				BlockPos offset = placement.getLeft();
+				HorizontalDoubleSquareBlockPart otherPart = placement.getRight();
+
+				mutable.set(pos, offset);
+				BlockState otherState = world.getBlockState(mutable);
+
+				if (otherState.isOf(this) && otherState.get(PART) == otherPart) {
+					world.setBlockState(
+						mutable,
+						Blocks.AIR.getDefaultState(),
+						Block.NOTIFY_ALL | Block.SKIP_DROPS
+					);
+					world.syncWorldEvent(
+						player,
+						WorldEvents.BLOCK_BROKEN,
+						mutable,
+						Block.getRawIdFromState(otherState)
+					);
+
+					// Drops are done here in survival so that the tool used is applied to all parts
+					if (!player.isCreative()) {
+						dropStacks(otherState, world, pos, null, player, player.getMainHandStack());
+					}
+				}
+			});
 		}
 
 		super.onBreak(world, pos, state, player);
