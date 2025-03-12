@@ -17,9 +17,9 @@ import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.loot.condition.DayOrNightLootCondition;
-import antikyth.taiao.loot.condition.HasStatusEffectTagLootCondition;
+import antikyth.taiao.loot.condition.HasStatusEffectLootCondition;
 import antikyth.taiao.loot.predicate.BooleanPredicate;
-import antikyth.taiao.loot.predicate.EffectTagPredicate;
+import antikyth.taiao.loot.predicate.StatusEffectPredicate;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;
 import net.minecraft.advancement.Advancement;
@@ -27,12 +27,12 @@ import net.minecraft.advancement.AdvancementCriterion;
 import net.minecraft.advancement.AdvancementFrame;
 import net.minecraft.advancement.CriterionMerger;
 import net.minecraft.advancement.criterion.*;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.condition.LocationCheckLootCondition;
+import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
 import net.minecraft.loot.condition.MatchToolLootCondition;
 import net.minecraft.loot.condition.WeatherCheckLootCondition;
-import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.DamagePredicate;
 import net.minecraft.predicate.NumberRange.IntRange;
 import net.minecraft.predicate.StatePredicate;
@@ -96,35 +96,36 @@ public class TaiaoAdvancements {
 			"harakeke_harvested",
 			new ItemCriterion.Conditions(
 				Criteria.ITEM_USED_ON_BLOCK.getId(),
-				// No harmful effects
+				// Player predicate
 				LootContextPredicate.create(
-					HasStatusEffectTagLootCondition.create(EffectTagPredicate.of(TaiaoStatusEffectTags.TAPU))
+					// No harmful effects
+					HasStatusEffectLootCondition
+						.builder(
+							StatusEffectPredicate.builder()
+								.categories(StatusEffectCategory.HARMFUL)
+								.tags(TaiaoStatusEffectTags.TAPU)
+						)
 						.invert()
 						.build()
 				),
+				// General predicate
 				LootContextPredicate.create(
 					// Harvestable harakeke
-					LocationCheckLootCondition.builder(
-						LocationPredicate.Builder.create()
-							.block(
-								BlockPredicate.Builder.create()
-									.blocks(TaiaoBlocks.HARAKEKE)
-									.state(
-										StatePredicate.Builder.create()
-											.exactMatch(TaiaoStateProperties.HARVESTABLE, true)
-											.build()
-									)
-									.build()
-							)
-					).build(),
+					BlockStatePropertyLootCondition.builder(TaiaoBlocks.HARAKEKE)
+						.properties(
+							StatePredicate.Builder.create()
+								.exactMatch(TaiaoStateProperties.HARVESTABLE, true)
+						)
+						.build(),
 					// Shears
-					MatchToolLootCondition.builder(
-						ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS)
-					).build(),
+					MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS))
+						.build(),
 					// Clear weather
-					WeatherCheckLootCondition.create().raining(false).thundering(false).build(),
+					WeatherCheckLootCondition.create().raining(false).thundering(false)
+						.build(),
 					// Daytime
-					DayOrNightLootCondition.builder().expectsDay().build()
+					DayOrNightLootCondition.builder().expectsDay()
+						.build()
 				)
 			)
 		)
@@ -138,7 +139,10 @@ public class TaiaoAdvancements {
 		.build();
 	public static final Identifier EFFICIENT_CONSTRUCTION = builder(MAIN_TAB, "efficient_construction", TaiaoItems.KETE)
 		.parent(HARAKEKE)
-		.criterion("block_placed_from_kete", BlockPlacedFromKeteCriterion.Conditions.create())
+		.criterion(
+			"block_placed_from_kete",
+			BlockPlacedFromKeteCriterion.Conditions.create()
+		)
 		.build();
 
 	public static final Identifier SIT_BACK_AND_RELAX = builder(MAIN_TAB, "sit_back_and_relax", TaiaoBlocks.HIINAKI)

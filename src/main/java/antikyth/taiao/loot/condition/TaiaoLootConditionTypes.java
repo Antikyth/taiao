@@ -13,9 +13,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
 
 public class TaiaoLootConditionTypes {
-	public static final LootConditionType HAS_STATUS_EFFECT_TAG = register(
-		Taiao.id("has_status_effect_tag"),
-		new HasStatusEffectTagLootCondition.Serializer()
+	public static final LootConditionType HAS_STATUS_EFFECT = register(
+		Taiao.id("has_status_effect"),
+		new HasStatusEffectLootCondition.Serializer()
 	);
 	public static final LootConditionType DAY_OR_NIGHT = register(
 		Taiao.id("day_or_night"),
