@@ -6,9 +6,10 @@ package antikyth.taiao.block;
 
 import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
+import antikyth.taiao.block.state.EggCondition;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
-import antikyth.taiao.block.state.NestBlockContents;
 import antikyth.taiao.block.state.TaiaoStateProperties;
+import antikyth.taiao.item.TaiaoItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -41,7 +42,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class HaastsEagleNestBlock extends BlockWithEntity {
 	public static final EnumProperty<HorizontalDoubleSquareBlockPart> PART = TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART;
-	public static final EnumProperty<NestBlockContents> CONTENTS = TaiaoStateProperties.NEST_BLOCK_CONTENTS;
+	public static final EnumProperty<EggCondition> EGG_CONDITION = TaiaoStateProperties.EGG_CONDITION;
 
 	protected static final VoxelShape NORTH_WEST_SHAPE = VoxelShapes.combineAndSimplify(
 		createCuboidShape(2f, 0f, 2f, 16f, 8f, 16f),
@@ -77,7 +78,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		this.setDefaultState(
 			this.getDefaultState()
 				.with(PART, HorizontalDoubleSquareBlockPart.NORTH_WEST)
-				.with(CONTENTS, NestBlockContents.NONE)
+				.with(EGG_CONDITION, EggCondition.NONE)
 		);
 	}
 
@@ -113,7 +114,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 					}
 
 					// Update contents state
-					BlockState newState = state.with(CONTENTS, getContents(blockEntity));
+					BlockState newState = state.with(EGG_CONDITION, getContents(blockEntity));
 
 					world.setBlockState(pos, newState, Block.NOTIFY_ALL);
 					world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, newState));
@@ -129,7 +130,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 
 					if (blockEntity.addEgg(egg)) {
 						// Update contents state
-						BlockState newState = state.with(CONTENTS, getContents(blockEntity));
+						BlockState newState = state.with(EGG_CONDITION, getContents(blockEntity));
 
 						world.setBlockState(pos, newState, Block.NOTIFY_ALL);
 						world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, newState));
@@ -149,7 +150,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 
 	@Override
 	public boolean hasRandomTicks(@NotNull BlockState state) {
-		return state.get(CONTENTS) == NestBlockContents.EGG;
+		return state.get(EGG_CONDITION) != EggCondition.NONE;
 	}
 
 	@Override
@@ -165,21 +166,25 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 	}
 
 	/**
-	 * Returns the appropriate {@link NestBlockContents} based on the block entity's state.
+	 * Returns the appropriate {@link EggCondition} based on the block entity's state.
 	 */
-	public static NestBlockContents getContents(@NotNull HaastsEagleNestBlockEntity blockEntity) {
-		if (blockEntity.hasChick()) {
-			return NestBlockContents.CHICK;
-		} else if (blockEntity.hasEgg()) {
-			return NestBlockContents.EGG;
+	public static EggCondition getContents(@NotNull HaastsEagleNestBlockEntity blockEntity) {
+		if (blockEntity.hasEgg()) {
+			if (blockEntity.getEgg().isOf(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG)) {
+				return EggCondition.CRACKED;
+			} else if (blockEntity.getEgg().isOf(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG)) {
+				return EggCondition.PARTIALLY_CRACKED;
+			} else {
+				return EggCondition.INTACT;
+			}
 		} else {
-			return NestBlockContents.NONE;
+			return EggCondition.NONE;
 		}
 	}
 
 	@Override
 	public VoxelShape getOutlineShape(@NotNull BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return getShape(state.get(PART), state.get(CONTENTS) == NestBlockContents.EGG);
+		return getShape(state.get(PART), state.get(EGG_CONDITION) != EggCondition.NONE);
 	}
 
 	// Give the egg no collision, so the adult eagle can still sit in the nest snugly
@@ -207,7 +212,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		super.appendProperties(builder);
 
-		builder.add(PART, CONTENTS);
+		builder.add(PART, EGG_CONDITION);
 	}
 
 	@Override

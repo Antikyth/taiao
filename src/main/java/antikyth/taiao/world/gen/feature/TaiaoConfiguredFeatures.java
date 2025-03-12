@@ -81,7 +81,7 @@ public class TaiaoConfiguredFeatures {
 		Taiao.id("kauri_tree_with_nest"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.TREE,
-			kauriTree().decorators(List.of(new HaastsEagleNestTreeDecorator(0.1f, 0.4f))).build()
+			kauriTree().decorators(List.of(new HaastsEagleNestTreeDecorator(0.1f))).build()
 		)
 	);
 
@@ -132,7 +132,7 @@ public class TaiaoConfiguredFeatures {
 		Taiao.id("mega_rimu_tree_with_nest"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.TREE,
-			rimuTree().decorators(List.of(new HaastsEagleNestTreeDecorator(0.1f, 0.4f))).build()
+			rimuTree().decorators(List.of(new HaastsEagleNestTreeDecorator(0.1f))).build()
 		)
 	);
 
@@ -213,7 +213,7 @@ public class TaiaoConfiguredFeatures {
 		Taiao.id("oak_tree_with_nest"),
 		lookup -> new ConfiguredFeature<>(
 			Feature.TREE,
-			TreeConfiguredFeatures.oak().decorators(List.of(new HaastsEagleNestTreeDecorator(0.01f, 0.4f))).build()
+			TreeConfiguredFeatures.oak().decorators(List.of(new HaastsEagleNestTreeDecorator(0.01f))).build()
 		)
 	);
 

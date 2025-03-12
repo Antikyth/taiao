@@ -11,9 +11,9 @@ public class TaiaoStateProperties {
 	public static final BooleanProperty HARVESTABLE = BooleanProperty.of("harvestable");
 	public static final BooleanProperty FRUIT = BooleanProperty.of("fruit");
 
-	public static final EnumProperty<NestBlockContents> NEST_BLOCK_CONTENTS = EnumProperty.of(
-		"contents",
-		NestBlockContents.class
+	public static final EnumProperty<EggCondition> EGG_CONDITION = EnumProperty.of(
+		"egg",
+		EggCondition.class
 	);
 
 	public static final EnumProperty<TripleBlockPart> TRIPLE_BLOCK_PART = EnumProperty.of(

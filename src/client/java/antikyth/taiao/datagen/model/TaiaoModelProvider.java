@@ -257,15 +257,29 @@ public class TaiaoModelProvider extends FabricModelProvider {
 	public static void registerHaastsEagleNest(@NotNull BlockStateModelGenerator generator, Block block) {
 		Identifier model = ModelIds.getBlockModelId(block);
 		Identifier eggModel = ModelIds.getBlockSubModelId(block, "_egg");
+		Identifier partiallyCrackedEggModel = ModelIds.getBlockSubModelId(block, "_partially_cracked_egg");
+		Identifier crackedEggModel = ModelIds.getBlockSubModelId(block, "_cracked_egg");
 
 		generator.blockStateCollector.accept(
 			VariantsBlockStateSupplier.create(block)
 				.coordinate(
-					BlockStateVariantMap.create(TaiaoStateProperties.NEST_BLOCK_CONTENTS)
-						.register(contents -> BlockStateVariant.create().put(
-							VariantSettings.MODEL,
-							contents == NestBlockContents.EGG ? eggModel : model
-						))
+					BlockStateVariantMap.create(TaiaoStateProperties.EGG_CONDITION)
+						.register(
+							EggCondition.NONE,
+							BlockStateVariant.create().put(VariantSettings.MODEL, model)
+						)
+						.register(
+							EggCondition.INTACT,
+							BlockStateVariant.create().put(VariantSettings.MODEL, eggModel)
+						)
+						.register(
+							EggCondition.PARTIALLY_CRACKED,
+							BlockStateVariant.create().put(VariantSettings.MODEL, partiallyCrackedEggModel)
+						)
+						.register(
+							EggCondition.CRACKED,
+							BlockStateVariant.create().put(VariantSettings.MODEL, crackedEggModel)
+						)
 				)
 				.coordinate(
 					BlockStateVariantMap.create(TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART)

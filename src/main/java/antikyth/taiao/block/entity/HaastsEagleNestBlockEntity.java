@@ -74,6 +74,10 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 		return !this.egg.isEmpty();
 	}
 
+	public ItemStack getEgg() {
+		return this.egg;
+	}
+
 	public boolean hasChick() {
 		return this.chick != null;
 	}
@@ -88,7 +92,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 	 * The stack is added if it is within {@link HaastsEagleNestBlockEntity#EGGS EGGS} and there is
 	 * no egg already in the nest.
 	 * <p>
-	 * The nest's {@link HaastsEagleNestBlock#CONTENTS} should be updated after calling this.
+	 * The nest's {@link HaastsEagleNestBlock#EGG_CONDITION} should be updated after calling this.
 	 */
 	public boolean addEgg(ItemStack egg) {
 		if (this.egg.isEmpty() && !egg.isEmpty() && EGGS.contains(egg.getItem())) {
@@ -105,7 +109,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 	/**
 	 * Removes an egg from the nest.
 	 * <p>
-	 * The nest's {@link HaastsEagleNestBlock#CONTENTS} should be updated after calling this.
+	 * The nest's {@link HaastsEagleNestBlock#EGG_CONDITION} should be updated after calling this.
 	 *
 	 * @return the egg that was removed; may be empty if there was no egg in the nest
 	 */
@@ -148,7 +152,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 				this.egg = new ItemStack(nextStage, oldEgg.getCount());
 				this.egg.setNbt(oldEgg.getNbt());
 
-				this.markDirty();
+				this.contentsChanged(world, pos, state, null);
 			} else if (!this.hasChick()) {
 				// Hatching
 				world.playSound(
@@ -226,7 +230,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 	) {
 		this.markDirty();
 
-		BlockState newState = state.with(HaastsEagleNestBlock.CONTENTS, HaastsEagleNestBlock.getContents(this));
+		BlockState newState = state.with(HaastsEagleNestBlock.EGG_CONDITION, HaastsEagleNestBlock.getContents(this));
 
 		world.setBlockState(pos, newState, Block.NOTIFY_ALL);
 		world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(user, newState));
