@@ -37,7 +37,7 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 			builder,
 			TaiaoAdvancements.HARAKEKE,
 			null,
-			"Harvest New Zealand flax with shears without any harmful status effects active"
+			"Harvest New Zealand flax with shears during the day with clear weather and no harmful status effects active"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,

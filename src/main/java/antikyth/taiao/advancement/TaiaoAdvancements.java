@@ -16,6 +16,7 @@ import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.entity.damage.TaiaoDamageTypeTags;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
+import antikyth.taiao.loot.condition.DayOrNightLootCondition;
 import antikyth.taiao.loot.condition.HasStatusEffectTagLootCondition;
 import antikyth.taiao.loot.predicate.BooleanPredicate;
 import antikyth.taiao.loot.predicate.EffectTagPredicate;
@@ -30,6 +31,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LocationCheckLootCondition;
 import net.minecraft.loot.condition.MatchToolLootCondition;
+import net.minecraft.loot.condition.WeatherCheckLootCondition;
 import net.minecraft.predicate.BlockPredicate;
 import net.minecraft.predicate.DamagePredicate;
 import net.minecraft.predicate.NumberRange.IntRange;
@@ -118,7 +120,11 @@ public class TaiaoAdvancements {
 					// Shears
 					MatchToolLootCondition.builder(
 						ItemPredicate.Builder.create().tag(ConventionalItemTags.SHEARS)
-					).build()
+					).build(),
+					// Clear weather
+					WeatherCheckLootCondition.create().raining(false).thundering(false).build(),
+					// Daytime
+					DayOrNightLootCondition.builder().expectsDay().build()
 				)
 			)
 		)

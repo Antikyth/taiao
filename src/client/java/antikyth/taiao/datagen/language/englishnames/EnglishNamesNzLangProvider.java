@@ -26,7 +26,7 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 			builder,
 			TaiaoAdvancements.HARAKEKE,
 			null,
-			"Harvest flax with shears without any harmful status effects active"
+			"Harvest flax with shears during the day with clear weather and no harmful status effects active"
 		);
 		EnglishUsLangProvider.addAdvancement(
 			builder,

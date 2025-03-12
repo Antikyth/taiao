@@ -17,6 +17,10 @@ public class TaiaoLootConditionTypes {
 		Taiao.id("has_status_effect_tag"),
 		new HasStatusEffectTagLootCondition.Serializer()
 	);
+	public static final LootConditionType DAY_OR_NIGHT = register(
+		Taiao.id("day_or_night"),
+		new DayOrNightLootCondition.Serializer()
+	);
 
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered loot condition types");
