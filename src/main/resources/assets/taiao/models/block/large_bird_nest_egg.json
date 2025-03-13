@@ -23,7 +23,7 @@
 				"east": {"uv": [16, 8, 2, 16], "texture": "#left_side"},
 				"west": {"uv": [2, 8, 16, 16], "texture": "#left_side"},
 				"up": {"uv": [2, 6, 16, 8], "rotation": 90, "texture": "#left_side"},
-				"down": {"uv": [2, 16, 4, 2], "texture": "#bottom"}
+				"down": {"uv": [2, 16, 4, 2], "texture": "#bottom", "cullface": "down"}
 			}
 		},
 		{
@@ -34,7 +34,7 @@
 				"north": {"uv": [0, 8, 12, 16], "texture": "#right_side"},
 				"south": {"uv": [12, 8, 0, 16], "texture": "#right_side"},
 				"up": {"uv": [0, 6, 12, 8], "rotation": 180, "texture": "#right_side"},
-				"down": {"uv": [4, 4, 16, 2], "texture": "#bottom"}
+				"down": {"uv": [4, 4, 16, 2], "texture": "#bottom", "cullface": "down"}
 			}
 		},
 		{
