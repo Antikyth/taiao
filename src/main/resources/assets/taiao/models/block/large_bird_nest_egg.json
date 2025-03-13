@@ -39,8 +39,8 @@
 		},
 		{
 			"name": "egg",
-			"from": [6, 2, 6],
-			"to": [10, 7, 10],
+			"from": [8, 2, 8],
+			"to": [12, 7, 12],
 			"faces": {
 				"north": {"uv": [6, 11, 10, 16], "texture": "#egg_side"},
 				"east": {"uv": [6, 11, 10, 16], "texture": "#egg_side"},

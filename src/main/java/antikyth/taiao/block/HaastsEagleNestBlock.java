@@ -70,12 +70,22 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		BooleanBiFunction.ONLY_FIRST // subtraction
 	);
 
-	// the egg happens to be centered, so it can be used for each part
-	protected static final VoxelShape EGG_SHAPE = createCuboidShape(6d, 2d, 6d, 10d, 7d, 10d);
-	protected static final VoxelShape NORTH_WEST_EGG_SHAPE = VoxelShapes.union(NORTH_WEST_SHAPE, EGG_SHAPE);
-	protected static final VoxelShape NORTH_EAST_EGG_SHAPE = VoxelShapes.union(NORTH_EAST_SHAPE, EGG_SHAPE);
-	protected static final VoxelShape SOUTH_WEST_EGG_SHAPE = VoxelShapes.union(SOUTH_WEST_SHAPE, EGG_SHAPE);
-	protected static final VoxelShape SOUTH_EAST_EGG_SHAPE = VoxelShapes.union(SOUTH_EAST_SHAPE, EGG_SHAPE);
+	protected static final VoxelShape NORTH_WEST_EGG_SHAPE = VoxelShapes.union(
+		NORTH_WEST_SHAPE,
+		createCuboidShape(8d, 2d, 8d, 12d, 7d, 12d)
+	);
+	protected static final VoxelShape NORTH_EAST_EGG_SHAPE = VoxelShapes.union(
+		NORTH_EAST_SHAPE,
+		createCuboidShape(4d, 2d, 8d, 8d, 7d, 12d)
+	);
+	protected static final VoxelShape SOUTH_WEST_EGG_SHAPE = VoxelShapes.union(
+		SOUTH_WEST_SHAPE,
+		createCuboidShape(8d, 2d, 4d, 12d, 7d, 8d)
+	);
+	protected static final VoxelShape SOUTH_EAST_EGG_SHAPE = VoxelShapes.union(
+		SOUTH_EAST_SHAPE,
+		createCuboidShape(4d, 2d, 4d, 8d, 7d, 8d)
+	);
 
 	public HaastsEagleNestBlock(Settings settings) {
 		super(settings);
