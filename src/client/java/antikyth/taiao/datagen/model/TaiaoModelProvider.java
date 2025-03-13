@@ -36,7 +36,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		TextureMap coniferFruitLeavesTextures = new TextureMap().put(
 			TextureKey.ALL,
 			new Identifier("minecraft:block/acacia_leaves")
-		).put(TaiaoModels.OVERLAY_KEY, Taiao.id("block/conifer_fruit_overlay"));
+		).put(TaiaoTextures.Keys.OVERLAY, Taiao.id("block/conifer_fruit_overlay"));
 		TextureMap fernTreeLeavesTextures = TextureMap.all(Taiao.id("block/fern_tree_leaves"));
 
 		TextureMap strippedCabbageTreeTextures = TaiaoModels.thinLogTextures(
@@ -177,7 +177,6 @@ public class TaiaoModelProvider extends FabricModelProvider {
 	@Override
 	public void generateItemModels(@NotNull ItemModelGenerator generator) {
 		generator.register(TaiaoBlocks.HIINAKI.asItem(), Models.GENERATED);
-		generator.register(TaiaoBlocks.HAASTS_EAGLE_NEST.asItem(), Models.GENERATED);
 		generator.register(TaiaoBlocks.HARAKEKE.asItem(), Models.GENERATED);
 
 		generator.register(TaiaoItems.KETE, Models.GENERATED);
@@ -255,10 +254,30 @@ public class TaiaoModelProvider extends FabricModelProvider {
 	}
 
 	public static void registerHaastsEagleNest(@NotNull BlockStateModelGenerator generator, Block block) {
-		Identifier model = ModelIds.getBlockModelId(block);
-		Identifier eggModel = ModelIds.getBlockSubModelId(block, "_egg");
-		Identifier partiallyCrackedEggModel = ModelIds.getBlockSubModelId(block, "_partially_cracked_egg");
-		Identifier crackedEggModel = ModelIds.getBlockSubModelId(block, "_cracked_egg");
+		Identifier noneModel = TaiaoModels.LARGE_BIRD_NEST.upload(
+			block,
+			TaiaoTextures.Maps.largeBirdNest(block),
+			generator.modelCollector
+		);
+		Identifier intactModel = TaiaoModels.LARGE_BIRD_NEST_EGG.upload(
+			block,
+			TaiaoTextures.Maps.largeBirdNestEgg(block),
+			generator.modelCollector
+		);
+		Identifier partiallyCrackedModel = TaiaoModels.LARGE_BIRD_NEST_EGG.upload(
+			block,
+			"_partially_cracked",
+			TaiaoTextures.Maps.largeBirdNestEgg(block, "_partially_cracked"),
+			generator.modelCollector
+		);
+		Identifier crackedModel = TaiaoModels.LARGE_BIRD_NEST_EGG.upload(
+			block,
+			"_cracked",
+			TaiaoTextures.Maps.largeBirdNestEgg(block, "_cracked"),
+			generator.modelCollector
+		);
+
+		generator.registerItemModel(block.asItem());
 
 		generator.blockStateCollector.accept(
 			VariantsBlockStateSupplier.create(block)
@@ -266,19 +285,19 @@ public class TaiaoModelProvider extends FabricModelProvider {
 					BlockStateVariantMap.create(TaiaoStateProperties.EGG_STAGE)
 						.register(
 							HaastsEagleEggStage.NONE,
-							BlockStateVariant.create().put(VariantSettings.MODEL, model)
+							BlockStateVariant.create().put(VariantSettings.MODEL, noneModel)
 						)
 						.register(
 							HaastsEagleEggStage.INTACT,
-							BlockStateVariant.create().put(VariantSettings.MODEL, eggModel)
+							BlockStateVariant.create().put(VariantSettings.MODEL, intactModel)
 						)
 						.register(
 							HaastsEagleEggStage.PARTIALLY_CRACKED,
-							BlockStateVariant.create().put(VariantSettings.MODEL, partiallyCrackedEggModel)
+							BlockStateVariant.create().put(VariantSettings.MODEL, partiallyCrackedModel)
 						)
 						.register(
 							HaastsEagleEggStage.CRACKED,
-							BlockStateVariant.create().put(VariantSettings.MODEL, crackedEggModel)
+							BlockStateVariant.create().put(VariantSettings.MODEL, crackedModel)
 						)
 				)
 				.coordinate(
