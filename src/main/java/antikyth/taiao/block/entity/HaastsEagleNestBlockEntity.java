@@ -7,6 +7,7 @@ package antikyth.taiao.block.entity;
 import antikyth.taiao.entity.TaiaoEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
@@ -27,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
-public class HaastsEagleNestBlockEntity extends BlockEntity {
+public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEntityWithTicker {
 	public static final String CHICK_KEY = "Chick";
 
 	protected @Nullable Chick chick;
@@ -48,22 +49,17 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 		return this.chick == null ? null : this.chick.getOrCreateRenderedEntity(world);
 	}
 
-	/**
-	 * The ticker, called each tick on the server.
-	 */
-	public static void serverTick(
-		World world,
-		BlockPos pos,
-		BlockState state,
-		@NotNull HaastsEagleNestBlockEntity blockEntity
-	) {
-		if (blockEntity.chick != null) {
-			if (!blockEntity.chick.isReadyForRelease()) {
-				// Age the chick
-				blockEntity.chick.tick();
-			} else {
+	@Override
+	public void serverTick(World world, BlockPos pos, BlockState state) {
+		if (this.chick != null) {
+			if (this.chick.isReadyForRelease()) {
 				// Chick is old enough to be released
-				blockEntity.releaseChick(false, world, pos, state);
+				this.releaseChick(false, world, pos, state);
+			} else {
+				// Age the chick
+				this.chick.tick();
+
+				this.markDirtyWithoutComparatorUpdate(world, pos);
 			}
 		}
 	}
@@ -116,12 +112,56 @@ public class HaastsEagleNestBlockEntity extends BlockEntity {
 
 	/**
 	 * Called when the block contents have changed but the state has not.
+	 * <p>
+	 * This
+	 * {@linkplain HaastsEagleNestBlockEntity#markDirty() marks the block entity as dirty}
+	 * (triggering a {@linkplain World#updateComparators comparator update}),
+	 * {@linkplain World#updateListeners updates listeners}
+	 * (triggering a {@linkplain HaastsEagleNestBlockEntity#toUpdatePacket server-to-client update packet}),
+	 * and emits a {@link GameEvent#BLOCK_CHANGE}.
+	 *
+	 * @param source the entity that triggered this update, if any (e.g. the player or a hatched
+	 *               chick)
 	 */
 	protected void blockChanged(@NotNull World world, BlockPos pos, BlockState state, @Nullable Entity source) {
 		this.markDirty();
 
 		world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
 		world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(source, state));
+	}
+
+	/**
+	 * {@linkplain HaastsEagleNestBlockEntity#markDirty() Marks the block entity as dirty} without
+	 * triggering a {@linkplain World#updateComparators comparator update}.
+	 * <p>
+	 * This avoids unnecessarily triggering comparator updates for changes which don't affect the
+	 * comparator output, particularly useful for changes which happen very frequently, e.g. each
+	 * tick.
+	 *
+	 * @see HaastsEagleNestBlockEntity#markDirtyWithoutComparatorUpdate(World, BlockPos)
+	 * @see HaastsEagleNestBlockEntity#markDirty()
+	 * @see HaastsEagleNestBlockEntity#blockChanged(World, BlockPos, BlockState, Entity)
+	 */
+	protected void markDirtyWithoutComparatorUpdate() {
+		if (this.world != null) {
+			this.markDirtyWithoutComparatorUpdate(this.world, this.pos);
+		}
+	}
+
+	/**
+	 * {@linkplain HaastsEagleNestBlockEntity#markDirty(World, BlockPos, BlockState) Marks the block entity as dirty}
+	 * without triggering a {@linkplain World#updateComparators comparator update}.
+	 * <p>
+	 * This avoids unnecessarily triggering comparator updates for changes which don't affect the
+	 * comparator output, particularly useful for changes which happen very frequently, e.g. each
+	 * tick.
+	 *
+	 * @see HaastsEagleNestBlockEntity#markDirtyWithoutComparatorUpdate()
+	 * @see HaastsEagleNestBlockEntity#markDirty(World, BlockPos, BlockState)
+	 * @see HaastsEagleNestBlockEntity#blockChanged(World, BlockPos, BlockState, Entity)
+	 */
+	protected void markDirtyWithoutComparatorUpdate(@NotNull World world, BlockPos pos) {
+		markDirty(world, pos, Blocks.AIR.getDefaultState());
 	}
 
 	@Override

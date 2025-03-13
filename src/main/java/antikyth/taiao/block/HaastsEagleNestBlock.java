@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block;
 
+import antikyth.taiao.block.entity.BlockEntityWithTicker;
 import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.block.state.HaastsEagleEggStage;
@@ -391,6 +392,6 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 	) {
 		return world.isClient
 			? null
-			: checkType(type, TaiaoBlockEntities.HAASTS_EAGLE_NEST, HaastsEagleNestBlockEntity::serverTick);
+			: checkType(type, TaiaoBlockEntities.HAASTS_EAGLE_NEST, BlockEntityWithTicker::serverTicker);
 	}
 }
