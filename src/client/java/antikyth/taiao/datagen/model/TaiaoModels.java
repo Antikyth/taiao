@@ -40,8 +40,7 @@ public class TaiaoModels {
 		TaiaoTextures.Keys.LEFT_SIDE,
 		TaiaoTextures.Keys.RIGHT_SIDE,
 		TextureKey.BOTTOM,
-		TaiaoTextures.Keys.EGG_SIDE,
-		TaiaoTextures.Keys.EGG_TOP
+		TaiaoTextures.Keys.EGG
 	);
 
 	public static final Model FRUIT_LEAVES = block(

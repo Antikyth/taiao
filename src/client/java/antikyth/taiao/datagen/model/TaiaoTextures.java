@@ -15,8 +15,7 @@ public class TaiaoTextures {
 		public static final TextureKey LEFT_SIDE = TextureKey.of("left_side", TextureKey.SIDE);
 		public static final TextureKey RIGHT_SIDE = TextureKey.of("right_side", TextureKey.SIDE);
 
-		public static final TextureKey EGG_SIDE = TextureKey.of("egg_side");
-		public static final TextureKey EGG_TOP = TextureKey.of("egg_top");
+		public static final TextureKey EGG = TextureKey.of("egg");
 	}
 
 	public static class Maps {
@@ -33,12 +32,7 @@ public class TaiaoTextures {
 
 		public static TextureMap largeBirdNestEgg(Block block, String eggSuffix) {
 			return largeBirdNest(block)
-				.put(Keys.EGG_SIDE, TextureMap.getSubId(block, "_egg" + eggSuffix + "_side"))
-				.put(Keys.EGG_TOP, TextureMap.getSubId(block, "_egg" + eggSuffix + "_top"));
+				.put(Keys.EGG, TextureMap.getSubId(block, "_egg" + eggSuffix));
 		}
-	}
-
-	public static class Models {
-
 	}
 }
