@@ -104,7 +104,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		// Baby
 		entityNbt.putInt("Age", -24000);
 
-		return new Chick(entityNbt, 0);
+		return new Chick(entityNbt, false);
 	}
 
 	@Override
@@ -225,11 +225,11 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	public static class Chick {
 		static final String ENTITY_KEY = "Entity";
 		static final String TICKS_LEFT_IN_NEST_KEY = "TicksLeftInNest";
-		static final String FEED_COUNT_KEY = "FeedCount";
+		static final String HAS_BEEN_FED_KEY = "Fed";
 
 		final NbtCompound nbt;
 		int ticksLeftInNest;
-		short feedCount;
+		boolean hasBeenFed;
 
 		/**
 		 * The comparator output last time {@link Chick#shouldUpdateComparators()} was called.
@@ -245,18 +245,35 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		 *
 		 * @param nbt             the entity's NBT data
 		 * @param ticksLeftInNest the number of ticks left before the chick leaves the nest
-		 * @param feedCount       the number of times the chick has been fed compared to siblings
+		 * @param hasBeenFed      whether the chick has been fed compared to its siblings
 		 */
-		Chick(@NotNull NbtCompound nbt, int ticksLeftInNest, int feedCount) {
+		Chick(@NotNull NbtCompound nbt, int ticksLeftInNest, boolean hasBeenFed) {
 			this.nbt = nbt;
 			this.ticksLeftInNest = ticksLeftInNest;
-			this.feedCount = (short) feedCount;
+			this.hasBeenFed = hasBeenFed;
 		}
 
-		Chick(@NotNull NbtCompound nbt, int feedCount) {
-			this.nbt = nbt;
-			this.ticksLeftInNest = getMinTicksInNestForRelease();
-			this.feedCount = (short) feedCount;
+		Chick(@NotNull NbtCompound nbt, boolean hasBeenFed) {
+			this(nbt, getMinTicksInNestForRelease(), hasBeenFed);
+		}
+
+		/**
+		 * Whether this chick has been fed compared to its siblings.
+		 * <p>
+		 * This is used for Haast's eagle parents to decide which chick to feed, and is reset after
+		 * all chicks and the parent have eaten.
+		 */
+		public boolean hasBeenFed() {
+			return this.hasBeenFed;
+		}
+
+		/**
+		 * Sets whether this chick has been fed compared to its siblings.
+		 * <p>
+		 * This is used for Haast's eagle parents to decide which chick to feed.
+		 */
+		public void setHasBeenFed(boolean hasBeenFed) {
+			this.hasBeenFed = hasBeenFed;
 		}
 
 		/**
@@ -280,7 +297,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			return getMinTicksInNestForRelease() - this.getTicksLeftInNest();
 		}
 
-		boolean isReadyForRelease() {
+		public boolean isReadyForRelease() {
 			return this.ticksLeftInNest <= 0;
 		}
 
@@ -336,19 +353,19 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 		static @NotNull Chick fromNbt(@NotNull NbtCompound nbt) {
 			NbtCompound entityNbt = nbt.getCompound(ENTITY_KEY);
-			short feedCount = nbt.getShort(FEED_COUNT_KEY);
+			boolean hasBeenFed = nbt.getBoolean(HAS_BEEN_FED_KEY);
 
 			if (nbt.contains(TICKS_LEFT_IN_NEST_KEY, NbtElement.INT_TYPE)) {
-				return new Chick(entityNbt, nbt.getInt(TICKS_LEFT_IN_NEST_KEY), feedCount);
+				return new Chick(entityNbt, nbt.getInt(TICKS_LEFT_IN_NEST_KEY), hasBeenFed);
 			} else {
-				return new Chick(entityNbt, feedCount);
+				return new Chick(entityNbt, hasBeenFed);
 			}
 		}
 
 		void writeNbt(@NotNull NbtCompound nbt) {
 			nbt.put(ENTITY_KEY, this.nbt);
 			nbt.putInt(TICKS_LEFT_IN_NEST_KEY, this.ticksLeftInNest);
-			nbt.putShort(FEED_COUNT_KEY, this.feedCount);
+			nbt.putBoolean(HAS_BEEN_FED_KEY, this.hasBeenFed);
 		}
 
 		NbtCompound createNbt() {

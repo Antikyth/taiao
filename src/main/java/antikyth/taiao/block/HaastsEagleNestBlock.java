@@ -10,6 +10,7 @@ import antikyth.taiao.block.entity.TaiaoBlockEntities;
 import antikyth.taiao.block.state.HaastsEagleEggStage;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.TaiaoStateProperties;
+import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -117,13 +118,31 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		Hand hand,
 		BlockHitResult hit
 	) {
-		boolean hasChick = world.getBlockEntity(pos, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
-			.map(HaastsEagleNestBlockEntity::hasChick)
-			.orElse(false);
+		HaastsEagleNestBlockEntity.Chick chick = world.getBlockEntity(pos, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
+			.map(HaastsEagleNestBlockEntity::getChick)
+			.orElse(null);
 		ItemStack stack = player.getStackInHand(hand);
 
-		// TODO: feed chicks
-		if (!hasChick) {
+		if (chick != null && !stack.isEmpty() && stack.isIn(TaiaoItemTags.HAASTS_EAGLE_FOOD)) {
+			// Feed chick
+			world.playSound(
+				player,
+				pos,
+				stack.getEatSound(),
+				SoundCategory.NEUTRAL,
+				1f,
+				1f + (world.random.nextFloat() - world.random.nextFloat()) * 0.4f
+			);
+
+			if (!player.isCreative()) stack.decrement(1);
+
+			// TODO: grow the baby like AnimalEntity#interactMob / PassiveEntity#growUp, maybe with
+			//     : particles
+
+			world.emitGameEvent(GameEvent.EAT, pos, GameEvent.Emitter.of(state));
+
+			chick.setHasBeenFed(true);
+		} else {
 			HaastsEagleEggStage stage = state.get(EGG_STAGE);
 
 			if (stage.hasEgg()) {
@@ -140,13 +159,13 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 				}
 
 				return ActionResult.success(false);
-			} else if (!stack.isEmpty()) {
+			} else if (!stack.isEmpty() && chick == null) {
 				HaastsEagleEggStage eggStage = HaastsEagleEggStage.EGG_TO_STAGE.get(stack.getItem());
 
 				if (eggStage != null) {
 					// Add egg
 					if (!world.isClient) {
-						if (!player.getAbilities().creativeMode) stack.decrement(1);
+						if (!player.isCreative()) stack.decrement(1);
 
 						updateState(world, pos, state.with(EGG_STAGE, eggStage), player);
 
