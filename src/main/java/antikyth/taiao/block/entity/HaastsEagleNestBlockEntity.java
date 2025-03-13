@@ -4,6 +4,7 @@
 
 package antikyth.taiao.block.entity;
 
+import antikyth.taiao.block.state.HaastsEagleEggStage;
 import antikyth.taiao.entity.TaiaoEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -19,10 +20,8 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,35 +40,36 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		this(TaiaoBlockEntities.HAASTS_EAGLE_NEST, pos, state);
 	}
 
+	/**
+	 * {@return whether there is a chick in the nest}
+	 */
 	public boolean hasChick() {
 		return this.chick != null;
 	}
 
-	public @Nullable Entity getOrCreateRenderedEntity(World world) {
-		return this.chick == null ? null : this.chick.getOrCreateRenderedEntity(world);
+	/**
+	 * {@return the chick within the nest, if there is one}
+	 */
+	public @Nullable Chick getChick() {
+		return this.chick;
 	}
 
-	@Override
-	public void serverTick(World world, BlockPos pos, BlockState state) {
-		if (this.chick != null) {
-			if (this.chick.isReadyForRelease()) {
-				// Chick is old enough to be released
-				this.releaseChick(false, world, pos, state);
-			} else {
-				// Age the chick
-				this.chick.tick();
-
-				this.markDirtyWithoutComparatorUpdate(world, pos);
-			}
-		}
+	/**
+	 * Returns an {@link Entity} to be used for rendering the block entity.
+	 * <p>
+	 * This must not be used for purposes other than rendering, as it may differ from the entity
+	 * upon release.
+	 */
+	public @Nullable Entity getOrCreateRenderedEntity(World world) {
+		return this.chick == null ? null : this.chick.getOrCreateRenderedEntity(world);
 	}
 
 	/**
 	 * Puts a new chick in the nest if there isn't already one.
 	 */
-	public void hatchChick(Random random) {
+	public void hatchChick() {
 		if (this.chick == null) {
-			this.chick = createChick(random);
+			this.chick = createChick();
 
 			this.markDirty();
 		}
@@ -95,11 +95,8 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 	/**
 	 * Creates a chick.
-	 *
-	 * @param random used to choose the amount of time the chick will stay in the nest
 	 */
-	@Contract("_ -> new")
-	protected static @NotNull Chick createChick(@NotNull Random random) {
+	protected static @NotNull Chick createChick() {
 		NbtCompound entityNbt = new NbtCompound();
 		// Entity type
 		EntityType<?> entityType = TaiaoEntities.HAASTS_EAGLE;
@@ -107,7 +104,22 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		// Baby
 		entityNbt.putInt("Age", -24000);
 
-		return new Chick(entityNbt, 10000 + random.nextInt(4000), 0);
+		return new Chick(entityNbt, 0);
+	}
+
+	@Override
+	public void serverTick(World world, BlockPos pos, BlockState state) {
+		if (this.chick != null) {
+			if (this.chick.isReadyForRelease()) {
+				// Chick is old enough to be released
+				this.releaseChick(false, world, pos, state);
+			} else {
+				// Age the chick
+				this.chick.tick();
+
+				this.markDirty(this.chick.shouldUpdateComparators());
+			}
+		}
 	}
 
 	/**
@@ -124,10 +136,25 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	 *               chick)
 	 */
 	protected void blockChanged(@NotNull World world, BlockPos pos, BlockState state, @Nullable Entity source) {
-		this.markDirty();
-
 		world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
 		world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(source, state));
+
+		this.markDirty();
+	}
+
+	/**
+	 * Marks the block entity as dirty.
+	 *
+	 * @param updateComparators whether {@linkplain World#updateComparators comparators should be updated}
+	 * @see HaastsEagleNestBlockEntity#markDirty()
+	 * @see HaastsEagleNestBlockEntity#markDirtyWithoutComparatorUpdate()
+	 */
+	protected void markDirty(boolean updateComparators) {
+		if (updateComparators) {
+			this.markDirty();
+		} else {
+			this.markDirtyWithoutComparatorUpdate();
+		}
 	}
 
 	/**
@@ -179,10 +206,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 		// Chick
 		if (this.chick != null) {
-			NbtCompound chickNbt = new NbtCompound();
-			this.chick.writeNbt(chickNbt);
-
-			nbt.put(CHICK_KEY, chickNbt);
+			nbt.put(CHICK_KEY, this.chick.createNbt());
 		} else {
 			nbt.remove(CHICK_KEY);
 		}
@@ -200,34 +224,94 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 	public static class Chick {
 		static final String ENTITY_KEY = "Entity";
-		static final String TICKS_IN_NEST_KEY = "TicksInNest";
+		static final String TICKS_LEFT_IN_NEST_KEY = "TicksLeftInNest";
 		static final String FEED_COUNT_KEY = "FeedCount";
 
 		final NbtCompound nbt;
-		int ticksInNest;
+		int ticksLeftInNest;
 		short feedCount;
+
+		/**
+		 * The comparator output last time {@link Chick#shouldUpdateComparators()} was called.
+		 * <p>
+		 * This is used to only update comparators if there have been changes to the output.
+		 */
+		int lastComparatorOutput;
 
 		@Nullable Entity renderedEntity;
 
 		/**
 		 * Creates a chick.
 		 *
-		 * @param nbt         the entity's NBT data
-		 * @param ticksInNest the number of ticks left before the chick leaves the nest
-		 * @param feedCount   the number of times the chick has been fed compared to siblings
+		 * @param nbt             the entity's NBT data
+		 * @param ticksLeftInNest the number of ticks left before the chick leaves the nest
+		 * @param feedCount       the number of times the chick has been fed compared to siblings
 		 */
-		Chick(@NotNull NbtCompound nbt, int ticksInNest, int feedCount) {
+		Chick(@NotNull NbtCompound nbt, int ticksLeftInNest, int feedCount) {
 			this.nbt = nbt;
-			this.ticksInNest = ticksInNest;
+			this.ticksLeftInNest = ticksLeftInNest;
 			this.feedCount = (short) feedCount;
 		}
 
-		boolean isReadyForRelease() {
-			return this.ticksInNest <= 0;
+		Chick(@NotNull NbtCompound nbt, int feedCount) {
+			this.nbt = nbt;
+			this.ticksLeftInNest = getMinTicksInNestForRelease();
+			this.feedCount = (short) feedCount;
 		}
 
+		/**
+		 * {@return the minimum number of ticks before the chick can be released}
+		 */
+		static int getMinTicksInNestForRelease() {
+			return 24_000;
+		}
+
+		/**
+		 * {@return the number of ticks the chick has left in the nest}
+		 */
+		int getTicksLeftInNest() {
+			return this.ticksLeftInNest;
+		}
+
+		/**
+		 * {@return the number of ticks the chick has been in the nest}
+		 */
+		int getTicksBeenInNest() {
+			return getMinTicksInNestForRelease() - this.getTicksLeftInNest();
+		}
+
+		boolean isReadyForRelease() {
+			return this.ticksLeftInNest <= 0;
+		}
+
+		/**
+		 * Ticks the chick.
+		 */
 		void tick() {
-			this.ticksInNest--;
+			this.ticksLeftInNest--;
+		}
+
+		/**
+		 * Calculates the comparator output based on how long the chick has been in the nest.
+		 */
+		public int getComparatorOutput() {
+			int eggStageCount = HaastsEagleEggStage.values().length;
+			// The number of signals left after accounting for egg signals
+			int signalRange = 15 - eggStageCount;
+
+			return eggStageCount + (this.getTicksBeenInNest() * signalRange / getMinTicksInNestForRelease());
+		}
+
+		/**
+		 * Returns whether the {@linkplain Chick#getComparatorOutput() comparator output} has
+		 * changed since this method was last called.
+		 */
+		public boolean shouldUpdateComparators() {
+			int output = this.getComparatorOutput();
+			boolean update = output != this.lastComparatorOutput;
+			this.lastComparatorOutput = output;
+
+			return update;
 		}
 
 		public Entity createReleasedEntity(World world) {
@@ -252,16 +336,26 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 		static @NotNull Chick fromNbt(@NotNull NbtCompound nbt) {
 			NbtCompound entityNbt = nbt.getCompound(ENTITY_KEY);
-			int ticksInNest = nbt.getInt(TICKS_IN_NEST_KEY);
 			short feedCount = nbt.getShort(FEED_COUNT_KEY);
 
-			return new Chick(entityNbt, ticksInNest, feedCount);
+			if (nbt.contains(TICKS_LEFT_IN_NEST_KEY, NbtElement.INT_TYPE)) {
+				return new Chick(entityNbt, nbt.getInt(TICKS_LEFT_IN_NEST_KEY), feedCount);
+			} else {
+				return new Chick(entityNbt, feedCount);
+			}
 		}
 
 		void writeNbt(@NotNull NbtCompound nbt) {
 			nbt.put(ENTITY_KEY, this.nbt);
-			nbt.putInt(TICKS_IN_NEST_KEY, this.ticksInNest);
+			nbt.putInt(TICKS_LEFT_IN_NEST_KEY, this.ticksLeftInNest);
 			nbt.putShort(FEED_COUNT_KEY, this.feedCount);
+		}
+
+		NbtCompound createNbt() {
+			NbtCompound nbt = new NbtCompound();
+			this.writeNbt(nbt);
+
+			return nbt;
 		}
 	}
 }

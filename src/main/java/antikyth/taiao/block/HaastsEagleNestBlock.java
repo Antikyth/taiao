@@ -177,22 +177,22 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 				pos,
 				TaiaoBlockEntities.HAASTS_EAGLE_NEST
 			);
-			boolean hasChick = blockEntity.map(HaastsEagleNestBlockEntity::hasChick).orElse(false);
+			boolean alreadyHasChick = blockEntity.map(HaastsEagleNestBlockEntity::hasChick).orElse(false);
 
 			// Only hatch if there isn't an existing chick (there shouldn't be but just to be
 			// sure)
-			if (!stage.isReadyToHatch() || !hasChick) {
+			if (!(stage.isReadyToHatch() && alreadyHasChick)) {
 				SoundEvent sound = stage.isReadyToHatch()
 					? TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH
 					: TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK;
 				world.playSound(null, pos, sound, SoundCategory.BLOCKS, 0.7f, 0.9f + random.nextFloat() * 0.2f);
 
-				updateState(world, pos, state.with(EGG_STAGE, stage.nextStage()));
-
 				// Hatch a chick if this was the final stage
 				if (stage.isReadyToHatch()) {
-					blockEntity.ifPresent(nest -> nest.hatchChick(random));
+					blockEntity.ifPresent(HaastsEagleNestBlockEntity::hatchChick);
 				}
+
+				updateState(world, pos, state.with(EGG_STAGE, stage.nextStage()));
 			}
 		}
 	}
@@ -242,6 +242,20 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		super.appendProperties(builder);
 
 		builder.add(PART, EGG_STAGE);
+	}
+
+	@Override
+	public boolean hasComparatorOutput(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorOutput(@NotNull BlockState state, @NotNull World world, BlockPos pos) {
+		// If there is a chick, return its comparator output, otherwise return the egg stage
+		return world.getBlockEntity(pos, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
+			.map(HaastsEagleNestBlockEntity::getChick)
+			.map(HaastsEagleNestBlockEntity.Chick::getComparatorOutput)
+			.orElse(state.get(EGG_STAGE).ordinal());
 	}
 
 	@Override
