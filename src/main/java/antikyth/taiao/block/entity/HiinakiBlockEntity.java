@@ -7,6 +7,7 @@ package antikyth.taiao.block.entity;
 import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.TaiaoItemTags;
+import antikyth.taiao.item.TaiaoItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,6 +17,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -74,6 +76,24 @@ public class HiinakiBlockEntity extends BlockEntity {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * {@return the comparator output of the contents, from 0 to 7}
+	 */
+	public int getComparatorOutput() {
+		int bait = 0;
+		if (!this.bait.isEmpty()) {
+			if (this.bait.isOf(Items.FROGSPAWN)) {
+				bait = 2;
+			} else if (this.bait.isOf(TaiaoItems.WEETAA)) {
+				bait = 3;
+			} else {
+				bait = 1;
+			}
+		}
+
+		return bait + (this.hasTrappedEntity() ? 4 : 0);
 	}
 
 	public boolean hasBait() {

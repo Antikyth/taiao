@@ -96,6 +96,20 @@ public class HiinakiBlock extends BlockWithEntity {
 	}
 
 	@Override
+	public boolean hasComparatorOutput(@NotNull BlockState state) {
+		return state.get(HALF) == LongBlockHalf.FRONT;
+	}
+
+	@Override
+	public int getComparatorOutput(@NotNull BlockState state, @NotNull World world, BlockPos pos) {
+		int output = world.getBlockEntity(pos, TaiaoBlockEntities.HIINAKI)
+			.map(HiinakiBlockEntity::getComparatorOutput)
+			.orElse(0);
+
+		return output + (state.get(WATERLOGGED) ? 8 : 0);
+	}
+
+	@Override
 	public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
 		super.appendTooltip(stack, world, tooltip, options);
 
