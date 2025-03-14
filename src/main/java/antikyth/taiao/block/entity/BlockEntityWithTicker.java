@@ -27,9 +27,9 @@ public interface BlockEntityWithTicker {
 		@NotNull BlockEntityWithTicker blockEntity
 	) {
 		if (world.isClient) {
-			blockEntity.clientTick(world, pos, state);
+			clientTicker(world, pos, state, blockEntity);
 		} else {
-			blockEntity.serverTick(world, pos, state);
+			serverTicker(world, pos, state, blockEntity);
 		}
 	}
 
@@ -68,6 +68,7 @@ public interface BlockEntityWithTicker {
 	/**
 	 * Called on both the client and server every tick.
 	 *
+	 * @see BlockEntityWithTicker#ticker
 	 * @see BlockEntityWithTicker#clientTick(World, BlockPos, BlockState)
 	 * @see BlockEntityWithTicker#serverTick(World, BlockPos, BlockState)
 	 */
@@ -76,6 +77,8 @@ public interface BlockEntityWithTicker {
 	/**
 	 * Called on the client every tick.
 	 *
+	 * @see BlockEntityWithTicker#clientTicker
+	 * @see BlockEntityWithTicker#ticker
 	 * @see BlockEntityWithTicker#tick(World, BlockPos, BlockState)
 	 * @see BlockEntityWithTicker#serverTick(World, BlockPos, BlockState)
 	 */
@@ -84,6 +87,8 @@ public interface BlockEntityWithTicker {
 	/**
 	 * Called on the server every tick.
 	 *
+	 * @see BlockEntityWithTicker#serverTicker
+	 * @see BlockEntityWithTicker#ticker
 	 * @see BlockEntityWithTicker#tick(World, BlockPos, BlockState)
 	 * @see BlockEntityWithTicker#clientTick(World, BlockPos, BlockState)
 	 */
