@@ -298,12 +298,8 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		int ticksLeftInNest;
 		boolean hasBeenFed;
 
-		/**
-		 * The comparator output last time {@link Chick#shouldUpdateComparators()} was called.
-		 * <p>
-		 * This is used to only update comparators if there have been changes to the output.
-		 */
-		int lastComparatorOutput;
+		int prevComparatorOutput;
+		int latestComparatorOutput;
 
 		@Nullable Entity renderedEntity;
 
@@ -318,6 +314,8 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			this.nbt = nbt;
 			this.ticksLeftInNest = ticksLeftInNest;
 			this.hasBeenFed = hasBeenFed;
+
+			this.recalculateComparatorOutput();
 		}
 
 		Chick(@NotNull NbtCompound nbt, boolean hasBeenFed) {
@@ -364,6 +362,9 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			return getMinTicksInNestForRelease() - this.getTicksLeftInNest();
 		}
 
+		/**
+		 * Whether the chick is ready to leave the nest when possible.
+		 */
 		public boolean isReadyForRelease() {
 			return this.ticksLeftInNest <= 0;
 		}
@@ -373,31 +374,46 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		 */
 		void tick() {
 			this.ticksLeftInNest--;
+
+			this.recalculateComparatorOutput();
 		}
 
 		/**
-		 * Calculates the comparator output based on how long the chick has been in the nest.
+		 * Recalculates the {@link Chick#latestComparatorOutput} after a change which could affect
+		 * the comparator output.
+		 * <p>
+		 * {@link Chick#prevComparatorOutput} is updated to the value of
+		 * {@link Chick#latestComparatorOutput} before recalculation.
 		 */
-		public int getComparatorOutput() {
+		void recalculateComparatorOutput() {
+			this.prevComparatorOutput = this.latestComparatorOutput;
+
 			int eggStageCount = HaastsEagleEggStage.values().length;
 			// The number of signals left after accounting for egg signals
 			int signalRange = 15 - eggStageCount;
+			int progress = this.getTicksBeenInNest() * signalRange / getMinTicksInNestForRelease();
 
-			return eggStageCount + (this.getTicksBeenInNest() * signalRange / getMinTicksInNestForRelease());
+			this.latestComparatorOutput = eggStageCount + progress;
+		}
+
+		/**
+		 * {@return the comparator output based on how long the chick has been in the nest}
+		 */
+		public int getComparatorOutput() {
+			return this.latestComparatorOutput;
 		}
 
 		/**
 		 * Returns whether the {@linkplain Chick#getComparatorOutput() comparator output} has
-		 * changed since this method was last called.
+		 * changed.
 		 */
 		public boolean shouldUpdateComparators() {
-			int output = this.getComparatorOutput();
-			boolean update = output != this.lastComparatorOutput;
-			this.lastComparatorOutput = output;
-
-			return update;
+			return this.latestComparatorOutput != this.prevComparatorOutput;
 		}
 
+		/**
+		 * Converts the chick into an {@link Entity} ready to be released into the {@code world}.
+		 */
 		public Entity createReleasedEntity(World world) {
 			return EntityType.loadEntityWithPassengers(this.nbt, world, Function.identity());
 		}
