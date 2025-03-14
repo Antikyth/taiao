@@ -16,6 +16,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -34,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
-public class HiinakiBlockEntity extends BlockEntity {
+public class HiinakiBlockEntity extends BlockEntity implements SingleStackInventory {
 	public static final String BAIT_KEY = "Bait";
 	public static final String TRAPPED_ENTITY_KEY = "TrappedEntity";
 
@@ -106,23 +109,16 @@ public class HiinakiBlockEntity extends BlockEntity {
 
 	/**
 	 * Adds bait to the hīnaki.
-	 * <p>
-	 * Bait is added if there is no bait already in the hīnaki.
 	 *
 	 * @param user the entity adding bait
 	 * @param bait the bait to add - must be in {@link TaiaoItemTags#HIINAKI_BAIT}
-	 * @return whether the bait was taken/added
 	 */
-	public boolean addBait(@Nullable Entity user, ItemStack bait) {
-		if (this.bait.isEmpty() && !bait.isEmpty() && bait.isIn(TaiaoItemTags.HIINAKI_BAIT)) {
+	public void setBait(@Nullable Entity user, @NotNull ItemStack bait) {
+		if (this.isValid(0, bait)) {
 			this.bait = bait.split(1);
 
 			this.blockChanged(user);
-
-			return true;
 		}
-
-		return false;
 	}
 
 	public ItemStack removeBait(@Nullable Entity user) {
@@ -409,6 +405,44 @@ public class HiinakiBlockEntity extends BlockEntity {
 	@Override
 	public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
 		return BlockEntityUpdateS2CPacket.create(this);
+	}
+
+	// Inventory implementation
+
+	@Override
+	public ItemStack getStack(int slot) {
+		return slot == 0 ? this.bait : ItemStack.EMPTY;
+	}
+
+	@Override
+	public ItemStack removeStack(int slot, int amount) {
+		if (slot != 0) return ItemStack.EMPTY;
+
+		return this.removeBait(null);
+	}
+
+	@Override
+	public void setStack(int slot, ItemStack bait) {
+		if (slot != 0 || (this.bait.isEmpty() == bait.isEmpty())) return;
+
+		this.setBait(null, bait);
+	}
+
+	@Override
+	public boolean isValid(int slot, ItemStack stack) {
+		return slot == 0
+			&& this.bait.isEmpty()
+			&& (stack.isEmpty() || (!this.hasTrappedEntity() && stack.isIn(TaiaoItemTags.HIINAKI_BAIT)));
+	}
+
+	@Override
+	public int getMaxCountPerStack() {
+		return 1;
+	}
+
+	@Override
+	public boolean canPlayerUse(PlayerEntity player) {
+		return Inventory.canPlayerUse(this, player);
 	}
 
 	protected static class TrappedEntity {
