@@ -227,20 +227,21 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 			);
 
 		// Add drops for each egg stage
-		for (Map.Entry<HaastsEagleEggStage, ItemConvertible> entry : HaastsEagleEggStage.STAGE_TO_EGG.entrySet()) {
-			HaastsEagleEggStage stage = entry.getKey();
-			ItemConvertible egg = entry.getValue();
+		for (HaastsEagleEggStage stage : HaastsEagleEggStage.values()) {
+			ItemConvertible egg = stage.getEggItem();
 
-			pool.with(
-				ItemEntry.builder(egg)
-					.conditionally(
-						BlockStatePropertyLootCondition.builder(nest)
-							.properties(
-								StatePredicate.Builder.create()
-									.exactMatch(HaastsEagleNestBlock.EGG_STAGE, stage)
-							)
-					)
-			);
+			if (egg != null) {
+				pool.with(
+					ItemEntry.builder(egg)
+						.conditionally(
+							BlockStatePropertyLootCondition.builder(nest)
+								.properties(
+									StatePredicate.Builder.create()
+										.exactMatch(HaastsEagleNestBlock.EGG_STAGE, stage)
+								)
+						)
+				);
+			}
 		}
 
 		table.pool(this.addSurvivesExplosionCondition(nest, pool));

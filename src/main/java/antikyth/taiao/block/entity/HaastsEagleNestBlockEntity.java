@@ -7,6 +7,10 @@ package antikyth.taiao.block.entity;
 import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.block.state.HaastsEagleEggStage;
 import antikyth.taiao.entity.TaiaoEntities;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -14,9 +18,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -25,6 +26,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -32,10 +34,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
-public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEntityWithTicker, SingleStackInventory {
+@SuppressWarnings("UnstableApiUsage")
+public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEntityWithTicker,
+	BlockApiLookup.BlockEntityApiProvider<Storage<ItemVariant>, Direction> {
 	public static final String CHICK_KEY = "Chick";
 
 	protected @Nullable Chick chick;
+
+	private final EggStorage eggStorage = new EggStorage();
 
 	public HaastsEagleNestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -43,6 +49,11 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 	public HaastsEagleNestBlockEntity(BlockPos pos, BlockState state) {
 		this(TaiaoBlockEntities.HAASTS_EAGLE_NEST, pos, state);
+	}
+
+	@Override
+	public Storage<ItemVariant> find(BlockEntity blockEntity, Direction face) {
+		return this.eggStorage;
 	}
 
 	/**
@@ -238,57 +249,6 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		return BlockEntityUpdateS2CPacket.create(this);
 	}
 
-	@Override
-	public ItemStack getStack(int slot) {
-		if (slot != 0) return ItemStack.EMPTY;
-
-		return this.getCachedState().get(HaastsEagleNestBlock.EGG_STAGE).getEgg();
-	}
-
-	@Override
-	public ItemStack removeStack(int slot, int amount) {
-		if (slot != 0 || amount < 1) return ItemStack.EMPTY;
-
-		ItemStack egg = this.getCachedState().get(HaastsEagleNestBlock.EGG_STAGE).getEgg();
-		if (this.world != null && !egg.isEmpty()) {
-			this.updateState(
-				world,
-				pos,
-				this.getCachedState().with(HaastsEagleNestBlock.EGG_STAGE, HaastsEagleEggStage.NONE),
-				null
-			);
-		}
-
-		return egg;
-	}
-
-	@Override
-	public void setStack(int slot, ItemStack stack) {
-		if (!this.isValid(slot, stack)) return;
-
-		HaastsEagleEggStage stage = HaastsEagleEggStage.EGG_TO_STAGE.get(stack.getItem());
-		if (this.world != null && stage != this.getCachedState().get(HaastsEagleNestBlock.EGG_STAGE)) {
-			this.updateState(world, pos, this.getCachedState().with(HaastsEagleNestBlock.EGG_STAGE, stage), null);
-		}
-	}
-
-	@Override
-	public int getMaxCountPerStack() {
-		return 1;
-	}
-
-	@Override
-	public boolean canPlayerUse(PlayerEntity player) {
-		return Inventory.canPlayerUse(this, player);
-	}
-
-	@Override
-	public boolean isValid(int slot, ItemStack stack) {
-		if (slot != 0) return false;
-
-		return stack.isEmpty() || (!this.hasChick() && HaastsEagleEggStage.EGG_TO_STAGE.containsKey(stack.getItem()));
-	}
-
 	public static class Chick {
 		static final String ENTITY_KEY = "Entity";
 		static final String TICKS_LEFT_IN_NEST_KEY = "TicksLeftInNest";
@@ -456,6 +416,56 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			this.writeNbt(nbt);
 
 			return nbt;
+		}
+	}
+
+	/**
+	 * {@link Storage} for treating the {@link HaastsEagleNestBlock#EGG_STAGE} as a stored item.
+	 */
+	@SuppressWarnings("UnstableApiUsage")
+	public class EggStorage extends SingleStackStorage {
+		@Override
+		protected ItemStack getStack() {
+			BlockState state = HaastsEagleNestBlockEntity.this.getCachedState();
+			HaastsEagleEggStage stage = state.get(HaastsEagleNestBlock.EGG_STAGE);
+
+			return stage.createEggStack();
+		}
+
+		@Override
+		protected void setStack(ItemStack stack) {
+			World world = HaastsEagleNestBlockEntity.this.world;
+
+			if (world != null) {
+				HaastsEagleEggStage stage = HaastsEagleEggStage.getStageForStack(stack);
+
+				if (stage != null) {
+					BlockState state = HaastsEagleNestBlockEntity.this.getCachedState();
+					BlockPos pos = HaastsEagleNestBlockEntity.this.getPos();
+
+					HaastsEagleNestBlockEntity.this.updateState(
+						world,
+						pos,
+						state.with(HaastsEagleNestBlock.EGG_STAGE, stage),
+						null
+					);
+				}
+			}
+		}
+
+		@Override
+		protected boolean canInsert(@NotNull ItemVariant variant) {
+			return HaastsEagleNestBlockEntity.this.world != null && HaastsEagleEggStage.isValidEgg(variant);
+		}
+
+		@Override
+		protected boolean canExtract(ItemVariant itemVariant) {
+			return HaastsEagleNestBlockEntity.this.world != null;
+		}
+
+		@Override
+		protected int getCapacity(@NotNull ItemVariant variant) {
+			return Math.min(1, variant.getItem().getMaxCount());
 		}
 	}
 }

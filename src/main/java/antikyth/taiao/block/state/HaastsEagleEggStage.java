@@ -5,12 +5,16 @@
 package antikyth.taiao.block.state;
 
 import antikyth.taiao.item.TaiaoItems;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Pair;
 import net.minecraft.util.StringIdentifiable;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -40,25 +44,22 @@ public enum HaastsEagleEggStage implements StringIdentifiable {
 	/**
 	 * A map of egg items to the associated stage.
 	 */
-	public static final Map<ItemConvertible, HaastsEagleEggStage> EGG_TO_STAGE = Arrays.stream(values())
+	private static final Map<ItemConvertible, HaastsEagleEggStage> EGG_TO_STAGE = Arrays.stream(values())
 		.filter(stage -> stage.egg != null)
 		.collect(Collectors.toMap(stage -> stage.egg, Function.identity()));
 	/**
-	 * A map of stages to the associated egg.
-	 */
-	public static final Map<HaastsEagleEggStage, ItemConvertible> STAGE_TO_EGG = Arrays.stream(values())
-		.filter(stage -> stage.egg != null)
-		.collect(Collectors.toMap(Function.identity(), stage -> stage.egg));
-	/**
-	 * A map of egg stages' eggs to the following egg stage's egg.
+	 * A list of egg items paired with the following stage's egg item.
 	 * <p>
-	 * If either the stage itself or the following stage (in the case of the final stage) is
-	 * {@link HaastsEagleEggStage#NONE}, it does not appear in this map.
+	 * Only mappings between a {@linkplain HaastsEagleEggStage#hasEgg() non-empty egg} and another
+	 * non-empty egg feature in this list.
+	 * That means there is no pair representing the
+	 * {@linkplain HaastsEagleEggStage#isReadyToHatch() final stage}'s egg hatching.
 	 */
-	public static final Map<ItemConvertible, ItemConvertible> INCUBATIONS = Arrays.stream(values())
-		.filter(stage -> stage.egg != null)
-		.filter(stage -> stage.nextStage().egg != null)
-		.collect(Collectors.toMap(stage -> stage.egg, stage -> stage.nextStage().egg));
+	public static final List<Pair<ItemConvertible, ItemConvertible>> INCUBATIONS = Arrays.stream(values())
+		.filter(HaastsEagleEggStage::hasEgg)
+		.filter(stage -> stage.nextStage().hasEgg())
+		.map(stage -> new Pair<>(stage.egg, stage.nextStage().egg))
+		.toList();
 
 	private final String name;
 	private final @Nullable ItemConvertible egg;
@@ -84,7 +85,7 @@ public enum HaastsEagleEggStage implements StringIdentifiable {
 	 * @see HaastsEagleEggStage#hasEgg()
 	 */
 	public boolean isEmpty() {
-		return this == NONE;
+		return this.egg == null;
 	}
 
 	/**
@@ -97,32 +98,80 @@ public enum HaastsEagleEggStage implements StringIdentifiable {
 	}
 
 	/**
-	 * {@return the Haast's eagle egg item associated with this stage}
-	 * <p>
-	 * If {@linkplain HaastsEagleEggStage#hasEgg() there is no egg}, {@link ItemStack#EMPTY} is returned.
+	 * Whether this is the final stage of incubation, with the next stage being hatching.
 	 */
-	public ItemStack getEgg() {
+	public boolean isReadyToHatch() {
+		return this == CRACKED;
+	}
+
+	/**
+	 * {@return the Haast's eagle egg item associated with this stage}
+	 */
+	public @Nullable ItemConvertible getEggItem() {
+		return this.egg;
+	}
+
+	/**
+	 * Creates an {@link ItemStack} of the
+	 * {@linkplain HaastsEagleEggStage#getEggItem() Haast's eagle egg item associated with this stage}.
+	 * <p>
+	 * If {@linkplain HaastsEagleEggStage#isEmpty() there is no egg}, {@link ItemStack#EMPTY} is returned.
+	 */
+	public ItemStack createEggStack() {
 		return this.egg == null ? ItemStack.EMPTY : new ItemStack(this.egg);
+	}
+
+	/**
+	 * Returns the appropriate stage for the given {@code egg} item, or {@code null} if there is no
+	 * stage for that item.
+	 */
+	public static @Nullable HaastsEagleEggStage getStageForItem(@NotNull ItemConvertible egg) {
+		return EGG_TO_STAGE.get(egg);
+	}
+
+	/**
+	 * Returns the appropriate stage for the given {@code egg} stack.
+	 * <p>
+	 * If {@code egg} is empty, {@link HaastsEagleEggStage#NONE} is returned. If there is otherwise
+	 * no stage representing the stack's item, {@code null} is returned.
+	 */
+	public static @Nullable HaastsEagleEggStage getStageForStack(@NotNull ItemStack egg) {
+		return egg.isEmpty() ? HaastsEagleEggStage.NONE : getStageForItem(egg.getItem());
+	}
+
+	/**
+	 * Whether there is a stage associated with the given {@code item}.
+	 *
+	 * @see HaastsEagleEggStage#isValidEgg(ItemVariant)
+	 * @see HaastsEagleEggStage#getStageForItem(ItemConvertible)
+	 */
+	@SuppressWarnings("UnstableApiUsage")
+	public static boolean isValidEgg(@NotNull ItemConvertible item) {
+		return EGG_TO_STAGE.containsKey(item);
+	}
+
+	/**
+	 * Whether there is a stage associated with the {@code variant}'s item.
+	 *
+	 * @see HaastsEagleEggStage#isValidEgg(ItemConvertible)
+	 * @see HaastsEagleEggStage#getStageForStack(ItemStack)
+	 */
+	@SuppressWarnings("UnstableApiUsage")
+	public static boolean isValidEgg(@NotNull ItemVariant variant) {
+		return !variant.isBlank() && isValidEgg(variant.getItem());
 	}
 
 	/**
 	 * {@return the next stage after incubation}
 	 * <p>
-	 * If this is the final stage or {@linkplain HaastsEagleEggStage#hasEgg() there is no egg},
+	 * If this is the final stage or {@linkplain HaastsEagleEggStage#isEmpty() there is no egg},
 	 * {@link HaastsEagleEggStage#NONE} is returned.
 	 */
 	public HaastsEagleEggStage nextStage() {
 		return switch (this) {
 			case INTACT -> PARTIALLY_CRACKED;
 			case PARTIALLY_CRACKED -> CRACKED;
-			case NONE, CRACKED -> NONE;
+			case CRACKED, NONE -> NONE;
 		};
-	}
-
-	/**
-	 * Whether this is the final stage of incubation, with the next stage being hatching.
-	 */
-	public boolean isReadyToHatch() {
-		return this == CRACKED;
 	}
 }

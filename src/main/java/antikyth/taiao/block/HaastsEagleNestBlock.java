@@ -150,7 +150,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 				if (!world.isClient) {
 					updateState(world, pos, state.with(EGG_STAGE, HaastsEagleEggStage.NONE), player);
 
-					ItemStack egg = stage.getEgg();
+					ItemStack egg = stage.createEggStack();
 					if (!player.getInventory().insertStack(egg)) {
 						player.dropItem(egg, false);
 					}
@@ -160,7 +160,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 
 				return ActionResult.success(false);
 			} else if (!stack.isEmpty() && chick == null) {
-				HaastsEagleEggStage eggStage = HaastsEagleEggStage.EGG_TO_STAGE.get(stack.getItem());
+				HaastsEagleEggStage eggStage = HaastsEagleEggStage.getStageForStack(stack);
 
 				if (eggStage != null) {
 					// Add egg

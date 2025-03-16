@@ -31,6 +31,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -64,8 +65,8 @@ public class TaiaoEmiPlugin implements EmiPlugin {
 		registry.addRecipe(triplePlantFertilizeRecipe(TaiaoBlocks.HARAKEKE));
 
 		// Incubation recipes
-		for (Map.Entry<ItemConvertible, ItemConvertible> entry : HaastsEagleEggStage.INCUBATIONS.entrySet()) {
-			registry.addRecipe(incubationRecipe(entry.getKey(), entry.getValue(), TaiaoBlocks.HAASTS_EAGLE_NEST));
+		for (Pair<ItemConvertible, ItemConvertible> entry : HaastsEagleEggStage.INCUBATIONS) {
+			registry.addRecipe(incubationRecipe(entry.getLeft(), entry.getRight(), TaiaoBlocks.HAASTS_EAGLE_NEST));
 		}
 
 		// Stripping recipes
