@@ -455,12 +455,12 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 		@Override
 		protected boolean canInsert(@NotNull ItemVariant variant) {
-			return HaastsEagleNestBlockEntity.this.world != null && HaastsEagleEggStage.isValidEgg(variant);
+			return HaastsEagleNestBlockEntity.this.hasWorld() && HaastsEagleEggStage.isValidEgg(variant);
 		}
 
 		@Override
-		protected boolean canExtract(ItemVariant itemVariant) {
-			return HaastsEagleNestBlockEntity.this.world != null;
+		protected boolean canExtract(ItemVariant variant) {
+			return HaastsEagleNestBlockEntity.this.hasWorld();
 		}
 
 		@Override

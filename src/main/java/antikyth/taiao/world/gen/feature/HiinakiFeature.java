@@ -92,7 +92,7 @@ public class HiinakiFeature extends Feature<HiinakiFeatureConfig> {
 								if (blockEntity.hasBait()) {
 									Taiao.LOGGER.warn("Tried to overfill a generated hīnaki");
 								} else {
-									blockEntity.setBait(null, bait);
+									blockEntity.addBait(null, bait);
 								}
 
 								break;

@@ -8,6 +8,10 @@ import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,9 +20,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SingleStackInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -37,7 +38,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Function;
 
-public class HiinakiBlockEntity extends BlockEntity implements SingleStackInventory {
+@SuppressWarnings("UnstableApiUsage")
+public class HiinakiBlockEntity extends BlockEntity implements BlockApiLookup.BlockEntityApiProvider<Storage<ItemVariant>, Direction> {
 	public static final String BAIT_KEY = "Bait";
 	public static final String TRAPPED_ENTITY_KEY = "TrappedEntity";
 
@@ -45,6 +47,7 @@ public class HiinakiBlockEntity extends BlockEntity implements SingleStackInvent
 	public static final String TICKS_IN_HIINAKI_KEY = "TicksInHiinaki";
 
 	protected ItemStack bait = ItemStack.EMPTY;
+	protected final BaitStorage baitStorage = new BaitStorage();
 
 	@Nullable
 	protected TrappedEntity trappedEntity;
@@ -64,6 +67,11 @@ public class HiinakiBlockEntity extends BlockEntity implements SingleStackInvent
 
 	public HiinakiBlockEntity(BlockPos pos, BlockState state) {
 		this(TaiaoBlockEntities.HIINAKI, pos, state);
+	}
+
+	@Override
+	public Storage<ItemVariant> find(BlockEntity blockEntity, Direction face) {
+		return this.baitStorage;
 	}
 
 	/**
@@ -113,8 +121,8 @@ public class HiinakiBlockEntity extends BlockEntity implements SingleStackInvent
 	 * @param user the entity adding bait
 	 * @param bait the bait to add - must be in {@link TaiaoItemTags#HIINAKI_BAIT}
 	 */
-	public void setBait(@Nullable Entity user, @NotNull ItemStack bait) {
-		if (this.isValid(0, bait)) {
+	public void addBait(@Nullable Entity user, @NotNull ItemStack bait) {
+		if (!bait.isEmpty() && this.bait.isEmpty() && bait.isIn(TaiaoItemTags.HIINAKI_BAIT)) {
 			this.bait = bait.split(1);
 
 			this.blockChanged(user);
@@ -407,44 +415,6 @@ public class HiinakiBlockEntity extends BlockEntity implements SingleStackInvent
 		return BlockEntityUpdateS2CPacket.create(this);
 	}
 
-	// Inventory implementation
-
-	@Override
-	public ItemStack getStack(int slot) {
-		return slot == 0 ? this.bait : ItemStack.EMPTY;
-	}
-
-	@Override
-	public ItemStack removeStack(int slot, int amount) {
-		if (slot != 0) return ItemStack.EMPTY;
-
-		return this.removeBait(null);
-	}
-
-	@Override
-	public void setStack(int slot, ItemStack bait) {
-		if (slot != 0 || (this.bait.isEmpty() == bait.isEmpty())) return;
-
-		this.setBait(null, bait);
-	}
-
-	@Override
-	public boolean isValid(int slot, ItemStack stack) {
-		return slot == 0
-			&& this.bait.isEmpty()
-			&& (stack.isEmpty() || (!this.hasTrappedEntity() && stack.isIn(TaiaoItemTags.HIINAKI_BAIT)));
-	}
-
-	@Override
-	public int getMaxCountPerStack() {
-		return 1;
-	}
-
-	@Override
-	public boolean canPlayerUse(PlayerEntity player) {
-		return Inventory.canPlayerUse(this, player);
-	}
-
 	protected static class TrappedEntity {
 		final NbtCompound nbt;
 		int ticksInHiinaki;
@@ -458,6 +428,35 @@ public class HiinakiBlockEntity extends BlockEntity implements SingleStackInvent
 
 			this.nbt = nbt;
 			this.ticksInHiinaki = ticksInHiinaki;
+		}
+	}
+
+	@SuppressWarnings("UnstableApiUsage")
+	public class BaitStorage extends SingleStackStorage {
+		@Override
+		protected ItemStack getStack() {
+			return HiinakiBlockEntity.this.bait;
+		}
+
+		@Override
+		protected void setStack(ItemStack stack) {
+			HiinakiBlockEntity.this.bait = stack;
+		}
+
+		@SuppressWarnings("deprecation")
+		@Override
+		protected boolean canInsert(@NotNull ItemVariant variant) {
+			return variant.getItem().getRegistryEntry().isIn(TaiaoItemTags.HIINAKI_BAIT);
+		}
+
+		@Override
+		protected int getCapacity(@NotNull ItemVariant variant) {
+			return Math.min(1, variant.getItem().getMaxCount());
+		}
+
+		@Override
+		protected void onFinalCommit() {
+			HiinakiBlockEntity.this.blockChanged(null);
 		}
 	}
 }

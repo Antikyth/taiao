@@ -367,7 +367,7 @@ public class HiinakiBlock extends BlockWithEntity {
 				if (!world.isClient) {
 					ItemStack bait = player.getAbilities().creativeMode ? stack.copy() : stack;
 
-					blockEntity.setBait(player, bait);
+					blockEntity.addBait(player, bait);
 					player.incrementStat(TaiaoStats.HIINAKI_BAIT_ADDED);
 
 					return ActionResult.success(true);

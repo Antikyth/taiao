@@ -42,6 +42,7 @@ public class TaiaoBlockEntities {
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered block entity types");
 
+		ItemStorage.SIDED.registerSelf(HIINAKI);
 		ItemStorage.SIDED.registerSelf(HAASTS_EAGLE_NEST);
 	}
 
