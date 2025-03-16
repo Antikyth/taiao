@@ -8,10 +8,10 @@ import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
-import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 @SuppressWarnings("UnstableApiUsage")
-public class HiinakiBlockEntity extends BlockEntity implements BlockApiLookup.BlockEntityApiProvider<Storage<ItemVariant>, Direction> {
+public class HiinakiBlockEntity extends BlockEntity implements BlockEntityWithTicker, SidedStorageBlockEntity {
 	public static final String BAIT_KEY = "Bait";
 	public static final String TRAPPED_ENTITY_KEY = "TrappedEntity";
 
@@ -70,7 +70,7 @@ public class HiinakiBlockEntity extends BlockEntity implements BlockApiLookup.Bl
 	}
 
 	@Override
-	public Storage<ItemVariant> find(BlockEntity blockEntity, Direction face) {
+	public Storage<ItemVariant> getItemStorage(@Nullable Direction side) {
 		return this.baitStorage;
 	}
 
@@ -322,25 +322,17 @@ public class HiinakiBlockEntity extends BlockEntity implements BlockApiLookup.Bl
 	// has had to be disabled because the animations are super flickery - seemingly the `tickDelta` passed to the
 	// renderer is not the correct `tickDelta` to use for entity animations. It would be nice to fix this in the future,
 	// if possible.
-//	public static void clientTick(
-//		World ignoredWorld,
-//		BlockPos ignoredPos,
-//		BlockState ignoredState,
-//		@NotNull HiinakiBlockEntity blockEntity
-//	) {
-//		if (blockEntity.renderedEntity != null) {
-//			blockEntity.renderedEntity.age++;
+//	@Override
+//	public void clientTick(World world, BlockPos pos, BlockState state) {
+//		if (this.renderedEntity != null) {
+//			this.renderedEntity.age++;
 //		}
 //	}
 
-	public static void serverTick(
-		World ignoredWorld,
-		BlockPos ignoredPos,
-		BlockState ignoredState,
-		@NotNull HiinakiBlockEntity blockEntity
-	) {
-		if (blockEntity.trappedEntity != null) {
-			blockEntity.trappedEntity.ticksInHiinaki++;
+	@Override
+	public void serverTick(World world, BlockPos pos, BlockState state) {
+		if (this.trappedEntity != null) {
+			this.trappedEntity.ticksInHiinaki++;
 		}
 	}
 

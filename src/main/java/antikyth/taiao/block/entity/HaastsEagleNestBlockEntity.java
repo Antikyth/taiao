@@ -7,10 +7,10 @@ package antikyth.taiao.block.entity;
 import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.block.state.HaastsEagleEggStage;
 import antikyth.taiao.entity.TaiaoEntities;
-import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -35,8 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.Function;
 
 @SuppressWarnings("UnstableApiUsage")
-public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEntityWithTicker,
-	BlockApiLookup.BlockEntityApiProvider<Storage<ItemVariant>, Direction> {
+public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEntityWithTicker, SidedStorageBlockEntity {
 	public static final String CHICK_KEY = "Chick";
 
 	protected @Nullable Chick chick;
@@ -52,7 +51,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	}
 
 	@Override
-	public Storage<ItemVariant> find(BlockEntity blockEntity, Direction face) {
+	public Storage<ItemVariant> getItemStorage(@Nullable Direction side) {
 		return this.eggStorage;
 	}
 
@@ -105,6 +104,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 			// TODO: set position, angle, and spawn in world
 
+			this.markDirty(true);
 			this.blockChanged(world, pos, state, entity);
 		}
 	}
@@ -142,10 +142,8 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	 * Called when the block contents have changed but the state has not.
 	 * <p>
 	 * This
-	 * {@linkplain HaastsEagleNestBlockEntity#markDirty() marks the block entity as dirty}
-	 * (triggering a {@linkplain World#updateComparators comparator update}),
 	 * {@linkplain World#updateListeners updates listeners}
-	 * (triggering a {@linkplain HaastsEagleNestBlockEntity#toUpdatePacket server-to-client update packet}),
+	 * (triggering a {@linkplain HaastsEagleNestBlockEntity#toUpdatePacket server-to-client update packet})
 	 * and emits a {@link GameEvent#BLOCK_CHANGE}.
 	 *
 	 * @param source the entity that triggered this update, if any (e.g. the player or a hatched
@@ -156,8 +154,6 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
 			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(source, state));
 		}
-
-		this.markDirty();
 	}
 
 	protected void updateState(@NotNull World world, BlockPos pos, BlockState state, @Nullable Entity source) {
@@ -165,8 +161,6 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			world.setBlockState(pos, state, Block.NOTIFY_ALL);
 			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(source, state));
 		}
-
-		this.markDirty();
 	}
 
 	/**

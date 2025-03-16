@@ -6,6 +6,7 @@ package antikyth.taiao.block;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.advancement.criteria.TaiaoCriteria;
+import antikyth.taiao.block.entity.BlockEntityWithTicker;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.entity.HiinakiDummyBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
@@ -590,12 +591,6 @@ public class HiinakiBlock extends BlockWithEntity {
 		BlockState state,
 		BlockEntityType<T> type
 	) {
-//		return checkType(
-//			type,
-//			TaiaoBlockEntities.HIINAKI,
-//			world.isClient ? HiinakiBlockEntity::clientTick : HiinakiBlockEntity::serverTick
-//		);
-
-		return world.isClient ? null : checkType(type, TaiaoBlockEntities.HIINAKI, HiinakiBlockEntity::serverTick);
+		return world.isClient ? null : checkType(type, TaiaoBlockEntities.HIINAKI, BlockEntityWithTicker::serverTicker);
 	}
 }
