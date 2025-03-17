@@ -5,7 +5,7 @@
 package antikyth.taiao.block.entity;
 
 import antikyth.taiao.block.HaastsEagleNestBlock;
-import antikyth.taiao.block.state.HaastsEagleEggStage;
+import antikyth.taiao.block.state.HaastsEagleNestContents;
 import antikyth.taiao.entity.TaiaoEntities;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
@@ -18,6 +18,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -31,8 +32,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Function;
 
 @SuppressWarnings("UnstableApiUsage")
 public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEntityWithTicker, SidedStorageBlockEntity {
@@ -86,7 +85,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		if (this.chick == null) {
 			this.chick = createChick();
 
-			this.markDirty();
+			this.markDirty(true);
 		}
 	}
 
@@ -105,7 +104,9 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			// TODO: set position, angle, and spawn in world
 
 			this.markDirty(true);
-			this.blockChanged(world, pos, state, entity);
+
+			HaastsEagleNestContents nextStage = state.get(HaastsEagleNestBlock.CONTENTS).nextStage();
+			this.updateState(world, pos, state.with(HaastsEagleNestBlock.CONTENTS, nextStage), entity);
 		}
 	}
 
@@ -118,7 +119,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		EntityType<?> entityType = TaiaoEntities.HAASTS_EAGLE;
 		entityNbt.putString("id", Registries.ENTITY_TYPE.getId(entityType).toString());
 		// Baby
-		entityNbt.putInt("Age", -24000);
+		entityNbt.putInt("Age", -Chick.getMinTicksInNestForRelease());
 
 		return new Chick(entityNbt, false);
 	}
@@ -139,23 +140,19 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	}
 
 	/**
-	 * Called when the block contents have changed but the state has not.
+	 * Updates the nest's block state and emits a {@link GameEvent#BLOCK_CHANGE}.
 	 * <p>
-	 * This
-	 * {@linkplain World#updateListeners updates listeners}
-	 * (triggering a {@linkplain HaastsEagleNestBlockEntity#toUpdatePacket server-to-client update packet})
-	 * and emits a {@link GameEvent#BLOCK_CHANGE}.
+	 * Updating the block state triggers a neighbor update which in turn triggers a
+	 * {@linkplain HaastsEagleNestBlockEntity#toUpdatePacket server-to-client update packet}.
+	 * <p>
+	 * This does not call {@link HaastsEagleNestBlockEntity#markDirty}. If the block entity's data
+	 * has also changed, in addition to the block state being updated, you'll want to call
+	 * {@link HaastsEagleNestBlockEntity#markDirty} before calling this method.
 	 *
-	 * @param source the entity that triggered this update, if any (e.g. the player or a hatched
-	 *               chick)
+	 * @param state  the new block state
+	 * @param source the source entity used for the {@link GameEvent.Emitter} of the
+	 *               {@link GameEvent#BLOCK_CHANGE}
 	 */
-	protected void blockChanged(@NotNull World world, BlockPos pos, BlockState state, @Nullable Entity source) {
-		if (world.getBlockState(pos) == state) {
-			world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
-			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(source, state));
-		}
-	}
-
 	protected void updateState(@NotNull World world, BlockPos pos, BlockState state, @Nullable Entity source) {
 		if (world.getBlockState(pos) == this.getCachedState()) {
 			world.setBlockState(pos, state, Block.NOTIFY_ALL);
@@ -188,7 +185,6 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	 *
 	 * @see HaastsEagleNestBlockEntity#markDirtyWithoutComparatorUpdate(World, BlockPos)
 	 * @see HaastsEagleNestBlockEntity#markDirty()
-	 * @see HaastsEagleNestBlockEntity#blockChanged(World, BlockPos, BlockState, Entity)
 	 */
 	protected void markDirtyWithoutComparatorUpdate() {
 		if (this.world != null) {
@@ -206,7 +202,6 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	 *
 	 * @see HaastsEagleNestBlockEntity#markDirtyWithoutComparatorUpdate()
 	 * @see HaastsEagleNestBlockEntity#markDirty(World, BlockPos, BlockState)
-	 * @see HaastsEagleNestBlockEntity#blockChanged(World, BlockPos, BlockState, Entity)
 	 */
 	protected void markDirtyWithoutComparatorUpdate(@NotNull World world, BlockPos pos) {
 		markDirty(world, pos, Blocks.AIR.getDefaultState());
@@ -342,12 +337,12 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		void recalculateComparatorOutput() {
 			this.prevComparatorOutput = this.latestComparatorOutput;
 
-			int eggStageCount = HaastsEagleEggStage.values().length;
+			int chickId = HaastsEagleNestContents.CHICK.ordinal();
 			// The number of signals left after accounting for egg signals
-			int signalRange = 15 - eggStageCount;
+			int signalRange = 15 - chickId;
 			int progress = this.getTicksBeenInNest() * signalRange / getMinTicksInNestForRelease();
 
-			this.latestComparatorOutput = eggStageCount + progress;
+			this.latestComparatorOutput = chickId + progress;
 		}
 
 		/**
@@ -369,7 +364,22 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		 * Converts the chick into an {@link Entity} ready to be released into the {@code world}.
 		 */
 		public Entity createReleasedEntity(World world) {
-			return EntityType.loadEntityWithPassengers(this.nbt, world, Function.identity());
+			return EntityType.loadEntityWithPassengers(
+				this.nbt,
+				world,
+				entity -> {
+					if (entity instanceof PassiveEntity passive) {
+						// If released early, age will be between -24_000 to -12_000.
+						// If released on time, age will be -12_000.
+						int ticksLeft = Math.min(this.getTicksLeftInNest(), 0);
+						int age = (getMinTicksInNestForRelease() + ticksLeft) / 2;
+
+						passive.setBreedingAge(-age);
+					}
+
+					return entity;
+				}
+			);
 		}
 
 		public Entity getOrCreateRenderedEntity(World world) {
@@ -414,14 +424,14 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	}
 
 	/**
-	 * {@link Storage} for treating the {@link HaastsEagleNestBlock#EGG_STAGE} as a stored item.
+	 * {@link Storage} for treating the {@link HaastsEagleNestBlock#CONTENTS} as a stored item.
 	 */
 	@SuppressWarnings("UnstableApiUsage")
 	public class EggStorage extends SingleStackStorage {
 		@Override
 		protected ItemStack getStack() {
 			BlockState state = HaastsEagleNestBlockEntity.this.getCachedState();
-			HaastsEagleEggStage stage = state.get(HaastsEagleNestBlock.EGG_STAGE);
+			HaastsEagleNestContents stage = state.get(HaastsEagleNestBlock.CONTENTS);
 
 			return stage.createEggStack();
 		}
@@ -431,7 +441,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 			World world = HaastsEagleNestBlockEntity.this.world;
 
 			if (world != null) {
-				HaastsEagleEggStage stage = HaastsEagleEggStage.getStageForStack(stack);
+				HaastsEagleNestContents stage = HaastsEagleNestContents.getStageForStack(stack);
 
 				if (stage != null) {
 					BlockState state = HaastsEagleNestBlockEntity.this.getCachedState();
@@ -440,7 +450,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 					HaastsEagleNestBlockEntity.this.updateState(
 						world,
 						pos,
-						state.with(HaastsEagleNestBlock.EGG_STAGE, stage),
+						state.with(HaastsEagleNestBlock.CONTENTS, stage),
 						null
 					);
 				}
@@ -449,12 +459,15 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 		@Override
 		protected boolean canInsert(@NotNull ItemVariant variant) {
-			return HaastsEagleNestBlockEntity.this.hasWorld() && HaastsEagleEggStage.isValidEgg(variant);
+			return HaastsEagleNestBlockEntity.this.hasWorld()
+				&& !HaastsEagleNestBlockEntity.this.hasChick()
+				&& HaastsEagleNestContents.isValidEgg(variant);
 		}
 
 		@Override
 		protected boolean canExtract(ItemVariant variant) {
-			return HaastsEagleNestBlockEntity.this.hasWorld();
+			return HaastsEagleNestBlockEntity.this.hasWorld()
+				&& !HaastsEagleNestBlockEntity.this.hasChick();
 		}
 
 		@Override

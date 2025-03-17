@@ -254,7 +254,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 	}
 
 	public static void registerHaastsEagleNest(@NotNull BlockStateModelGenerator generator, Block block) {
-		Identifier noneModel = TaiaoModels.LARGE_BIRD_NEST.upload(
+		Identifier emptyModel = TaiaoModels.LARGE_BIRD_NEST.upload(
 			block,
 			TaiaoTextures.Maps.largeBirdNest(block),
 			generator.modelCollector
@@ -279,24 +279,24 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		generator.registerItemModel(block.asItem());
 
+		BlockStateVariant emptyVariant = BlockStateVariant.create().put(VariantSettings.MODEL, emptyModel);
+
 		generator.blockStateCollector.accept(
 			VariantsBlockStateSupplier.create(block)
 				.coordinate(
-					BlockStateVariantMap.create(TaiaoStateProperties.EGG_STAGE)
+					BlockStateVariantMap.create(TaiaoStateProperties.HAASTS_EAGLE_NEST_CONTENTS)
+						.register(HaastsEagleNestContents.EMPTY, emptyVariant)
+						.register(HaastsEagleNestContents.CHICK, emptyVariant)
 						.register(
-							HaastsEagleEggStage.NONE,
-							BlockStateVariant.create().put(VariantSettings.MODEL, noneModel)
-						)
-						.register(
-							HaastsEagleEggStage.INTACT,
+							HaastsEagleNestContents.INTACT_EGG,
 							BlockStateVariant.create().put(VariantSettings.MODEL, intactModel)
 						)
 						.register(
-							HaastsEagleEggStage.PARTIALLY_CRACKED,
+							HaastsEagleNestContents.PARTIALLY_CRACKED_EGG,
 							BlockStateVariant.create().put(VariantSettings.MODEL, partiallyCrackedModel)
 						)
 						.register(
-							HaastsEagleEggStage.CRACKED,
+							HaastsEagleNestContents.CRACKED_EGG,
 							BlockStateVariant.create().put(VariantSettings.MODEL, crackedModel)
 						)
 				)

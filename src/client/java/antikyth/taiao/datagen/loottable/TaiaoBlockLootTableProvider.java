@@ -10,7 +10,7 @@ import antikyth.taiao.block.TaiaoBlocks;
 import antikyth.taiao.block.entity.HiinakiBlockEntity;
 import antikyth.taiao.block.leaves.FruitLeavesBlock;
 import antikyth.taiao.block.plant.TripleTallPlantBlock;
-import antikyth.taiao.block.state.HaastsEagleEggStage;
+import antikyth.taiao.block.state.HaastsEagleNestContents;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.LongBlockHalf;
 import antikyth.taiao.block.state.TripleBlockPart;
@@ -227,7 +227,7 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 			);
 
 		// Add drops for each egg stage
-		for (HaastsEagleEggStage stage : HaastsEagleEggStage.values()) {
+		for (HaastsEagleNestContents stage : HaastsEagleNestContents.values()) {
 			ItemConvertible egg = stage.getEggItem();
 
 			if (egg != null) {
@@ -237,7 +237,7 @@ public class TaiaoBlockLootTableProvider extends FabricBlockLootTableProvider {
 							BlockStatePropertyLootCondition.builder(nest)
 								.properties(
 									StatePredicate.Builder.create()
-										.exactMatch(HaastsEagleNestBlock.EGG_STAGE, stage)
+										.exactMatch(HaastsEagleNestBlock.CONTENTS, stage)
 								)
 						)
 				);

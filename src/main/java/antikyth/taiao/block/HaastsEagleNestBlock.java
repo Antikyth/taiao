@@ -7,7 +7,7 @@ package antikyth.taiao.block;
 import antikyth.taiao.block.entity.BlockEntityWithTicker;
 import antikyth.taiao.block.entity.HaastsEagleNestBlockEntity;
 import antikyth.taiao.block.entity.TaiaoBlockEntities;
-import antikyth.taiao.block.state.HaastsEagleEggStage;
+import antikyth.taiao.block.state.HaastsEagleNestContents;
 import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.block.state.TaiaoStateProperties;
 import antikyth.taiao.item.TaiaoItemTags;
@@ -44,12 +44,10 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Optional;
-
 @SuppressWarnings("deprecation")
 public class HaastsEagleNestBlock extends BlockWithEntity {
 	public static final EnumProperty<HorizontalDoubleSquareBlockPart> PART = TaiaoStateProperties.HORIZONTAL_DOUBLE_SQUARE_BLOCK_PART;
-	public static final EnumProperty<HaastsEagleEggStage> EGG_STAGE = TaiaoStateProperties.EGG_STAGE;
+	public static final EnumProperty<HaastsEagleNestContents> CONTENTS = TaiaoStateProperties.HAASTS_EAGLE_NEST_CONTENTS;
 
 	protected static final VoxelShape NORTH_WEST_SHAPE = VoxelShapes.combineAndSimplify(
 		createCuboidShape(2f, 0f, 2f, 16f, 8f, 16f),
@@ -95,7 +93,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		this.setDefaultState(
 			this.getDefaultState()
 				.with(PART, HorizontalDoubleSquareBlockPart.NORTH_WEST)
-				.with(EGG_STAGE, HaastsEagleEggStage.NONE)
+				.with(CONTENTS, HaastsEagleNestContents.EMPTY)
 		);
 	}
 
@@ -143,12 +141,12 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 
 			chick.setHasBeenFed(true);
 		} else {
-			HaastsEagleEggStage stage = state.get(EGG_STAGE);
+			HaastsEagleNestContents stage = state.get(CONTENTS);
 
 			if (stage.hasEgg()) {
 				// Remove egg
 				if (!world.isClient) {
-					updateState(world, pos, state.with(EGG_STAGE, HaastsEagleEggStage.NONE), player);
+					updateState(world, pos, state.with(CONTENTS, HaastsEagleNestContents.EMPTY), player);
 
 					ItemStack egg = stage.createEggStack();
 					if (!player.getInventory().insertStack(egg)) {
@@ -159,15 +157,15 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 				}
 
 				return ActionResult.success(false);
-			} else if (!stack.isEmpty() && chick == null) {
-				HaastsEagleEggStage eggStage = HaastsEagleEggStage.getStageForStack(stack);
+			} else if (!stack.isEmpty() && !stage.hasChick()) {
+				HaastsEagleNestContents eggStage = HaastsEagleNestContents.getStageForStack(stack);
 
 				if (eggStage != null) {
 					// Add egg
 					if (!world.isClient) {
 						if (!player.isCreative()) stack.decrement(1);
 
-						updateState(world, pos, state.with(EGG_STAGE, eggStage), player);
+						updateState(world, pos, state.with(CONTENTS, eggStage), player);
 
 						return ActionResult.success(true);
 					}
@@ -182,37 +180,28 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 
 	@Override
 	public boolean hasRandomTicks(@NotNull BlockState state) {
-		return state.get(EGG_STAGE).hasEgg();
+		return state.get(CONTENTS).hasEgg();
 	}
 
 	@Override
 	public void randomTick(@NotNull BlockState state, ServerWorld world, BlockPos pos, @NotNull Random random) {
-		HaastsEagleEggStage stage = state.get(EGG_STAGE);
+		HaastsEagleNestContents stage = state.get(CONTENTS);
 		// 1/chanceReciprocal chance to incubate
 		int chanceReciprocal = 25;
 
 		if (stage.hasEgg() && random.nextInt(chanceReciprocal) == 0) {
-			Optional<HaastsEagleNestBlockEntity> blockEntity = world.getBlockEntity(
-				pos,
-				TaiaoBlockEntities.HAASTS_EAGLE_NEST
-			);
-			boolean alreadyHasChick = blockEntity.map(HaastsEagleNestBlockEntity::hasChick).orElse(false);
+			SoundEvent sound = stage.isReadyToHatch()
+				? TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH
+				: TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK;
+			world.playSound(null, pos, sound, SoundCategory.BLOCKS, 0.7f, 0.9f + random.nextFloat() * 0.2f);
 
-			// Only hatch if there isn't an existing chick (there shouldn't be but just to be
-			// sure)
-			if (!(stage.isReadyToHatch() && alreadyHasChick)) {
-				SoundEvent sound = stage.isReadyToHatch()
-					? TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH
-					: TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK;
-				world.playSound(null, pos, sound, SoundCategory.BLOCKS, 0.7f, 0.9f + random.nextFloat() * 0.2f);
-
-				// Hatch a chick if this was the final stage
-				if (stage.isReadyToHatch()) {
-					blockEntity.ifPresent(HaastsEagleNestBlockEntity::hatchChick);
-				}
-
-				updateState(world, pos, state.with(EGG_STAGE, stage.nextStage()));
+			// Hatch a chick if this was the final stage
+			if (stage.isReadyToHatch()) {
+				world.getBlockEntity(pos, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
+					.ifPresent(HaastsEagleNestBlockEntity::hatchChick);
 			}
+
+			updateState(world, pos, state.with(CONTENTS, stage.nextStage()));
 		}
 	}
 
@@ -232,7 +221,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 
 	@Override
 	public VoxelShape getOutlineShape(@NotNull BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return getShape(state.get(PART), state.get(EGG_STAGE).hasEgg());
+		return getShape(state.get(PART), state.get(CONTENTS).hasEgg());
 	}
 
 	// Give the egg no collision, so the adult eagle can still sit in the nest snugly
@@ -260,7 +249,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		super.appendProperties(builder);
 
-		builder.add(PART, EGG_STAGE);
+		builder.add(PART, CONTENTS);
 	}
 
 	@Override
@@ -274,7 +263,7 @@ public class HaastsEagleNestBlock extends BlockWithEntity {
 		return world.getBlockEntity(pos, TaiaoBlockEntities.HAASTS_EAGLE_NEST)
 			.map(HaastsEagleNestBlockEntity::getChick)
 			.map(HaastsEagleNestBlockEntity.Chick::getComparatorOutput)
-			.orElse(state.get(EGG_STAGE).ordinal());
+			.orElse(state.get(CONTENTS).ordinal());
 	}
 
 	@Override
