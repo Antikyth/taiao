@@ -60,6 +60,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 @SuppressWarnings("deprecation")
 public class HiinakiBlock extends BlockWithEntity {
@@ -103,143 +104,13 @@ public class HiinakiBlock extends BlockWithEntity {
 
 	@Override
 	public int getComparatorOutput(@NotNull BlockState state, @NotNull World world, BlockPos pos) {
-		int output = world.getBlockEntity(getFront(state, pos), TaiaoBlockEntities.HIINAKI)
+		int output = getBlockEntity(world, pos, state)
 			.map(HiinakiBlockEntity::getComparatorOutput)
 			.orElse(0);
 
 		return output + (state.get(WATERLOGGED) ? 8 : 0);
 	}
 
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
-		super.appendTooltip(stack, world, tooltip, options);
-
-		NbtCompound nbt = BlockItem.getBlockEntityNbt(stack);
-		if (nbt != null) {
-			Identifier entityId = getTrappedEntityIdForTooltip(nbt);
-			if (entityId != null) {
-				// Trapped entity
-				tooltip.add(getTrappedEntityNameForTooltip(entityId));
-				if (options.isAdvanced()) {
-					tooltip.add(Text.literal(entityId.toString()).formatted(Formatting.DARK_GRAY));
-				}
-
-				tooltip.add(ScreenTexts.EMPTY);
-
-				tooltip.add(
-					Text.translatable(this.getTranslationKey() + ".desc.hurt1")
-						.formatted(Formatting.GRAY)
-				);
-				tooltip.add(
-					ScreenTexts.space()
-						.append(Text.translatable(this.getTranslationKey() + ".desc.hurt2"))
-						.formatted(Formatting.BLUE)
-				);
-
-				tooltip.add(
-					Text.translatable(this.getTranslationKey() + ".desc.free1")
-						.formatted(Formatting.GRAY)
-				);
-				tooltip.add(
-					ScreenTexts.space()
-						.append(Text.translatable(this.getTranslationKey() + ".desc.free2"))
-						.formatted(Formatting.BLUE)
-				);
-
-				return;
-			}
-
-			Identifier baitId = getBaitIdForTooltip(nbt);
-			if (baitId != null) {
-				// Bait
-				tooltip.add(getBaitNameForTooltip(nbt));
-				if (options.isAdvanced()) {
-					tooltip.add(Text.literal(baitId.toString()).formatted(Formatting.DARK_GRAY));
-				}
-
-				tooltip.add(ScreenTexts.EMPTY);
-
-				tooltip.add(
-					Text.translatable(this.getTranslationKey() + ".desc.activate1")
-						.formatted(Formatting.GRAY)
-				);
-				tooltip.add(
-					ScreenTexts.space()
-						.append(Text.translatable(this.getTranslationKey() + ".desc.activate2"))
-						.formatted(Formatting.BLUE)
-				);
-
-				tooltip.add(
-					Text.translatable(this.getTranslationKey() + ".desc.remove_bait1")
-						.formatted(Formatting.GRAY)
-				);
-				tooltip.add(
-					ScreenTexts.space()
-						.append(Text.translatable(this.getTranslationKey() + ".desc.remove_bait2"))
-						.formatted(Formatting.BLUE)
-				);
-
-				return;
-			}
-		}
-
-		// Empty
-
-		tooltip.add(
-			Text.translatable(this.getTranslationKey() + ".desc.add_bait1")
-				.formatted(Formatting.GRAY)
-		);
-		tooltip.add(
-			ScreenTexts.space()
-				.append(Text.translatable(this.getTranslationKey() + ".desc.add_bait2"))
-				.formatted(Formatting.BLUE)
-		);
-
-		tooltip.add(
-			Text.translatable(this.getTranslationKey() + ".desc.activate_with_bait1")
-				.formatted(Formatting.GRAY)
-		);
-		tooltip.add(
-			ScreenTexts.space()
-				.append(Text.translatable(this.getTranslationKey() + ".desc.activate_with_bait2"))
-				.formatted(Formatting.BLUE)
-		);
-	}
-
-	protected static @Nullable Identifier getTrappedEntityIdForTooltip(@NotNull NbtCompound nbt) {
-		if (nbt.contains(HiinakiBlockEntity.TRAPPED_ENTITY_KEY, NbtElement.COMPOUND_TYPE)) {
-			NbtCompound trappedEntityNbt = nbt.getCompound(HiinakiBlockEntity.TRAPPED_ENTITY_KEY);
-			NbtCompound entityNbt = trappedEntityNbt.getCompound(HiinakiBlockEntity.ENTITY_DATA_KEY);
-
-			return Identifier.tryParse(entityNbt.getString("id"));
-		}
-
-		return null;
-	}
-
-	protected static @Nullable Text getTrappedEntityNameForTooltip(@Nullable Identifier entityId) {
-		if (entityId != null) {
-			return Registries.ENTITY_TYPE.getOrEmpty(entityId)
-				.map(entityType -> Text.translatable(entityType.getTranslationKey()).formatted(Formatting.GRAY))
-				.orElse(null);
-		} else {
-			return null;
-		}
-	}
-
-	protected static @Nullable Identifier getBaitIdForTooltip(@NotNull NbtCompound nbt) {
-		NbtCompound bait = nbt.getCompound(HiinakiBlockEntity.BAIT_KEY);
-		ItemStack stack = ItemStack.fromNbt(bait);
-
-		return stack.isEmpty() ? null : Registries.ITEM.getId(stack.getItem());
-	}
-
-	protected static @Nullable Text getBaitNameForTooltip(@NotNull NbtCompound nbt) {
-		NbtCompound bait = nbt.getCompound(HiinakiBlockEntity.BAIT_KEY);
-		ItemStack stack = ItemStack.fromNbt(bait);
-
-		return stack.isEmpty() ? null : Text.empty().append(stack.getName()).formatted(Formatting.GRAY);
-	}
 
 	@Override
 	public @Nullable BlockEntity createBlockEntity(BlockPos pos, @NotNull BlockState state) {
@@ -257,12 +128,16 @@ public class HiinakiBlock extends BlockWithEntity {
 		}
 	}
 
-	protected static @Nullable BlockEntity getBlockEntity(
-		@NotNull BlockView world,
+	/**
+	 * Returns the {@link HiinakiBlockEntity} at the front of the hīnaki, if it exists.
+	 */
+	public static Optional<HiinakiBlockEntity> getBlockEntity(
+		@Nullable BlockView world,
 		BlockPos pos,
 		@NotNull BlockState state
 	) {
-		return world.getBlockEntity(getFront(state, pos));
+		return Optional.ofNullable(world)
+			.flatMap(view -> view.getBlockEntity(getFront(state, pos), TaiaoBlockEntities.HIINAKI));
 	}
 
 	/**
@@ -339,7 +214,7 @@ public class HiinakiBlock extends BlockWithEntity {
 		Hand hand,
 		BlockHitResult hit
 	) {
-		if (getBlockEntity(world, pos, state) instanceof HiinakiBlockEntity blockEntity) {
+		return getBlockEntity(world, pos, state).map(blockEntity -> {
 			ItemStack stack = player.getStackInHand(hand);
 
 			if (blockEntity.hasTrappedEntity()) {
@@ -376,9 +251,9 @@ public class HiinakiBlock extends BlockWithEntity {
 
 				return ActionResult.success(false);
 			}
-		}
 
-		return ActionResult.PASS;
+			return null;
+		}).orElse(ActionResult.PASS);
 	}
 
 	@Override
@@ -592,5 +467,136 @@ public class HiinakiBlock extends BlockWithEntity {
 		BlockEntityType<T> type
 	) {
 		return world.isClient ? null : checkType(type, TaiaoBlockEntities.HIINAKI, BlockEntityWithTicker::serverTicker);
+	}
+
+	@Override
+	public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+		super.appendTooltip(stack, world, tooltip, options);
+
+		NbtCompound nbt = BlockItem.getBlockEntityNbt(stack);
+		if (nbt != null) {
+			Identifier entityId = getTrappedEntityIdForTooltip(nbt);
+			if (entityId != null) {
+				// Trapped entity
+				tooltip.add(getTrappedEntityNameForTooltip(entityId));
+				if (options.isAdvanced()) {
+					tooltip.add(Text.literal(entityId.toString()).formatted(Formatting.DARK_GRAY));
+				}
+
+				tooltip.add(ScreenTexts.EMPTY);
+
+				tooltip.add(
+					Text.translatable(this.getTranslationKey() + ".desc.hurt1")
+						.formatted(Formatting.GRAY)
+				);
+				tooltip.add(
+					ScreenTexts.space()
+						.append(Text.translatable(this.getTranslationKey() + ".desc.hurt2"))
+						.formatted(Formatting.BLUE)
+				);
+
+				tooltip.add(
+					Text.translatable(this.getTranslationKey() + ".desc.free1")
+						.formatted(Formatting.GRAY)
+				);
+				tooltip.add(
+					ScreenTexts.space()
+						.append(Text.translatable(this.getTranslationKey() + ".desc.free2"))
+						.formatted(Formatting.BLUE)
+				);
+
+				return;
+			}
+
+			Identifier baitId = getBaitIdForTooltip(nbt);
+			if (baitId != null) {
+				// Bait
+				tooltip.add(getBaitNameForTooltip(nbt));
+				if (options.isAdvanced()) {
+					tooltip.add(Text.literal(baitId.toString()).formatted(Formatting.DARK_GRAY));
+				}
+
+				tooltip.add(ScreenTexts.EMPTY);
+
+				tooltip.add(
+					Text.translatable(this.getTranslationKey() + ".desc.activate1")
+						.formatted(Formatting.GRAY)
+				);
+				tooltip.add(
+					ScreenTexts.space()
+						.append(Text.translatable(this.getTranslationKey() + ".desc.activate2"))
+						.formatted(Formatting.BLUE)
+				);
+
+				tooltip.add(
+					Text.translatable(this.getTranslationKey() + ".desc.remove_bait1")
+						.formatted(Formatting.GRAY)
+				);
+				tooltip.add(
+					ScreenTexts.space()
+						.append(Text.translatable(this.getTranslationKey() + ".desc.remove_bait2"))
+						.formatted(Formatting.BLUE)
+				);
+
+				return;
+			}
+		}
+
+		// Empty
+
+		tooltip.add(
+			Text.translatable(this.getTranslationKey() + ".desc.add_bait1")
+				.formatted(Formatting.GRAY)
+		);
+		tooltip.add(
+			ScreenTexts.space()
+				.append(Text.translatable(this.getTranslationKey() + ".desc.add_bait2"))
+				.formatted(Formatting.BLUE)
+		);
+
+		tooltip.add(
+			Text.translatable(this.getTranslationKey() + ".desc.activate_with_bait1")
+				.formatted(Formatting.GRAY)
+		);
+		tooltip.add(
+			ScreenTexts.space()
+				.append(Text.translatable(this.getTranslationKey() + ".desc.activate_with_bait2"))
+				.formatted(Formatting.BLUE)
+		);
+	}
+
+	protected static @Nullable Identifier getTrappedEntityIdForTooltip(@NotNull NbtCompound nbt) {
+		if (nbt.contains(HiinakiBlockEntity.TRAPPED_ENTITY_KEY, NbtElement.COMPOUND_TYPE)) {
+			NbtCompound trappedEntityNbt = nbt.getCompound(HiinakiBlockEntity.TRAPPED_ENTITY_KEY);
+			NbtCompound entityNbt = trappedEntityNbt.getCompound(HiinakiBlockEntity.ENTITY_DATA_KEY);
+
+			return Identifier.tryParse(entityNbt.getString("id"));
+		}
+
+		return null;
+	}
+
+	protected static @Nullable Text getTrappedEntityNameForTooltip(@Nullable Identifier entityId) {
+		if (entityId != null) {
+			return Registries.ENTITY_TYPE.getOrEmpty(entityId)
+				.map(entityType -> Text.translatable(entityType.getTranslationKey()).formatted(Formatting.GRAY))
+				.orElse(null);
+		} else {
+			return null;
+		}
+	}
+
+	protected static @Nullable Identifier getBaitIdForTooltip(@NotNull NbtCompound nbt) {
+		NbtCompound bait = nbt.getCompound(HiinakiBlockEntity.BAIT_KEY);
+		ItemStack stack = ItemStack.fromNbt(bait);
+
+		return stack.isEmpty() ? null : Registries.ITEM.getId(stack.getItem());
+	}
+
+	protected static @Nullable Text getBaitNameForTooltip(@NotNull NbtCompound nbt) {
+		NbtCompound bait = nbt.getCompound(HiinakiBlockEntity.BAIT_KEY);
+		ItemStack stack = ItemStack.fromNbt(bait);
+
+		return stack.isEmpty() ? null : Text.empty().append(stack.getName()).formatted(Formatting.GRAY);
 	}
 }
