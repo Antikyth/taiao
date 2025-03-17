@@ -98,12 +98,12 @@ public class HiinakiBlock extends BlockWithEntity {
 
 	@Override
 	public boolean hasComparatorOutput(@NotNull BlockState state) {
-		return state.get(HALF) == LongBlockHalf.FRONT;
+		return true;
 	}
 
 	@Override
 	public int getComparatorOutput(@NotNull BlockState state, @NotNull World world, BlockPos pos) {
-		int output = world.getBlockEntity(pos, TaiaoBlockEntities.HIINAKI)
+		int output = world.getBlockEntity(getFront(state, pos), TaiaoBlockEntities.HIINAKI)
 			.map(HiinakiBlockEntity::getComparatorOutput)
 			.orElse(0);
 
