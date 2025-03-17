@@ -4,8 +4,10 @@
 
 package antikyth.taiao.block.entity;
 
+import antikyth.taiao.Taiao;
 import antikyth.taiao.block.HaastsEagleNestBlock;
 import antikyth.taiao.block.state.HaastsEagleNestContents;
+import antikyth.taiao.block.state.HorizontalDoubleSquareBlockPart;
 import antikyth.taiao.entity.TaiaoEntities;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
@@ -28,6 +30,7 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +60,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	/**
 	 * {@return whether there is a chick in the nest}
 	 */
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public boolean hasChick() {
 		return this.chick != null;
 	}
@@ -91,22 +95,36 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 	/**
 	 * Releases the chick from the nest.
-	 *
-	 * @param force whether to force the chick's release even if there isn't enough room
 	 */
-	protected void releaseChick(boolean force, World world, BlockPos pos, BlockState state) {
+	protected void releaseChick(World world, BlockPos pos, BlockState state) {
 		if (this.chick != null) {
-			// TODO: check if there is enough room to release
+			// With the size of a Haast's eagle chick, there will always be enough room within the
+			// whole nest for it to sit, and if it is in the standing pose then there will be enough
+			// room within just this corner of the nest.
 
 			Entity entity = this.chick.createReleasedEntity(world);
-			this.chick = null;
+			HorizontalDoubleSquareBlockPart part = state.get(HaastsEagleNestBlock.PART);
 
-			// TODO: set position, angle, and spawn in world
+			float width = entity.getWidth();
+			// Offset from center
+			double y = -6d / 16d;
+			double z = -4d / 16d + width / 2d;
 
-			this.markDirty(true);
+			float yaw = 90f * part.ordinal() - 45f;
 
-			HaastsEagleNestContents nextStage = state.get(HaastsEagleNestBlock.CONTENTS).nextStage();
-			this.updateState(world, pos, state.with(HaastsEagleNestBlock.CONTENTS, nextStage), entity);
+			Vec3d spawnPos = new Vec3d(0d, y, z);
+			spawnPos = spawnPos.rotateY(Taiao.degreesToRadians(-yaw));
+			spawnPos = spawnPos.add(pos.toCenterPos());
+
+			entity.refreshPositionAndAngles(spawnPos.x, spawnPos.y, spawnPos.z, yaw, 0f);
+
+			if (world.spawnEntity(entity)) {
+				this.chick = null;
+				this.markDirty(true);
+
+				HaastsEagleNestContents nextStage = state.get(HaastsEagleNestBlock.CONTENTS).nextStage();
+				this.updateState(world, pos, state.with(HaastsEagleNestBlock.CONTENTS, nextStage), entity);
+			}
 		}
 	}
 
@@ -129,7 +147,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 		if (this.chick != null) {
 			if (this.chick.isReadyForRelease()) {
 				// Chick is old enough to be released
-				this.releaseChick(false, world, pos, state);
+				this.releaseChick(world, pos, state);
 			} else {
 				// Age the chick
 				this.chick.tick();
@@ -208,9 +226,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbt) {
-		super.readNbt(nbt);
-
+	public void readNbt(@NotNull NbtCompound nbt) {
 		this.chick = nbt.contains(CHICK_KEY, NbtElement.COMPOUND_TYPE)
 			? Chick.fromNbt(nbt.getCompound(CHICK_KEY))
 			: null;
@@ -218,8 +234,6 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 	@Override
 	protected void writeNbt(NbtCompound nbt) {
-		super.writeNbt(nbt);
-
 		// Chick
 		if (this.chick != null) {
 			nbt.put(CHICK_KEY, this.chick.createNbt());
