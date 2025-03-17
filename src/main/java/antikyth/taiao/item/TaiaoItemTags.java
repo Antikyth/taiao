@@ -70,6 +70,11 @@ public final class TaiaoItemTags {
 	public static final TagKey<Item> CONVENTIONAL_SEEDS = createTagKey(Taiao.commonId("seeds"));
 	public static final TagKey<Item> CONVENTIONAL_BERRIES = createTagKey(Taiao.commonId("berries"));
 	public static final TagKey<Item> CONVENTIONAL_VINES = createTagKey(Taiao.commonId("vines"));
+	/**
+	 * Bugs used as {@linkplain TaiaoItemTags#HIINAKI_BAIT hīnaki bait}, such as insects, spiders,
+	 * crickets, worms, etc.
+	 */
+	public static final TagKey<Item> CONVENTIONAL_BUGS = createTagKey(Taiao.commonId("bugs"));
 
 	public static TagKey<Item> createTagKey(@NotNull TagKey<Block> blockTag) {
 		return createTagKey(blockTag.id());

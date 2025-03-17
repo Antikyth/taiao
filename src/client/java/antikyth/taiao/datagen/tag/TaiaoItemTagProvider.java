@@ -45,6 +45,8 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(Items.VINE)
 			.add(Items.WEEPING_VINES)
 			.add(Items.TWISTING_VINES);
+		getOrCreateTagBuilder(TaiaoItemTags.CONVENTIONAL_BUGS)
+			.add(TaiaoItems.WEETAA);
 		getOrCreateTagBuilder(ConventionalItemTags.FOODS)
 			.add(TaiaoItems.CONIFER_FRUIT)
 			.add(TaiaoItems.EEL)
@@ -82,7 +84,7 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 			.add(TaiaoBlocks.WHEKII_PONGA_LEAVES.asItem());
 		getOrCreateTagBuilder(TaiaoItemTags.HIINAKI_BAIT)
 			.addOptionalTag(ConventionalItemTags.FOODS)
-			.add(TaiaoItems.WEETAA)
+			.addTag(TaiaoItemTags.CONVENTIONAL_BUGS)
 			.add(Items.FROGSPAWN);
 
 		// Vanilla tags

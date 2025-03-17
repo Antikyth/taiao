@@ -6,7 +6,6 @@ package antikyth.taiao.block.entity;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.block.TaiaoBlocks;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -38,12 +37,8 @@ public class TaiaoBlockEntities {
 		)
 	);
 
-	@SuppressWarnings("UnstableApiUsage")
 	public static void initialize() {
 		Taiao.LOGGER.debug("Registered block entity types");
-
-		ItemStorage.SIDED.registerSelf(HIINAKI);
-		ItemStorage.SIDED.registerSelf(HAASTS_EAGLE_NEST);
 	}
 
 	public static <T extends BlockEntity> BlockEntityType<T> register(

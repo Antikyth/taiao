@@ -275,6 +275,7 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		// Conventional tags
 		addItemTag(builder, TaiaoItemTags.CONVENTIONAL_BERRIES, "Berries");
 		addItemTag(builder, TaiaoItemTags.CONVENTIONAL_VINES, "Vines");
+		addItemTag(builder, TaiaoItemTags.CONVENTIONAL_BUGS, "Bugs");
 
 		// Subtitles
 		addSubtitles(builder, TaiaoSoundEvents.ENTITY_KIWI_AMBIENT, "Kiwi chirps");

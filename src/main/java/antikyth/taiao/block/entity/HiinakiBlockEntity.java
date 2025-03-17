@@ -7,7 +7,6 @@ package antikyth.taiao.block.entity;
 import antikyth.taiao.block.HiinakiBlock;
 import antikyth.taiao.entity.damage.TaiaoDamageTypes;
 import antikyth.taiao.item.TaiaoItemTags;
-import antikyth.taiao.item.TaiaoItems;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -21,7 +20,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.listener.ClientPlayPacketListener;
@@ -93,15 +91,18 @@ public class HiinakiBlockEntity extends BlockEntity implements BlockEntityWithTi
 	 * {@return the comparator output of the contents, from 0 to 7}
 	 */
 	public int getComparatorOutput() {
-		int bait = 0;
-		if (!this.bait.isEmpty()) {
-			if (this.bait.isOf(Items.FROGSPAWN)) {
-				bait = 2;
-			} else if (this.bait.isOf(TaiaoItems.WEETAA)) {
-				bait = 3;
-			} else {
-				bait = 1;
-			}
+		int bait;
+		if (this.bait.isEmpty()) {
+			bait = 0;
+		} else if (this.bait.isIn(TaiaoItemTags.CONVENTIONAL_BUGS)) {
+			// Bug
+			bait = 3;
+		} else if (!this.bait.isFood()) {
+			// Non-bug non-food
+			bait = 2;
+		} else {
+			// Non-bug food
+			bait = 1;
 		}
 
 		return bait + (this.hasTrappedEntity() ? 4 : 0);
