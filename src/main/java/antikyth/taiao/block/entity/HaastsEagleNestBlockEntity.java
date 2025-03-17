@@ -120,7 +120,7 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 			if (world.spawnEntity(entity)) {
 				this.chick = null;
-				this.markDirty(true);
+				markDirty(world, pos, state);
 
 				HaastsEagleNestContents nextStage = state.get(HaastsEagleNestBlock.CONTENTS).nextStage();
 				this.updateState(world, pos, state.with(HaastsEagleNestBlock.CONTENTS, nextStage), entity);
@@ -227,19 +227,15 @@ public class HaastsEagleNestBlockEntity extends BlockEntity implements BlockEnti
 
 	@Override
 	public void readNbt(@NotNull NbtCompound nbt) {
-		this.chick = nbt.contains(CHICK_KEY, NbtElement.COMPOUND_TYPE)
-			? Chick.fromNbt(nbt.getCompound(CHICK_KEY))
-			: null;
+		NbtCompound chickNbt = nbt.getCompound(CHICK_KEY);
+
+		this.chick = chickNbt.isEmpty() ? null : Chick.fromNbt(chickNbt);
 	}
 
 	@Override
-	protected void writeNbt(NbtCompound nbt) {
-		// Chick
-		if (this.chick != null) {
-			nbt.put(CHICK_KEY, this.chick.createNbt());
-		} else {
-			nbt.remove(CHICK_KEY);
-		}
+	protected void writeNbt(@NotNull NbtCompound nbt) {
+		// Need to put empty NBT because the update packet ignores empty NBT for some reason
+		nbt.put(CHICK_KEY, this.chick == null ? new NbtCompound() : this.chick.createNbt());
 	}
 
 	@Override
