@@ -13,7 +13,6 @@
 		"entity.WolfEntityMixin",
 		"entity.villager.FarmerWorkTaskAccessor",
 		"entity.villager.SecondaryPointsOfInterestSensorMixin",
-		"entity.villager.TemporaryTypeAwareBuyForOneEmeraldFactoryMixin",
 		"entity.villager.TradeOffersMixin",
 		"entity.villager.VillagerEntityAccessor",
 		"entity.villager.VillagerProfessionMixin",
