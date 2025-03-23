@@ -197,7 +197,6 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		);
 
 		// Other blocks
-		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Hokioi Nest");
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "Harakeke Mat");
 		builder.add(TaiaoBlocks.THATCH_ROOF, "Raupō Thatched Roof");
 		builder.add(TaiaoBlocks.THATCH_ROOF_TOP, "Raupō Thatched Roof Top");
@@ -213,12 +212,6 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		addDescription(builder, TaiaoItems.KETE, "place1", "Use on Block:");
 		addDescription(builder, TaiaoItems.KETE, "place2", "Places %s");
-		// Haast's eagle egg
-		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Hokioi Egg");
-		builder.add(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, "Partially Cracked Hokioi Egg");
-		builder.add(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, "Cracked Hokioi Egg");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK, "Hokioi egg cracks");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH, "Hokioi egg hatches");
 		// Other items
 		addBannerPatternItem(builder, TaiaoItems.KIWI_BANNER_PATTERN, "Kiwi");
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Huarākau");
@@ -226,13 +219,6 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		// Birds
 		addAnimal(builder, TaiaoEntities.KIWI, TaiaoItems.KIWI_SPAWN_EGG, TaiaoItemTags.KIWI_FOOD, "Kiwi");
 		addAnimal(builder, TaiaoEntities.PUUKEKO, TaiaoItems.PUUKEKO_SPAWN_EGG, TaiaoItemTags.PUUKEKO_FOOD, "Pūkeko");
-		addAnimal(
-			builder,
-			TaiaoEntities.HAASTS_EAGLE,
-			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
-			TaiaoItemTags.HAASTS_EAGLE_FOOD,
-			"Hokioi"
-		);
 		addAnimal(builder, TaiaoEntities.MOA, TaiaoItems.MOA_SPAWN_EGG, TaiaoItemTags.MOA_FOOD, "Moa");
 		addAnimal(
 			builder,
@@ -256,8 +242,9 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			"Wētā"
 		);
 		builder.add(TaiaoItems.WEETAA, "Wētā");
-		// Eels
+
 		addEelTranslations(builder);
+		addHaastsEagleTranslations(builder);
 
 		// Biomes
 		addBiome(builder, TaiaoBiomes.NATIVE_FOREST, "Aotearoa Native Forest");
@@ -414,6 +401,25 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Eel Traps Baited");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Eel Traps Used");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Freed from Eel Traps");
+	}
+
+	public static void addHaastsEagleTranslations(@NotNull TranslationBuilder builder) {
+		addAnimal(
+			builder,
+			TaiaoEntities.HAASTS_EAGLE,
+			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
+			TaiaoItemTags.HAASTS_EAGLE_FOOD,
+			"Haast's Eagle"
+		);
+
+		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Haast's Eagle Nest");
+
+		// Egg
+		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Haast's Eagle Egg");
+		builder.add(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, "Partially Cracked Haast's Eagle Egg");
+		builder.add(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, "Cracked Haast's Eagle Egg");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK, "Haast's eagle egg cracks");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH, "Haast's eagle egg hatches");
 	}
 
 	public static void addBannerPatternItem(

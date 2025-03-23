@@ -13,7 +13,6 @@ import antikyth.taiao.entity.TaiaoEntities;
 import antikyth.taiao.item.TaiaoItemTags;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.loot.TaiaoLootTables;
-import antikyth.taiao.sound.TaiaoSoundEvents;
 import antikyth.taiao.world.gen.biome.TaiaoBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -68,7 +67,6 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		);
 
 		// Other blocks
-		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Haast's Eagle Nest");
 		builder.add(TaiaoBlocks.HARAKEKE_MAT, "New Zealand Flax Mat");
 		builder.add(TaiaoBlocks.THATCH_ROOF, "Cattail Thatched Roof");
 		builder.add(TaiaoBlocks.THATCH_ROOF_TOP, "Cattail Thatched Roof Top");
@@ -79,31 +77,10 @@ public class EnglishNamesUsLangProvider extends FabricLanguageProvider {
 		// Kete
 		builder.add(TaiaoItems.KETE, "New Zealand Flax Basket");
 		builder.add(TaiaoItems.KETE.getTranslationKey() + ".filled", "New Zealand Flax Basket of %s");
-		// Haast's eagle egg
-		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Haast's Eagle Egg");
-		builder.add(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, "Partially Cracked Haast's Eagle Egg");
-		builder.add(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, "Cracked Haast's Eagle Egg");
-		EnglishUsLangProvider.addSubtitles(
-			builder,
-			TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK,
-			"Haast's eagle egg cracks"
-		);
-		EnglishUsLangProvider.addSubtitles(
-			builder,
-			TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH,
-			"Haast's eagle egg hatches"
-		);
 		// Items
 		builder.add(TaiaoItems.CONIFER_FRUIT, "Conifer Fruit");
 
 		// Animals
-		EnglishUsLangProvider.addAnimal(
-			builder,
-			TaiaoEntities.HAASTS_EAGLE,
-			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
-			TaiaoItemTags.HAASTS_EAGLE_FOOD,
-			"Haast's Eagle"
-		);
 		EnglishUsLangProvider.addAnimal(
 			builder,
 			TaiaoEntities.AUSTRALASIAN_BITTERN,
