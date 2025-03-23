@@ -5,14 +5,17 @@
 package antikyth.taiao.entity.render.model;
 
 import antikyth.taiao.Taiao;
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Set;
 
 // Made with Blockbench 4.12.2
 public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<E> {
@@ -32,6 +35,35 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 
 	private final ModelPart leftLeg;
 	private final ModelPart rightLeg;
+
+	// Top, front, and sides
+	protected static final Set<Direction> LARGE_WING_SEGMENT_FACES = ImmutableSet.of(
+		Direction.SOUTH,
+		Direction.EAST,
+		Direction.WEST,
+		Direction.DOWN
+	);
+	// Top and front
+	protected static final Set<Direction> MEDIUM_WING_SEGMENT_FACES = ImmutableSet.of(Direction.SOUTH, Direction.DOWN);
+	// Top
+	protected static final Set<Direction> SMALL_WING_SEGMENT_FACES = ImmutableSet.of(Direction.SOUTH);
+
+	// Excluding the top face
+	protected static final Set<Direction> TAIL_BASE_FACES = ImmutableSet.of(
+		Direction.UP,
+		Direction.EAST,
+		Direction.DOWN,
+		Direction.WEST,
+		Direction.NORTH
+	);
+	// Excluding the back face
+	protected static final Set<Direction> BEAK_FACES = ImmutableSet.of(
+		Direction.WEST,
+		Direction.NORTH,
+		Direction.EAST,
+		Direction.UP,
+		Direction.DOWN
+	);
 
 	public HaastsEagleEntityModel(@NotNull ModelPart root) {
 		super(true, 11.5f, 3.4f);
@@ -62,27 +94,47 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 			"body",
 			ModelPartBuilder.create()
 				.uv(48, 19)
-				.cuboid(-3.5f, -10f, 1f, 7f, 20f, 7f),
-			ModelTransform.of(0f, 19f, 0f, Taiao.degreesToRadians(90f), 0f, 0f)
+				.cuboid(
+					-3.5f, -10f, 1f,
+					7f, 20f, 7f
+				),
+			ModelTransform.of(
+				0f, 19f, 0f,
+				Taiao.degreesToRadians(90f), 0f, 0f
+			)
 		);
 		root.addChild(
 			"head",
 			ModelPartBuilder.create()
 				.uv(51, 7)
-				.cuboid(-2.5f, -3f, -6f, 5f, 6f, 6f)
+				.cuboid(
+					-2.5f, -3f, -6f,
+					5f, 6f, 6f
+				)
 				// Beak
 				.uv(57, 0)
-				.cuboid(-1f, -1f, -9f, 2f, 4f, 3f),
+				.cuboid(
+					-1f, -1f, -9f,
+					2f, 4f, 3f,
+					BEAK_FACES
+				),
 			ModelTransform.pivot(0f, 13f, -10f)
 		);
 		body.addChild(
 			"tail",
 			ModelPartBuilder.create()
 				.uv(48, 46)
-				.cuboid(-7f, 0f, 0f, 14f, 14f, 0f)
+				.cuboid(
+					-7f, 0f, 0f,
+					14f, 14f, 0f
+				)
 				// Base of the tail
 				.uv(30, 51)
-				.cuboid(-3f, 0f, -3f, 6f, 6f, 3f),
+				.cuboid(
+					-3f, 0f, -3f,
+					6f, 6f, 3f,
+					TAIL_BASE_FACES
+				),
 			ModelTransform.pivot(0f, 10f, 7f)
 		);
 
@@ -90,65 +142,125 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 			"left_wing",
 			ModelPartBuilder.create()
 				.uv(26, 26)
-				.cuboid(0f, 0f, -2f, 9f, 14f, 2f),
-			ModelTransform.pivot(3.5f, -8f, 7f)
+				.cuboid(
+					0f, 0f, -2f,
+					9f, 18f, 2f,
+					LARGE_WING_SEGMENT_FACES
+				),
+			ModelTransform.of(
+				3.5f, -8f, 7f,
+				0f, Taiao.degreesToRadians(-5f), 0f
+			)
 		);
 		ModelPartData leftWingLower = leftWing.addChild(
 			"left_wing_lower",
 			ModelPartBuilder.create()
-				.uv(6, 29)
-				.cuboid(0f, 0f, -1f, 9f, 12f, 1f),
-			ModelTransform.pivot(9f, 2f, 0f)
+				.uv(10, 29)
+				.cuboid(
+					0f, 0f, -1f,
+					7f, 14f, 1f,
+					MEDIUM_WING_SEGMENT_FACES
+				),
+			ModelTransform.of(
+				9f, 2f, 0f,
+				0f, Taiao.degreesToRadians(15f), 0f
+			)
 		);
 		leftWingLower.addChild(
 			"left_wing_end",
 			ModelPartBuilder.create()
-				.uv(0, 33)
-				.cuboid(0f, 0f, 0f, 3f, 8f, 0f),
-			ModelTransform.pivot(9f, 3f, 0f)
+				.uv(0, 30)
+				.cuboid(
+					0f, 0f, 0f,
+					5f, 14f, 0f,
+					SMALL_WING_SEGMENT_FACES
+				),
+			ModelTransform.of(
+				7f, 0f, 0f,
+				0f, Taiao.degreesToRadians(-5f), 0f
+			)
 		);
 
 		ModelPartData rightWing = body.addChild(
 			"right_wing",
 			ModelPartBuilder.create()
 				.uv(76, 26)
-				.cuboid(-9f, 0f, -2f, 9f, 14f, 2f),
-			ModelTransform.pivot(-3.5f, -8f, 7f)
+				.cuboid(
+					-9f, 0f, -2f,
+					9f, 18f, 2f,
+					LARGE_WING_SEGMENT_FACES
+				),
+			ModelTransform.of(
+				-3.5f, -8f, 7f,
+				0f, Taiao.degreesToRadians(5f), 0f
+			)
 		);
 		ModelPartData rightWingLower = rightWing.addChild(
 			"right_wing_lower",
 			ModelPartBuilder.create()
 				.uv(98, 29)
-				.cuboid(-9f, 0f, -1f, 9f, 12f, 1f),
-			ModelTransform.pivot(-9f, 2f, 0f)
+				.cuboid(
+					-7f, 0f, -1f,
+					7f, 14f, 1f,
+					MEDIUM_WING_SEGMENT_FACES
+				),
+			ModelTransform.of(
+				-9f, 2f, 0f,
+				0f, Taiao.degreesToRadians(-15f), 0f
+			)
 		);
 		rightWingLower.addChild(
 			"right_wing_end",
 			ModelPartBuilder.create()
-				.uv(118, 33)
-				.cuboid(-3f, 0f, 0f, 3f, 8f, 0f),
-			ModelTransform.pivot(-9f, 3f, 0f)
+				.uv(114, 30)
+				.cuboid(
+					-5f, 0f, 0f,
+					5f, 14f, 0f,
+					SMALL_WING_SEGMENT_FACES
+				),
+			ModelTransform.of(
+				-7f, 0f, 0f,
+				0f, Taiao.degreesToRadians(5f), 0f
+			)
 		);
 
 		root.addChild(
 			"left_leg",
 			ModelPartBuilder.create()
 				.uv(0, 0)
-				.cuboid(-1f, 0f, -1f, 2f, 7f, 2f)
+				.cuboid(
+					-1f, 0f, -1f,
+					2f, 7f, 2f
+				)
 				// Foot
 				.uv(-5, 9)
-				.cuboid(-2f, 7f, -4f, 4f, 0f, 5f),
-			ModelTransform.of(2f, 17f, 3f, Taiao.degreesToRadians(-22.5f), 0f, 0f)
+				.cuboid(
+					-2f, 7f, -4f,
+					4f, 0f, 5f
+				),
+			ModelTransform.of(
+				2f, 17f, 3f,
+				Taiao.degreesToRadians(-22.5f), 0f, 0f
+			)
 		);
 		root.addChild(
 			"right_leg",
 			ModelPartBuilder.create()
 				.uv(10, 0)
-				.cuboid(-1f, 0f, -1f, 2f, 7f, 2f)
+				.cuboid(
+					-1f, 0f, -1f,
+					2f, 7f, 2f
+				)
 				// Foot
 				.uv(5, 9)
-				.cuboid(-2f, 7f, -4f, 4f, 0f, 5f),
-			ModelTransform.of(-2f, 17f, 3f, Taiao.degreesToRadians(-22.5f), 0f, 0f)
+				.cuboid(
+					-2f, 7f, -4f,
+					4f, 0f, 5f
+				),
+			ModelTransform.of(
+				-2f, 17f, 3f,
+				Taiao.degreesToRadians(-22.5f), 0f, 0f
+			)
 		);
 
 		return TexturedModelData.of(data, 128, 64);
