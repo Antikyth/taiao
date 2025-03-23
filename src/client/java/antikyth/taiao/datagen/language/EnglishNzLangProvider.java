@@ -44,6 +44,7 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		);
 
 		// Other blocks
+		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Hokioi Nest");
 		builder.add(TaiaoBlocks.HIINAKI, "Hīnaki");
 
 		// Haast's eagle egg
