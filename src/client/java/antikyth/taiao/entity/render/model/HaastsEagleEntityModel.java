@@ -103,7 +103,7 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 		leftWingLower.addChild(
 			"left_wing_end",
 			ModelPartBuilder.create()
-				.uv(0, 34)
+				.uv(0, 33)
 				.cuboid(0f, 0f, 0f, 3f, 8f, 0f),
 			ModelTransform.pivot(9f, 3f, 0f)
 		);
@@ -125,7 +125,7 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 		rightWingLower.addChild(
 			"right_wing_end",
 			ModelPartBuilder.create()
-				.uv(118, 34)
+				.uv(118, 33)
 				.cuboid(-3f, 0f, 0f, 3f, 8f, 0f),
 			ModelTransform.pivot(-9f, 3f, 0f)
 		);
