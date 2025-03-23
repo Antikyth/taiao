@@ -69,11 +69,11 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 			"head",
 			ModelPartBuilder.create()
 				.uv(51, 7)
-				.cuboid(-2.5f, -6f, -3f, 5f, 6f, 6f)
+				.cuboid(-2.5f, -3f, -6f, 5f, 6f, 6f)
 				// Beak
-				.uv(56, 0)
-				.cuboid(-1f, -9f, -3f, 2f, 3f, 4f),
-			ModelTransform.of(0f, 13f, -10f, Taiao.degreesToRadians(90f), 0f, 0f)
+				.uv(57, 0)
+				.cuboid(-1f, -1f, -9f, 2f, 4f, 3f),
+			ModelTransform.pivot(0f, 13f, -10f)
 		);
 		body.addChild(
 			"tail",
