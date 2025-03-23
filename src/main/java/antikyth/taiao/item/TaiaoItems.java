@@ -85,7 +85,7 @@ public class TaiaoItems {
 	);
 	public static final Item HAASTS_EAGLE_SPAWN_EGG = register(
 		Taiao.id("haasts_eagle_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.HAASTS_EAGLE, 0x2c180c, 0x55361c, new FabricItemSettings())
+		new SpawnEggItem(TaiaoEntities.HAASTS_EAGLE, 0xb7aea9, 0x7b512c, new FabricItemSettings())
 	);
 	public static final Item MOA_SPAWN_EGG = register(
 		Taiao.id("moa_spawn_egg"),
