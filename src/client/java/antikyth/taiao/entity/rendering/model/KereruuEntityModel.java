@@ -22,6 +22,8 @@ public class KereruuEntityModel<E extends Entity> extends AnimalModel<E> {
 	private final ModelPart rightLeg;
 
 	public KereruuEntityModel(@NotNull ModelPart root) {
+		super(true, 10.5f, 0.5f);
+
 		this.head = root.getChild("head");
 		this.body = root.getChild("body");
 
@@ -140,8 +142,8 @@ public class KereruuEntityModel<E extends Entity> extends AnimalModel<E> {
 		this.head.yaw = Taiao.degreesToRadians(headYawDegrees);
 		this.head.pitch = Taiao.degreesToRadians(headPitchDegrees);
 
-		this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
-		this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
+		this.leftLeg.pitch = MathHelper.cos(limbSwing * 1.5f + (float) Math.PI) * 1.4f * limbSwingAmount;
+		this.rightLeg.pitch = MathHelper.cos(limbSwing * 1.5f) * 1.4f * limbSwingAmount;
 	}
 
 	@Override
