@@ -99,6 +99,10 @@ public class TaiaoItems {
 		Taiao.id("australasian_bittern_spawn_egg"),
 		new SpawnEggItem(TaiaoEntities.AUSTRALASIAN_BITTERN, 0x3b3016, 0xcbb166, new FabricItemSettings())
 	);
+	public static final Item KERERUU_SPAWN_EGG = register(
+		Taiao.id("kereruu_spawn_egg"),
+		new SpawnEggItem(TaiaoEntities.KERERUU, 0x3f6080, 0x72b23a, new FabricItemSettings())
+	);
 
 	public static final Item EEL_SPAWN_EGG = register(
 		Taiao.id("eel_spawn_egg"),

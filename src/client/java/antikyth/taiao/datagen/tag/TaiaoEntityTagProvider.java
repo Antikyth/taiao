@@ -28,7 +28,8 @@ public class TaiaoEntityTagProvider extends FabricTagProvider.EntityTypeTagProvi
 		getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
 			.add(TaiaoEntities.PUUKEKO)
 			.add(TaiaoEntities.AUSTRALASIAN_BITTERN)
-			.add(TaiaoEntities.HAASTS_EAGLE);
+			.add(TaiaoEntities.HAASTS_EAGLE)
+			.add(TaiaoEntities.KERERUU);
 		getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS)
 			.add(TaiaoEntities.EEL);
 

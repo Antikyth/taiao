@@ -234,6 +234,8 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 			TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD,
 			"Matuku-Hūrepo"
 		);
+		addAnimal(builder, TaiaoEntities.KERERUU, TaiaoItems.KERERUU_SPAWN_EGG, TaiaoItemTags.KERERUU_FOOD, "Kererū");
+
 		addAnimal(
 			builder,
 			TaiaoEntities.WEETAA,

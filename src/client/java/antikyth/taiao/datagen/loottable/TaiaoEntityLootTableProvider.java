@@ -27,37 +27,38 @@ public class TaiaoEntityLootTableProvider extends FabricEntityLootTableProvider 
 
 	@Override
 	public void generate() {
-		this.register(
-			TaiaoEntities.PUUKEKO,
-			LootTable.builder()
-				.pool(
-					LootPool.builder()
-						.rolls(ConstantLootNumberProvider.create(1.0F))
-						.with(
-							ItemEntry.builder(Items.FEATHER)
-								.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
-									0.0F,
-									2.0F
+		LootTable.Builder chickenLike = LootTable.builder()
+			.pool(
+				LootPool.builder()
+					.rolls(ConstantLootNumberProvider.create(1.0F))
+					.with(
+						ItemEntry.builder(Items.FEATHER)
+							.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(
+								0.0F,
+								2.0F
+							)))
+							.apply(LootingEnchantLootFunction.builder(
+								UniformLootNumberProvider.create(0.0F, 1.0F)))
+					)
+			)
+			.pool(
+				LootPool.builder()
+					.rolls(ConstantLootNumberProvider.create(1.0F))
+					.with(
+						ItemEntry.builder(Items.CHICKEN)
+							.apply(FurnaceSmeltLootFunction.builder()
+								.conditionally(EntityPropertiesLootCondition.builder(
+									LootContext.EntityTarget.THIS,
+									NEEDS_ENTITY_ON_FIRE
 								)))
-								.apply(LootingEnchantLootFunction.builder(
-									UniformLootNumberProvider.create(0.0F, 1.0F)))
-						)
-				)
-				.pool(
-					LootPool.builder()
-						.rolls(ConstantLootNumberProvider.create(1.0F))
-						.with(
-							ItemEntry.builder(Items.CHICKEN)
-								.apply(FurnaceSmeltLootFunction.builder()
-									.conditionally(EntityPropertiesLootCondition.builder(
-										LootContext.EntityTarget.THIS,
-										NEEDS_ENTITY_ON_FIRE
-									)))
-								.apply(LootingEnchantLootFunction.builder(
-									UniformLootNumberProvider.create(0.0F, 1.0F)))
-						)
-				)
-		);
+							.apply(LootingEnchantLootFunction.builder(
+								UniformLootNumberProvider.create(0.0F, 1.0F)))
+					)
+			);
+
+		this.register(TaiaoEntities.PUUKEKO, chickenLike);
+		this.register(TaiaoEntities.KERERUU, chickenLike);
+
 		this.register(
 			TaiaoEntities.MOA,
 			LootTable.builder()

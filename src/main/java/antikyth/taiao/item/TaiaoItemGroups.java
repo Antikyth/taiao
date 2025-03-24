@@ -267,6 +267,7 @@ public class TaiaoItemGroups {
 		add.accept(TaiaoItems.MOA_SPAWN_EGG);
 		add.accept(TaiaoItems.KAAKAAPOO_SPAWN_EGG);
 		add.accept(TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG);
+		add.accept(TaiaoItems.KERERUU_SPAWN_EGG);
 
 		add.accept(TaiaoItems.EEL_SPAWN_EGG);
 		add.accept(TaiaoItems.WEETAA_SPAWN_EGG);

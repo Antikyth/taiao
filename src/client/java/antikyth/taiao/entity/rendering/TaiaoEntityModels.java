@@ -41,6 +41,10 @@ public class TaiaoEntityModels {
 		TaiaoEntities.AUSTRALASIAN_BITTERN,
 		AustralasianBitternEntityModel::getTexturedModelData
 	);
+	public static final EntityModelLayer KERERUU = registerModelLayer(
+		TaiaoEntities.KERERUU,
+		KereruuEntityModel::getTexturedModelData
+	);
 
 	public static final EntityModelLayer WEETAA = registerModelLayer(
 		TaiaoEntities.WEETAA,
@@ -65,6 +69,7 @@ public class TaiaoEntityModels {
 		EntityRendererRegistry.register(TaiaoEntities.MOA, MoaEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.KAAKAAPOO, KaakaapooEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.AUSTRALASIAN_BITTERN, AustralasianBitternEntityRenderer::new);
+		EntityRendererRegistry.register(TaiaoEntities.KERERUU, KereruuEntityRenderer::new);
 
 		EntityRendererRegistry.register(TaiaoEntities.WEETAA, WeetaaEntityRenderer::new);
 		EntityRendererRegistry.register(TaiaoEntities.EEL, EelEntityRenderer::new);

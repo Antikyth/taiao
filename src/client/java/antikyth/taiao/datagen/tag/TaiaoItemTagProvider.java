@@ -73,6 +73,9 @@ public class TaiaoItemTagProvider extends FabricTagProvider.ItemTagProvider {
 		getOrCreateTagBuilder(TaiaoItemTags.AUSTRALASIAN_BITTERN_FOOD)
 			.addOptionalTag(ItemTags.FISHES)
 			.add(Items.FROGSPAWN);
+		getOrCreateTagBuilder(TaiaoItemTags.KERERUU_FOOD)
+			.add(TaiaoItems.CONIFER_FRUIT)
+			.addOptionalTag(TaiaoItemTags.CONVENTIONAL_BERRIES);
 
 		getOrCreateTagBuilder(TaiaoItemTags.CARVINGS)
 			.add(TaiaoBlocks.CHISELED_STRIPPED_RIMU_LOG.asItem())

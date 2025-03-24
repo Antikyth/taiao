@@ -82,6 +82,15 @@ public class TaiaoEntities {
 			.trackRangeChunks(10)
 			.build()
 	);
+	public static final EntityType<KereruuEntity> KERERUU = register(
+		Taiao.id("kereruu"),
+		FabricEntityTypeBuilder.createLiving()
+			.entityFactory(KereruuEntity::new)
+			.spawnGroup(SpawnGroup.CREATURE)
+			.dimensions(EntityDimensions.changing(0.4f, 0.45f))
+			.defaultAttributes(KereruuEntity::createAttributes)
+			.build()
+	);
 
 	public static final EntityType<EelEntity> EEL = register(
 		Taiao.id("eel"),

@@ -65,6 +65,7 @@ public class TaiaoClient implements ClientModInitializer {
 			TaiaoItems.MOA_SPAWN_EGG,
 			TaiaoItems.KAAKAAPOO_SPAWN_EGG,
 			TaiaoItems.AUSTRALASIAN_BITTERN_SPAWN_EGG,
+			TaiaoItems.KERERUU_SPAWN_EGG,
 			TaiaoItems.EEL_SPAWN_EGG,
 			TaiaoItems.WEETAA_SPAWN_EGG
 		);

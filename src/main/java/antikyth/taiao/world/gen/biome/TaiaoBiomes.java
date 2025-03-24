@@ -90,6 +90,7 @@ public class TaiaoBiomes {
 		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KIWI, 10, 4, 4));
 		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.MOA, 8, 4, 4));
 		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KAAKAAPOO, 10, 1, 2));
+		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KERERUU, 8, 1, 4));
 		// Monster spawn group, like ocelots use, so it doesn't take space away from other animal
 		// spawns.
 		spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnEntry(TaiaoEntities.WEETAA, 10, 1, 2));
@@ -143,6 +144,7 @@ public class TaiaoBiomes {
 			SpawnGroup.CREATURE,
 			new SpawnEntry(TaiaoEntities.AUSTRALASIAN_BITTERN, 7, 4, 4)
 		);
+		spawnSettings.spawn(SpawnGroup.CREATURE, new SpawnEntry(TaiaoEntities.KERERUU, 5, 1, 4));
 
 		spawnSettings.spawn(SpawnGroup.WATER_AMBIENT, new SpawnEntry(TaiaoEntities.EEL, 5, 1, 3));
 

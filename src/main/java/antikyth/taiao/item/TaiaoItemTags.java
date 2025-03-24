@@ -65,6 +65,7 @@ public final class TaiaoItemTags {
 	 * Items used to breed {@linkplain antikyth.taiao.entity.TaiaoEntities#AUSTRALASIAN_BITTERN matuku-hūrepo (Australasian bitterns)}.
 	 */
 	public static final TagKey<Item> AUSTRALASIAN_BITTERN_FOOD = createTagKey(Taiao.id("australasian_bittern_food"));
+	public static final TagKey<Item> KERERUU_FOOD = createTagKey(Taiao.id("kereruu_food"));
 
 	// Conventional tags
 	public static final TagKey<Item> CONVENTIONAL_SEEDS = createTagKey(Taiao.commonId("seeds"));
