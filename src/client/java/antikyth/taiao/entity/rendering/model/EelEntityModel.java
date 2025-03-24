@@ -1,4 +1,4 @@
-package antikyth.taiao.entity.render.model;
+package antikyth.taiao.entity.rendering.model;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.EelEntity;

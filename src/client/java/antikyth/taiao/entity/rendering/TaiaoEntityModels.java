@@ -2,13 +2,13 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.render;
+package antikyth.taiao.entity.rendering;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.boat.TaiaoBoats;
 import antikyth.taiao.entity.TaiaoEntities;
-import antikyth.taiao.entity.render.model.*;
-import antikyth.taiao.entity.render.renderer.*;
+import antikyth.taiao.entity.rendering.model.*;
+import antikyth.taiao.entity.rendering.renderer.*;
 import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;

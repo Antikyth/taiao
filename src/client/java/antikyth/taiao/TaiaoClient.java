@@ -5,8 +5,8 @@
 package antikyth.taiao;
 
 import antikyth.taiao.block.TaiaoBlocks;
-import antikyth.taiao.block.entity.render.TaiaoBlockEntityRenderers;
-import antikyth.taiao.entity.render.TaiaoEntityModels;
+import antikyth.taiao.block.entity.rendering.TaiaoBlockEntityRenderers;
+import antikyth.taiao.entity.rendering.TaiaoEntityModels;
 import antikyth.taiao.item.TaiaoItems;
 import antikyth.taiao.item.tooltip.component.TaiaoTooltipComponents;
 import net.fabricmc.api.ClientModInitializer;

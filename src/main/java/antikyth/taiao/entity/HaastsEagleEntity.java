@@ -5,6 +5,7 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.entity.ai.brain.sensor.TaiaoSensorTypes;
+import antikyth.taiao.entity.rendering.animation.WingAnimator;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
@@ -47,6 +48,8 @@ public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<H
 	protected static final EntityDimensions FLYING_DIMENSIONS = EntityDimensions.changing(1.6f, 1f);
 	protected static final EntityDimensions STANDING_DIMENSIONS = EntityDimensions.changing(0.9f, 1.25f);
 
+	public final WingAnimator wingAnimator = new WingAnimator();
+
 	protected HaastsEagleEntity(
 		EntityType<? extends AnimalEntity> entityType,
 		World world
@@ -76,6 +79,16 @@ public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<H
 		if (this.wouldPoseNotCollide(pose)) {
 			this.setPose(pose);
 		}
+	}
+
+	@Override
+	protected void updateLimbs(float posDelta) {
+		super.updateLimbs(this.isOnGround() ? posDelta : 0f);
+
+		// The minimum posDelta for the wings to not be moving
+		float glidePosDelta = 3.5f;
+		float wingSpeed = Math.max(glidePosDelta - posDelta, 0f) / glidePosDelta;
+		this.wingAnimator.updateWings(wingSpeed);
 	}
 
 	@Override

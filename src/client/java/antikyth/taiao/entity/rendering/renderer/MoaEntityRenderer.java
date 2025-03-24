@@ -2,25 +2,25 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.render.renderer;
+package antikyth.taiao.entity.rendering.renderer;
 
 import antikyth.taiao.Taiao;
 import antikyth.taiao.entity.MoaEntity;
-import antikyth.taiao.entity.render.TaiaoEntityModels;
-import antikyth.taiao.entity.render.model.MoaEntityModel;
+import antikyth.taiao.entity.rendering.TaiaoEntityModels;
+import antikyth.taiao.entity.rendering.model.MoaEntityModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class MoaEntityRenderer extends MobEntityRenderer<MoaEntity, MoaEntityModel<MoaEntity>> {
-    private static final Identifier TEXTURE = Taiao.id("textures/entity/moa.png");
+	private static final Identifier TEXTURE = Taiao.id("textures/entity/moa.png");
 
-    public MoaEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new MoaEntityModel<>(context.getPart(TaiaoEntityModels.MOA)), 1f);
-    }
+	public MoaEntityRenderer(EntityRendererFactory.Context context) {
+		super(context, new MoaEntityModel<>(context.getPart(TaiaoEntityModels.MOA)), 1f);
+	}
 
-    @Override
-    public Identifier getTexture(MoaEntity entity) {
-        return TEXTURE;
-    }
+	@Override
+	public Identifier getTexture(MoaEntity entity) {
+		return TEXTURE;
+	}
 }

@@ -2,14 +2,14 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-package antikyth.taiao.entity.render.model;
+package antikyth.taiao.entity.rendering.model;
 
 import antikyth.taiao.Taiao;
+import antikyth.taiao.entity.HaastsEagleEntity;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 // Made with Blockbench 4.12.2
-public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<E> {
+public class HaastsEagleEntityModel<E extends HaastsEagleEntity> extends AnimalModel<E> {
 	private final ModelPart root;
 
 	private final ModelPart body;
@@ -274,7 +274,12 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 		this.body.resetTransform();
 
 		this.leftWing.resetTransform();
+		this.leftWingLower.resetTransform();
+		this.leftWingEnd.resetTransform();
+
 		this.rightWing.resetTransform();
+		this.rightWingLower.resetTransform();
+		this.rightWingEnd.resetTransform();
 
 		this.leftLeg.resetTransform();
 		this.rightLeg.resetTransform();
@@ -326,6 +331,22 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 
 			this.rightWingLower.hidden = false;
 			this.rightWingEnd.hidden = false;
+
+			// Wing flapping
+			float wingPos = entity.wingAnimator.getPos(tickDelta);
+			float wingSpeed = entity.wingAnimator.getSpeed(tickDelta);
+
+			float wingAngle = MathHelper.cos(wingPos) / 2f * wingSpeed;
+			float lowerWingAngle = wingAngle / 2f;
+			float endWingAngle = lowerWingAngle / 2f;
+
+			this.leftWing.yaw += wingAngle;
+			this.leftWingLower.yaw += lowerWingAngle;
+			this.leftWingEnd.yaw += endWingAngle;
+
+			this.rightWing.yaw -= wingAngle;
+			this.rightWingLower.yaw -= lowerWingAngle;
+			this.rightWingEnd.yaw -= endWingAngle;
 		}
 	}
 
@@ -342,6 +363,9 @@ public class HaastsEagleEntityModel<E extends LivingEntity> extends AnimalModel<
 
 		this.head.yaw += Taiao.degreesToRadians(headYawDegrees);
 		this.head.pitch += Taiao.degreesToRadians(headPitchDegrees);
+
+		this.rightLeg.pitch += MathHelper.cos(limbSwing * 0.6662f) * 1.4f * limbSwingAmount;
+		this.leftLeg.pitch += MathHelper.cos(limbSwing * 0.6662f + (float) Math.PI) * 1.4f * limbSwingAmount;
 	}
 
 	@Override
