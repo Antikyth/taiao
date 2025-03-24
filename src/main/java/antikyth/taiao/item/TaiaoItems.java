@@ -101,7 +101,7 @@ public class TaiaoItems {
 	);
 	public static final Item KERERUU_SPAWN_EGG = register(
 		Taiao.id("kereruu_spawn_egg"),
-		new SpawnEggItem(TaiaoEntities.KERERUU, 0x3f6080, 0x72b23a, new FabricItemSettings())
+		new SpawnEggItem(TaiaoEntities.KERERUU, 0x5db5b7, 0xb04ad3, new FabricItemSettings())
 	);
 
 	public static final Item EEL_SPAWN_EGG = register(
