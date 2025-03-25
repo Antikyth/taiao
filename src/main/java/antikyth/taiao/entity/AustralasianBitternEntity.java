@@ -7,6 +7,7 @@ package antikyth.taiao.entity;
 import antikyth.taiao.entity.ai.goal.FreezeWhenThreatenedGoal;
 import antikyth.taiao.entity.ai.goal.TaiaoEntityPredicates;
 import antikyth.taiao.item.TaiaoItemTags;
+import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -94,11 +94,6 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 	}
 
 	@Override
-	protected @Nullable SoundEvent getAmbientSound() {
-		return null;
-	}
-
-	@Override
 	public void playAmbientSound() {
 		if (!this.isShushed()) super.playAmbientSound();
 	}
@@ -115,7 +110,7 @@ public class AustralasianBitternEntity extends AnimalEntity implements Shushable
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15f, 1f);
+		this.playSound(TaiaoSoundEvents.ENTITY_AUSTRALASIAN_BITTERN_STEP, 0.15f, 1f);
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {

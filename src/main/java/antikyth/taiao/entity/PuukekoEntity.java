@@ -28,7 +28,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -115,7 +114,7 @@ public class PuukekoEntity extends AnimalEntity {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
+		this.playSound(TaiaoSoundEvents.ENTITY_PUUKEKO_STEP, 0.15F, 1.0F);
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {

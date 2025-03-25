@@ -5,6 +5,7 @@
 package antikyth.taiao.entity;
 
 import antikyth.taiao.item.TaiaoItemTags;
+import antikyth.taiao.sound.TaiaoSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -17,7 +18,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +48,7 @@ public class KereruuEntity extends AnimalEntity {
 
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15f, 1f);
+		this.playSound(TaiaoSoundEvents.ENTITY_KERERUU_STEP, 0.15f, 1f);
 	}
 
 	public static DefaultAttributeContainer.Builder createAttributes() {

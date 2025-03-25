@@ -107,6 +107,13 @@
 		],
 		"subtitle": "subtitles.taiao.entity.kiwi.hurt"
 	},
+	"entity.kiwi.step": {
+		"sounds": [
+			"mob/chicken/step1",
+			"mob/chicken/step2"
+		],
+		"subtitle": "block.generic.footsteps"
+	},
 
 	"entity.puukeko.baby.ambient": {
 		"sounds": [
@@ -158,6 +165,35 @@
 		"subtitle": "subtitles.taiao.entity.puukeko.adult.hurt"
 	},
 
+	"entity.puukeko.step": {
+		"sounds": [
+			"mob/chicken/step1",
+			"mob/chicken/step2"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+
+	"entity.haasts_eagle.step": {
+		"sounds": [
+			"mob/pig/step1",
+			"mob/pig/step2",
+			"mob/pig/step3",
+			"mob/pig/step4",
+			"mob/pig/step5"
+		],
+		"subtitle": "block.generic.footsteps"
+	},
+
+	"entity.moa.step": {
+		"sounds": [
+			"mob/cow/step1",
+			"mob/cow/step2",
+			"mob/cow/step3",
+			"mob/cow/step4"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+
 	"entity.kaakaapoo.ambient": {
 		"sounds": [
 			"taiao:mob/kaakaapoo/boom0",
@@ -178,6 +214,35 @@
 			"taiao:mob/kaakaapoo/ching1"
 		],
 		"subtitle": "subtitles.taiao.entity.kaakaapoo.hurt"
+	},
+	"entity.kaakaapoo.step": {
+		"sounds": [
+			"mob/parrot/step1",
+			"mob/parrot/step2",
+			"mob/parrot/step3",
+			"mob/parrot/step4",
+			"mob/parrot/step5"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+
+	"entity.australasian_bittern.step": {
+		"sounds": [
+			"mob/chicken/step1",
+			"mob/chicken/step2"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+
+	"entity.kereruu.step": {
+		"sounds": [
+			"mob/parrot/step1",
+			"mob/parrot/step2",
+			"mob/parrot/step3",
+			"mob/parrot/step4",
+			"mob/parrot/step5"
+		],
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 
 	"entity.eel.death": {

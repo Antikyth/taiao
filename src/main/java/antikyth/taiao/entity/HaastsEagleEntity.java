@@ -6,6 +6,8 @@ package antikyth.taiao.entity;
 
 import antikyth.taiao.entity.ai.brain.sensor.TaiaoSensorTypes;
 import antikyth.taiao.entity.rendering.animation.WingAnimator;
+import antikyth.taiao.sound.TaiaoSoundEvents;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
@@ -19,6 +21,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tslat.smartbrainlib.api.SmartBrainOwner;
@@ -64,6 +67,11 @@ public class HaastsEagleEntity extends AnimalEntity implements SmartBrainOwner<H
 			.add(EntityAttributes.GENERIC_MAX_HEALTH, 14d)
 			.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25d)
 			.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.8d);
+	}
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+		this.playSound(TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_STEP, 0.15f, 1f);
 	}
 
 	@Override

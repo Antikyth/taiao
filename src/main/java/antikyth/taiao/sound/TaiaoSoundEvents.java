@@ -17,6 +17,7 @@ public class TaiaoSoundEvents {
 	public static final SoundEvent ENTITY_KIWI_AMBIENT = register(Taiao.id("entity.kiwi.ambient"));
 	public static final SoundEvent ENTITY_KIWI_DEATH = register(Taiao.id("entity.kiwi.death"));
 	public static final SoundEvent ENTITY_KIWI_HURT = register(Taiao.id("entity.kiwi.hurt"));
+	public static final SoundEvent ENTITY_KIWI_STEP = register(Taiao.id("entity.kiwi.step"));
 
 	/**
 	 * {@linkplain antikyth.taiao.entity.TaiaoEntities#KAAKAAPOO Kākāpō} boom sounds.
@@ -24,6 +25,7 @@ public class TaiaoSoundEvents {
 	public static final SoundEvent ENTITY_KAAKAAPOO_AMBIENT = register(Taiao.id("entity.kaakaapoo.ambient"));
 	public static final SoundEvent ENTITY_KAAKAAPOO_DEATH = register(Taiao.id("entity.kaakaapoo.death"));
 	public static final SoundEvent ENTITY_KAAKAAPOO_HURT = register(Taiao.id("entity.kaakaapoo.hurt"));
+	public static final SoundEvent ENTITY_KAAKAAPOO_STEP = register(Taiao.id("entity.kaakaapoo.step"));
 
 	public static final SoundEvent ENTITY_PUUKEKO_BABY_AMBIENT = register(Taiao.id("entity.puukeko.baby.ambient"));
 	public static final SoundEvent ENTITY_PUUKEKO_ADULT_AMBIENT = register(Taiao.id("entity.puukeko.adult.ambient"));
@@ -31,6 +33,7 @@ public class TaiaoSoundEvents {
 	public static final SoundEvent ENTITY_PUUKEKO_ADULT_DEATH = register(Taiao.id("entity.puukeko.adult.death"));
 	public static final SoundEvent ENTITY_PUUKEKO_BABY_HURT = register(Taiao.id("entity.puukeko.baby.hurt"));
 	public static final SoundEvent ENTITY_PUUKEKO_ADULT_HURT = register(Taiao.id("entity.puukeko.adult.hurt"));
+	public static final SoundEvent ENTITY_PUUKEKO_STEP = register(Taiao.id("entity.puukeko.step"));
 
 	public static final SoundEvent ENTITY_EEL_DEATH = register(Taiao.id("entity.eel.death"));
 	public static final SoundEvent ENTITY_EEL_FLOP = register(Taiao.id("entity.eel.flop"));
@@ -40,6 +43,15 @@ public class TaiaoSoundEvents {
 
 	public static final SoundEvent ENTITY_HAASTS_EAGLE_EGG_CRACK = register(Taiao.id("entity.haasts_eagle.egg_crack"));
 	public static final SoundEvent ENTITY_HAASTS_EAGLE_EGG_HATCH = register(Taiao.id("entity.haasts_eagle.egg_hatch"));
+	public static final SoundEvent ENTITY_HAASTS_EAGLE_STEP = register(Taiao.id("entity.haasts_eagle.step"));
+
+	public static final SoundEvent ENTITY_MOA_STEP = register(Taiao.id("entity.moa.step"));
+
+	public static final SoundEvent ENTITY_AUSTRALASIAN_BITTERN_STEP = register(
+		Taiao.id("entity.australasian_bittern.step")
+	);
+
+	public static final SoundEvent ENTITY_KERERUU_STEP = register(Taiao.id("entity.kereruu.step"));
 
 	public static final SoundEvent BLOCK_HARAKEKE_BREAK = register(Taiao.id("block.harakeke.break"));
 	public static final SoundEvent BLOCK_HARAKEKE_STEP = register(Taiao.id("block.harakeke.step"));
