@@ -38,16 +38,16 @@ public class KereruuEntityModel<E extends Entity> extends AnimalModel<E> {
 		root.addChild(
 			"head",
 			ModelPartBuilder.create()
-				.uv(10, 0)
+				.uv(0, 0)
 				.cuboid(
 					-1f, -2f, -2f,
 					2f, 2f, 2.0F
 				)
 				// Beak
-				.uv(12, 2)
+				.uv(8, 0)
 				.cuboid(
-					0f, -1.5f, -4f,
-					0f, 1f, 2f
+					-0.5f, -1.5f, -3.5f,
+					1f, 1f, 2f
 				),
 			ModelTransform.pivot(0f, 17f, -1f)
 		);
@@ -68,7 +68,7 @@ public class KereruuEntityModel<E extends Entity> extends AnimalModel<E> {
 		body.addChild(
 			"tail",
 			ModelPartBuilder.create()
-				.uv(0, 0)
+				.uv(0, 4)
 				.cuboid(
 					-2f, 0f, 0f,
 					4f, 5f, 0.0F
