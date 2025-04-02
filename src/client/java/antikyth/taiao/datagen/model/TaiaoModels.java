@@ -22,8 +22,41 @@ import java.util.function.Supplier;
 
 public class TaiaoModels {
 	// Models
-	public static final Model THIN_LOG_NOSIDE = block("thin_log_noside", "_noside", TextureKey.SIDE);
-	public static final Model THIN_LOG_SIDE = block("thin_log_side", "_side", TextureKey.SIDE, TextureKey.END);
+	public static final Model THIN_LOG_SIDE_DOWN = block(
+		"thin_log_side_down",
+		"_side_down",
+		TextureKey.SIDE,
+		TextureKey.END
+	);
+	public static final Model THIN_LOG_SIDE_UP = block("thin_log_side_up", "_side_up", TextureKey.SIDE, TextureKey.END);
+	public static final Model THIN_LOG_SIDE_LEFT = block(
+		"thin_log_side_left",
+		"_side_left",
+		TextureKey.SIDE,
+		TextureKey.END
+	);
+	public static final Model THIN_LOG_SIDE_RIGHT = block(
+		"thin_log_side_right",
+		"_side_right",
+		TextureKey.SIDE,
+		TextureKey.END
+	);
+
+	public static final Model THIN_LOG_SIDELESS_VERTICAL = block(
+		"thin_log_sideless_vertical",
+		"_sideless_vertical",
+		TextureKey.SIDE
+	);
+	public static final Model THIN_LOG_SIDELESS_LEFT = block(
+		"thin_log_sideless_left",
+		"_sideless_left",
+		TextureKey.SIDE
+	);
+	public static final Model THIN_LOG_SIDELESS_RIGHT = block(
+		"thin_log_sideless_right",
+		"_sideless_right",
+		TextureKey.SIDE
+	);
 
 	public static final Model HIINAKI_FRONT = block("hiinaki_front", "_front", TextureKey.SIDE, TextureKey.FRONT);
 	public static final Model HIINAKI_BACK = block("hiinaki_back", "_back", TextureKey.SIDE);
