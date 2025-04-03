@@ -20,7 +20,6 @@ import net.minecraft.data.client.BlockStateModelGenerator.TintType;
 import net.minecraft.registry.Registries;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -602,23 +601,6 @@ public class TaiaoModelProvider extends FabricModelProvider {
 		TaiaoModels.uploadItem(TaiaoModels.THIN_LOG_INVENTORY, block.asItem(), textures, generator.modelCollector);
 	}
 
-	/**
-	 * Gets the rotation variant setting appropriate for the given {@code direction}.
-	 */
-	@SuppressWarnings("SuspiciousNameCombination")
-	private static @NotNull Pair<VariantSetting<VariantSettings.Rotation>, VariantSettings.Rotation> getRotation(
-		@NotNull Direction direction
-	) {
-		return switch (direction) {
-			case NORTH -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R0);
-			case EAST -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R90);
-			case SOUTH -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R180);
-			case WEST -> new Pair<>(VariantSettings.Y, VariantSettings.Rotation.R270);
-			case UP -> new Pair<>(VariantSettings.X, VariantSettings.Rotation.R270);
-			case DOWN -> new Pair<>(VariantSettings.X, VariantSettings.Rotation.R90);
-		};
-	}
-
 	private static BlockStateVariant applyRotation(BlockStateVariant variant, @NotNull Direction face) {
 		switch (face) {
 			case NORTH:
@@ -722,7 +704,9 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 			// When there are no connections, use the end texture on the top, bark texture on the
 			// sides.
-			Identifier zeroSidesModelId = face.getAxis().isVertical() ? sidelessEndModelId : sidelessVerticalModelId;
+			Identifier zeroSidesModelId = face.getAxis().isVertical()
+				? sidelessEndModelId
+				: sidelessVerticalModelId;
 
 			// End piece
 			supplier.with(
@@ -741,11 +725,12 @@ public class TaiaoModelProvider extends FabricModelProvider {
 				)
 			);
 
-			Direction left = face.getAxis() == Direction.Axis.X ? Direction.SOUTH : Direction.EAST;
-			Direction right = face.getAxis() == Direction.Axis.X ? Direction.NORTH : Direction.WEST;
-
-			BooleanProperty leftProperty = ThinLogBlock.getDirectionProperty(left);
-			BooleanProperty rightProperty = ThinLogBlock.getDirectionProperty(right);
+			BooleanProperty leftProperty = face.getAxis() == Direction.Axis.X
+				? ThinLogBlock.SOUTH
+				: ThinLogBlock.EAST;
+			BooleanProperty rightProperty = face.getAxis() == Direction.Axis.X
+				? ThinLogBlock.NORTH
+				: ThinLogBlock.WEST;
 
 			if (face.getAxis().isHorizontal()) {
 				// Horizontal faces
@@ -806,8 +791,8 @@ public class TaiaoModelProvider extends FabricModelProvider {
 				supplier.with(
 					When.allOf(
 						When.create().set(faceProperty, false),
+						// Doesn't have a north or south side
 						When.create()
-							// Doesn't have a north or south side
 							.set(ThinLogBlock.NORTH, false)
 							.set(ThinLogBlock.SOUTH, false),
 						// Has a horizontal side
