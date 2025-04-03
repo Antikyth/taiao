@@ -689,7 +689,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 			};
 
 			// Determine conditions to put an end piece
-			// (there is only one side piece: opposite the end piece)
+			// (i.e., there is only one side piece: opposite the end piece)
 			When.PropertyCondition endPieceWhen = When.create();
 			When.PropertyCondition zeroSidesWhen = When.create();
 			for (int i = 0; i < Direction.values().length; i++) {
