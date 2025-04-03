@@ -661,24 +661,24 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		// Vertical sides
 		supplier.with(
-			When.create().set(ThinLogBlock.getDirectionProperty(Direction.DOWN), true),
+			When.create().set(ThinLogBlock.DOWN, true),
 			BlockStateVariant.create()
 				.put(VariantSettings.MODEL, downSideModelId)
 		);
 		supplier.with(
-			When.create().set(ThinLogBlock.getDirectionProperty(Direction.UP), true),
+			When.create().set(ThinLogBlock.UP, true),
 			BlockStateVariant.create()
 				.put(VariantSettings.MODEL, upSideModelId)
 		);
 
 		// Left sides (east and south)
 		supplier.with(
-			When.create().set(ThinLogBlock.getDirectionProperty(Direction.EAST), true),
+			When.create().set(ThinLogBlock.EAST, true),
 			BlockStateVariant.create()
 				.put(VariantSettings.MODEL, leftSideModelId)
 		);
 		supplier.with(
-			When.create().set(ThinLogBlock.getDirectionProperty(Direction.SOUTH), true),
+			When.create().set(ThinLogBlock.SOUTH, true),
 			BlockStateVariant.create()
 				.put(VariantSettings.MODEL, leftSideModelId)
 				.put(VariantSettings.Y, VariantSettings.Rotation.R90)
@@ -686,12 +686,12 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		// Right sides (west and north)
 		supplier.with(
-			When.create().set(ThinLogBlock.getDirectionProperty(Direction.WEST), true),
+			When.create().set(ThinLogBlock.WEST, true),
 			BlockStateVariant.create()
 				.put(VariantSettings.MODEL, rightSideModelId)
 		);
 		supplier.with(
-			When.create().set(ThinLogBlock.getDirectionProperty(Direction.NORTH), true),
+			When.create().set(ThinLogBlock.NORTH, true),
 			BlockStateVariant.create()
 				.put(VariantSettings.MODEL, rightSideModelId)
 				.put(VariantSettings.Y, VariantSettings.Rotation.R90)
@@ -699,6 +699,7 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 		for (Direction face : Direction.values()) {
 			Direction opposite = face.getOpposite();
+			BooleanProperty faceProperty = ThinLogBlock.getDirectionProperty(face);
 
 			Identifier sidelessHorizontalModelId = switch (face) {
 				case NORTH, EAST, DOWN -> sidelessLeftModelId;
@@ -707,35 +708,35 @@ public class TaiaoModelProvider extends FabricModelProvider {
 
 			// Determine conditions to put an end piece
 			// (there is only one side piece: opposite the end piece)
-			When[] endPieceWhens = new When[Direction.values().length];
-			When[] zeroSidesWhens = new When[Direction.values().length];
+			When.PropertyCondition endPieceWhen = When.create();
+			When.PropertyCondition zeroSidesWhen = When.create();
 			for (int i = 0; i < Direction.values().length; i++) {
 				Direction otherFace = Direction.values()[i];
 				boolean isOpposite = otherFace == opposite;
 
 				BooleanProperty property = ThinLogBlock.getDirectionProperty(otherFace);
 
-				endPieceWhens[i] = When.create().set(property, isOpposite);
-				zeroSidesWhens[i] = When.create().set(property, false);
+				endPieceWhen.set(property, isOpposite);
+				zeroSidesWhen.set(property, false);
 			}
 
+			// When there are no connections, use the end texture on the top, bark texture on the
+			// sides.
 			Identifier zeroSidesModelId = face.getAxis().isVertical() ? sidelessEndModelId : sidelessVerticalModelId;
 
 			// End piece
 			supplier.with(
-				When.allOf(endPieceWhens),
+				endPieceWhen,
 				applyRotation(
-					BlockStateVariant.create()
-						.put(VariantSettings.MODEL, sidelessEndModelId),
+					BlockStateVariant.create().put(VariantSettings.MODEL, sidelessEndModelId),
 					face
 				)
 			);
 			// Zero side pieces
 			supplier.with(
-				When.allOf(zeroSidesWhens),
+				zeroSidesWhen,
 				applyRotation(
-					BlockStateVariant.create()
-						.put(VariantSettings.MODEL, zeroSidesModelId),
+					BlockStateVariant.create().put(VariantSettings.MODEL, zeroSidesModelId),
 					face
 				)
 			);
@@ -743,43 +744,43 @@ public class TaiaoModelProvider extends FabricModelProvider {
 			Direction left = face.getAxis() == Direction.Axis.X ? Direction.SOUTH : Direction.EAST;
 			Direction right = face.getAxis() == Direction.Axis.X ? Direction.NORTH : Direction.WEST;
 
+			BooleanProperty leftProperty = ThinLogBlock.getDirectionProperty(left);
+			BooleanProperty rightProperty = ThinLogBlock.getDirectionProperty(right);
+
 			if (face.getAxis().isHorizontal()) {
 				// Horizontal faces
 
 				// Vertical
 				supplier.with(
 					When.allOf(
-						When.create().set(ThinLogBlock.getDirectionProperty(face), false),
+						When.create().set(faceProperty, false),
 						// Has a vertical side
 						When.anyOf(
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.UP), true),
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.DOWN), true)
+							When.create().set(ThinLogBlock.UP, true),
+							When.create().set(ThinLogBlock.DOWN, true)
 						)
 					),
 					applyRotation(
-						BlockStateVariant.create()
-							.put(VariantSettings.MODEL, sidelessVerticalModelId),
+						BlockStateVariant.create().put(VariantSettings.MODEL, sidelessVerticalModelId),
 						face
 					)
 				);
 				// Horizontal
 				supplier.with(
 					When.allOf(
-						When.create().set(ThinLogBlock.getDirectionProperty(face), false),
+						When.create().set(faceProperty, false),
+						// Doesn't have a vertical side
+						When.create()
+							.set(ThinLogBlock.UP, false)
+							.set(ThinLogBlock.DOWN, false),
 						// Has a horizontal side
 						When.anyOf(
-							When.create().set(ThinLogBlock.getDirectionProperty(left), true),
-							When.create().set(ThinLogBlock.getDirectionProperty(right), true)
-						),
-						// Doesn't have a vertical side
-						When.allOf(
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.UP), false),
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.DOWN), false)
+							When.create().set(leftProperty, true),
+							When.create().set(rightProperty, true)
 						)
 					),
 					applyRotation(
-						BlockStateVariant.create()
-							.put(VariantSettings.MODEL, sidelessHorizontalModelId),
+						BlockStateVariant.create().put(VariantSettings.MODEL, sidelessHorizontalModelId),
 						face
 					)
 				);
@@ -789,37 +790,34 @@ public class TaiaoModelProvider extends FabricModelProvider {
 				// Vertical
 				supplier.with(
 					When.allOf(
-						When.create().set(ThinLogBlock.getDirectionProperty(face), false),
+						When.create().set(faceProperty, false),
 						// Has a north/south side
 						When.anyOf(
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.NORTH), true),
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.SOUTH), true)
+							When.create().set(ThinLogBlock.NORTH, true),
+							When.create().set(ThinLogBlock.SOUTH, true)
 						)
 					),
 					applyRotation(
-						BlockStateVariant.create()
-							.put(VariantSettings.MODEL, sidelessVerticalModelId),
+						BlockStateVariant.create().put(VariantSettings.MODEL, sidelessVerticalModelId),
 						face
 					)
 				);
 				// Horizontal
 				supplier.with(
 					When.allOf(
-						When.create().set(ThinLogBlock.getDirectionProperty(face), false),
+						When.create().set(faceProperty, false),
+						When.create()
+							// Doesn't have a north or south side
+							.set(ThinLogBlock.NORTH, false)
+							.set(ThinLogBlock.SOUTH, false),
 						// Has a horizontal side
 						When.anyOf(
-							When.create().set(ThinLogBlock.getDirectionProperty(left), true),
-							When.create().set(ThinLogBlock.getDirectionProperty(right), true)
-						),
-						// Doesn't have a north or south side
-						When.allOf(
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.NORTH), false),
-							When.create().set(ThinLogBlock.getDirectionProperty(Direction.SOUTH), false)
+							When.create().set(leftProperty, true),
+							When.create().set(rightProperty, true)
 						)
 					),
 					applyRotation(
-						BlockStateVariant.create()
-							.put(VariantSettings.MODEL, sidelessHorizontalModelId),
+						BlockStateVariant.create().put(VariantSettings.MODEL, sidelessHorizontalModelId),
 						face
 					)
 				);
