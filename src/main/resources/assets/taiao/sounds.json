@@ -112,7 +112,7 @@
 			"mob/chicken/step1",
 			"mob/chicken/step2"
 		],
-		"subtitle": "block.generic.footsteps"
+		"subtitle": "subtitles.block.generic.footsteps"
 	},
 
 	"entity.puukeko.baby.ambient": {
@@ -181,7 +181,24 @@
 			"mob/pig/step4",
 			"mob/pig/step5"
 		],
-		"subtitle": "block.generic.footsteps"
+		"subtitle": "subtitles.block.generic.footsteps"
+	},
+	"entity.haasts_eagle.egg_crack": {
+		"sounds": [
+			"mob/turtle/egg/egg_crack1",
+			"mob/turtle/egg/egg_crack2",
+			"mob/turtle/egg/egg_crack3",
+			"mob/turtle/egg/egg_crack4",
+			"mob/turtle/egg/egg_crack5"
+		],
+		"subtitle": "subtitles.taiao.entity.haasts_eagle.egg_crack"
+	},
+	"entity.haasts_eagle.egg_hatch": {
+		"sounds": [
+			"mob/turtle/egg/egg_break1",
+			"mob/turtle/egg/egg_break2"
+		],
+		"subtitle": "subtitles.taiao.entity.haasts_eagle.egg_hatch"
 	},
 
 	"entity.moa.step": {
@@ -293,23 +310,5 @@
 			"mob/spider/step4"
 		],
 		"subtitle": "subtitles.block.generic.footsteps"
-	},
-
-	"entity.haasts_eagle.egg_crack": {
-		"sounds": [
-			"mob/turtle/egg/egg_crack1",
-			"mob/turtle/egg/egg_crack2",
-			"mob/turtle/egg/egg_crack3",
-			"mob/turtle/egg/egg_crack4",
-			"mob/turtle/egg/egg_crack5"
-		],
-		"subtitle": "subtitles.taiao.entity.haasts_eagle.egg_crack"
-	},
-	"entity.haasts_eagle.egg_hatch": {
-		"sounds": [
-			"mob/turtle/egg/egg_break1",
-			"mob/turtle/egg/egg_break2"
-		],
-		"subtitle": "subtitles.taiao.entity.haasts_eagle.egg_hatch"
 	}
 }
