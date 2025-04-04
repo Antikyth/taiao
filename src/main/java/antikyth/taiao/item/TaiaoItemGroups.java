@@ -119,6 +119,7 @@ public class TaiaoItemGroups {
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(group -> {
 			addBoats(item -> group.addBefore(Items.RAIL, item));
 			addEntityBuckets(item -> group.addBefore(Items.LAVA_BUCKET, item));
+			group.addBefore(Items.BUCKET, TaiaoBlocks.HIINAKI);
 			group.addBefore(Items.COMPASS, TaiaoItems.KETE);
 		});
 		// Functional blocks
@@ -256,8 +257,8 @@ public class TaiaoItemGroups {
 	}
 
 	public static void addEntityRelatingBlocks(@NotNull Consumer<ItemConvertible> add) {
-		add.accept(TaiaoBlocks.HIINAKI);
 		add.accept(TaiaoBlocks.HAASTS_EAGLE_NEST);
+		add.accept(TaiaoBlocks.HIINAKI);
 	}
 
 	public static void addSpawnEggs(@NotNull Consumer<ItemConvertible> add) {
