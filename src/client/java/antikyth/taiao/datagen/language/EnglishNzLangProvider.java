@@ -44,34 +44,11 @@ public class EnglishNzLangProvider extends EnglishGbLangProvider {
 		);
 
 		// Other blocks
-		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Hokioi Nest");
 		builder.add(TaiaoBlocks.HIINAKI, "Hīnaki");
 
-		// Haast's eagle egg
-		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Hokioi Egg");
-		builder.add(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, "Partially Cracked Hokioi Egg");
-		builder.add(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, "Cracked Hokioi Egg");
-		EnglishUsLangProvider.addSubtitles(
-			builder,
-			TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK,
-			"Hokioi egg cracks"
-		);
-		EnglishUsLangProvider.addSubtitles(
-			builder,
-			TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH,
-			"Hokioi egg hatches"
-		);
 		// Item tags
 		EnglishUsLangProvider.addItemTag(builder, TaiaoItemTags.HIINAKI_BAIT, "Hīnaki Bait");
 
-		// Birds
-		EnglishUsLangProvider.addAnimal(
-			builder,
-			TaiaoEntities.HAASTS_EAGLE,
-			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
-			TaiaoItemTags.HAASTS_EAGLE_FOOD,
-			"Hokioi"
-		);
 		// Fishes
 		EnglishUsLangProvider.addAnimal(builder, TaiaoEntities.EEL, TaiaoItems.EEL_SPAWN_EGG, null, "Tuna");
 		builder.add(TaiaoItems.EEL, "Raw Tuna");

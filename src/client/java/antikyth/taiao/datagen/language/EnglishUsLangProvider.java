@@ -238,15 +238,28 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 
 		addAnimal(
 			builder,
+			TaiaoEntities.HAASTS_EAGLE,
+			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
+			TaiaoItemTags.HAASTS_EAGLE_FOOD,
+			"Pouākai"
+		);
+		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Pouākai Nest");
+		// Egg
+		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Pouākai Egg");
+		builder.add(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, "Partially Cracked Pouākai Egg");
+		builder.add(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, "Cracked Pouākai Egg");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK, "Pouākai egg cracks");
+		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH, "Pouākai egg hatches");
+
+		addAnimal(
+			builder,
 			TaiaoEntities.WEETAA,
 			TaiaoItems.WEETAA_SPAWN_EGG,
 			null,
 			"Wētā"
 		);
 		builder.add(TaiaoItems.WEETAA, "Wētā");
-
 		addEelTranslations(builder);
-		addHaastsEagleTranslations(builder);
 
 		// Biomes
 		addBiome(builder, TaiaoBiomes.NATIVE_FOREST, "Aotearoa Native Forest");
@@ -403,25 +416,6 @@ public class EnglishUsLangProvider extends FabricLanguageProvider {
 		addStat(builder, TaiaoStats.HIINAKI_BAIT_ADDED, "Eel Traps Baited");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_HARMED, "Eel Traps Used");
 		addStat(builder, TaiaoStats.HIINAKI_TRAPPED_ENTITY_FREED, "Animals Freed from Eel Traps");
-	}
-
-	public static void addHaastsEagleTranslations(@NotNull TranslationBuilder builder) {
-		addAnimal(
-			builder,
-			TaiaoEntities.HAASTS_EAGLE,
-			TaiaoItems.HAASTS_EAGLE_SPAWN_EGG,
-			TaiaoItemTags.HAASTS_EAGLE_FOOD,
-			"Haast's Eagle"
-		);
-
-		builder.add(TaiaoBlocks.HAASTS_EAGLE_NEST, "Haast's Eagle Nest");
-
-		// Egg
-		builder.add(TaiaoItems.HAASTS_EAGLE_EGG, "Haast's Eagle Egg");
-		builder.add(TaiaoItems.PARTIALLY_CRACKED_HAASTS_EAGLE_EGG, "Partially Cracked Haast's Eagle Egg");
-		builder.add(TaiaoItems.CRACKED_HAASTS_EAGLE_EGG, "Cracked Haast's Eagle Egg");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_CRACK, "Haast's eagle egg cracks");
-		addSubtitles(builder, TaiaoSoundEvents.ENTITY_HAASTS_EAGLE_EGG_HATCH, "Haast's eagle egg hatches");
 	}
 
 	public static void addBannerPatternItem(

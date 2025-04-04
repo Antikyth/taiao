@@ -58,6 +58,5 @@ public class EnglishNamesNzLangProvider extends EnglishNamesGbLangProvider {
 		);
 
 		EnglishUsLangProvider.addEelTranslations(builder);
-		EnglishUsLangProvider.addHaastsEagleTranslations(builder);
 	}
 }
